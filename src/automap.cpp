@@ -360,7 +360,10 @@ void drawFullAutomap()
 	}
 
 	// Draw arrow to represent position and direction of player
-	pixelx=(plyr.x)*pixelSize+16;
+	if ((plyr.x<32))
+		pixelx=(plyr.x)*pixelSize;
+	else
+		pixelx=(plyr.x)*pixelSize+16;
 	pixely=(plyr.y)*pixelSize;
 	if (plyr.y>31) { pixely=(plyr.y-32)*pixelSize; }
 	if (plyr.x>31) { pixelx=(plyr.x-32)*pixelSize; }
