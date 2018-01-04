@@ -1,6 +1,11 @@
 ﻿Alternate Reality X
 -------------------
 
+Version 0.83 - 4th Jan 2018
+----------------------------
+* Fixed - Hours in certain Inns wrapped over to the next day and you where not able to enter that inn.
+
+
 Version 0.82 - 21st May 2017
 ----------------------------
 
