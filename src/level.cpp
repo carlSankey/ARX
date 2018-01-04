@@ -135,6 +135,7 @@ void moveMapLevel()
 		//loadCityMonsters();
 		loadZoneData(0);
 		loadMessages(0);
+		InitMap();
 	}
 
 	if ((plyr.x==59) && (plyr.y==62) && (plyr.map==1)) // to the city from dungeon 1
@@ -151,6 +152,7 @@ void moveMapLevel()
 		//loadCityWeapons();
 		loadZoneData(0);
 		loadMessages(0);
+		InitMap();
 	}
 
 	if ((plyr.x==50)&&(plyr.y==3)&&(plyr.map==0)) // to the dungeon 1 from city
