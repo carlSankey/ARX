@@ -1,0 +1,1125 @@
+# depslib dependency file v1.0
+1459193672 source:c:\files\ar_env\ar 0.82 18april2017\3dview.cpp
+	<GL/glew.h>
+	<string>
+	<fstream>
+	<iostream>
+	<sstream>
+	"3Dview.h"
+	"display.h"
+	"player.h"
+	"level.h"
+
+1458081086 c:\files\ar_env\glew-1.10.0_mingw\include\gl\glew.h
+	<stddef.h>
+	<inttypes.h>
+	<stdint.h>
+	<inttypes.h>
+	<OpenGL/glu.h>
+	<GL/glu.h>
+
+1459158744 c:\files\ar_env\ar 0.82 18april2017\3dview.h
+
+1487936764 c:\files\ar_env\ar 0.82 18april2017\display.h
+	<SFML/Graphics.hpp>
+	<string>
+
+1368000880 c:\files\ar_env\sfml-2.1\include\sfml\graphics.hpp
+	<SFML/Window.hpp>
+	<SFML/Graphics/BlendMode.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/Graphics/Font.hpp>
+	<SFML/Graphics/Glyph.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Graphics/RenderStates.hpp>
+	<SFML/Graphics/RenderTexture.hpp>
+	<SFML/Graphics/RenderWindow.hpp>
+	<SFML/Graphics/Shader.hpp>
+	<SFML/Graphics/Shape.hpp>
+	<SFML/Graphics/CircleShape.hpp>
+	<SFML/Graphics/RectangleShape.hpp>
+	<SFML/Graphics/ConvexShape.hpp>
+	<SFML/Graphics/Sprite.hpp>
+	<SFML/Graphics/Text.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/Transform.hpp>
+	<SFML/Graphics/Vertex.hpp>
+	<SFML/Graphics/VertexArray.hpp>
+	<SFML/Graphics/View.hpp>
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\window.hpp
+	<SFML/System.hpp>
+	<SFML/Window/Context.hpp>
+	<SFML/Window/ContextSettings.hpp>
+	<SFML/Window/Event.hpp>
+	<SFML/Window/Joystick.hpp>
+	<SFML/Window/Keyboard.hpp>
+	<SFML/Window/Mouse.hpp>
+	<SFML/Window/VideoMode.hpp>
+	<SFML/Window/Window.hpp>
+	<SFML/Window/WindowStyle.hpp>
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\system.hpp
+	<SFML/Config.hpp>
+	<SFML/System/Clock.hpp>
+	<SFML/System/Err.hpp>
+	<SFML/System/InputStream.hpp>
+	<SFML/System/Lock.hpp>
+	<SFML/System/Mutex.hpp>
+	<SFML/System/Sleep.hpp>
+	<SFML/System/String.hpp>
+	<SFML/System/Thread.hpp>
+	<SFML/System/ThreadLocal.hpp>
+	<SFML/System/ThreadLocalPtr.hpp>
+	<SFML/System/Utf.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/System/Vector3.hpp>
+
+1374393734 c:\files\ar_env\sfml-2.1\include\sfml\config.hpp
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\system\clock.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/Time.hpp>
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\system\export.hpp
+	<SFML/Config.hpp>
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\system\time.hpp
+	<SFML/System/Export.hpp>
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\system\err.hpp
+	<SFML/System/Export.hpp>
+	<ostream>
+
+1368102974 c:\files\ar_env\sfml-2.1\include\sfml\system\inputstream.hpp
+	<SFML/Config.hpp>
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\system\lock.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\system\noncopyable.hpp
+	<SFML/System/Export.hpp>
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\system\mutex.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\system\sleep.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/Time.hpp>
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\system\string.hpp
+	<SFML/System/Export.hpp>
+	<locale>
+	<string>
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\system\thread.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<cstdlib>
+	<SFML/System/Thread.inl>
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\system\thread.inl
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\system\threadlocal.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<cstdlib>
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\system\threadlocalptr.hpp
+	<SFML/System/ThreadLocal.hpp>
+	<SFML/System/ThreadLocalPtr.inl>
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\system\threadlocalptr.inl
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\system\utf.hpp
+	<SFML/Config.hpp>
+	<algorithm>
+	<locale>
+	<string>
+	<cstdlib>
+	<SFML/System/Utf.inl>
+
+1372057024 c:\files\ar_env\sfml-2.1\include\sfml\system\utf.inl
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\system\vector2.hpp
+	<SFML/System/Vector2.inl>
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\system\vector2.inl
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\system\vector3.hpp
+	<SFML/System/Vector3.inl>
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\system\vector3.inl
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\window\context.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/Window/GlResource.hpp>
+	<SFML/Window/ContextSettings.hpp>
+	<SFML/System/NonCopyable.hpp>
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\window\export.hpp
+	<SFML/Config.hpp>
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\window\glresource.hpp
+	<SFML/Window/Export.hpp>
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\window\contextsettings.hpp
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\window\event.hpp
+	<SFML/Config.hpp>
+	<SFML/Window/Joystick.hpp>
+	<SFML/Window/Keyboard.hpp>
+	<SFML/Window/Mouse.hpp>
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\window\joystick.hpp
+	<SFML/Window/Export.hpp>
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\window\keyboard.hpp
+	<SFML/Window/Export.hpp>
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\window\mouse.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/Vector2.hpp>
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\window\videomode.hpp
+	<SFML/Window/Export.hpp>
+	<vector>
+
+1371064794 c:\files\ar_env\sfml-2.1\include\sfml\window\window.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/Window/ContextSettings.hpp>
+	<SFML/Window/VideoMode.hpp>
+	<SFML/Window/WindowHandle.hpp>
+	<SFML/Window/WindowStyle.hpp>
+	<SFML/Window/GlResource.hpp>
+	<SFML/System/Clock.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/String.hpp>
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\window\windowhandle.hpp
+	<SFML/Config.hpp>
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\window\windowstyle.hpp
+
+1368000880 c:\files\ar_env\sfml-2.1\include\sfml\graphics\blendmode.hpp
+
+1368000880 c:\files\ar_env\sfml-2.1\include\sfml\graphics\color.hpp
+	<SFML/Graphics/Export.hpp>
+
+1368000880 c:\files\ar_env\sfml-2.1\include\sfml\graphics\export.hpp
+	<SFML/Config.hpp>
+
+1368000880 c:\files\ar_env\sfml-2.1\include\sfml\graphics\font.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Glyph.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/System/String.hpp>
+	<map>
+	<string>
+	<vector>
+
+1368000880 c:\files\ar_env\sfml-2.1\include\sfml\graphics\glyph.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Rect.hpp>
+
+1368000880 c:\files\ar_env\sfml-2.1\include\sfml\graphics\rect.hpp
+	<SFML/System/Vector2.hpp>
+	<algorithm>
+	<SFML/Graphics/Rect.inl>
+
+1368309202 c:\files\ar_env\sfml-2.1\include\sfml\graphics\rect.inl
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\graphics\texture.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Window/GlResource.hpp>
+
+1368175718 c:\files\ar_env\sfml-2.1\include\sfml\graphics\image.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<string>
+	<vector>
+
+1368000880 c:\files\ar_env\sfml-2.1\include\sfml\graphics\renderstates.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/BlendMode.hpp>
+	<SFML/Graphics/Transform.hpp>
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\graphics\transform.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/System/Vector2.hpp>
+
+1368000880 c:\files\ar_env\sfml-2.1\include\sfml\graphics\rendertexture.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/RenderTarget.hpp>
+
+1368000880 c:\files\ar_env\sfml-2.1\include\sfml\graphics\rendertarget.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/View.hpp>
+	<SFML/Graphics/Transform.hpp>
+	<SFML/Graphics/BlendMode.hpp>
+	<SFML/Graphics/RenderStates.hpp>
+	<SFML/Graphics/PrimitiveType.hpp>
+	<SFML/Graphics/Vertex.hpp>
+	<SFML/System/NonCopyable.hpp>
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\graphics\view.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/Transform.hpp>
+	<SFML/System/Vector2.hpp>
+
+1368000880 c:\files\ar_env\sfml-2.1\include\sfml\graphics\primitivetype.hpp
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\graphics\vertex.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/System/Vector2.hpp>
+
+1368000880 c:\files\ar_env\sfml-2.1\include\sfml\graphics\renderwindow.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/RenderTarget.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Window/Window.hpp>
+	<string>
+
+1371550874 c:\files\ar_env\sfml-2.1\include\sfml\graphics\shader.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Transform.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/Window/GlResource.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/System/Vector3.hpp>
+	<map>
+	<string>
+
+1368000880 c:\files\ar_env\sfml-2.1\include\sfml\graphics\shape.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/Graphics/VertexArray.hpp>
+	<SFML/System/Vector2.hpp>
+
+1368000880 c:\files\ar_env\sfml-2.1\include\sfml\graphics\drawable.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/RenderStates.hpp>
+
+1368258666 c:\files\ar_env\sfml-2.1\include\sfml\graphics\transformable.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Transform.hpp>
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\graphics\vertexarray.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Vertex.hpp>
+	<SFML/Graphics/PrimitiveType.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<vector>
+
+1368000880 c:\files\ar_env\sfml-2.1\include\sfml\graphics\circleshape.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Shape.hpp>
+
+1368000880 c:\files\ar_env\sfml-2.1\include\sfml\graphics\rectangleshape.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Shape.hpp>
+
+1368000880 c:\files\ar_env\sfml-2.1\include\sfml\graphics\convexshape.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Shape.hpp>
+	<vector>
+
+1368000880 c:\files\ar_env\sfml-2.1\include\sfml\graphics\sprite.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/Graphics/Vertex.hpp>
+	<SFML/Graphics/Rect.hpp>
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\graphics\text.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/Graphics/Font.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/VertexArray.hpp>
+	<SFML/System/String.hpp>
+	<string>
+	<vector>
+
+1492435408 c:\files\ar_env\ar 0.82 18april2017\player.h
+	<string>
+
+1459156776 c:\files\ar_env\ar 0.82 18april2017\level.h
+	<string>
+
+1483269252 source:c:\files\ar_env\ar 0.82 18april2017\actor.cpp
+	<fstream>
+	<iostream>
+	<sstream>
+	<string>
+	<stdio.h>
+	<stdlib.h>
+	"actor.h"
+	"misc.h"
+	"globals.h"
+
+1483264474 c:\files\ar_env\ar 0.82 18april2017\actor.h
+	<string>
+
+1474101950 c:\files\ar_env\ar 0.82 18april2017\misc.h
+	<string>
+
+1492354728 c:\files\ar_env\ar 0.82 18april2017\globals.h
+
+1459089540 source:c:\files\ar_env\ar 0.82 18april2017\arena.cpp
+	"game.h"
+	"player.h"
+	"font.h"
+	"display.h"
+	"misc.h"
+	"arena.h"
+
+1459198482 c:\files\ar_env\ar 0.82 18april2017\game.h
+	<string>
+
+1452936924 c:\files\ar_env\ar 0.82 18april2017\font.h
+	<string>
+
+1458775494 c:\files\ar_env\ar 0.82 18april2017\arena.h
+
+1489715806 source:c:\files\ar_env\ar 0.82 18april2017\arx.cpp
+	<fstream>
+	<iostream>
+	<sstream>
+	"globals.h"
+	"dev.h"
+	"config.h"
+	"game.h"
+	"player.h"
+	"saveGame.h"
+	"display.h"
+	"level.h"
+	"font.h"
+	"misc.h"
+	"actor.h"
+	"inn.h"
+	"smithy.h"
+	"tavern.h"
+	"bank.h"
+	"shop.h"
+	"items.h"
+	"audio.h"
+	"damon.h"
+	"dwarvenSmithy.h"
+
+1489714348 c:\files\ar_env\ar 0.82 18april2017\dev.h
+
+1452936924 c:\files\ar_env\ar 0.82 18april2017\config.h
+	<string>
+
+1488723666 c:\files\ar_env\ar 0.82 18april2017\savegame.h
+	<string>
+
+1452936924 c:\files\ar_env\ar 0.82 18april2017\inn.h
+
+1483877616 c:\files\ar_env\ar 0.82 18april2017\smithy.h
+
+1452936924 c:\files\ar_env\ar 0.82 18april2017\tavern.h
+
+1452936924 c:\files\ar_env\ar 0.82 18april2017\bank.h
+
+1452936924 c:\files\ar_env\ar 0.82 18april2017\shop.h
+
+1492436012 c:\files\ar_env\ar 0.82 18april2017\items.h
+	<string>
+
+1472319674 c:\files\ar_env\ar 0.82 18april2017\audio.h
+
+1483269396 c:\files\ar_env\ar 0.82 18april2017\damon.h
+
+1492339906 c:\files\ar_env\ar 0.82 18april2017\dwarvensmithy.h
+
+1472325956 source:c:\files\ar_env\ar 0.82 18april2017\audio.cpp
+	<SFML/Audio.hpp>
+
+1368000880 c:\files\ar_env\sfml-2.1\include\sfml\audio.hpp
+	<SFML/System.hpp>
+	<SFML/Audio/Listener.hpp>
+	<SFML/Audio/Music.hpp>
+	<SFML/Audio/Sound.hpp>
+	<SFML/Audio/SoundBuffer.hpp>
+	<SFML/Audio/SoundBufferRecorder.hpp>
+	<SFML/Audio/SoundRecorder.hpp>
+	<SFML/Audio/SoundStream.hpp>
+
+1368000880 c:\files\ar_env\sfml-2.1\include\sfml\audio\listener.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/System/Vector3.hpp>
+
+1368000880 c:\files\ar_env\sfml-2.1\include\sfml\audio\export.hpp
+	<SFML/Config.hpp>
+
+1368000880 c:\files\ar_env\sfml-2.1\include\sfml\audio\music.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundStream.hpp>
+	<SFML/System/Mutex.hpp>
+	<SFML/System/Time.hpp>
+	<string>
+	<vector>
+
+1368000880 c:\files\ar_env\sfml-2.1\include\sfml\audio\soundstream.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundSource.hpp>
+	<SFML/System/Thread.hpp>
+	<SFML/System/Time.hpp>
+	<cstdlib>
+
+1368000880 c:\files\ar_env\sfml-2.1\include\sfml\audio\soundsource.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/System/Vector3.hpp>
+
+1368000880 c:\files\ar_env\sfml-2.1\include\sfml\audio\sound.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundSource.hpp>
+	<SFML/System/Time.hpp>
+	<cstdlib>
+
+1368000880 c:\files\ar_env\sfml-2.1\include\sfml\audio\soundbuffer.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/System/Time.hpp>
+	<string>
+	<vector>
+	<set>
+
+1368000880 c:\files\ar_env\sfml-2.1\include\sfml\audio\soundbufferrecorder.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundBuffer.hpp>
+	<SFML/Audio/SoundRecorder.hpp>
+	<vector>
+
+1368000880 c:\files\ar_env\sfml-2.1\include\sfml\audio\soundrecorder.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/System/Thread.hpp>
+	<vector>
+
+1495376083 source:c:\files\ar_env\ar 0.82 18april2017\automap.cpp
+	<SFML/Graphics.hpp>
+	"automap.h"
+	"display.h"
+	"font.h"
+	"player.h"
+	"level.h"
+	"misc.h"
+
+1459194904 c:\files\ar_env\ar 0.82 18april2017\automap.h
+	<string>
+
+1459089844 source:c:\files\ar_env\ar 0.82 18april2017\bank.cpp
+	<SFML/Graphics.hpp>
+	<string>
+	<iostream>
+	<sstream>
+	"game.h"
+	"player.h"
+	"font.h"
+	"display.h"
+	"misc.h"
+	"bank.h"
+
+1459089792 source:c:\files\ar_env\ar 0.82 18april2017\chapel.cpp
+	<string>
+	<iostream>
+	<sstream>
+	"player.h"
+	"font.h"
+	"display.h"
+	"game.h"
+	"misc.h"
+	"retreat.h"
+	"audio.h"
+	"chapel.h"
+
+1452936924 c:\files\ar_env\ar 0.82 18april2017\retreat.h
+
+1452936924 c:\files\ar_env\ar 0.82 18april2017\chapel.h
+
+1457888388 source:c:\files\ar_env\ar 0.82 18april2017\config.cpp
+	<stdio.h>
+	<stdlib.h>
+	<stdarg.h>
+	<fstream>
+	<iostream>
+	<sstream>
+	<string>
+
+1489883582 source:c:\files\ar_env\ar 0.82 18april2017\createcharacter.cpp
+	<SFML/Graphics.hpp>
+	<SFML/Audio.hpp>
+	<string>
+	<iostream>
+	<sstream>
+	"audio.h"
+	"createCharacter.h"
+	"player.h"
+	"font.h"
+	"display.h"
+	"misc.h"
+
+1452936924 c:\files\ar_env\ar 0.82 18april2017\createcharacter.h
+	<string>
+
+1483382142 source:c:\files\ar_env\ar 0.82 18april2017\damon.cpp
+	<SFML/Graphics.hpp>
+	<SFML/Audio.hpp>
+	<string>
+	<iostream>
+	<sstream>
+	<stdio.h>
+	"player.h"
+	"font.h"
+	"display.h"
+	"game.h"
+	"misc.h"
+	"damon.h"
+	"items.h"
+	"automap.h"
+	"module.h"
+
+1492341028 c:\files\ar_env\ar 0.82 18april2017\module.h
+
+1495376020 source:c:\files\ar_env\ar 0.82 18april2017\dev.cpp
+	"dev.h"
+
+1494771301 source:c:\files\ar_env\ar 0.82 18april2017\display.cpp
+	<SFML/Graphics.hpp>
+	<GL/glew.h>
+	<SFML/OpenGL.hpp>
+	<string>
+	<fstream>
+	<iostream>
+	<sstream>
+	"globals.h"
+	"player.h"
+	"display.h"
+	"3Dview.h"
+	"level.h"
+	"game.h"
+	"font.h"
+	"encounter.h"
+	"misc.h"
+	"items.h"
+	"automap.h"
+	"lyrics.h"
+	"actor.h"
+
+1368000882 c:\files\ar_env\sfml-2.1\include\sfml\opengl.hpp
+	<SFML/Config.hpp>
+	<windows.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+
+1492370034 c:\files\ar_env\ar 0.82 18april2017\encounter.h
+	<string>
+
+1452936924 c:\files\ar_env\ar 0.82 18april2017\lyrics.h
+	<string>
+
+1492352386 source:c:\files\ar_env\ar 0.82 18april2017\dwarvensmithy.cpp
+	<string>
+	<iostream>
+	<sstream>
+	<stdio.h>
+	"module.h"
+	"player.h"
+	"font.h"
+	"display.h"
+	"game.h"
+	"misc.h"
+	"dwarvenSmithy.h"
+	"automap.h"
+	"items.h"
+
+1495377809 source:c:\files\ar_env\ar 0.82 18april2017\encounter.cpp
+	<fstream>
+	<iostream>
+	<sstream>
+	<string>
+	"globals.h"
+	"actor.h"
+	"player.h"
+	"font.h"
+	"display.h"
+	"level.h"
+	"game.h"
+	"misc.h"
+	"encounter.h"
+	"items.h"
+	"automap.h"
+	"audio.h"
+
+1459089792 source:c:\files\ar_env\ar 0.82 18april2017\ferry.cpp
+	<SFML/Graphics.hpp>
+	<string>
+	<iostream>
+	<sstream>
+	"player.h"
+	"font.h"
+	"display.h"
+	"game.h"
+	"misc.h"
+	"ferry.h"
+	"automap.h"
+	"items.h"
+
+1452936924 c:\files\ar_env\ar 0.82 18april2017\ferry.h
+
+1457880010 source:c:\files\ar_env\ar 0.82 18april2017\font.cpp
+	<SFML/Graphics.hpp>
+	<iostream>
+	<sstream>
+	<string>
+	"player.h"
+	"display.h"
+	"font.h"
+
+1489784116 source:c:\files\ar_env\ar 0.82 18april2017\fountain.cpp
+	<string>
+	<iostream>
+	<sstream>
+	"player.h"
+	"font.h"
+	"display.h"
+	"game.h"
+	"misc.h"
+	"fountain.h"
+	"automap.h"
+
+1452936924 c:\files\ar_env\ar 0.82 18april2017\fountain.h
+
+1492425734 source:c:\files\ar_env\ar 0.82 18april2017\game.cpp
+	<SFML/Graphics.hpp>
+	<SFML/Audio.hpp>
+	<string>
+	<iostream>
+	"game.h"
+	"globals.h"
+	"dev.h"
+	"player.h"
+	"font.h"
+	"display.h"
+	"level.h"
+	"misc.h"
+	"encounter.h"
+	"items.h"
+	"spells.h"
+	"module.h"
+	"vaults.h"
+	"damon.h"
+	"guild.h"
+	"bank.h"
+	"tavern.h"
+	"smithy.h"
+	"inn.h"
+	"shop.h"
+	"healer.h"
+	"goblins.h"
+	"trolls.h"
+	"chapel.h"
+	"oracle.h"
+	"fountain.h"
+	"ferry.h"
+	"undeadKing.h"
+	"staircase.h"
+	"lift.h"
+	"automap.h"
+	"lyrics.h"
+	"arena.h"
+	"actor.h"
+	"saveGame.h"
+
+1492357986 c:\files\ar_env\ar 0.82 18april2017\vaults.h
+
+1492433226 c:\files\ar_env\ar 0.82 18april2017\guild.h
+
+1452936924 c:\files\ar_env\ar 0.82 18april2017\healer.h
+
+1452936924 c:\files\ar_env\ar 0.82 18april2017\goblins.h
+
+1452936924 c:\files\ar_env\ar 0.82 18april2017\trolls.h
+
+1452936924 c:\files\ar_env\ar 0.82 18april2017\oracle.h
+
+1452936924 c:\files\ar_env\ar 0.82 18april2017\undeadking.h
+
+1452936924 c:\files\ar_env\ar 0.82 18april2017\staircase.h
+
+1452936924 c:\files\ar_env\ar 0.82 18april2017\lift.h
+
+1488452832 source:c:\files\ar_env\ar 0.82 18april2017\goblins.cpp
+	<string>
+	<iostream>
+	<sstream>
+	"player.h"
+	"font.h"
+	"display.h"
+	"game.h"
+	"misc.h"
+	"retreat.h"
+	"audio.h"
+	"items.h"
+	"goblins.h"
+	"lyrics.h"
+	"automap.h"
+
+1492688922 source:c:\files\ar_env\ar 0.82 18april2017\guild.cpp
+	<SFML/Graphics.hpp>
+	<SFML/Audio.hpp>
+	<string>
+	<iostream>
+	<sstream>
+	"player.h"
+	"font.h"
+	"display.h"
+	"game.h"
+	"misc.h"
+	"guild.h"
+	"items.h"
+	"automap.h"
+	"lyrics.h"
+	"spells.h"
+
+1461405016 source:c:\files\ar_env\ar 0.82 18april2017\healer.cpp
+	<SFML/Graphics.hpp>
+	<SFML/Audio.hpp>
+	<string>
+	<iostream>
+	<sstream>
+	"player.h"
+	"font.h"
+	"display.h"
+	"game.h"
+	"misc.h"
+	"healer.h"
+	"automap.h"
+
+1488014766 source:c:\files\ar_env\ar 0.82 18april2017\inn.cpp
+	<SFML/Graphics.hpp>
+	<SFML/Audio.hpp>
+	<string>
+	<iostream>
+	<sstream>
+	"player.h"
+	"font.h"
+	"display.h"
+	"game.h"
+	"misc.h"
+	"inn.h"
+	"automap.h"
+
+1492425398 source:c:\files\ar_env\ar 0.82 18april2017\items.cpp
+	<fstream>
+	<iostream>
+	<sstream>
+	<string>
+	"audio.h"
+	"player.h"
+	"font.h"
+	"display.h"
+	"level.h"
+	"game.h"
+	"encounter.h"
+	"misc.h"
+	"items.h"
+	"guild.h"
+	"actor.h"
+	"globals.h"
+	"itemSelect.h"
+
+1474193296 c:\files\ar_env\ar 0.82 18april2017\itemselect.h
+
+1474197528 source:c:\files\ar_env\ar 0.82 18april2017\itemselect.cpp
+	<string>
+	"globals.h"
+	"itemSelect.h"
+	"display.h"
+	"player.h"
+	"font.h"
+	"misc.h"
+
+1459156786 source:c:\files\ar_env\ar 0.82 18april2017\level.cpp
+	<stdio.h>
+	<stdlib.h>
+	<stdarg.h>
+	<fstream>
+	<iostream>
+	<sstream>
+	<string>
+	"level.h"
+	"player.h"
+	"encounter.h"
+	"automap.h"
+
+1459089792 source:c:\files\ar_env\ar 0.82 18april2017\lift.cpp
+	<SFML/Graphics.hpp>
+	<string>
+	<iostream>
+	<sstream>
+	"player.h"
+	"font.h"
+	"display.h"
+	"game.h"
+	"misc.h"
+	"lift.h"
+	"automap.h"
+
+1452936924 source:c:\files\ar_env\ar 0.82 18april2017\lyrics.cpp
+	<SFML/Graphics.hpp>
+	<SFML/System.hpp>
+	<fstream>
+	<iostream>
+	<sstream>
+	<string>
+	"player.h"
+	"display.h"
+	"lyrics.h"
+
+1474101896 source:c:\files\ar_env\ar 0.82 18april2017\misc.cpp
+	<SFML/Graphics.hpp>
+	<SFML/OpenGL.hpp>
+	<string>
+	<stdio.h>
+	<stdlib.h>
+	<fstream>
+	<iostream>
+	<sstream>
+	"misc.h"
+	"display.h"
+	"font.h"
+	"player.h"
+
+1492354758 source:c:\files\ar_env\ar 0.82 18april2017\module.cpp
+	<string>
+	"globals.h"
+	"module.h"
+	"rathskeller.h"
+	"dwarvenSmithy.h"
+	"vaults.h"
+	"display.h"
+	"player.h"
+	"font.h"
+	"misc.h"
+
+1460904948 c:\files\ar_env\ar 0.82 18april2017\rathskeller.h
+
+1459089792 source:c:\files\ar_env\ar 0.82 18april2017\oracle.cpp
+	<string>
+	<iostream>
+	<sstream>
+	"player.h"
+	"font.h"
+	"display.h"
+	"game.h"
+	"misc.h"
+	"items.h"
+	"oracle.h"
+
+1495376002 source:c:\files\ar_env\ar 0.82 18april2017\player.cpp
+	<string>
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<fstream>
+	<iostream>
+	<sstream>
+	"globals.h"
+	"dev.h"
+	"createCharacter.h"
+	"player.h"
+	"misc.h"
+	"display.h"
+	"font.h"
+	"smithy.h"
+	"bank.h"
+	"tavern.h"
+	"shop.h"
+	"items.h"
+	"spells.h"
+	"automap.h"
+
+1488366806 source:c:\files\ar_env\ar 0.82 18april2017\rathskeller.cpp
+	<SFML/Audio.hpp>
+	<string>
+	<iostream>
+	<sstream>
+	"module.h"
+	"player.h"
+	"font.h"
+	"display.h"
+	"game.h"
+	"misc.h"
+	"rathskeller.h"
+	"automap.h"
+
+1459089792 source:c:\files\ar_env\ar 0.82 18april2017\retreat.cpp
+	<SFML/Graphics.hpp>
+	<SFML/Audio.hpp>
+	<string>
+	<iostream>
+	<sstream>
+	"player.h"
+	"font.h"
+	"display.h"
+	"game.h"
+	"misc.h"
+	"retreat.h"
+	"automap.h"
+
+1492435760 source:c:\files\ar_env\ar 0.82 18april2017\savegame.cpp
+	<string>
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<fstream>
+	<iostream>
+	<sstream>
+	"saveGame.h"
+	"globals.h"
+	"dev.h"
+	"display.h"
+	"misc.h"
+	"player.h"
+	"items.h"
+	"spells.h"
+
+1488453044 source:c:\files\ar_env\ar 0.82 18april2017\shop.cpp
+	<SFML/Graphics.hpp>
+	<SFML/Audio.hpp>
+	<string>
+	<iostream>
+	<sstream>
+	"player.h"
+	"font.h"
+	"display.h"
+	"game.h"
+	"misc.h"
+	"items.h"
+	"shop.h"
+
+1495377971 source:c:\files\ar_env\ar 0.82 18april2017\smithy.cpp
+	<SFML/Graphics.hpp>
+	<SFML/Audio.hpp>
+	<stdio.h>
+	<iomanip>
+	<string>
+	<iostream>
+	<sstream>
+	<algorithm>
+	"player.h"
+	"font.h"
+	"display.h"
+	"game.h"
+	"encounter.h"
+	"misc.h"
+	"smithy.h"
+	"items.h"
+	"lyrics.h"
+	"actor.h"
+
+1459089792 source:c:\files\ar_env\ar 0.82 18april2017\staircase.cpp
+	<SFML/Graphics.hpp>
+	<SFML/OpenGL.hpp>
+	<string>
+	<iostream>
+	<sstream>
+	"player.h"
+	"font.h"
+	"display.h"
+	"game.h"
+	"misc.h"
+	"staircase.h"
+	"level.h"
+
+1459675860 source:c:\files\ar_env\ar 0.82 18april2017\tavern.cpp
+	<SFML/Graphics.hpp>
+	<SFML/Audio.hpp>
+	<string>
+	<iostream>
+	<sstream>
+	"player.h"
+	"font.h"
+	"display.h"
+	"game.h"
+	"misc.h"
+	"tavern.h"
+	"automap.h"
+	"lyrics.h"
+
+1488453060 source:c:\files\ar_env\ar 0.82 18april2017\trolls.cpp
+	<string>
+	<iostream>
+	<sstream>
+	"player.h"
+	"font.h"
+	"display.h"
+	"game.h"
+	"misc.h"
+	"retreat.h"
+	"audio.h"
+	"items.h"
+	"trolls.h"
+	"lyrics.h"
+	"automap.h"
+
+1488453076 source:c:\files\ar_env\ar 0.82 18april2017\undeadking.cpp
+	<SFML/Graphics.hpp>
+	"player.h"
+	"display.h"
+	"game.h"
+	"misc.h"
+	"undeadKing.h"
+	"automap.h"
+	"items.h"
+
+1492371054 source:c:\files\ar_env\ar 0.82 18april2017\vaults.cpp
+	<string>
+	"module.h"
+	"player.h"
+	"font.h"
+	"display.h"
+	"game.h"
+	"misc.h"
+	"vaults.h"
+	"automap.h"
+
+1492435408 c:\files\ar_env\ar 0.82 18april2017\spells.h
+
+1492436108 source:c:\files\ar_env\ar 0.82 18april2017\spells.cpp
+	<fstream>
+	<iostream>
+	<sstream>
+	<string>
+	"items.h"
+	"spells.h"
+	"player.h"
+	"display.h"
+	"encounter.h"
+	"font.h"
+	"misc.h"
+	"audio.h"
+

@@ -1,0 +1,239 @@
+﻿Alternate Reality X
+-------------------
+
+Version 0.82 - 21st May 2017
+----------------------------
+
+* Fixed - Group encounter messages out of sync with their damage
+* Fixed - Group encounter attacks out of sequence
+* Fixed - Fixed encounters not updating correctly (e.g. ghost in Well Lit Area) 
+* Fixed - Fixed encounters not leaving weapons or treasure
+* Fixed - City Smithy items selling for minus value at Dwarven Smithy
+* Fixed - Troll Tyrant / Goblin Lord - wrong monster types appearing
+* Fixed - Troll Tyrant / Goblin Lord - didn't leave ring halves
+* Fixed - Guild names and locations not all correct in City
+* Fixed - Character indicator on large map not in correct position
+* Fixed - Legend on large map not aligned for different window sizes
+* Added - Mercenaries and Paladins Guilds now in City
+* Code  - Spells moved into separate source files
+
+Notes:
+
+* Query - Add Charm and Trick to top Battle Options menu?
+* To do - Add spell casting to combat
+* To do - Add combat spell effects
+* To do - Dwarven Smithy offers to reforge ring
+* To do - City Smithy items sell correctly at Dwarven Smithy
+
+
+Version 0.81 - 17th April 2017
+------------------------------
+
+* Added Custom Weapons to Dwarven Smithy
+* Added Dungeon vaults
+* Fixed - Dwarven Smithy - doesn't use character's name.
+* Fixed - Dwarven Smithy - selling item removes existing silver from character.
+* Fixed - Daily events didn't run on the last day of each month
+
+
+Version 0.80 - 24th March 2017
+------------------------------
+
+* Modified the internal structure for items and inventory
+* Increased internal size of inventory / item buffer from 100 to 250 items
+* Now using authentic City Smithy, Dwarven Smithy and D&P item data
+* Pick up weapons left by opponents
+* Buy weapons and armour from the Dwarven Smithy (not custom weapons)
+* Sell old weapons and armour to the Dwarven Smithy
+* Implemented player weapon descriptions (e.g. slash, whomp)
+* Implemented crossbow & reloading of ammo
+* Modified automap to show walls and doors by default
+* Re-enabled the “Wait for Encounter” option
+* Adjusted encounter frequency
+* Modified City starting time to match 8bit version
+* Added release specific "Acknowledgements" page
+* Fixed - Some encounter images appear outside window (when using custom resolution)
+* Fixed - Encounters did not display death message / leave treasure bug
+* Fixed - Phoenix encounter crash bug
+* Fixed - “Quit” looping / main menu bug
+* Fixed - Missing wall section near "Ono Goods" shop
+* Fixed - Character creation would accept blank name
+* Fixed - Doppelganger attacks with "slimy tentacle"
+
+
+
+Version 0.75 - 24th September 2016
+----------------------------------
+
+* Fixed - Missing status bar background glitch when restoring a saved game
+* Fixed - Amiga Dungeon Character creation art had two STR columns
+
+
+
+Version 0.74 - 17th April 2016
+------------------------------
+
+* Added Der Rathskeller Bar & Grille module
+* New module / special location code to cut down development time for new modules
+* New menu selection code (only used in Rathskeller in this release) but can be used
+  for selecting inventory items, casting spells and other mdoules in future
+* Updated the acknowledgements pages - Please let me know if you should be included
+  and you're not listed. Or alternatively would like your name removing.
+* Added Developer code to speed up testing and development
+
+
+
+Version 0.73 - 24th March 2016
+------------------------------
+
+* improves texture filtering for the 3D view
+* Added a character Titles tab for future Arena and Palace scenarios
+* New Arena entrances including a new Atari 8bit image
+* Additional conversational responses
+
+
+Version 0.72 - 13th March 2016
+------------------------------
+
+* Fixed bug with City healers not curing diseases
+
+
+Version 0.71 - 2nd March 2014
+-----------------------------
+
+* Improved support for different screen resolutions and sizes
+* Improved screen layout and positioning of screen elements
+* Improved scaling of encounter art for original Atari 8bit graphics and new graphics
+* New Noblewoman and Slime encounter art from Ted
+* Removed combat damage bug from the 0.70 release
+
+
+Version 0.70 - February 2014
+----------------------------
+
+* Added Ferry crossing to Undead Regions
+* Added Undead King's Palace
+* New Encounter art from Ted - Knight, Thief, Acolyte, Rat, Bat and Doppelgangers (male and female versions)
+* Added further art from the unreleased Amiga 16bit Dungeon
+* Switched to latest version of SFML library (http://sfml-dev.org/)
+* Switched to latest version of CodeBlocks and MinGW for Windows based development
+* First Mac OS X version built with XCode
+* Modified code and data files for Mac OS X version compatibility
+* Added Dungeon Level 4 data, textures and encounters
+* Various bug fixes and cosmetic changes
+
+
+Version 0.61 - May 2013
+-----------------------
+
+* Added City Healers
+* Added "Buy Rounds" at City Taverns
+* Added "Buy Provisions" at Dungeon D&P
+
+
+Version 0.61 - March 2013
+---------------------------------
+
+* Switched to CodeBlocks and MinGW for development
+* Switched to latest version of SFML 2.0 (downloaded 1st March 2013)
+* Greatly improved compatibility for players using Intel graphics cards
+* Fixed Bug #019: Offer menu won't page back when offering to Pauper
+* Added check for arx.ini configuration file when the game is run
+* Flags for Trolls, Goblins and Oracle now correctly included in save games
+* Added "Loading..." message when loading image resources
+
+
+
+
+Version 0.60 - 8th February 2013
+--------------------------------
+
+* Implemented City and Dungeon encounters as a single set using same encounter object format
+* Combined encounter images into single set using Dungeon images for majority
+* Added all Dungeon fixed encounter specials (32 in total)
+* Added weapons for encounter specials above
+* Added a Dungeon Quest
+* Fixed Bug #002: Delay of a couple of seconds when entering some shops / modules due to music loading
+* Fixed Bug #003: Mini map edges don't refresh properly
+* Fixed Bug #004: City map wrapped at some points instead of leading to Wilderness
+* Fixed Bug #013: Lyric strip appears over shop / module image at 800 x 600 resolution
+* Fixed Bug #014: Daggers only type of weapon dropped after winning an encounter
+* Fixed Bug #001: Goblins and Trolls don't recognise that you're carrying rival ring half
+* Fixed Bug #016: Oracle offerings did not include weapons etc
+* Fixed Bug #017: Pauper could not accept all positive items and never rejected offers
+* Fixed Bug #018: City encounters didn't drop weapons
+
+
+
+Version 0.59 - 22nd January 2013
+--------------------------------
+
+* Removed levelling up cap (previously level 5)
+* Added stat bonuses when levelling up
+* Added Strength, Intelligence and Charisma bonuses for repeated successful actions
+* Dungeon encounters now award correct experience points when you defeat them
+* Dungeon encounters now award correct experience points for 50% of hits during combat
+* Removed "spinner" special from Dungeon level 1 map (40,15) as it left player trapped
+* Added Knight to Dungeon encounters
+* Added Pauper introduction message
+* Added text for quests to Oracle module
+
+
+Version 0.58 - 11th January 2013
+--------------------------------
+
+* Switched development to new version of SFML 2 media library
+* Switched development to Visual Studio C++ Express 2010
+* Added Barred door interaction in Dungeon - Locked, Bolted and Enchanted
+* Added Dungeon unique treasures - Razor Ice, Sword of the Adept, Map Stone & Amethyst Rod
+* Expanded weapon format to include bonus to hit, parry, 2 handed, alignment, minimum stat requirements
+* City Enclosed areas added by Dalimar
+* City deathtraps fixed by Dalimar
+* Started work on Dungeon Oracle module
+* Bug fix: Fixed so more than 44 rectangular map zones can be defined
+* Bug fix: Fixed crashes relating to songs with longer sequences of lyrics
+* Bug fix: Fixed images for staircases,
+* Bug fix: Goblin Lord & Troll Tyrant now carry a Sceptre of Evil (not a dagger)
+* Bug fix: Lyrics strip image overlapped with shop image for 800x600 resolution
+
+
+Version 0.57
+------------
+
+* Added Encumbrance / object weights, messages and side effects
+* Added "Use timepiece" option to display hour and minutes
+* Added menu option to select new music where available (Tavern, Smithy, Troll King, Goblin King, Guild, Death)
+* New versions of Tavern, Smithy, Troll King, Goblin King, Guild and Death music from "Furious"
+* Added on screen song lyrics for Death and most other music
+* Bug fix: No longer start a new Dungeon character in a "Creepy Room" location
+* Bug fix: Now correctly registers death whilst exploring
+* Bug fix: Stopped loading shop interior images every frame!
+* Bug fix: "Get" command didn't display armour names when picking up from ground
+* Bug fix: Tavern opening and closing time checks prevented access sometimes
+* Bug fix: Corrected Tavern opening and closing times message
+* BUg fix: Paying a tavern membership fee bypassed opening time checks
+* Bug fix: Object buffer tidy routine would sometimes remove carried objects
+* Bug fix: Use / Drop routine would sometimes not display carried objects
+* Bug fix: Apparel wasn't being saved in save game
+* Bug fix: Large encounter images for fixed encounters appeared out of proportion to doors
+
+
+
+
+Version 0.56
+------------
+
+* Added new Death music
+* Added Pause option whilst exploring and during encounters
+* Added buying clothing at D & P
+* Wear, drop, get and swap clothing
+* Added "Cheap Robe" to starting inventory
+* Buy a compass from the City shops
+* Added "Apparel" display & "Birthday suit" check
+* Added "Known Diseases" display
+* Added "curses" display
+* Bug fix: inventory overflow led to game crashing after extended play
+* Bug fix: Mini map no longer appears on Death screen
+
+
+

@@ -1,0 +1,35 @@
+# Map 0 - The City
+filename = city
+width = 64 
+height = 64
+description = in the City of Xebec's Demise
+background = 1
+      
+# Map 1 - The Dungeon - Level 1
+filename = dungeon1
+width = 64 
+height = 64
+description = on level 1 of the Dungeon
+background = 0
+      
+# Map 2 - The Dungeon - Level 2
+filename = dungeon2
+width = 32 
+height = 32
+description = on level 2 of the Dungeon
+background = 0
+      
+# Map 3 - The Dungeon - Level 3
+filename = dungeon3
+width = 32 
+height = 32
+description = on level 3 of the Dungeon
+background = 0
+      
+# Map 4 - The Dungeon - Level 4
+filename = dungeon4
+width = 32
+height = 32
+description = on level 4 of the Dungeon
+background = 0
+EOF

@@ -1,0 +1,45 @@
+are toast! LEV 2
+by a stairway leading down.
+by a stairway leading up.
+in an empty room.
+in a dusty room.
+in a long hallway.
+in a small room.
+in a strange corridor.
+in a large, chilly room.
+in an old storage room.
+in the Crystal Caverns.
+in the Hall of Mirrors.
+in Mordred's maze.
+in an abandoned guard room.
+in an old, looted crypt.
+in a corridor.
+at a river crossing.
+by an Arena pit.
+in the Clothes Horse's room.
+at the Dwarven smithy.
+at a crystal clear fountain.
+in a dank hall.
+in a damp hall.
+at Lucky's potion brewery.
+at the Undead King's Palace.
+in a musty room.
+in a large room.
+in the Undead Regions.
+in a foul-smelling passage.
+in the Room of Death.
+in the Undead King's crypt.
+in the Hall of the Adept.
+near the river Stonz.
+in a blistering hot passage.
+on a slippery stone floor.
+in a hall without doors.
+walking on thin ice.
+in a secret room.
+by a river crossing.
+at a stairway leading up.
+at a stairway leading down.
+in the Paladins' Guild.
+in the Mercenaries' Guild.
+EOF
+

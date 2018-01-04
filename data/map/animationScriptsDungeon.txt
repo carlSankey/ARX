@@ -1,0 +1,268 @@
+Dungeon Monster Animation Scripts
+Animation 0
+  0  show frame 0 and wait 12
+  1  show frame 1 and wait 12
+  2  show frame 2 and wait 12
+  3  jump to 0
+
+Animation 1
+  0  show frame 1 and wait 0
+  1  jump to 0
+
+Animation 2
+  0  show frame 0 and wait 111
+  1  show frame 1 and wait 111
+  2  jump to 0
+
+Animation 3
+  0  show frame 1 and wait 0
+  1  jump to 0
+
+Animation 4
+  0  show frame 1 and wait 0
+  1  jump to 0
+
+Animation 5
+  0  show frame 0 and wait 36
+  1  show frame 1 and wait 36
+  2  jump to 0
+
+Animation 6
+  0  show frame 0 and wait 0
+  1  jump to 0
+
+Animation 7
+  0  show frame 0 and wait 48
+  1  show frame 1 and wait 48
+  2  jump to 0
+
+Animation 8
+  0  show frame 0 and wait 200
+  1  show frame 1 and wait 200
+  2  jump to 0
+
+Animation 9
+  0  show frame 0 and wait 0
+  1  jump to 0
+
+Animation 10
+  0  show frame 0 and wait 0
+  1  jump to 0
+
+Animation 11
+  0  show frame 0 and wait 144
+  1  show frame 1 and wait 144
+  2  jump to 0
+
+Animation 12
+  0  show frame 0 and wait 0
+  1  jump to 0
+
+Animation 13
+  0  show frame 0 and wait 88
+  1  show frame 1 and wait 88
+  2  jump to 0
+
+Animation 14
+  0  show frame 0 and wait 32
+  1  show frame 1 and wait 16
+  2  show frame 2 and wait 16
+  3  show frame 3 and wait 16
+  4  show frame 4 and wait 16
+  5  jump to 0
+
+Animation 15
+  0  show frame 0 and wait 0
+  1  jump to 0
+
+Animation 16
+  0  show frame 0 and wait 0
+  1  jump to 0
+
+Animation 17
+  0  show frame 0 and wait 0
+  1  jump to 0
+
+Animation 18
+  0  show frame 2 and wait 0
+  1  jump to 0
+
+Animation 19
+  0  show frame 0 and wait 20
+  1  show frame 1 and wait 18
+  2  show frame 2 and wait 18
+  3  show frame 3 and wait 18
+  4  jump to 0
+
+Animation 20
+  0  hoffset = 154, voffset = 9
+  1  show frame 0 and wait 20
+  2  hoffset = 150, voffset = 11
+  3  show frame 1 and wait 24
+  4  hoffset = 153, voffset = 13
+  5  show frame 0 and wait 20
+  6  hoffset = 156, voffset = 11
+  7  show frame 1 and wait 24
+  8  hoffset = 157, voffset = 10
+  9  show frame 0 and wait 20
+  10  hoffset = 160, voffset = 9
+  11  show frame 1 and wait 24
+  12  hoffset = 159, voffset = 11
+  13  show frame 0 and wait 20
+  14  hoffset = 157, voffset = 12
+  15  show frame 1 and wait 24
+  16  jump to 0
+
+Animation 21
+  0  hoffset = 154, voffset = 9
+  1  show frame 0 and wait 20
+  2  hoffset = 150, voffset = 11
+  3  show frame 1 and wait 24
+  4  hoffset = 153, voffset = 13
+  5  show frame 0 and wait 20
+  6  hoffset = 156, voffset = 11
+  7  show frame 1 and wait 24
+  8  hoffset = 157, voffset = 10
+  9  show frame 0 and wait 20
+  10  hoffset = 160, voffset = 9
+  11  show frame 1 and wait 24
+  12  hoffset = 159, voffset = 11
+  13  show frame 0 and wait 20
+  14  hoffset = 157, voffset = 12
+  15  show frame 1 and wait 24
+  16  jump to 0
+
+Animation 22
+  0  show frame 0 and wait 100
+  1  jump to 0
+
+Animation 23
+  0  show frame 0 and wait 19
+  1  hoffset = 157, voffset = 11
+  2  show frame 1 and wait 18
+  3  show frame 2 and wait 19
+  4  hoffset = 156, voffset = 11
+  5  show frame 3 and wait 19
+  6  jump to 0
+
+Animation 24
+  0  show frame 0 and wait 42
+  1  show frame 1 and wait 42
+  2  jump to 0
+
+Animation 25
+  0  show frame 0 and wait 22
+  1  show frame 1 and wait 22
+  2  show frame 2 and wait 22
+  3  show frame 3 and wait 22
+  4  jump to 0
+
+Animation 26
+  0  show frame 0 and wait 48
+  1  show frame 1 and wait 48
+  2  show frame 0 and wait 48
+  3  show frame 1 and wait 48
+  4  show frame 2 and wait 48
+  5  show frame 1 and wait 48
+  6  jump to 0
+
+Animation 27
+  0  hoffset = 156, voffset = 11
+  1  show frame 0 and wait 42
+  2  hoffset = 155, voffset = 10
+  3  show frame 0 and wait 42
+  4  hoffset = 155, voffset = 9
+  5  show frame 0 and wait 42
+  6  hoffset = 156, voffset = 10
+  7  show frame 0 and wait 42
+  8  hoffset = 157, voffset = 11
+  9  show frame 0 and wait 42
+  10  jump to 0
+
+Animation 28
+  0  show frame 0 and wait 100
+  1  show frame 1 and wait 24
+  2  show frame 2 and wait 24
+  3  show frame 3 and wait 40
+  4  show frame 2 and wait 20
+  5  show frame 1 and wait 24
+  6  jump to 0
+
+Animation 29
+  0  show frame 0 and wait 40
+  1  show frame 1 and wait 10
+  2  jump to 0
+
+Animation 30
+  0  show frame 0 and wait 28
+  1  show frame 1 and wait 28
+  2  jump to 0
+
+Animation 31
+  0  show frame 0 and wait 40
+  1  show frame 1 and wait 40
+  2  jump to 0
+
+Animation 32
+  0  show frame 0 and wait 10
+  1  show frame 1 and wait 10
+  2  show frame 2 and wait 10
+  3  show frame 3 and wait 10
+  4  show frame 4 and wait 10
+  5  show frame 5 and wait 10
+  6  jump to 0
+
+Animation 33
+  0  show frame 0 and wait 100
+  1  jump to 0
+
+Animation 34
+  0  show frame 0 and wait 100
+  1  show frame 1 and wait 100
+  2  jump to 0
+
+Animation 35
+  0  show frame 0 and wait 0
+  1  jump to 0
+
+Animation 36
+  0  show frame 0 and wait 17
+  1  show frame 1 and wait 17
+  2  show frame 2 and wait 17
+  3  jump to 0
+
+Animation 37
+  0  show frame 0 and wait 28
+  1  show frame 1 and wait 28
+  2  jump to 0
+
+Animation 38
+  0  show frame 0 and wait 33
+  1  show frame 1 and wait 33
+  2  jump to 0
+
+Animation 39
+  0  show frame 0 and wait 64
+  1  show frame 1 and wait 64
+  2  jump to 0
+
+Animation 40
+  0  show frame 0 and wait 18
+  1  show frame 1 and wait 18
+  2  show frame 2 and wait 10
+  3  show frame 3 and wait 14
+  4  jump to 0
+
+Animation 41
+  0  show frame 0 and wait 32
+  1  show frame 1 and wait 32
+  2  jump to 0
+
+Animation 42
+  0  show frame 0 and wait 60
+  1  jump to 0
+
+Animation 43
+  0  show frame 0 and wait 0
+  1  jump to 0
+

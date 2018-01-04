@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Alternate Reality X" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/arx" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option use_console_runner="0" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-DSFML_STATIC" />
+					<Add directory="../SFML-2.1/include" />
+				</Compiler>
+				<Linker>
+					<Add library="sfml-audio-s-d" />
+					<Add library="sfml-graphics-s-d" />
+					<Add library="sfml-window-s-d" />
+					<Add library="sfml-system-s-d" />
+					<Add library="opengl32" />
+					<Add library="glu32" />
+					<Add directory="../SFML-2.1/lib" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/arx" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option use_console_runner="0" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-DSFML_STATIC" />
+					<Add directory="../SFML-2.1/include" />
+					<Add directory="../glew-1.10.0_MinGW/include" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="sfml-audio-s" />
+					<Add library="sfml-graphics-s" />
+					<Add library="sfml-window-s" />
+					<Add library="sfml-system-s" />
+					<Add library="glew32" />
+					<Add library="opengl32" />
+					<Add library="glu32" />
+					<Add directory="../SFML-2.1/lib" />
+					<Add directory="../glew-1.10.0_MinGW/lib" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+		</Compiler>
+		<Unit filename="3Dview.cpp" />
+		<Unit filename="3Dview.h" />
+		<Unit filename="ARX.cpp" />
+		<Unit filename="actor.cpp" />
+		<Unit filename="actor.h" />
+		<Unit filename="arena.cpp" />
+		<Unit filename="arena.h" />
+		<Unit filename="audio.cpp" />
+		<Unit filename="audio.h" />
+		<Unit filename="automap.cpp" />
+		<Unit filename="automap.h" />
+		<Unit filename="bank.cpp" />
+		<Unit filename="bank.h" />
+		<Unit filename="chapel.cpp" />
+		<Unit filename="chapel.h" />
+		<Unit filename="config.cpp" />
+		<Unit filename="config.h" />
+		<Unit filename="createCharacter.cpp" />
+		<Unit filename="createCharacter.h" />
+		<Unit filename="damon.cpp" />
+		<Unit filename="damon.h" />
+		<Unit filename="dev.cpp" />
+		<Unit filename="dev.h" />
+		<Unit filename="display.cpp" />
+		<Unit filename="display.h" />
+		<Unit filename="dwarvenSmithy.cpp" />
+		<Unit filename="dwarvenSmithy.h" />
+		<Unit filename="encounter.cpp" />
+		<Unit filename="encounter.h" />
+		<Unit filename="ferry.cpp" />
+		<Unit filename="ferry.h" />
+		<Unit filename="font.cpp" />
+		<Unit filename="font.h" />
+		<Unit filename="fountain.cpp" />
+		<Unit filename="fountain.h" />
+		<Unit filename="game.cpp" />
+		<Unit filename="game.h" />
+		<Unit filename="globals.h" />
+		<Unit filename="goblins.cpp" />
+		<Unit filename="goblins.h" />
+		<Unit filename="guild.cpp" />
+		<Unit filename="guild.h" />
+		<Unit filename="healer.cpp" />
+		<Unit filename="healer.h" />
+		<Unit filename="inn.cpp" />
+		<Unit filename="inn.h" />
+		<Unit filename="itemSelect.cpp" />
+		<Unit filename="itemSelect.h" />
+		<Unit filename="items.cpp" />
+		<Unit filename="items.h" />
+		<Unit filename="level.cpp" />
+		<Unit filename="level.h" />
+		<Unit filename="lift.cpp" />
+		<Unit filename="lift.h" />
+		<Unit filename="lyrics.cpp" />
+		<Unit filename="lyrics.h" />
+		<Unit filename="misc.cpp" />
+		<Unit filename="misc.h" />
+		<Unit filename="module.cpp" />
+		<Unit filename="module.h" />
+		<Unit filename="oracle.cpp" />
+		<Unit filename="oracle.h" />
+		<Unit filename="player.cpp" />
+		<Unit filename="player.h" />
+		<Unit filename="rathskeller.cpp" />
+		<Unit filename="rathskeller.h" />
+		<Unit filename="retreat.cpp" />
+		<Unit filename="retreat.h" />
+		<Unit filename="saveGame.cpp" />
+		<Unit filename="saveGame.h" />
+		<Unit filename="shop.cpp" />
+		<Unit filename="shop.h" />
+		<Unit filename="smithy.cpp" />
+		<Unit filename="smithy.h" />
+		<Unit filename="spells.cpp" />
+		<Unit filename="spells.h" />
+		<Unit filename="staircase.cpp" />
+		<Unit filename="staircase.h" />
+		<Unit filename="tavern.cpp" />
+		<Unit filename="tavern.h" />
+		<Unit filename="trolls.cpp" />
+		<Unit filename="trolls.h" />
+		<Unit filename="undeadKing.cpp" />
+		<Unit filename="undeadKing.h" />
+		<Unit filename="vaults.cpp" />
+		<Unit filename="vaults.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+			<DoxyBlocks>
+				<comment_style block="0" line="0" />
+				<doxyfile_project />
+				<doxyfile_build />
+				<doxyfile_warnings />
+				<doxyfile_output />
+				<doxyfile_dot />
+				<general />
+			</DoxyBlocks>
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

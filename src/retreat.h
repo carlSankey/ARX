@@ -1,0 +1,2 @@
+void shopRetreat();
+int inputValue();

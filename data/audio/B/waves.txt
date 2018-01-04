@@ -1,0 +1,523 @@
+400
+GREEN
+1,    THE WAVES AT
+WHITE
+1,    THE
+600
+1,        WAVES
+600
+1,              AT
+600
+GREEN
+1,  HOME ARE POUNDING
+WHITE
+1,  HOME
+600
+1,       ARE
+500
+1,           POUND
+500
+1,                ING
+600
+GREEN
+1,    ON THE SHORE
+WHITE
+1,    ON
+400
+1,       THE
+500
+1,           SHORE
+3500
+GREEN
+1,  THE SNOW HERE'S
+WHITE
+1,  THE
+600
+1,      SNOW
+500
+1,           HERE'S
+600
+GREEN
+1,     FALLING
+WHITE
+1,     FALL
+200
+1,         ING
+1200
+GREEN
+1,JUST OUTSIDE MY DOOR
+WHITE
+1,JUST
+400
+1,     OUT
+300
+1,        SIDE
+600
+1,             MY
+400
+1,                DOOR
+3600
+GREEN
+1,  AND ALL I WANT'S
+WHITE
+1,  AND
+600
+1,      ALL
+500
+1,          I
+500
+1,            WANT'S
+500
+GREEN
+1,   TO BE WITH YOU
+WHITE
+1,   TO
+500
+1,      BE
+600
+1,         WITH
+500
+1,              YOU
+600
+GREEN
+1,     ONCE MORE
+WHITE
+1,     ONCE
+400
+1,          MORE
+2500
+GREEN
+1,    BUT I'M TOLD
+WHITE
+1,    BUT
+200
+1,        I'M
+300
+1,            TOLD
+3600
+GREEN
+1,  THAT THIS IS ONE
+WHITE
+1,  THAT
+200
+1,       THIS
+300
+1,            IS
+300
+1,               ONE
+1100
+GREEN
+1, THING THAT I BEST
+WHITE
+1, THING
+300
+1,       THAT
+200
+1,            I
+200
+1,              BEST
+600
+GREEN
+1,  STOP HOPING FOR
+WHITE
+1,  STOP
+600
+1,       HOP
+600
+1,          ING
+500
+1,              FOR
+1700
+GREEN
+1,  THEY TELL ME TO
+WHITE
+1,  THEY
+300
+1,       TELL
+800
+1,            ME
+300
+1,               TO
+800
+GREEN
+1,       GO ON
+WHITE
+1,       GO
+300
+1,          ON
+1700
+GREEN
+1,   I ASK THEM FOR
+WHITE
+1,   I
+300
+1,     ASK
+800 
+1,         THEM
+300
+1,              FOR
+800
+GREEN
+1,     HOW LONG
+WHITE
+1,     HOW
+300
+1,         LONG
+1600
+GREEN
+1,  THEY TELL ME TO
+WHITE
+1,  THEY
+300
+1,       TELL
+800
+1,            ME
+300
+1,               TO
+800
+GREEN
+1,     BE STRONG
+WHITE
+1,     BE
+300
+1,        STRONG
+1700
+GREEN
+1,  TO WHAT YOU CAN'T
+WHITE
+1,  TO
+300
+1,     WHAT
+800
+1,          YOU
+300
+1,              CAN'T
+800
+GREEN
+1,      BE WRONG
+WHITE
+1,      BE
+300
+1,         WRONG
+1600
+GREEN
+1,  I'M LOST WITHOUT
+WHITE
+1,  I'M
+300
+1,      LOST
+800
+1,           WITH
+300
+1,               OUT
+800
+GREEN
+1,     YOUR LOVE
+WHITE
+1,     YOUR
+300
+1,          LOVE
+1700
+GREEN
+1,I NEED YOU HERE WITH
+WHITE
+1,I
+300
+1,  NEED
+800
+1,       YOU
+500
+1,           HERE
+300
+1,                WITH
+400
+GREEN
+1,         ME
+WHITE
+1,         ME
+2800
+GREEN
+1,      IN THIS
+WHITE
+1,      IN
+300
+1,         THIS
+300
+GREEN
+1,      REALITY
+WHITE
+1,      RE
+200
+1,        AL
+400
+1,          I
+200
+1,           TY
+3800
+GREEN
+1,    THE RESPONSE
+WHITE
+1,    THE RESPONSE
+4600
+GREEN
+1,     
+WHITE
+1,
+200
+GREEN
+1,THEY WITHOUT WARNING
+WHITE
+1,THEY
+600
+1,     WITH
+600
+1,         OUT
+500
+1,             WARN
+600
+1,                 ING
+500
+GREEN
+1,     TOOK AWAY
+WHITE
+1,     TOOK
+600
+1,          A
+600
+1,           WAY        
+400
+GREEN
+1,      FROM ME
+WHITE
+1,      FROM
+500
+1,           ME
+3500
+GREEN
+1,  THE HAPPINESS
+WHITE
+1,  THE
+600
+1,      HAPP
+500
+1,          I
+600
+1,           NESS
+200
+GREEN
+1,   WE SHARED WHEN
+WHITE
+1,   WE
+1400
+1,      SHARED
+200
+1,             WHEN
+200
+GREEN
+1,  YOU WERE FREE
+WHITE
+1,  YOU
+1000
+1,      WERE
+300
+1,           FREE
+3600
+GREEN
+1,  I SEARCH THE SKY
+WHITE
+1,  I
+600
+1,    SEARCH
+500
+1,           THE
+500
+1,               SKY
+500
+GREEN
+1,  MY LOVE RETURN
+WHITE
+1,  MY
+500
+1,     LOVE
+600
+1,          RE
+500
+1,            TURN
+600
+GREEN
+1,      TO ME
+WHITE
+1,      TO
+400
+1,         ME
+2500
+GREEN
+1,     I AM COLD
+WHITE
+1,     I
+200
+1,       AM
+300
+1,          COLD
+3600
+GREEN
+1,   AND FEEL ALONE
+WHITE
+1,   AND
+200
+1,       FEEL
+300
+1,            A
+300
+1,             LONE
+1100
+GREEN
+1,    BLIND SILENT
+WHITE
+1,    BLIND
+300
+1,          SI
+200
+1,            LENT
+200
+GREEN
+1,THIS I'VE COME TO BE
+WHITE
+1,THIS
+600
+1,     I'VE
+600
+1,          COME
+600
+1,               TO
+500
+1,                  BE
+1700
+GREEN
+1, FRIENDS TELL ME TO
+WHITE
+1, FRIENDS
+300
+1,         TELL
+800
+1,              ME
+300
+1,                 TO
+800
+GREEN
+1,       GO ON
+WHITE
+1,       GO
+300
+1,          ON
+1700
+GREEN
+1, NO ONE KNOWS WHERE
+WHITE
+1, NO
+300
+1,    ONE
+800 
+1,        KNOWS
+300
+1,              WHERE
+800
+GREEN
+1,    YOU'VE GONE
+WHITE
+1,    YOU'VE
+300
+1,           GONE
+1600
+GREEN
+1,  THEY TELL ME TO
+WHITE
+1,  THEY
+300
+1,       TELL
+800
+1,            ME
+300
+1,               TO
+800
+GREEN
+1,     BE STRONG
+WHITE
+1,     BE
+300
+1,        STRONG
+1700
+GREEN
+1,    ENDEAVOR TO
+WHITE
+1,    EN
+300
+1,      DEAV
+800
+1,          OR
+300
+1,             TO
+800
+GREEN
+1,      LIVE ON
+WHITE
+1,      LIVE
+300
+1,           ON
+1600
+GREEN
+1,  I'M LOST WITHOUT
+WHITE
+1,  I'M
+300
+1,      LOST
+800
+1,           WITH
+300
+1,               OUT
+800
+GREEN
+1,     YOUR LOVE
+WHITE
+1,     YOUR
+300
+1,          LOVE
+1700
+GREEN
+1,I NEED YOU HERE WITH
+WHITE
+1,I
+300
+1,  NEED
+800
+1,       YOU
+500
+1,           HERE
+300
+1,                WITH
+400
+GREEN
+1,         ME
+WHITE
+1,         ME
+2800
+GREEN
+1,      COME TO
+WHITE
+1,      COME
+300
+1,           TO
+300
+GREEN
+1,      REALITY
+WHITE
+1,      RE
+200
+1,        AL
+400
+1,          I
+200
+1,           TY
+3800
+1,             
+EOF

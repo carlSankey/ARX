@@ -1,0 +1,406 @@
+GREEN
+1,  LET ME TELL YOU
+WHITE
+1,  LET  
+700
+1,      ME
+400
+1,         TELL
+300
+1,              YOU
+500
+GREEN
+1,  BOUT THOREANDAN
+WHITE
+1,  BOUT
+400
+7, THOR
+300
+7,     E
+300
+7,      AN
+300
+7,        DAN
+700 
+GREEN
+1,THE MAN WHO BIT OFF
+WHITE
+1,THE
+400
+5,MAN
+500
+9,WHO
+400
+13,BIT
+400
+17,OFF
+400
+GREEN
+1, THE DRAGON'S HAND
+WHITE
+1, THE
+400
+1,     DRA
+600
+1,        GON'S
+400
+1,              HAND
+1000
+GREEN
+1, NO BLOWS FROM HIS
+WHITE
+1, NO
+700
+1,    BLOWS
+300
+1,          FROM
+300
+1,               HIS
+300
+GREEN
+1,SWORD EVER DID LAND
+WHITE
+1,SWORD
+300
+1,      E
+300
+1,       VER
+400
+1,           DID
+400
+1,               LAND
+800
+GREEN
+1,  SO HE BIT OFF
+WHITE
+1,  SO
+200
+1,     HE
+200
+1,        BIT
+200
+1,            OFF
+200
+GREEN
+1, THE DRAGON'S HAND
+WHITE
+1, THE
+500
+1,     DRA
+600
+1,        GON'S
+400
+1,              HAND
+2000
+GREEN
+1,   PAWS AND CLAWS
+WHITE
+1,   PAWS
+700
+1,        AND
+400
+1,            CLAWS
+700
+GREEN
+1,COULD BE THE CAUSE
+WHITE
+1,COULD
+400
+1,      BE
+700
+1,         THE
+400
+1,             CAUSE
+700
+GREEN
+1,  OF ANYONE HERE'S
+WHITE
+1,  OF
+400
+1,     AN
+300
+1,       Y
+300
+1,        ONE
+300
+1,            HERE'S
+600
+GREEN
+1,      DEMISE
+WHITE
+1,      DE
+300
+1,        MISE
+8500
+GREEN
+1, WHEN YOU'RE TIRED
+WHITE
+1, WHEN
+700
+1,      YOU'RE
+500
+1,             TI
+300
+1,               RED
+300
+GREEN
+1,YOU SHOULDN'T RETIRE
+WHITE
+1,YOU
+400
+1,    SHOULD
+300
+1,          N'T
+300
+1,              RE
+300
+1,                TIRE
+700
+GREEN
+1,IN BAD PARTS OF TOWN
+WHITE
+1,IN
+400
+1,   BAD
+500
+1,       PARTS
+400
+1,             OF
+400
+1,                TOWN
+400
+GREEN
+1,THEY'LL SETCHA AFIRE
+WHITE
+1,THEY'LL
+400
+1,        SET
+600
+1,           CHA
+400
+1,               AFIRE
+1000
+GREEN
+1, AS THEY BURN YOU
+WHITE
+1, AS
+700
+1,    THEY
+300
+1,         BURN
+300
+1,              YOU
+300
+GREEN
+1,A CIRCLE THEY FORM
+WHITE
+1,A
+300
+1,  CIR
+300
+1,     CLE
+400
+1,         THEY
+400
+1,              FORM
+800
+GREEN
+1,THEY INTEND TO STAY
+WHITE
+1,THEY
+300
+1,     IN
+200
+1,       TEND
+200
+1,            TO
+200
+1,               STAY
+500
+GREEN
+1,   SNUG AND WARM
+WHITE
+1,   SNUG
+600
+1,        AND
+400
+1,            WARM
+2000
+GREEN
+1,   RAISE YOUR MUG
+WHITE
+1,   RAISE
+700
+1,         YOUR
+400
+1,              MUG
+700
+GREEN
+1,   ANOTHER JUG
+WHITE
+1,   A
+400
+1,    NOTH
+700
+1,        ER
+400
+1,           JUG
+700
+GREEN
+1,  RELAX AND STAY
+WHITE
+1,  RE
+400
+1,    LAX
+300
+1,        AND
+300
+1,            STAY
+300
+GREEN
+1, THROUGH THE NIGHT
+WHITE
+1, THROUGH
+600
+1,         THE
+300
+1,             NIGHT
+8200
+GREEN
+1,    INTO DANGER
+WHITE
+1,    IN
+700
+1,      TO
+500
+1,         DAN
+300
+1,            GER
+300
+GREEN
+1,ENTRUSTING OUR SWORD
+WHITE
+1,EN
+400
+1,  TRUST
+300
+1,       ING
+300
+1,           OUR
+300
+1,               SWORD
+700
+GREEN
+1,TO WARD OFF DRAGON
+WHITE
+1,TO
+400
+1,   WARD
+500
+1,        OFF
+400
+1,            DRA
+400
+1,               GON
+400
+GREEN
+1,   OR EVIL HORDE
+WHITE
+1,   OR
+400
+1,      E
+600
+1,       VIL
+400
+1,           HORDE
+1000
+GREEN
+1,  WE LOVE DANGER
+WHITE
+1,  WE
+700
+1,     LOVE
+300
+1,          DAN
+300
+1,             GER
+400
+GREEN
+1,AND WE LOVE OUR WINE
+WHITE
+1,AND
+300
+1,    WE
+300
+1,       LOVE
+400
+1,            OUR
+400
+1,                WINE
+800
+GREEN
+1, JUST LIKE TREASURE
+WHITE
+1, JUST
+300
+1,      LIKE
+200
+1,           TREA
+200
+1,               SURE
+200
+GREEN
+1,  WE HOPE TO FIND
+WHITE
+1,  WE
+500
+1,     HOPE
+600
+1,          TO
+400
+1,             FIND
+1900
+GREEN
+1,    DO BE KIND
+WHITE
+1,    DO
+700
+1,       BE
+400
+1,          KIND
+700
+GREEN
+1, TO POOR AND BLIND
+WHITE
+1, TO
+400
+1,    POOR
+700
+1,         AND
+400
+1,             BLIND
+700
+GREEN
+1,SEE WELL OUT BEYOND
+WHITE
+1,SEE
+400
+1,    WELL
+300
+1,         OUT
+300
+1,             BE
+300
+1,               YOND
+600
+GREEN
+1,     YOUR EYES
+WHITE
+1,     YOUR
+300
+1,          EYES
+8300
+GREEN
+1,
+EOF
+

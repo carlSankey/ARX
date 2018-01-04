@@ -1,0 +1,581 @@
+# Enclosed area (North Wall)
+Y1 = 0
+X1 = 26
+Y2 = 1
+X2 = 0
+Ref = 18
+
+# Enclosed area (North Wall)
+Y1 = 0
+X1 = 37
+Y2 = 1
+X2 = 34
+Ref = 18
+
+# Enclosed area (North Wall)
+Y1 = 0
+X1 = 42
+Y2 = 1
+X2 = 41
+Ref = 18
+
+# Enclosed area (North Gate Center)
+Y1 = 3
+X1 = 36
+Y2 = 4
+X2 = 35
+Ref = 18
+
+# Enclosed area (North Gate Wall)
+Y1 = 1
+X1 = 38
+Y2 = 2
+X2 = 36
+Ref = 18
+
+# Enclosed area (North Gate Wall)
+Y1 = 1
+X1 = 35
+Y2 = 2
+X2 = 33
+Ref = 18
+
+# Enclosed area (North Gate Wall)
+Y1 = 5
+X1 = 38
+Y2 = 6
+X2 = 36
+Ref = 18
+
+# Enclosed area (North Gate Wall)
+Y1 = 5
+X1 = 35
+Y2 = 6
+X2 = 33
+Ref = 18
+
+# Enclosed area (North Gate Wall)
+Y1 = 2
+X1 = 38
+Y2 = 5
+X2 = 37
+Ref = 18
+
+# Enclosed area (North Gate Wall)
+Y1 = 2
+X1 = 34
+Y2 = 5
+X2 = 33
+Ref = 18
+
+# Enclosed area (East Wall)
+Y1 = 0
+X1 = 64
+Y2 = 64
+X2 = 63
+Ref = 18
+
+# Enclosed area (South Wall)
+Y1 = 63
+X1 = 64
+Y2 = 64
+X2 = 4
+Ref = 18
+
+# Enclosed area (South Wall)
+Y1 = 61
+X1 = 35
+Y2 = 63
+X2 = 34
+Ref = 18
+
+# Enclosed area (South Wall)
+Y1 = 61
+X1 = 37
+Y2 = 63
+X2 = 36
+Ref = 18
+
+# Enclosed area (South Wall)
+Y1 = 57
+X1 = 34
+Y2 = 62
+X2 = 33
+Ref = 18
+
+# Enclosed area (South Wall)
+Y1 = 57
+X1 = 38
+Y2 = 62
+X2 = 37
+Ref = 18
+
+# Enclosed area (South Wall)
+Y1 = 57
+X1 = 35
+Y2 = 58
+X2 = 34
+Ref = 18
+
+# Enclosed area (South Wall)
+Y1 = 57
+X1 = 37
+Y2 = 58
+X2 = 36
+Ref = 18
+
+# Enclosed area (North West Enclosure)
+Y1 = 4
+X1 = 2
+Y2 = 5
+X2 = 1
+Ref = 18
+
+# Enclosed area (North West Enclosure)
+Y1 = 5
+X1 = 3
+Y2 = 6
+X2 = 1
+Ref = 18
+
+# Enclosed area (North West Enclosure)
+Y1 = 20
+X1 = 2
+Y2 = 22
+X2 = 1
+Ref = 18
+
+# Enclosed area (West Wall - South)
+Y1 = 48
+X1 = 1
+Y2 = 55
+X2 = 0
+Ref = 18
+
+# Enclosed area (West Wall - North)
+Y1 = 1
+X1 = 1
+Y2 = 26
+X2 = 0
+Ref = 18
+
+# Enclosed area (West Wall - North)
+Y1 = 34
+X1 = 1
+Y2 = 39
+X2 = 0
+Ref = 18
+
+# Enclosed area (West Gate)
+Y1 = 34
+X1 = 5
+Y2 = 35
+X2 = 1
+Ref = 18
+
+# Enclosed area (West Gate)
+Y1 = 35
+X1 = 5
+Y2 = 36
+X2 = 4
+Ref = 18
+
+# Enclosed area (West Gate)
+Y1 = 37
+X1 = 5
+Y2 = 38
+X2 = 4
+Ref = 18
+
+# Enclosed area (West Gate)
+Y1 = 38
+X1 = 5
+Y2 = 39
+X2 = 1
+Ref = 18
+
+# Enclosed area (South West Shop)
+Y1 = 48
+X1 = 4
+Y2 = 52
+X2 = 1
+Ref = 18
+
+# Enclosed area (South West Enclosure)
+Y1 = 42
+X1 = 5
+Y2 = 43
+X2 = 4
+Ref = 18
+
+# Enclosed area (South West Enclosure)
+Y1 = 38
+X1 = 7
+Y2 = 39
+X2 = 6
+Ref = 18
+
+# Enclosed area (South West Enclosure)
+Y1 = 40
+X1 = 19
+Y2 = 46
+X2 = 18
+Ref = 18
+
+# Enclosed area (South West Enclosure)
+Y1 = 42
+X1 = 24
+Y2 = 43
+X2 = 22
+Ref = 18
+
+# Enclosed area (South West Enclosure)
+Y1 = 43
+X1 = 22
+Y2 = 44
+X2 = 21
+Ref = 18
+
+# Enclosed area (South West Enclosure - Guild Maze)
+Y1 = 46
+X1 = 21
+Y2 = 55
+X2 = 20
+Ref = 18
+
+# Enclosed area (South West Enclosure - Guild Maze)
+Y1 = 54
+X1 = 22
+Y2 = 55
+X2 = 21
+Ref = 18
+
+# Enclosed area (South West Enclosure - Guild Maze)
+Y1 = 54
+X1 = 24
+Y2 = 55
+X2 = 23
+Ref = 18
+
+# Enclosed area (South West Enclosure - Guild Maze)
+Y1 = 54
+X1 = 26
+Y2 = 55
+X2 = 25
+Ref = 18
+
+# Enclosed area (South West Enclosure - Guild Maze)
+Y1 = 54
+X1 = 28
+Y2 = 55
+X2 = 27
+Ref = 18
+
+# Enclosed area (South West Enclosure - Guild Maze)
+Y1 = 54
+X1 = 30
+Y2 = 55
+X2 = 29
+Ref = 18
+
+# Enclosed area (South West Enclosure - Guild Maze)
+Y1 = 52
+X1 = 30
+Y2 = 53
+X2 = 29
+Ref = 18
+
+# Enclosed area (South West Enclosure - Guild Maze)
+Y1 = 50
+X1 = 30
+Y2 = 51
+X2 = 29
+Ref = 18
+
+# Enclosed area (South West Enclosure - Guild Maze)
+Y1 = 51
+X1 = 29
+Y2 = 54
+X2 = 28
+Ref = 18
+
+# Enclosed area (South West Enclosure - Guild Maze)
+Y1 = 50
+X1 = 28
+Y2 = 51
+X2 = 27
+Ref = 18
+
+# Enclosed area (South West Enclosure - Guild Maze)
+Y1 = 50
+X1 = 26
+Y2 = 51
+X2 = 25
+Ref = 18
+
+# Enclosed area (South West Enclosure - Guild Maze)
+Y1 = 50
+X1 = 24
+Y2 = 51
+X2 = 23
+Ref = 18
+
+# Enclosed area (South West Enclosure - Guild Maze)
+Y1 = 51
+X1 = 23
+Y2 = 52
+X2 = 22
+Ref = 18
+
+# Enclosed area (South West Enclosure - Guild Maze)
+Y1 = 52
+X1 = 26
+Y2 = 53
+X2 = 25
+Ref = 18
+
+# Enclosed area (South West Enclosure - Guild Maze)
+Y1 = 52
+X1 = 24
+Y2 = 53
+X2 = 23
+Ref = 18
+
+# Enclosed area (South West Enclosure)
+Y1 = 55
+X1 = 14
+Y2 = 56
+X2 = 11
+Ref = 18
+
+# Enclosed area (South West Enclosure)
+Y1 = 56
+X1 = 13
+Y2 = 57
+X2 = 12
+Ref = 18
+
+# Enclosed area (South West Enclosure)
+Y1 = 44
+X1 = 25
+Y2 = 45
+X2 = 24
+Ref = 18
+
+# Enclosed area (Copy Right Symbol)
+Y1 = 25
+X1 = 21
+Y2 = 28
+X2 = 18
+Ref = 18
+
+# Enclosed area (North West Enclosure)
+Y1 = 2
+X1 = 27
+Y2 = 4
+X2 = 26
+Ref = 18
+
+# Enclosed area (North West Enclosure)
+Y1 = 3
+X1 = 32
+Y2 = 6
+X2 = 27
+Ref = 18
+
+# Enclosed area (North West Enclosure)
+Y1 = 11
+X1 = 31
+Y2 = 12
+X2 = 25
+Ref = 18
+
+# Enclosed area (North West Enclosure)
+Y1 = 12
+X1 = 31
+Y2 = 14
+X2 = 28
+Ref = 18
+
+# Enclosed area (North West Enclosure)
+Y1 = 17
+X1 = 32
+Y2 = 19
+X2 = 28
+Ref = 18
+
+# Enclosed area (Royal Walkway Entrance)
+Y1 = 21
+X1 = 38
+Y2 = 24
+X2 = 37
+Ref = 18
+
+# Enclosed area (NE of Main Square)
+Y1 = 30
+X1 = 38
+Y2 = 31
+X2 = 37
+Ref = 18
+
+# Enclosed area (NE of Main Square)
+Y1 = 31
+X1 = 39
+Y2 = 32
+X2 = 38
+Ref = 18
+
+# Enclosed area (North Main Street - West Store Front)
+Y1 = 13
+X1 = 34
+Y2 = 21
+X2 = 33
+Ref = 18
+
+# Enclosed area (North Main Street - North East Enclosure)
+Y1 = 8
+X1 = 38
+Y2 = 11
+X2 = 37
+Ref = 18
+
+# Enclosed area (North Main Street - North East Enclosure)
+Y1 = 5
+X1 = 51
+Y2 = 6
+X2 = 50
+Ref = 18
+
+# Enclosed area (North Main Street - North East Enclosure)
+Y1 = 6
+X1 = 54
+Y2 = 7
+X2 = 52
+Ref = 18
+
+# Enclosed area (North Main Street - North East Enclosure)
+Y1 = 27
+X1 = 51
+Y2 = 28
+X2 = 50
+Ref = 18
+
+# Enclosed area (North Main Street - North East Enclosure)
+Y1 = 29
+X1 = 51
+Y2 = 30
+X2 = 50
+Ref = 18
+
+# Enclosed area (North Main Street - North East Enclosure)
+Y1 = 31
+X1 = 60
+Y2 = 34
+X2 = 59
+Ref = 18
+
+# Enclosed area (North Main Street - North East Enclosure)
+Y1 = 32
+X1 = 54
+Y2 = 33
+X2 = 53
+Ref = 18
+
+# Enclosed area (SW of Main Square)
+Y1 = 41
+X1 = 28
+Y2 = 42
+X2 = 25
+Ref = 18
+
+# Enclosed area (SW of Main Square)
+Y1 = 42
+X1 = 27
+Y2 = 43
+X2 = 26
+Ref = 18
+
+# Enclosed area (SW of Main Square)
+Y1 = 39
+X1 = 26
+Y2 = 40
+X2 = 23
+Ref = 18
+
+# Enclosed area (SW of Main Square)
+Y1 = 40
+X1 = 25
+Y2 = 41
+X2 = 24
+Ref = 18
+
+# Enclosed area (South Main Street - South East Enclosure)
+Y1 = 48
+X1 = 38
+Y2 = 55
+X2 = 37
+Ref = 18
+
+# Enclosed area (South East Enclosure)
+Y1 = 49
+X1 = 63
+Y2 = 50
+X2 = 62
+Ref = 18
+
+# Enclosed area (South East Enclosure)
+Y1 = 50
+X1 = 49
+Y2 = 51
+X2 = 46
+Ref = 18
+
+# Enclosed area (South East Enclosure)
+Y1 = 56
+X1 = 63
+Y2 = 57
+X2 = 62
+Ref = 18
+
+# Enclosed area (South East Enclosure)
+Y1 = 56
+X1 = 53
+Y2 = 57
+X2 = 52
+Ref = 18
+
+# Enclosed area (South East Enclosure)
+Y1 = 57
+X1 = 48
+Y2 = 58
+X2 = 47
+Ref = 18
+
+# Enclosed area (South East Enclosure)
+Y1 = 59
+X1 = 42
+Y2 = 60
+X2 = 41
+Ref = 18
+
+# Enclosed area (South East Enclosure)
+Y1 = 62
+X1 = 47
+Y2 = 63
+X2 = 46
+Ref = 18
+
+# Enclosed area (South East Enclosure)
+Y1 = 62
+X1 = 42
+Y2 = 63
+X2 = 41
+Ref = 18
+
+# Enclosed area (South East Enclosure)
+Y1 = 60
+X1 = 63
+Y2 = 61
+X2 = 62
+Ref = 18
+EOF

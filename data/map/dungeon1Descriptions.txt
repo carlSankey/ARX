@@ -1,0 +1,204 @@
+toast! LEV 1.1
+in The City's sewer system.
+in Gram's Gold Exchange vault.
+in a corridor.
+in a hallway.
+in a passage.
+in a long corridor.
+in a typical dungeon corridor.
+in the Goblins' demesne.
+at the Goblin king's palace.
+by a stairway leading down.
+inside The Loop.
+in a mausoleum.
+by Acrinimiril's tomb.
+in the tomb of Acrinimiril.
+in a nondescript room.
+in a small room.
+in the Exit room.
+in a small area.
+in the Dungeon Chapel.
+in the Chapel Sanctuary.
+in yet another small room.
+in a large room.
+in a room with three doors.
+in a dim passage.
+in the Chapel garden.
+in an open area.
+in a charred barracks room.
+in an empty officers' quarters.
+in an old storage room.
+in a dead-end passage.
+in a debris-filled room.
+in a Goblin's room.
+in the reject room.
+at a stairway leading down.
+in a room with four doors.
+toast! LEV 1.2
+in a corridor.
+in a hallway.
+in a long corridor.
+in a long hallway.
+in a dim passage.
+in a secret passage.
+in a secret hallway.
+by an entrance to The City.
+in a dead-end passage.
+at the Damon & Pythias Shoppe.
+at an entrance to The City.
+at the Retreat.
+at the Wizards of Chaos Guild.
+at the Guild of Order.
+at the Wizards of Law Guild.
+at a strange machine.
+at a stairway leading down.
+in the Palace Prison.
+at the Thieves' Guild.
+in a well-lighted area.
+in an open area.
+in a treasure room.
+in a musty room.
+in a small room.
+in a creepy room.
+in a large room.
+in a room with two doors.
+in a spacious room.
+in a secret room.
+in yet another small room.
+in another small room.
+in a quiet area.
+in a nondescript room.
+in a dangerous area.
+in a debris-littered room.
+in a quiet room.
+in The City's sewer system.
+in a secret corridor.
+by a stairway leading down.
+in a typical Dungeon corridor.
+at Der Rathskeller Bar & Grille
+in an enclosed booth.
+at the Palace entrance.
+toast! LEV 1.2
+in a corridor.
+in a hallway.
+in a long corridor.
+in a long hallway.
+in a dim passage.
+in a secret passage.
+in a secret hallway.
+by an entrance to The City
+in a dead-end passage.
+at the Damon & Pythias Shoppe.
+not here!!!
+at the Retreat.
+at the Wizards of Chaos Guild.
+at the Guild of Order.
+at the Wizards of Law Guild.
+at a strange machine.
+at a stairway leading down.
+in the Palace Prison.
+at the Thieves' Guild.
+in a well-lighted area.
+in an open area.
+in a treasure room.
+in a musty room.
+in a small room.
+in a creepy room.
+in a large room.
+in a room with two doors.
+in a spacious room.
+in a secret room.
+in yet another small room.
+in another small room.
+in a quiet area.
+in a nondescript room.
+in a dangerous area.
+in a debris-littered room.
+in a quiet room.
+in The City's sewer system.
+in a secret corridor.
+by a stairway leading down.
+in a typical Dungeon corridor.
+at Der Rathskeller Bar & Grille
+in an enclosed booth.
+at the Palace entrance.
+toast! LEV 1.3
+in the Taurean Maze.
+in a hallway.
+in a long corridor.
+in a Pelinor's Puzzle.
+in a blink-mine field.
+lost.
+in a secret hallway.
+Aratna maze.
+in a dead-end passage.
+in a damp area.
+in a dim hallway.
+at a bubbling fountain.
+in the First City Bank's vault.
+at the Light Wizards Guild.
+in a passage.
+by a stairway leading down.
+at a stairway leading down.
+12. You are 
+13. You are 
+in a well-lighted area.
+in an open area.
+in a treasure room.
+in a musty room.
+in a small room.
+in a creepy room.
+in a large room.
+1b. You are 
+1c. You are 
+in a secret room.
+in yet another small room.
+in another small room.
+in a quiet area.
+in a nondescript room.
+in a dangerous area.
+in a room filled with debris.
+in a quiet room.
+in The City's sewer system.
+toast! LEV 1.4
+in a dim corridor.
+in a hallway.
+in a Cult room.
+by a stairway leading down.
+in a dim passage.
+in a secret passage.
+in the Pythoness' Maze.
+by an entrance to The City.
+in a dead-end passage.
+in a damp area.
+in a dim hallway.
+at an entrance to The City
+facing the Oracle of Wisdom.
+in the Troll King's demesne.
+at the Weapon Enchantress'.
+at a stairway leading down.
+11. You are 
+at the Troll King's Palace.
+at the Dark Wizards Guild.
+14. You are 
+in an open area.
+in a treasure room.
+in a musty room.
+in a small room.
+in a creepy room.
+in a large room.
+in a room with two doors.
+in a spacious room.
+in a secret room.
+in a typical Dungeon corridor.
+in another small room.
+in a quiet area.
+in a nondescript room.
+in a dangerous area.
+in a room littered with debris.
+in a quiet room.
+in The City's sewer system.
+in a secret corridor.
+in a Troll's room.
+in a long passage.
+EOF

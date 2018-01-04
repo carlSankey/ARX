@@ -1,0 +1,666 @@
+The devourer. Up to 1 may appear at level 4+
+It has 72 base hit points
+Base alignemnt: Neutral
+Pointers to code: p2: 0x244 p4: 0 p5: 0xa2 
+Picture id: 0
+sta: 20  cha: 8  str: 30  int: 0  wis: 22  skl: 60  spd: 50  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 0  gems: 0  jewels: 0  gold: 0  silver: 0  copper: 0  
+Armor:  blunt: 55  sharp: 55  earth: 33  air: 33  fire: 33  water: 33  power: 33  magic: 33  good: 33  evil: 33  cold: 33   
+
+The assassin. Up to 1 may appear at level 8+
+It has 40 base hit points
+Base alignemnt: 75.00% evil
+Pointers to code: p2: 0xec p4: 0 p5: 1 
+Picture id: 2
+sta: 20  cha: 20  str: 60  int: 20  wis: 20  skl: 65  spd: 99  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 7  crystal: 1  gems: 0  jewels: 3  gold: 0  silver: 0  copper: 0  
+Armor:  blunt: 16  sharp: 16  earth: 00  air: 00  fire: 13  water: 00  power: 00  magic: 00  good: 00  evil: 00  cold: 00  
+
+The goblin. Up to 2 may appear at level 5+
+It has 17 base hit points
+Base alignemnt: 75.00% evil
+On load of monster data, execute code at offset 0xc0 into monster data
+Pointers to code: p2: 0 p4: 0 p5: 0x102 
+Picture id: 3
+sta: 20  cha: 20  str: 20  int: 20  wis: 20  skl: 20  spd: 20  
+Treasure: food: 2  water: 1  torch: 1  timepiece: 0  compass: 0  key: 0  crystal: 0  gems: 0  jewels: 0  gold: 0  silver: 0  copper: 80  
+Armor:  blunt: 14  sharp: 14  earth: VULN  air: 00  fire: 12  water: 00  power: 00  magic: 00  good: 00  evil: 00  cold: 00  
+
+The troll. Up to 4 may appear at level 5+
+It has 15 base hit points
+Base alignemnt: 75.00% evil
+On load of monster data, execute code at offset 0xdc into monster data
+Pointers to code: p2: 0 p4: 0 p5: 0x11e 
+Picture id: 4
+sta: 28  cha: 20  str: 40  int: 20  wis: 20  skl: 20  spd: 20  
+Treasure: food: 2  water: 1  torch: 1  timepiece: 0  compass: 0  key: 0  crystal: 0  gems: 0  jewels: 0  gold: 0  silver: 0  copper: 80  
+Armor:  blunt: 22  sharp: 22  earth: VULN  air: 00  fire: 11  water: 00  power: 00  magic: 00  good: 00  evil: 00  cold: 00
+
+The lich. Up to 1 may appear at level 8+
+It has 45 base hit points
+Base alignemnt: 100.00% evil
+Pointers to code: p2: 0 p4: 0 p5: 4 
+Picture id: 5
+sta: 20  cha: 20  str: 16  int: 70  wis: 70  skl: 38  spd: 30  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 9  gems: 3  jewels: 0  gold: 0  silver: 0  copper: 0  
+Armor:  blunt: 22  sharp: 22  earth: 00  air: 00  fire: 00  water: 00  power: 00  magic: 00  good: 00  evil: 00  cold: 00 
+
+The Undead Knight. Up to 1 may appear at level 4+
+It has 65 base hit points
+Base alignemnt: Neutral
+On death, run code at offset 0xad into monster data
+Pointers to code: p2: 0 p4: 0 p5: 0 
+Picture id: 6
+sta: 50  cha: 50  str: 50  int: 50  wis: 50  skl: 75  spd: 50  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 0  gems: 0  jewels: 0  gold: 0  silver: 0  copper: 0  
+Armor:  blunt: 33  sharp: 33  earth: 11  air: 11  fire: 11  water: 11  power: 33  magic: 11  good: 11  evil: 11  cold: 22 
+
+The guard. Up to 2 may appear at level 8+
+It has 46 base hit points
+Base alignemnt: 50.39% good
+On load of monster data, execute code at offset 0x100 into monster data
+Before fight, execute code at offset 0x15c into monster data
+Pointers to code: p2: 0 p4: 2 p5: 0x34e 
+Picture id: 7
+sta: 20  cha: 20  str: 40  int: 20  wis: 20  skl: 38  spd: 20  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 3  crystal: 0  gems: 0  jewels: 0  gold: 0  silver: 33  copper: 0  
+Armor:  blunt: 33  sharp: 33  earth: 00  air: 00  fire: 23  water: 00  power: 00  magic: 00  good: 00  evil: 00  cold: 22 
+
+The F.B.I. Agent. Up to 2 may appear at level 0+
+It has 9999 base hit points
+Base alignemnt: Neutral
+Pointers to code: p2: 0 p4: 0 p5: 0 
+Picture id: 8
+sta: 90  cha: 90  str: 90  int: 90  wis: 90  skl: 90  spd: 90  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 0  gems: 0  jewels: 0  gold: 0  silver: 0  copper: 0  
+Armor:  blunt: ABSORB  sharp: ABSORB  earth: ABSORB  air: ABSORB  fire: ABSORB  water: ABSORB  power: ABSORB  magic: ABSORB  good: ABSORB  evil: ABSORB  cold: ABSORB  
+
+The Dark Knight. Up to 1 may appear at level 8+
+It has 37 base hit points
+Base alignemnt: 75.00% evil
+On load of monster data, set evil guild/alignment (code 5) (Dark Knight, Homunculus)
+Pointers to code: p2: 0 p4: 0 p5: 1 
+Picture id: 6
+sta: 20  cha: 20  str: 20  int: 20  wis: 20  skl: 20  spd: 30  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 3  crystal: 9  gems: 1  jewels: 1  gold: 70  silver: 0  copper: 0  
+Armor:  blunt: 24  sharp: 24  earth: 12  air: 12  fire: 32  water: 12  power: 12  magic: 12  good: 12  evil: 12  cold: 12 
+
+The Champion. Up to 1 may appear at level 8+
+It has 68 base hit points
+Base alignemnt: 56.25% good
+Pointers to code: p2: 0xe2 p4: 0 p5: 1 
+Picture id: 9
+sta: 30  cha: 20  str: 45  int: 20  wis: 20  skl: 50  spd: 40  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 3  crystal: 6  gems: 9  jewels: 4  gold: 0  silver: 40  copper: 0  
+Armor:  blunt: 34  sharp: 34  earth: 22  air: 22  fire: 22  water: 22  power: 22  magic: 22  good: 22  evil: 22  cold: 22 
+
+The Healer. Up to 1 may appear at level 3+
+It has 20 base hit points
+Base alignemnt: Neutral
+On load of monster data, execute code at offset 0xe7 into monster data
+On death, run code at offset 0x8b into monster data
+Pointers to code: p2: 0 p4: 0xf3 p5: 0x329 
+Picture id: 10
+sta: 20  cha: 20  str: 20  int: 20  wis: 20  skl: 20  spd: 20  
+Treasure: food: 1  water: 1  torch: 0  timepiece: 0  compass: 1  key: 1  crystal: 0  gems: 0  jewels: 0  gold: 88  silver: 88  copper: 88  
+Armor:  blunt: 00  sharp: 00  earth: 00  air: 00  fire: 00  water: 00  power: 00  magic: 00  good: 00  evil: 00  cold: 00 
+
+The Knight. Up to 1 may appear at level 8+
+It has 28 base hit points
+Base alignemnt: 99.61% good
+On load of monster data, execute code at offset 0x9b into monster data
+Before fight, execute code at offset 0xb2 into monster data
+Pointers to code: p2: 0 p4: 0 p5: 0 
+Picture id: 9
+sta: 20  cha: 20  str: 40  int: 20  wis: 20  skl: 40  spd: 40  
+Treasure: food: 0  water: 1  torch: 0  timepiece: 0  compass: 0  key: 3  crystal: 5  gems: 2  jewels: 1  gold: 11  silver: 59  copper: 0  
+Armor:  blunt: 33  sharp: 33  earth: 11  air: 11  fire: 23  water: 11  power: 11  magic: 11  good: 11  evil: 11  cold: 22  
+
+The pauper. Up to 1 may appear at level 8+
+It has 10 base hit points
+Base alignemnt: Neutral
+Before fight, execute code at offset 0xbe into monster data
+On death, run code at offset 0x121 into monster data
+Pointers to code: p2: 0 p4: 0xc5 p5: 0x1ca 
+Picture id: 11
+sta: 20  cha: 20  str: 40  int: 20  wis: 20  skl: 40  spd: 28  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 0  gems: 0  jewels: 0  gold: 0  silver: 0  copper: 1  
+Armor:  blunt: 11  sharp: 11  earth: 11  air: 11  fire: 11  water: 11  power: 11  magic: 11  good: 11  evil: 11  cold: 11 
+
+The nobleman. Up to 1 may appear at level 3+
+It has 18 base hit points
+Base alignemnt: Neutral
+On load of monster data, execute Nobleman/Ronin preset (code 5)
+Pointers to code: p2: 0 p4: 0xb5 p5: 1 
+Picture id: 12
+sta: 20  cha: 20  str: 29  int: 20  wis: 20  skl: 30  spd: 30  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 1  crystal: 0  gems: 3  jewels: 1  gold: 40  silver: 80  copper: 0  
+Armor:  blunt: 14  sharp: 14  earth: 00  air: 00  fire: 13  water: 00  power: 00  magic: 00  good: 00  evil: 00  cold: 00  
+
+The alien sentry. Up to 1 may appear at level 4+
+It has 49 base hit points
+Base alignemnt: Neutral
+Pointers to code: p2: 0 p4: 0 p5: 0 
+Picture id: 13
+sta: 20  cha: 20  str: 20  int: 20  wis: 20  skl: 60  spd: 60  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 0  gems: 0  jewels: 0  gold: 0  silver: 0  copper: 0  
+Armor:  blunt: 44  sharp: 44  earth: INV  air: INV  fire: 23  water: 23  power: 13  magic: 38  good: INV  evil: INV  cold: 38 
+
+The robot. Up to 2 may appear at level 1+
+It has 30 base hit points
+Base alignemnt: Neutral
+Pointers to code: p2: 0 p4: 0 p5: 3 
+Picture id: 14
+sta: 20  cha: 20  str: 20  int: 20  wis: 0  skl: 38  spd: 24  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 0  gems: 0  jewels: 0  gold: 0  silver: 0  copper: 0  
+Armor:  blunt: 22  sharp: 22  earth: INV  air: INV  fire: 22  water: 33  power: 00  magic: INV  good: INV  evil: INV  cold: 13 
+
+The novice. Up to 3 may appear at level 2+
+It has 8 base hit points
+Base alignemnt: Neutral
+On load of monster data, set guild/alignment (code 2) (Novice, Adventurer, Mage, etc)
+Pointers to code: p2: 0 p4: 5 p5: 1 
+Picture id: 15
+sta: 15  cha: 15  str: 15  int: 15  wis: 15  skl: 15  spd: 15  
+Treasure: food: 0  water: 1  torch: 1  timepiece: 0  compass: 1  key: 0  crystal: 0  gems: 0  jewels: 0  gold: 0  silver: 0  copper: 43  
+Armor:  blunt: 11  sharp: 11  earth: 00  air: 00  fire: 11  water: 00  power: 00  magic: 00  good: 00  evil: 00  cold: 00  
+
+The apprentice. Up to 2 may appear at level 4+
+It has 12 base hit points
+Base alignemnt: Neutral
+On load of monster data, set guild/alignment (code 2) (Novice, Adventurer, Mage, etc)
+Pointers to code: p2: 0 p4: 6 p5: 1 
+Picture id: 15
+sta: 15  cha: 15  str: 15  int: 15  wis: 15  skl: 15  spd: 15  
+Treasure: food: 1  water: 1  torch: 0  timepiece: 0  compass: 0  key: 3  crystal: 7  gems: 0  jewels: 0  gold: 0  silver: 0  copper: 11  
+Armor:  blunt: 11  sharp: 11  earth: 00  air: 00  fire: 12  water: 00  power: 00  magic: 00  good: 00  evil: 00  cold: 00 
+
+The mage. Up to 1 may appear at level 8+
+It has 37 base hit points
+Base alignemnt: Neutral
+On load of monster data, set guild/alignment (code 2) (Novice, Adventurer, Mage, etc)
+Pointers to code: p2: 0 p4: 6 p5: 4 
+Picture id: 10
+sta: 25  cha: 25  str: 25  int: 55  wis: 55  skl: 35  spd: 25  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 3  crystal: 7  gems: 1  jewels: 0  gold: 0  silver: 0  copper: 0  
+Armor:  blunt: 14  sharp: 14  earth: 12  air: 12  fire: 12  water: 12  power: 12  magic: 12  good: 12  evil: 12  cold: 12  
+
+The wizard. Up to 1 may appear at level 8+
+It has 67 base hit points
+Base alignemnt: Neutral
+On load of monster data, execute code at offset 0xcf into monster data
+Pointers to code: p2: 0 p4: 6 p5: 0xff 
+Picture id: 16
+sta: 20  cha: 20  str: 20  int: 60  wis: 60  skl: 50  spd: 40  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 17  crystal: 33  gems: 4  jewels: 6  gold: 11  silver: 19  copper: 0  
+Armor:  blunt: 23  sharp: 23  earth: 22  air: 22  fire: 22  water: 22  power: 22  magic: 22  good: 22  evil: 22  cold: 22 
+
+The acolyte. Up to 4 may appear at level 8+
+It has 9 base hit points
+Base alignemnt: Neutral
+On load of monster data, set guild/alignment (code 2) (Novice, Adventurer, Mage, etc)
+Pointers to code: p2: 0 p4: 6 p5: 4 
+Picture id: 15
+sta: 20  cha: 20  str: 20  int: 30  wis: 30  skl: 30  spd: 30  
+Treasure: food: 7  water: 6  torch: 4  timepiece: 0  compass: 1  key: 0  crystal: 0  gems: 0  jewels: 0  gold: 0  silver: 0  copper: 0  
+Armor:  blunt: 11  sharp: 11  earth: 00  air: 00  fire: 00  water: 00  power: 00  magic: 00  good: 00  evil: 00  cold: 00  
+
+The sage. Up to 1 may appear at level 8+
+It has 30 base hit points
+Base alignemnt: Neutral
+On load of monster data, set guild/alignment (code 2) (Novice, Adventurer, Mage, etc)
+On death, run code at offset 0xc5 into monster data
+Pointers to code: p2: 0 p4: 0x79 p5: 4 
+Picture id: 10
+sta: 20  cha: 20  str: 20  int: 200  wis: 200  skl: 70  spd: 50  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 1  key: 1  crystal: 3  gems: 2  jewels: 2  gold: 4  silver: 20  copper: 0  
+Armor:  blunt: 22  sharp: 22  earth: 00  air: 00  fire: 22  water: 00  power: 00  magic: 00  good: 00  evil: 00  cold: 00
+
+The orc. Up to 3 may appear at level 4+
+It has 23 base hit points
+Base alignemnt: 75.00% evil
+Pointers to code: p2: 0 p4: 0 p5: 0 
+Picture id: 17
+sta: 50  cha: 1  str: 40  int: 1  wis: 8  skl: 20  spd: 20  
+Treasure: food: 3  water: 3  torch: 3  timepiece: 0  compass: 0  key: 0  crystal: 0  gems: 0  jewels: 0  gold: 0  silver: 0  copper: 0  
+Armor:  blunt: 23  sharp: 23  earth: VULN  air: 00  fire: 13  water: 00  power: 00  magic: 00  good: 00  evil: 00  cold: 00 
+
+The gnome. Up to 5 may appear at level 3+
+It has 10 base hit points
+Base alignemnt: Neutral
+Pointers to code: p2: 0 p4: 6 p5: 3 
+Picture id: 3
+sta: 20  cha: 10  str: 15  int: 60  wis: 20  skl: 25  spd: 33  
+Treasure: food: 5  water: 5  torch: 2  timepiece: 1  compass: 1  key: 0  crystal: 0  gems: 2  jewels: 0  gold: 17  silver: 0  copper: 0  
+Armor:  blunt: 14  sharp: 14  earth: VULN  air: 11  fire: 11  water: 11  power: 11  magic: 11  good: 11  evil: 11  cold: 11 
+
+The dwarf. Up to 7 may appear at level 8+
+It has 12 base hit points
+Base alignemnt: Neutral
+Pointers to code: p2: 0 p4: 0 p5: 0 
+Picture id: 18
+sta: 20  cha: 20  str: 20  int: 20  wis: 20  skl: 20  spd: 20  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 1  compass: 0  key: 0  crystal: 0  gems: 16  jewels: 5  gold: 0  silver: 0  copper: 0  
+Armor:  blunt: 23  sharp: 23  earth: VULN  air: 12  fire: 12  water: 12  power: 12  magic: 12  good: 12  evil: 12  cold: 12  #
+
+The slime. Up to 1 may appear at level 2+
+It has 7 base hit points
+Base alignemnt: Neutral
+Before fight, execute code at offset 0x134 into monster data
+Pointers to code: p2: 0 p4: 0 p5: 0xb3 
+Picture id: 19
+sta: 20  cha: 20  str: 20  int: 0  wis: 0  skl: 20  spd: 20  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 1  crystal: 3  gems: 0  jewels: 0  gold: 0  silver: 0  copper: 0  
+Armor:  blunt: 00  sharp: INV  earth: 00  air: 00  fire: 00  water: 00  power: 00  magic: 00  good: 00  evil: 00  cold: 00  
+
+The mold. Up to 1 may appear at level 2+
+It has 8 base hit points
+Base alignemnt: Neutral
+Pointers to code: p2: 0 p4: 0 p5: 3 
+Picture id: 19
+sta: 20  cha: 20  str: 20  int: 0  wis: 0  skl: 20  spd: 20  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 0  gems: 1  jewels: 0  gold: 0  silver: 0  copper: 0  
+Armor:  blunt: 00  sharp: INV  earth: 00  air: 00  fire: VULN  water: 00  power: 00  magic: 11  good: 00  evil: 00  cold: 22 
+
+The homunculus. Up to 7 may appear at level 2+
+It has 7 base hit points
+Base alignemnt: 100.00% evil
+On load of monster data, set evil guild/alignment (code 5) (Dark Knight, Homunculus)
+Pointers to code: p2: 0 p4: 6 p5: 5 
+Picture id: 20
+sta: 10  cha: 0  str: 15  int: 60  wis: 60  skl: 50  spd: 40  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 5  gems: 3  jewels: 1  gold: 0  silver: 0  copper: 0  
+Armor:  blunt: 11  sharp: 11  earth: 11  air: 11  fire: 11  water: 11  power: 11  magic: 11  good: 11  evil: 11  cold: 11  
+
+The phoenix. Up to 1 may appear at level 2+
+It has 39 base hit points
+Base alignemnt: 99.61% good
+Pointers to code: p2: 0 p4: 0 p5: 3 
+Picture id: 21
+sta: 30  cha: 10  str: 30  int: 20  wis: 21  skl: 30  spd: 40  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 25  gems: 30  jewels: 10  gold: 0  silver: 0  copper: 0  
+Armor:  blunt: INV  sharp: INV  earth: 00  air: 00  fire: ABSORB  water: VULN  power: 00  magic: 00  good: 00  evil: 00  cold: VULN  
+
+The sorceress. Up to 1 may appear at level 8+
+It has 41 base hit points
+Base alignemnt: Neutral
+On load of monster data, set guild/alignment (code 2) (Novice, Adventurer, Mage, etc)
+Pointers to code: p2: 0 p4: 6 p5: 4 
+Picture id: 22
+sta: 20  cha: 20  str: 20  int: 50  wis: 50  skl: 50  spd: 50  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 15  gems: 5  jewels: 0  gold: 0  silver: 45  copper: 0  
+Armor:  blunt: 13  sharp: 13  earth: 13  air: 13  fire: 13  water: 13  power: 13  magic: 13  good: 13  evil: 13  cold: 13  
+
+The whirlwind. Up to 1 may appear at level 4+
+It has 17 base hit points
+Base alignemnt: Neutral
+Before fight, execute code at offset 0xce into monster data
+Pointers to code: p2: 0 p4: 0 p5: 3 
+Picture id: 23
+sta: 20  cha: 0  str: 50  int: 1  wis: 1  skl: 23  spd: 44  
+Treasure: food: 7  water: 5  torch: 4  timepiece: 6  compass: 3  key: 4  crystal: 1  gems: 1  jewels: 1  gold: 35  silver: 35  copper: 35  
+Armor:  blunt: 16  sharp: INV  earth: 00  air: VULN  fire: INV  water: 00  power: 00  magic: 00  good: 00  evil: 00  cold: 00 
+
+The giant rat. Up to 6 may appear at level 3+
+It has 6 base hit points
+Base alignemnt: Neutral
+On death, run preset code 4
+Pointers to code: p2: 0 p4: 1 p5: 0 
+Picture id: 24
+sta: 20  cha: 0  str: 20  int: 0  wis: 0  skl: 10  spd: 25  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 0  gems: 1  jewels: 0  gold: 1  silver: 0  copper: 0  
+Armor:  blunt: 00  sharp: 00  earth: 00  air: 00  fire: 00  water: 00  power: 00  magic: 00  good: 00  evil: 00  cold: 00 
+
+The small dragon. Up to 1 may appear at level 8+
+It has 68 base hit points
+Base alignemnt: Neutral
+Pointers to code: p2: 0 p4: 0 p5: 5 
+Picture id: 25
+sta: 60  cha: 20  str: 60  int: 70  wis: 70  skl: 45  spd: 40  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 0  gems: 30  jewels: 10  gold: 200  silver: 200  copper: 200  
+Armor:  blunt: 44  sharp: 44  earth: 22  air: 22  fire: INV  water: 22  power: 22  magic: 22  good: 22  evil: 22  cold: 22  
+
+The skeleton. Up to 8 may appear at level 8+
+It has 6 base hit points
+Base alignemnt: 100.00% evil
+Pointers to code: p2: 0 p4: 0 p5: 0 
+Picture id: 26
+sta: 20  cha: 0  str: 20  int: 0  wis: 0  skl: 20  spd: 20  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 0  gems: 0  jewels: 0  gold: 0  silver: 0  copper: 23  
+Armor:  blunt: 00  sharp: 00  earth: 11  air: 00  fire: 11  water: 00  power: 00  magic: INV  good: 00  evil: 00  cold: INV  
+
+The zombie. Up to 5 may appear at level 2+
+It has 10 base hit points
+Base alignemnt: 100.00% evil
+Pointers to code: p2: 0 p4: 0 p5: 0 
+Picture id: 5
+sta: 20  cha: 0  str: 20  int: 0  wis: 0  skl: 20  spd: 10  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 0  gems: 0  jewels: 0  gold: 0  silver: 0  copper: 22  
+Armor:  blunt: 00  sharp: 00  earth: 00  air: 00  fire: VULN  water: 00  power: 00  magic: 00  good: 00  evil: 00  cold: 00 
+
+The ghoul. Up to 7 may appear at level 3+
+It has 9 base hit points
+Base alignemnt: 100.00% evil
+On death, run code at offset 0xb1 into monster data
+Pointers to code: p2: 0 p4: 0x93 p5: 0 
+Picture id: 5
+sta: 20  cha: 0  str: 80  int: 0  wis: 0  skl: 20  spd: 20  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 0  gems: 0  jewels: 0  gold: 0  silver: 0  copper: 88  
+Armor:  blunt: 00  sharp: 00  earth: 00  air: 00  fire: VULN  water: 00  power: 00  magic: 00  good: 00  evil: 00  cold: 00  
+
+The ghost. Up to 1 may appear at level 4+
+It has 12 base hit points
+Base alignemnt: 100.00% evil
+Pointers to code: p2: 0 p4: 0 p5: 3 
+Picture id: 27
+sta: 20  cha: 20  str: 20  int: 20  wis: 20  skl: 20  spd: 20  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 0  gems: 0  jewels: 0  gold: 80  silver: 0  copper: 0  
+Armor:  blunt: 00  sharp: 00  earth: 00  air: 00  fire: 00  water: 00  power: 00  magic: 00  good: VULN  evil: 00  cold: 00 
+
+The spectre. Up to 1 may appear at level 4+
+It has 20 base hit points
+Base alignemnt: 100.00% evil
+Pointers to code: p2: 0 p4: 0 p5: 3 
+Picture id: 27
+sta: 20  cha: 20  str: 20  int: 20  wis: 20  skl: 20  spd: 20  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 0  gems: 0  jewels: 0  gold: 0  silver: 0  copper: 0  
+Armor:  blunt: INV  sharp: INV  earth: VULN  air: VULN  fire: 23  water: VULN  power: VULN  magic: INV  good: VULN  evil: VULN  cold: VULN 
+
+The wraith. Up to 3 may appear at level 5+
+It has 39 base hit points
+Base alignemnt: 100.00% evil
+Pointers to code: p2: 0 p4: 0 p5: 1 
+Picture id: 27
+sta: 30  cha: 20  str: 40  int: 40  wis: 40  skl: 40  spd: 40  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 0  gems: 9  jewels: 3  gold: 0  silver: 0  copper: 0  
+Armor:  blunt: 23  sharp: 23  earth: 11  air: 11  fire: 00  water: 11  power: 00  magic: 00  good: VULN  evil: 00  cold: 11 
+
+The vampire. Up to 1 may appear at level 4+
+It has 50 base hit points
+Base alignemnt: 100.00% evil
+Pointers to code: p2: 0 p4: 0 p5: 0xce 
+Picture id: 28
+sta: 99  cha: 99  str: 99  int: 99  wis: 99  skl: 99  spd: 99  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 1  compass: 0  key: 9  crystal: 19  gems: 7  jewels: 7  gold: 55  silver: 0  copper: 0  
+Armor:  blunt: 18  sharp: 18  earth: 18  air: 18  fire: 00  water: VULN  power: 00  magic: 00  good: VULN  evil: 14  cold: INV  
+
+The great bat. Up to 8 may appear at level 1+
+It has 7 base hit points
+Base alignemnt: Neutral
+Pointers to code: p2: 0 p4: 0 p5: 0 
+Picture id: 20
+sta: 20  cha: 20  str: 20  int: 0  wis: 0  skl: 10  spd: 20  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 1  gems: 1  jewels: 0  gold: 1  silver: 1  copper: 1  
+Armor:  blunt: 00  sharp: 00  earth: 00  air: 00  fire: 00  water: 00  power: 00  magic: 00  good: 00  evil: 00  cold: 00  
+
+The hellhound. Up to 3 may appear at level 3+
+It has 30 base hit points
+Base alignemnt: 100.00% evil
+Pointers to code: p2: 0 p4: 0 p5: 3 
+Picture id: 29
+sta: 20  cha: 20  str: 20  int: 20  wis: 20  skl: 50  spd: 40  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 7  crystal: 3  gems: 1  jewels: 0  gold: 0  silver: 0  copper: 0  
+Armor:  blunt: 11  sharp: 11  earth: 00  air: 00  fire: INV  water: 00  power: 00  magic: 00  good: 00  evil: 00  cold: 00  
+
+The harpy. Up to 5 may appear at level 2+
+It has 27 base hit points
+Base alignemnt: 100.00% evil
+Pointers to code: p2: 0 p4: 1 p5: 3 
+Picture id: 30
+sta: 20  cha: 3  str: 20  int: 8  wis: 20  skl: 70  spd: 20  
+Treasure: food: 1  water: 1  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 0  gems: 0  jewels: 0  gold: 12  silver: 30  copper: 99  
+Armor:  blunt: 13  sharp: 13  earth: 00  air: 00  fire: 00  water: 00  power: 00  magic: 00  good: 00  evil: 00  cold: 00  
+
+The gremlin. Up to 1 may appear at level 4+
+It has 14 base hit points
+Base alignemnt: 100.00% evil
+Pointers to code: p2: 0 p4: 0 p5: 1 
+Picture id: 31
+sta: 20  cha: 20  str: 20  int: 20  wis: 20  skl: 20  spd: 20  
+Treasure: food: 1  water: 1  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 2  gems: 0  jewels: 0  gold: 0  silver: 0  copper: 0  
+Armor:  blunt: 12  sharp: 12  earth: 00  air: 00  fire: INV  water: VULN  power: 00  magic: 00  good: 00  evil: 00  cold: 14 
+
+The imp. Up to 1 may appear at level 4+
+It has 14 base hit points
+Base alignemnt: 100.00% evil
+Pointers to code: p2: 0 p4: 0 p5: 3 
+Picture id: 31
+sta: 20  cha: 20  str: 20  int: 20  wis: 20  skl: 20  spd: 20  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 0  gems: 0  jewels: 0  gold: 55  silver: 0  copper: 0  
+Armor:  blunt: 13  sharp: 13  earth: 00  air: 00  fire: INV  water: 00  power: 00  magic: 00  good: 00  evil: 00  cold: 12  
+
+The flame demon. Up to 4 may appear at level 8+
+It has 46 base hit points
+Base alignemnt: 100.00% evil
+Pointers to code: p2: 0 p4: 0 p5: 0xdf 
+Picture id: 32
+sta: 23  cha: 23  str: 30  int: 20  wis: 20  skl: 20  spd: 35  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 0  gems: 0  jewels: 0  gold: 255  silver: 255  copper: 0  
+Armor:  blunt: 33  sharp: 33  earth: 33  air: 33  fire: ABSORB  water: VULN  power: 33  magic: 33  good: 33  evil: 33  cold: VULN
+
+The storm devil. Up to 1 may appear at level 2+
+It has 31 base hit points
+Base alignemnt: 100.00% evil
+Pointers to code: p2: 0 p4: 0 p5: 0 
+Picture id: 23
+sta: 20  cha: 20  str: 20  int: 20  wis: 20  skl: 20  spd: 20  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 1  gems: 1  jewels: 1  gold: 1  silver: 1  copper: 1  
+Armor:  blunt: 18  sharp: 18  earth: 11  air: 11  fire: INV  water: 11  power: 11  magic: 11  good: 11  evil: 11  cold: 11  
+
+The giant wolf. Up to 3 may appear at level 3+
+It has 15 base hit points
+Base alignemnt: Neutral
+Pointers to code: p2: 0 p4: 0 p5: 0 
+Picture id: 29
+sta: 20  cha: 20  str: 20  int: 20  wis: 20  skl: 30  spd: 40  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 2  crystal: 0  gems: 0  jewels: 0  gold: 0  silver: 12  copper: 0  
+Armor:  blunt: 00  sharp: 00  earth: 00  air: 00  fire: 00  water: 00  power: 00  magic: 00  good: 00  evil: 00  cold: 00 
+
+The werewolf. Up to 1 may appear at level 3+
+It has 33 base hit points
+Base alignemnt: 100.00% evil
+Pointers to code: p2: 0 p4: 0 p5: 3 
+Picture id: 29
+sta: 50  cha: 20  str: 60  int: 20  wis: 20  skl: 30  spd: 40  
+Treasure: food: 3  water: 3  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 0  gems: 0  jewels: 0  gold: 99  silver: 0  copper: 99  
+Armor:  blunt: 11  sharp: 11  earth: 00  air: 00  fire: 00  water: 00  power: 00  magic: 00  good: 00  evil: 00  cold: 00  
+
+The warrior. Up to 1 may appear at level 8+
+It has 13 base hit points
+Base alignemnt: Neutral
+On load of monster data, set guild/alignment (code 2) (Novice, Adventurer, Mage, etc)
+Pointers to code: p2: 0 p4: 6 p5: 0 
+Picture id: 42
+sta: 20  cha: 20  str: 47  int: 20  wis: 20  skl: 29  spd: 20  
+Treasure: food: 4  water: 5  torch: 2  timepiece: 0  compass: 0  key: 0  crystal: 0  gems: 0  jewels: 0  gold: 5  silver: 10  copper: 20  
+Armor:  blunt: 23  sharp: 23  earth: 00  air: 00  fire: 13  water: 00  power: 00  magic: 00  good: 00  evil: 00  cold: 00  
+
+The weapon master. Up to 1 may appear at level 8+
+It has 43 base hit points
+Base alignemnt: 99.61% good
+On load of monster data, execute code at offset 0xc1 into monster data
+Pointers to code: p2: 0 p4: 6 p5: 0 
+Picture id: 33
+sta: 80  cha: 20  str: 30  int: 20  wis: 20  skl: 80  spd: 45  
+Treasure: food: 0  water: 1  torch: 0  timepiece: 0  compass: 0  key: 3  crystal: 0  gems: 0  jewels: 0  gold: 20  silver: 20  copper: 0  
+Armor:  blunt: 23  sharp: 23  earth: 22  air: 22  fire: 33  water: 22  power: 22  magic: 22  good: 22  evil: 22  cold: 22
+
+The valkyrie. Up to 1 may appear at level 8+
+It has 50 base hit points
+Base alignemnt: 99.61% good
+Pointers to code: p2: 0 p4: 0 p5: 0 
+Picture id: 34
+sta: 20  cha: 20  str: 60  int: 20  wis: 20  skl: 30  spd: 70  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 0  gems: 0  jewels: 0  gold: 255  silver: 0  copper: 0  
+Armor:  blunt: 24  sharp: 24  earth: 00  air: 00  fire: INV  water: 00  power: 00  magic: 00  good: INV  evil: INV  cold: 00  
+
+The gladiator. Up to 1 may appear at level 8+
+It has 9 base hit points
+Base alignemnt: 100.00% evil
+Pointers to code: p2: 0 p4: 0 p5: 0 
+Picture id: 42
+sta: 20  cha: 20  str: 20  int: 20  wis: 20  skl: 30  spd: 20  
+Treasure: food: 2  water: 2  torch: 1  timepiece: 0  compass: 0  key: 0  crystal: 0  gems: 0  jewels: 0  gold: 13  silver: 0  copper: 0  
+Armor:  blunt: 13  sharp: 13  earth: 00  air: 00  fire: 13  water: 00  power: 00  magic: 00  good: 00  evil: 00  cold: 00 
+
+The mercenary. Up to 4 may appear at level 8+
+It has 9 base hit points
+Base alignemnt: 100.00% evil
+On load of monster data, execute code at offset 0x7e into monster data
+Pointers to code: p2: 0 p4: 2 p5: 0 
+Picture id: 6
+sta: 20  cha: 20  str: 20  int: 20  wis: 20  skl: 20  spd: 20  
+Treasure: food: 3  water: 3  torch: 4  timepiece: 1  compass: 1  key: 4  crystal: 0  gems: 0  jewels: 0  gold: 0  silver: 66  copper: 99  
+Armor:  blunt: 22  sharp: 22  earth: 00  air: 00  fire: 14  water: 00  power: 00  magic: 00  good: 00  evil: 00  cold: 00  
+
+The doppleganger. Up to 1 may appear at level 0+
+It has 0 base hit points
+Base alignemnt: 100.00% evil
+On load of monster data, execute code at offset 0x6a into monster data
+Pointers to code: p2: 0 p4: 0 p5: 0 
+Picture id: 35
+sta: 0  cha: 0  str: 0  int: 0  wis: 0  skl: 0  spd: 0  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 0  gems: 0  jewels: 0  gold: 0  silver: 0  copper: 0  
+Armor:  blunt: 22  sharp: 22  earth: 22  air: 22  fire: 22  water: 22  power: 22  magic: 22  good: 22  evil: 22  cold: 22  
+
+The adventurer. Up to 1 may appear at level 8+
+It has 23 base hit points
+Base alignemnt: Neutral
+On load of monster data, set guild/alignment (code 2) (Novice, Adventurer, Mage, etc)
+Pointers to code: p2: 0 p4: 5 p5: 3 
+Picture id: 36
+sta: 15  cha: 15  str: 15  int: 66  wis: 44  skl: 45  spd: 35  
+Treasure: food: 8  water: 7  torch: 9  timepiece: 1  compass: 1  key: 1  crystal: 0  gems: 0  jewels: 0  gold: 0  silver: 47  copper: 23  
+Armor:  blunt: 23  sharp: 23  earth: 13  air: 13  fire: 33  water: 13  power: 13  magic: 13  good: 13  evil: 13  cold: 33 
+
+The water sprite. Up to 1 may appear at level 4+
+It has 4 base hit points
+Base alignemnt: Neutral
+Pointers to code: p2: 0 p4: 0 p5: 0 
+Picture id: 37
+sta: 20  cha: 20  str: 20  int: 20  wis: 20  skl: 200  spd: 20  
+Treasure: food: 0  water: 3  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 0  gems: 0  jewels: 0  gold: 5  silver: 0  copper: 0  
+Armor:  blunt: 22  sharp: 22  earth: 00  air: 00  fire: 00  water: INV  power: 00  magic: 00  good: 00  evil: 00  cold: 00 
+
+The night stalker. Up to 1 may appear at level 4+
+It has 37 base hit points
+Base alignemnt: 100.00% evil
+Pointers to code: p2: 0 p4: 0 p5: 3 
+Picture id: 38
+sta: 20  cha: 20  str: 20  int: 20  wis: 20  skl: 20  spd: 199  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 0  gems: 0  jewels: 7  gold: 200  silver: 0  copper: 0  
+Armor:  blunt: 12  sharp: 12  earth: 00  air: 00  fire: 00  water: 00  power: 00  magic: INV  good: 00  evil: 00  cold: 00 
+
+The salamander. Up to 1 may appear at level 4+
+It has 23 base hit points
+Base alignemnt: Neutral
+Pointers to code: p2: 0 p4: 0 p5: 3 
+Picture id: 25
+sta: 40  cha: 40  str: 40  int: 0  wis: 0  skl: 40  spd: 40  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 0  gems: 5  jewels: 5  gold: 50  silver: 99  copper: 200  
+Armor:  blunt: 22  sharp: 22  earth: 00  air: 00  fire: INV  water: 00  power: 00  magic: 00  good: 00  evil: 00  cold: 00  
+
+The ronin. Up to 3 may appear at level 6+
+It has 38 base hit points
+Base alignemnt: Neutral
+On load of monster data, execute Nobleman/Ronin preset (code 5)
+Before fight, execute code at offset 0xb4 into monster data
+Pointers to code: p2: 0 p4: 0 p5: 0 
+Picture id: 33
+sta: 20  cha: 20  str: 29  int: 20  wis: 20  skl: 80  spd: 40  
+Treasure: food: 3  water: 3  torch: 3  timepiece: 0  compass: 0  key: 0  crystal: 0  gems: 0  jewels: 0  gold: 50  silver: 0  copper: 22  
+Armor:  blunt: 23  sharp: 23  earth: 00  air: 00  fire: 42  water: 00  power: 00  magic: 00  good: 00  evil: 00  cold: 00
+
+The serpentman. Up to 3 may appear at level 8+
+It has 11 base hit points
+Base alignemnt: 100.00% evil
+Pointers to code: p2: 0 p4: 0 p5: 0 
+Picture id: 39
+sta: 20  cha: 20  str: 20  int: 20  wis: 20  skl: 20  spd: 20  
+Treasure: food: 2  water: 0  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 0  gems: 0  jewels: 0  gold: 40  silver: 10  copper: 0  
+Armor:  blunt: 12  sharp: 12  earth: 00  air: 00  fire: 00  water: 00  power: 00  magic: 00  good: 00  evil: 00  cold: 00  
+
+The big snake. Up to 1 may appear at level 8+
+It has 28 base hit points
+Base alignemnt: Neutral
+Pointers to code: p2: 0 p4: 0 p5: 0 
+Picture id: 40
+sta: 20  cha: 20  str: 20  int: 20  wis: 20  skl: 40  spd: 60  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 0  gems: 0  jewels: 0  gold: 33  silver: 66  copper: 99  
+Armor:  blunt: 13  sharp: 13  earth: 00  air: 00  fire: 11  water: 00  power: 00  magic: 00  good: 00  evil: 00  cold: 13  
+
+The Great Naga. Up to 1 may appear at level 4+
+It has 55 base hit points
+Base alignemnt: Neutral
+Pointers to code: p2: 0 p4: 2 p5: 5 
+Picture id: 40
+sta: 20  cha: 20  str: 20  int: 80  wis: 80  skl: 40  spd: 60  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 4  gems: 5  jewels: 1  gold: 33  silver: 66  copper: 99  
+Armor:  blunt: 23  sharp: 23  earth: 11  air: 11  fire: 11  water: 11  power: 11  magic: 11  good: 11  evil: 11  cold: 11  
+
+The berserker. Up to 8 may appear at level 4+
+It has 17 base hit points
+Base alignemnt: 100.00% evil
+Pointers to code: p2: 0 p4: 0 p5: 0 
+Picture id: 42
+sta: 20  cha: 20  str: 20  int: 20  wis: 20  skl: 20  spd: 20  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 0  gems: 0  jewels: 0  gold: 0  silver: 0  copper: 0  
+Armor:  blunt: 12  sharp: 12  earth: 00  air: 00  fire: 12  water: 00  power: 00  magic: 00  good: 00  evil: 00  cold: 00 
+
+The basilisk. Up to 1 may appear at level 1+
+It has 63 base hit points
+Base alignemnt: 100.00% evil
+On death, run code at offset 0x1fc into monster data
+Pointers to code: p2: 0 p4: 0 p5: 0xbd 
+Picture id: 25
+sta: 20  cha: 20  str: 70  int: 20  wis: 20  skl: 20  spd: 70  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 0  gems: 9  jewels: 5  gold: 200  silver: 255  copper: 0  
+Armor:  blunt: 00  sharp: INV  earth: 00  air: 00  fire: 41  water: 00  power: 00  magic: 00  good: 00  evil: 00  cold: 00 
+
+The Great Wyrm. Up to 1 may appear at level 0+
+It has 1999 base hit points
+Base alignemnt: Neutral
+Pointers to code: p2: 0 p4: 0 p5: 5 
+Picture id: 25
+sta: 252  cha: 252  str: 252  int: 252  wis: 252  skl: 252  spd: 252  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 255  crystal: 255  gems: 255  jewels: 255  gold: 255  silver: 255  copper: 255  
+Armor:  blunt: 34  sharp: 34  earth: 18  air: 18  fire: INV  water: 18  power: 18  magic: 18  good: 18  evil: 18  cold: 18  
+
+The Goblin Lord. Up to 1 may appear at level 4+
+It has 73 base hit points
+Base alignemnt: 100.00% evil
+On death, run code at offset 0xad into monster data
+Pointers to code: p2: 0 p4: 0 p5: 0 
+Picture id: 3
+sta: 20  cha: 20  str: 50  int: 20  wis: 20  skl: 70  spd: 50  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 0  gems: 0  jewels: 0  gold: 0  silver: 0  copper: 0  
+Armor:  blunt: 33  sharp: 33  earth: 33  air: 33  fire: 33  water: 33  power: 33  magic: 33  good: 33  evil: 33  cold: 33  
+
+The Troll Tyrant. Up to 1 may appear at level 4+
+It has 80 base hit points
+Base alignemnt: 100.00% evil
+On death, run code at offset 0xb7 into monster data
+Pointers to code: p2: 0 p4: 0 p5: 0xa3 
+Picture id: 4
+sta: 20  cha: 20  str: 50  int: 20  wis: 20  skl: 50  spd: 50  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 0  gems: 0  jewels: 0  gold: 0  silver: 0  copper: 0  
+Armor:  blunt: 33  sharp: 33  earth: 22  air: 22  fire: 22  water: 22  power: 22  magic: 22  good: 22  evil: 22  cold: 22 
+
+The ice demon. Up to 3 may appear at level 7+
+It has 35 base hit points
+Base alignemnt: 100.00% evil
+Pointers to code: p2: 0 p4: 0 p5: 0 
+Picture id: 41
+sta: 20  cha: 20  str: 30  int: 20  wis: 20  skl: 40  spd: 50  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 2  gems: 2  jewels: 2  gold: 0  silver: 0  copper: 0  
+Armor:  blunt: 33  sharp: 33  earth: 22  air: 22  fire: 33  water: 22  power: 22  magic: 22  good: 22  evil: 22  cold: INV
+
+The horned devil. Up to 1 may appear at level 8+
+It has 69 base hit points
+Base alignemnt: 100.00% evil
+Pointers to code: p2: 0 p4: 0 p5: 4 
+Picture id: 41
+sta: 20  cha: 20  str: 50  int: 80  wis: 80  skl: 80  spd: 40  
+Treasure: food: 0  water: 0  torch: 0  timepiece: 0  compass: 0  key: 0  crystal: 0  gems: 0  jewels: 0  gold: 0  silver: 0  copper: 0  
+Armor:  blunt: 33  sharp: 33  earth: INV  air: INV  fire: INV  water: INV  power: 11  magic: INV  good: 00  evil: INV  cold: INV 
+

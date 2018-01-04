@@ -1,0 +1,231 @@
+GREEN
+1,  LET ME TELL YOU
+WHITE
+1,  LET  
+600
+GREEN
+1,  LET ME TELL YOU
+WHITE
+5,  ME
+400
+GREEN
+1,  LET ME TELL YOU
+WHITE
+8,  TELL
+300
+GREEN
+1,  LET ME TELL YOU
+WHITE
+13,  YOU
+200
+GREEN
+1,  BOUT THOREANDAN
+WHITE
+1,  BOUT
+300
+1,       THOR
+300
+1,           E
+200
+1,            AN
+200
+1,              DAN
+600
+GREEN
+1,THE MAN WHO BIT OFF
+WHITE
+1,THE
+300
+GREEN
+1,THE MAN WHO BIT OFF
+WHITE
+1,    MAN
+500
+GREEN
+1,THE MAN WHO BIT OFF
+WHITE
+1,        WHO
+300
+GREEN
+1,THE MAN WHO BIT OFF
+WHITE
+1,            BIT
+300
+GREEN
+1,THE MAN WHO BIT OFF
+WHITE
+1,                OFF
+200
+GREEN
+1, THE DRAGON'S HAND
+WHITE
+1, THE
+200
+GREEN
+1, THE DRAGON'S HAND
+WHITE
+1,     DRA
+400
+GREEN
+1, THE DRAGON'S HAND
+WHITE
+1,        GON'S
+400
+GREEN
+1, THE DRAGON'S HAND
+WHITE
+1,              HAND
+600
+GREEN
+1, NO BLOWS FROM HIS
+WHITE
+1, NO
+500
+GREEN
+1, NO BLOWS FROM HIS
+WHITE
+1,    BLOWS
+300
+GREEN
+1, NO BLOWS FROM HIS
+WHITE
+1,          FROM
+300
+GREEN
+1, NO BLOWS FROM HIS
+WHITE
+1,               HIS
+300
+GREEN
+1,SWORD EVER DID LAND
+WHITE
+1,SWORD
+200
+GREEN
+1,SWORD EVER DID LAND
+WHITE
+1,      E
+200
+GREEN
+1,SWORD EVER DID LAND
+WHITE
+1,       VER
+300
+GREEN
+1,SWORD EVER DID LAND
+WHITE
+1,           DID
+300
+GREEN
+1,SWORD EVER DID LAND
+WHITE
+1,               LAND
+600
+GREEN
+1,  SO HE BIT OFF
+WHITE
+1,  SO
+100
+1,     HE
+100
+1,        BIT
+100
+1,            OFF
+100
+GREEN
+1, THE DRAGON'S HAND
+WHITE
+1, THE
+400
+1,     DRA
+600
+1,        GON'S
+400
+1,              HAND
+1300
+GREEN
+1,  PAWS AND CLAWS
+WHITE
+1,  PAWS
+600
+1,       AND
+300
+1,           CLAWS
+600
+GREEN
+1,COULD BE THE CAUSE
+WHITE
+1,COULD
+300
+1,      BE
+600
+1,         THE
+300
+1,             CAUSE
+600
+GREEN
+1, OF ANYONE HERE'S
+WHITE
+1, OF
+300
+1,    AN
+200
+1,      Y
+200
+1,       ONE
+200
+1,           HERE'S
+300
+GREEN
+1,      DEMISE
+WHITE
+1,      DE
+300
+1,        MISE
+1500
+GREEN
+1,                        
+1500      
+EOF
+
+
+
+raise your mug
+another jug
+relax and stay thru
+the night
+
+
+when you're tired
+you shouldn't retire
+in bad parts of town
+they'll setcha afire
+as they burn you
+a circle they form
+they intend to
+stay snug and warm
+
+into danger
+entrusting our sword
+to ward off dragon
+or evil horde
+we love danger
+and we love our wine
+just like treasure
+we hope to find
+
+
+do be kind
+to poor and blind
+see well out be yond
+your eyes
+
+
+
+
+
+
+
+
+
+

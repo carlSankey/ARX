@@ -1,0 +1,104 @@
+GREEN
+1,   
+35800
+GREEN
+9,ARMOR
+WHITE
+9,AR
+1200
+11,MOR
+2000
+GREEN
+1,THIS WE HAVE FOR YOU
+WHITE
+1,THIS
+300
+1,     WE
+400
+1,        HAVE
+600
+1,             FOR
+400
+1,                 YOU
+700
+GREEN
+1,        WE DO
+WHITE
+1,        WE
+400
+1,           DO
+1700
+GREEN
+9,ARMOR
+WHITE
+9,AR
+1200
+11,MOR
+2000
+GREEN
+2,  TOOLS OF DEATH
+WHITE
+2,  TOOLS
+400
+2,        OF
+300
+2,           DEATH
+600
+GREEN
+1,  WE HAVE THEM TOO
+WHITE
+1,  WE
+400
+1,     HAVE
+700
+1,          THEM
+300
+1,               TOO
+1800
+GREEN
+8,SWORDS
+WHITE
+8,SWORDS
+2500
+GREEN
+0, WORTH MUCH MORE THAN
+WHITE
+0, WORTH
+300
+0,       MUCH
+400
+0,            MORE
+300
+0,                 THAN
+300
+GREEN
+1,      YOU PAY
+WHITE
+1,      YOU
+300
+1,          PAY
+3800
+GREEN
+8,SWORDS
+WHITE
+8,SWORDS
+2300
+GREEN
+1,    TO HOLD EVIL
+WHITE
+1,    TO
+300
+1,       HOLD
+500
+1,            EVIL
+700
+GREEN
+1,       AT BAY
+WHITE
+1,       AT
+300
+1,          BAY
+3700
+1,             
+2000
+EOF
