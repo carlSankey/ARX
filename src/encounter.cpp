@@ -285,17 +285,18 @@ void encounterLoop(int encounterType, int opponentQuantity)
 		drawEncounterView();
 		if (!waitingForSpaceKey)
         {
+		  		  //Opponent will choice to do something after 2.0 no matter what the player does        
+			     attackCheckTime += attackTimer;
+				  if (attackCheckTime >= sf::seconds(2.0f))
+				  {
+			  		  	processOpponentAction();
+			  		  	attackCheckTime = sf::Time::Zero;
+				  }
+
             if (playerTurn) processPlayerAction();
             else processOpponentAction();
         }
 
-		  //Opponent will choice to do something after 2.0 no matter what the player does        
-        attackCheckTime += attackTimer;
-		  if (attackCheckTime >= sf::seconds(2.0f))
-		  {
-		  		  	processOpponentAction();
-		  		  	attackCheckTime = sf::Time::Zero;
-		  }
 
 		updateDisplay();
         key = getSingleKey();
@@ -379,7 +380,8 @@ void initialiseOpponents(int opponentType, int opponentQuantity)
 	encounterQuantity = opponentQuantity;
 
     // Display encounter initial values in console
-/*
+
+    cout << "Qty:  " << encounterQuantity << "\n";
     cout << "Name:  " << Opponents[0].name << "\n";
     cout << "HP:    " << Opponents[0].hp << "\n";
     cout << "Align: " << Opponents[0].alignment << "\n\n";
@@ -405,7 +407,7 @@ void initialiseOpponents(int opponentType, int opponentQuantity)
         << monsterWeapons[w].power << "\nMagic: " << monsterWeapons[w].magic
         << "\nGood:  " << monsterWeapons[w].good << "\nEvil:  " << monsterWeapons[w].evil << "\nCold:  "
         << monsterWeapons[w].cold << "\n\n";
-*/
+
 
 }
 
@@ -440,6 +442,8 @@ void updateOpponents()
 	{
 		if (Opponents[i].hp>0) encounterQuantity++;
 	}
+	
+	std:cout << "Num Opn# " << encounterQuantity << "\n";
 }
 
 
@@ -447,6 +451,7 @@ void updateOpponents()
 
 void processOpponentAction()
 {
+
     if (encounterNotHostile)
     {
         if (encounterTurns == 3) { opponentLeaves(); }
@@ -457,10 +462,17 @@ void processOpponentAction()
         opponentAttack();
     }
     encounterTurns++;
+  	attackCheckTime = sf::Time::Zero;
 
     // If last opponent then switch to player turn
-    if (curOpponent==(encounterQuantity-1)) { playerTurn = true; curOpponent = 0; }
-    else { curOpponent++; }
+    if (curOpponent==(encounterQuantity-1)) 
+	 { 
+	    playerTurn = true; 
+		 curOpponent = 0; 
+	 } else { 
+	    curOpponent++; 
+	    std::cout << "next opponent active";
+	 }
 }
 
 
@@ -486,7 +498,7 @@ void processPlayerAction()
         if ( key == "0" ) 
 		  {
 		  	  // "You didn't escape."  
-		  	  int escapeperc = 4 - ((int)plyr.stealth * 0.05));
+		  	  int escapeperc = 4 - ((int)(plyr.stealth * 0.05));
 		  	  if (escapeperc < 1)
 		  	  	  escapeperc = 1;
 		  	  	  
@@ -952,7 +964,19 @@ void playerCharm()
 		else { str = "You failed to charm it!"; }
 		consoleMessage(str);
 
-	if ( charmSuccess ) { checkForTreasure = true; Opponents[curOpponent].hp=0; awardExperience(opponentType); plyr.chrPartials++; if (plyr.chrPartials==255) { plyr.chr++; plyr.chrPartials = 0; } encounterRunning = false; }
+	if ( charmSuccess ) 
+	{ 
+	  checkForTreasure = true; 
+	  Opponents[curOpponent].hp=0; 
+	  awardExperience(opponentType); 
+	  plyr.chrPartials++; 
+	  if (plyr.chrPartials==255) 
+	  { 
+	  	 plyr.chr++; 
+			plyr.chrPartials = 0; 
+	   } 
+		encounterRunning = false; 
+	}
 
     // should be managed in processOpponent() turn
 	//if ( !charmSuccess ) { opponentAttack(); encounterNotHostile = false; encounterMenu = 1; }
@@ -1012,6 +1036,7 @@ void playerAttack(int attackType, float attackFactorBonus)
 
 	string weaponDesc = "ERROR";
 	weaponDesc = itemBuffer[plyr.priWeapon].name;
+
 
 	if (attackType==3)
 	{
@@ -1101,6 +1126,7 @@ void playerAttack(int attackType, float attackFactorBonus)
     }
 
     consoleMessage(str);
+  	attackCheckTime = sf::Time::Zero;
 
 //    cout << Opponents[0].name << " health:" << Opponents[0].hp << ".\n";
 	if ( Opponents[0].hp<1) {opponentDeath(); }
@@ -1143,7 +1169,7 @@ void opponentAttack()
 
 	//weapon opponentWeapon;
 	opponentNoAttacking = curOpponent;
-
+std::cout << "opponent #: " << curOpponent << "\n";
     opponentIsAttacking = true;
 
 			//opponentNoAttacking++;

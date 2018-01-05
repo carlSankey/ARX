@@ -175,7 +175,7 @@ void convertMonstersBinary()
 
         int nameTextOffset = idx + monstersBinary[(idx+1)];
         readMonsterNameText(i,nameTextOffset);
-
+std::cout << "Monster " << Monsters[i].name << " anim " << animationNumber << " s: " << Monsters[i].image  << ":" << Monsters[i].image2 << std::endl ;
         // Note: idx+3 might be offset for plural name - if one exists
         if (maxNumberEncountered>1) readMonsterPluralNameText(i,pluralNameOffset);
 
