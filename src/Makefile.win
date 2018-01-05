@@ -1,17 +1,18 @@
 # Project: Arx
 # Makefile created by Dev-C++ 5.11
 
-CPP      = g++.exe -D__DEBUG__
-CC       = gcc.exe -D__DEBUG__
+CPP      = g++.exe
+CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = ../obj/3Dview.o ../obj/actor.o ../obj/arena.o ../obj/ARX.o ../obj/audio.o ../obj/automap.o ../obj/bank.o ../obj/chapel.o ../obj/config.o ../obj/createCharacter.o ../obj/damon.o ../obj/dev.o ../obj/display.o ../obj/dwarvenSmithy.o ../obj/encounter.o ../obj/ferry.o ../obj/font.o ../obj/fountain.o ../obj/game.o ../obj/goblins.o ../obj/guild.o ../obj/healer.o ../obj/inn.o ../obj/items.o ../obj/itemSelect.o ../obj/level.o ../obj/lift.o ../obj/lyrics.o ../obj/misc.o ../obj/module.o ../obj/oracle.o ../obj/player.o ../obj/rathskeller.o ../obj/retreat.o ../obj/saveGame.o ../obj/screen.o ../obj/shop.o ../obj/smithy.o ../obj/spells.o ../obj/staircase.o ../obj/tavern.o ../obj/trolls.o ../obj/undeadKing.o ../obj/vaults.o
-LINKOBJ  = ../obj/3Dview.o ../obj/actor.o ../obj/arena.o ../obj/ARX.o ../obj/audio.o ../obj/automap.o ../obj/bank.o ../obj/chapel.o ../obj/config.o ../obj/createCharacter.o ../obj/damon.o ../obj/dev.o ../obj/display.o ../obj/dwarvenSmithy.o ../obj/encounter.o ../obj/ferry.o ../obj/font.o ../obj/fountain.o ../obj/game.o ../obj/goblins.o ../obj/guild.o ../obj/healer.o ../obj/inn.o ../obj/items.o ../obj/itemSelect.o ../obj/level.o ../obj/lift.o ../obj/lyrics.o ../obj/misc.o ../obj/module.o ../obj/oracle.o ../obj/player.o ../obj/rathskeller.o ../obj/retreat.o ../obj/saveGame.o ../obj/screen.o ../obj/shop.o ../obj/smithy.o ../obj/spells.o ../obj/staircase.o ../obj/tavern.o ../obj/trolls.o ../obj/undeadKing.o ../obj/vaults.o
-LIBS     = -L"D:/mingw/lib" -L"D:/mingw/mingw32/lib" -static-libstdc++ -static-libgcc -L"D:/Alternate Reality/libs" ../../libs/glew32s.lib ../../libs/libsfml-audio-s-d.a ../../libs/libsfml-graphics-s-d.a ../../libs/libsfml-window-s-d.a ../../libs/libsfml-system-s-d.a -DSFML_STATIC ../../libs/libvorbisfile.a ../../libs/libvorbisenc.a ../../libs/libvorbis.a ../../libs/libglu32.a ../../libs/libopengl32.a ../../libs/libjpeg.a ../../libs/libopenal32.a ../../libs/libFLAC.a ../../libs/libfreetype.a ../../libs/libogg.a ../../../mingw/lib/libgdi32.a ../../../mingw/lib/libwinmm.a -g3
+RES      = ../obj/ARx_private.res
+OBJ      = ../obj/3Dview.o ../obj/actor.o ../obj/arena.o ../obj/ARX.o ../obj/audio.o ../obj/automap.o ../obj/bank.o ../obj/chapel.o ../obj/config.o ../obj/createCharacter.o ../obj/damon.o ../obj/dev.o ../obj/display.o ../obj/dwarvenSmithy.o ../obj/encounter.o ../obj/ferry.o ../obj/font.o ../obj/fountain.o ../obj/game.o ../obj/goblins.o ../obj/guild.o ../obj/healer.o ../obj/inn.o ../obj/items.o ../obj/itemSelect.o ../obj/level.o ../obj/lift.o ../obj/lyrics.o ../obj/misc.o ../obj/module.o ../obj/oracle.o ../obj/player.o ../obj/rathskeller.o ../obj/retreat.o ../obj/saveGame.o ../obj/screen.o ../obj/shop.o ../obj/smithy.o ../obj/spells.o ../obj/staircase.o ../obj/tavern.o ../obj/trolls.o ../obj/undeadKing.o ../obj/vaults.o $(RES)
+LINKOBJ  = ../obj/3Dview.o ../obj/actor.o ../obj/arena.o ../obj/ARX.o ../obj/audio.o ../obj/automap.o ../obj/bank.o ../obj/chapel.o ../obj/config.o ../obj/createCharacter.o ../obj/damon.o ../obj/dev.o ../obj/display.o ../obj/dwarvenSmithy.o ../obj/encounter.o ../obj/ferry.o ../obj/font.o ../obj/fountain.o ../obj/game.o ../obj/goblins.o ../obj/guild.o ../obj/healer.o ../obj/inn.o ../obj/items.o ../obj/itemSelect.o ../obj/level.o ../obj/lift.o ../obj/lyrics.o ../obj/misc.o ../obj/module.o ../obj/oracle.o ../obj/player.o ../obj/rathskeller.o ../obj/retreat.o ../obj/saveGame.o ../obj/screen.o ../obj/shop.o ../obj/smithy.o ../obj/spells.o ../obj/staircase.o ../obj/tavern.o ../obj/trolls.o ../obj/undeadKing.o ../obj/vaults.o $(RES)
+LIBS     = -L"D:/mingw/lib" -L"D:/mingw/mingw32/lib" -static-libstdc++ -static-libgcc -L"D:/Alternate Reality/libs" ../../libs/libsfml-audio-s-d.a ../../libs/libopenal32.a ../../libs/libFLAC.a ../../libs/libvorbisenc.a ../../libs/libvorbisfile.a ../../libs/libvorbis.a ../../libs/libogg.a  ../../../mingw/lib/libdinput8.a ../../libs/libsfml-graphics-s-d.a ../../libs/libsfml-window-s-d.a ../../libs/libsfml-system-s-d.a ../../libs/libopengl32.a ../../libs/libfreetype.a ../../libs/libjpeg.a  ../../libs/libwinmm.a ../../libs/libgdi32.a  ../../libs/libglu32.a
 INCS     = -I"D:/mingw/include" -I"D:/mingw/mingw32/include" -I"D:/mingw/lib/gcc/mingw32/6.3.0/include" -I"D:/Alternate Reality/include"
 CXXINCS  = -I"D:/mingw/include" -I"D:/mingw/mingw32/include" -I"D:/mingw/lib/gcc/mingw32/6.3.0/include" -I"D:/mingw/lib/gcc/mingw32/6.3.0/include/c++" -I"D:/Alternate Reality/include"
 BIN      = ../bin/ARx.exe
-CXXFLAGS = $(CXXINCS) -g3 -g  -DSFML_STATIC
-CFLAGS   = $(INCS) -g3 -DSFML_STATIC -g
+CXXFLAGS = $(CXXINCS) -DSFML_STATIC -g
+CFLAGS   = $(INCS) -DSFML_STATIC -g
 RM       = rm.exe -f
 
 .PHONY: all all-before all-after clean clean-custom
@@ -155,3 +156,7 @@ $(BIN): $(OBJ)
 
 ../obj/vaults.o: vaults.cpp
 	$(CPP) -c vaults.cpp -o ../obj/vaults.o $(CXXFLAGS)
+
+../obj/ARx_private.res: ARx_private.rc 
+	$(WINDRES) -i ARx_private.rc --input-format=rc -o ../obj/ARx_private.res -O coff 
+
