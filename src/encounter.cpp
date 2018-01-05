@@ -30,6 +30,8 @@ bool    playerStunned;
 //int currentOpponentQuantity;
 
 
+
+
 const int MAX_OPPONENTS = 8;
 const int MAX_CONSOLE_MESSAGES = 10;
 string  consoleMessages[MAX_CONSOLE_MESSAGES];
@@ -235,6 +237,10 @@ bool playerRunsAway = false;
 int encounterQuantity;
 int curOpponent; // 0-7
 
+sf::Time attackCheckTime;
+sf::Time attackTimer;
+sf::Clock attackClock;
+
 
 void encounterLoop(int encounterType, int opponentQuantity)
 {
@@ -271,17 +277,25 @@ void encounterLoop(int encounterType, int opponentQuantity)
     //checkSurprise();  // Check if player or opponent surprised
 
     selectEncounterTheme();
-
+	 
     while ( (encounterRunning) || (waitingForSpaceKey) )
 	{
-
-
+		    attackTimer = attackClock.restart();
+ 
 		drawEncounterView();
 		if (!waitingForSpaceKey)
         {
             if (playerTurn) processPlayerAction();
             else processOpponentAction();
         }
+
+		  //Opponent will choice to do something after 2.0 no matter what the player does        
+        attackCheckTime += attackTimer;
+		  if (attackCheckTime >= sf::seconds(2.0f))
+		  {
+		  		  	processOpponentAction();
+		  		  	attackCheckTime = sf::Time::Zero;
+		  }
 
 		updateDisplay();
         key = getSingleKey();
@@ -469,7 +483,31 @@ void processPlayerAction()
         bText (12,7, "(5) Switch weapon");
         bText (12,8, "(0) Turn and run!");
 
-        if ( key == "0" ) {  playerRunsAway = true; encounterRunning = false; } // "You didn't escape."
+        if ( key == "0" ) 
+		  {
+		  	  // "You didn't escape."  
+		  	  int escapeperc = 4 - ((int)plyr.stealth * 0.05));
+		  	  if (escapeperc < 1)
+		  	  	  escapeperc = 1;
+		  	  	  
+		  	  int value = randn(1,10);
+		  	  if (value < 4)
+		  	  {
+			     consoleMessage( "You didn't escape.");
+		 		  if ( key=="SPACE" )
+		 		  {
+						 encounterMenu = 1; 
+						 playerStunned = true;
+							if ((Opponents[0].alignment<128) || (!encounterNotHostile))
+			         	opponentAttack();
+					}
+
+		  	  	
+				 } else  {
+				 	playerRunsAway = true; 
+					encounterRunning = false; 
+				 }
+		  }
         if ( key == "P" ) pauseEncounter();
         if ( key == "1" ) playerAttack(1,0.00);               // Attack (No attack bonus)
         if ( key == "2" ) playerAttack(2,0.50);               // Charge
