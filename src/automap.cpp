@@ -6,6 +6,7 @@
 #include "player.h"
 #include "level.h"
 #include "misc.h"
+#include "globals.h"
 
 extern bool autoMapExplored[5][4096];
 extern Mapcell levelmap[4096]; // 12288
@@ -248,7 +249,7 @@ void drawAutomap()
 {
     if (plyr.miniMapOn)
     {
-        if ((graphicMode==2) && (plyr.status!=2)) // shopping?
+        if ((graphicMode == ALTERNATE_LARGE) && (plyr.status!=2)) // shopping?
         {
             //if (graphicMode==2) myminimap.setColor(sf::Color(255, 255, 255, 192));
             sf::RectangleShape rectangle2;

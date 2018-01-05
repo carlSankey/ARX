@@ -341,7 +341,8 @@ void drawAtariAnimation()
     // DRAW DISPLAY AND FINAL ENCOUNTER IMAGE
     dispMain();
 
-	if (graphicMode == ATARI_SMALL ) App.draw(encImage);
+//	if (graphicMode == ATARI_SMALL ) 
+	App.draw(encImage);
 }
 
 
@@ -372,7 +373,7 @@ void createGameWindow()
 void drawConsoleBackground()
 {
     /* Draws a transparent box with yellow border around the console window whilst exploring and in large 3D view mode */
-    if ((plyr.status!=2) && (graphicMode==2)) // Whilst not shopping
+    if ((plyr.status!=2) && (graphicMode== ALTERNATE_LARGE)) // Whilst not shopping
 	{
 		sf::RectangleShape rectangle;
 		rectangle.setSize(sf::Vector2f(670, 182)); // 672, 184
@@ -399,7 +400,7 @@ void setScreenValues()
     consoleX = (windowWidth-640)/2; // Centre in middle of window width
 
     /* Original small 3D view */
-	if (graphicMode<2)
+	if (graphicMode< ALTERNATE_LARGE)
 	{
 		//viewWidth = windowWidth/2.22;
 		//viewHeight = viewWidth/2;
@@ -415,7 +416,7 @@ void setScreenValues()
 	}
 
     /* New large 3D view */
-	if (graphicMode==2)
+	if (graphicMode== ALTERNATE_LARGE)
 	{
 		viewWidth = windowWidth;
 		viewHeight = windowHeight;
@@ -462,7 +463,7 @@ void dispInit()
 	glLoadIdentity();
 
     /* Original small 3D view */
-	if (graphicMode<2)
+	if (graphicMode < ALTERNATE_LARGE)
 	{
 		gluPerspective(45.0f,(GLfloat)viewWidth/(GLfloat)viewHeight,0.1f,100.0f);
 		int z = windowHeight - (viewPortY+viewHeight);
@@ -518,9 +519,10 @@ void displayMainMenu()
 	drawText(x+3,z+9,"(0) Leave the game");
 
 
-	//if (graphicMode == ATARI_SMALL) { drawText(x+21,z+5,"Atari 8bit"); }
-	//if (graphicMode == ALTERNATE_SMALL) { drawText(x+21,z+5,"Small 3D"); }
-	//if (graphicMode == ALTERNATE_LARGE) { drawText(x+21,z+5,"Large 3D"); }
+	if (graphicMode == ATARI_SMALL) { drawText(x+7,z+5,     "Texture       Atari 8bit"); }
+	if (graphicMode == A16BIT_SMALL) { drawText(x+7,z+5,    "Texture       Amiga 16bit"); }
+	if (graphicMode == ALTERNATE_SMALL) { drawText(x+7,z+5, "Texture       Small 3D"); }
+	if (graphicMode == ALTERNATE_LARGE) { drawText(x+7,z+5, "Texture       Large 3D"); }
 
 	if (plyr.musicStyle == 0) { drawText(x+21,z+6,"Atari 8bit"); } else { drawText(x+21,z+6,"Alternate"); }
 	if (plyr.fontStyle == 0) { drawText(x+21,z+7,"Smooth"); } else { drawText(x+21,z+7,"Atari 8bit"); }
@@ -590,7 +592,7 @@ void drawCompass()
 {
 	if (plyr.compasses > 0)
 	{
-        if ((plyr.status!=2) && (graphicMode==2)) // if exploring and full screen draw a background
+        if ((plyr.status!=2) && (graphicMode== ALTERNATE_LARGE)) // if exploring and full screen draw a background
         {
             int x = 16;
             int y = (windowHeight-128)/2;
@@ -609,7 +611,7 @@ void drawCompass()
 		if (plyr.facing == 3) { compass.setTexture(compassE); }
 		if (plyr.facing == 4) { compass.setTexture(compassS); }
 
-		if (graphicMode==2)
+		if (graphicMode== ALTERNATE_LARGE)
 		{
 			int x = 16;
 			int y = (windowHeight-128)/2;
@@ -650,8 +652,13 @@ void loadResources()
     //sf::Sprite Banner, BannerStrip;
 
     // Load Atari 8 bit encounter images sheet
-    encImageSheet.loadFromFile("data/images/encounters/encounters.png"); // Atari 8bit
-
+std::cout << "Loading encounters Texture" << std::endl;
+    if (graphicMode== ATARI_SMALL)
+	    encImageSheet.loadFromFile("data/images/encounters/encounters.png"); // Atari 8bit
+    else     if (graphicMode== A16BIT_SMALL)
+		encImageSheet.loadFromFile("data/images/encounters/encounters_16bit.png"); // Aminga 16bit
+    else
+		encImageSheet.loadFromFile("data/images/encounters/encounters_alternate.png"); // Alternate
 }
 
 
@@ -911,7 +918,7 @@ void loadShopImage(int imageno)
 {
     //consoleY = ((windowHeight-144)/2)+144+16;
     //cout << consoleY;
-    if (graphicMode==0)
+    if (graphicMode == ATARI_SMALL)
     {
         if (imageno==1) { ShopImage.loadFromFile("data/images/locations/retreat.png"); }
         if (imageno==2) { ShopImage.loadFromFile("data/images/locations/rathskeller.png"); }
@@ -941,7 +948,7 @@ void loadShopImage(int imageno)
         if (imageno==26) { ShopImage.loadFromFile("data/images/locations/dwarvenSmithy.png"); }
         if (imageno==27) { ShopImage.loadFromFile("data/images/locations/6.png"); }
     }
-    if (graphicMode>0)
+    if (graphicMode > ATARI_SMALL)
     {
         if (imageno==9) { ShopImage.loadFromFile("data/images/locations2/smithy.png"); }
         if (imageno==10) { ShopImage.loadFromFile("data/images/locations2/tavern.png"); }
@@ -981,7 +988,7 @@ void loadShopImage(int imageno)
 
 void drawStatsPanel()
 {
-	if ((graphicMode==2) && (plyr.status!=5) && (plyr.status!=2)) // not shopping
+	if ((graphicMode== ALTERNATE_LARGE) && (plyr.status!=5) && (plyr.status!=2)) // not shopping
 	{
 		sf::RectangleShape rectangle;
 		rectangle.setSize(sf::Vector2f(640, 110)); // 640, 110

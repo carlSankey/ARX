@@ -9,6 +9,7 @@
 #include "display.h"
 #include "player.h"
 #include "level.h"
+#include "globals.h"
 
 // Storage for textures
 const int numberOfTextures = 68;
@@ -51,21 +52,28 @@ void draw3DBackground()
 	sf::Sprite Background;
 	Background.setScale(1.0, 1.0);
 
-		if (graphicMode==0) // Atari 8bit original textures and size
+		if (graphicMode == ATARI_SMALL) // Atari 8bit original textures and size
 		{
 			float scaleX = float(viewWidth) / float(360);
 			float scaleY = float(viewHeight) / float(190);
 			Background.setScale(scaleX, scaleY);
 			Background.setPosition(viewPortX, viewPortY);
 		}
-		if (graphicMode==1) // New textures and original size
+		if (graphicMode == A16BIT_SMALL) // New textures and original size
+		{
+			float scaleX = float(viewWidth) / float(360);
+			float scaleY = float(viewHeight) / float(190);
+			Background.setScale(scaleX, scaleY);
+			Background.setPosition(viewPortX, viewPortY);
+		}
+		if (graphicMode == ALTERNATE_SMALL) // New textures and original size
 		{
 			float scaleX = float(viewWidth) / float(1024);
 			float scaleY = float(viewHeight/2) / float(384);
 			Background.setScale(scaleX, scaleY);
 			Background.setPosition(viewPortX, viewPortY);
 		}
-		if (graphicMode==2) // New textures and large size
+		if (graphicMode == ALTERNATE_LARGE) // New textures and large size
 		{
 			Background.setPosition(0, 0); // Assumes large 3D view
 			float scaleX = float(viewWidth) / float(1024);
@@ -187,10 +195,12 @@ void loadBackgroundNames()
 	string filename;
 	for (int i=0 ; i<numberOfBackgrounds ; i++) { backgroundNames[i]=""; }
 
-	if (graphicMode==0)
-	{
+std::cout << "Loading background Texture" << std::endl;
+
+	if (graphicMode == ATARI_SMALL)
 		filename = "data/map/backgrounds.txt";
-	}
+	else if (graphicMode == A16BIT_SMALL)
+		filename = "data/map/backgrounds_16bit.txt";
 	else
 	{
 		filename = "data/map/backgroundsUpdated.txt";
@@ -200,7 +210,7 @@ void loadBackgroundNames()
 	instream.open(filename.c_str());
 	if ( !instream )
 	{
-      //cerr << "Error: background names file could not be loaded" << endl;
+      cerr << "Error: background file " << filename << " file could not be loaded" << endl;
 	}
 	for (int i=0 ; i<numberOfBackgrounds ; i++)
 	{
@@ -220,10 +230,12 @@ void loadTextureNames()
 	string::size_type idx;
 	string filename;
 	for (int i=0 ; i<numberOfTextures ; i++) { textureNames[i]=""; }
-	if (graphicMode==0)
+	if (graphicMode == ATARI_SMALL)
 	{
 		filename = "data/map/textures.txt";
 	}
+	else if (graphicMode == A16BIT_SMALL)
+		filename = "data/map/textures16bit.txt";
 	else
 	{
 		filename = "data/map/texturesUpdated.txt";
@@ -261,15 +273,22 @@ void initTextures()
 	for ( int i=0; i<numberOfTextures; i++ )
     {
 		filename = textureNames[i];
-		if (graphicMode==0)
-	{
-		sprintf(tempfilename,"%s%s.png","data/images/textures_original/",filename.c_str());
-	}
-	else
-	{
-		sprintf(tempfilename,"%s%s.png","data/images/textures_alternate/",filename.c_str());
-	}
-		Image.loadFromFile(tempfilename);
+		if (graphicMode == ATARI_SMALL)
+  		{
+		 sprintf(tempfilename,"%s%s.png","data/images/textures_original/",filename.c_str());
+		 Image.loadFromFile(tempfilename);
+		 }
+		 else
+		 {
+		 sprintf(tempfilename,"%s%s.png","data/images/texture_16bit/",filename.c_str());
+		 if (!Image.loadFromFile(tempfilename))
+		 {
+			//Couldn't locate new alternate texture, try loading old version.
+			sprintf(tempfilename,"%s%s.png","data/images/textures_original/",filename.c_str());
+			if (!Image.loadFromFile(tempfilename))
+				std::cout << "Couldn't load original " << tempfilename << std::endl;
+		}
+		}
 		glBindTexture(GL_TEXTURE_2D, texture[i]);
         gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGBA, Image.getSize().x, Image.getSize().y, GL_RGBA, GL_UNSIGNED_BYTE, Image.getPixelsPtr());
 		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
@@ -295,9 +314,10 @@ void buildLevelView()
 	glFogf(GL_FOG_END, 5.0f);					// Fog End Depth
 
 	// Enable and disable fog based on area and could adjust fog properties here for zones
-	if ((plyr.scenario==1) && (graphicMode==2)) glEnable(GL_FOG);  // Enables GL_FOG for the Dungeon
-	if ((plyr.scenario==1) && (graphicMode==1)) glEnable(GL_FOG);  // Enables GL_FOG for the Dungeon
-	if ((plyr.scenario==1) && (graphicMode==0)) glDisable(GL_FOG);  // Disables GL_FOG for the Dungeon
+	if ((plyr.scenario==1) && (graphicMode == ALTERNATE_LARGE)) glEnable(GL_FOG);  // Enables GL_FOG for the Dungeon
+	if ((plyr.scenario==1) && (graphicMode == ALTERNATE_SMALL)) glEnable(GL_FOG);  // Enables GL_FOG for the Dungeon
+	if ((plyr.scenario==1) && (graphicMode == ATARI_SMALL)) glDisable(GL_FOG);  // Disables GL_FOG for the Dungeon
+	if ((plyr.scenario==1) && (graphicMode == A16BIT_SMALL)) glDisable(GL_FOG);  // Disables GL_FOG for the Dungeon
 	if (plyr.scenario==0)  glDisable(GL_FOG); // Disable GL_FOG for City
 
 	// Start with 5 variables - columns, depth, plyr.x, plyr.y, plyr.facing
@@ -458,7 +478,7 @@ void drawCellWalls(int c, int d, float xm, float zm, int frontwall, int leftwall
 	float depthdistantnear = (-depth*2)+3;
 
 	// Original graphic style for standard height walls?
-	if (graphicMode==0)
+	if (graphicMode== ATARI_SMALL || graphicMode == A16BIT_SMALL)
 	{
 		frontheight=1;
 		leftheight=1;
@@ -507,7 +527,7 @@ void drawCellWalls(int c, int d, float xm, float zm, int frontwall, int leftwall
 	texture_no = 0;
 	if (zones[plyr.zoneSet].floor > 0) texture_no = zones[plyr.zoneSet].floor;
 	if (plyr.floorTexture > 0) texture_no = plyr.floorTexture;
-	if ((plyr.scenario==0) && (plyr.floorTexture==0) && (graphicMode==0)) texture_no = 0;
+	if ((plyr.scenario==0) && (plyr.floorTexture==0) && (graphicMode== ATARI_SMALL || graphicMode == A16BIT_SMALL)) texture_no = 0;
 	if (plyr.zone != 99)
 	{
 		if (plyr.floorTexture == 0) { texture_no = zones[plyr.zoneSet].floor; } else { texture_no = plyr.floorTexture; }

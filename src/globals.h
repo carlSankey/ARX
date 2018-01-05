@@ -7,6 +7,7 @@
  enum displayOptions
  {
     ATARI_SMALL,
+    A16BIT_SMALL,
     ALTERNATE_SMALL,
     ALTERNATE_LARGE
  };

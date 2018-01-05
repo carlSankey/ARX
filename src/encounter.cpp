@@ -660,7 +660,7 @@ void drawEncounterView()
 	    cyText(3,consoleMessages[0]);
 	}
 
-	if (graphicMode==ALTERNATE_LARGE) drawConsoleBackground();
+	if (graphicMode== ALTERNATE_LARGE) drawConsoleBackground();
 }
 
 
