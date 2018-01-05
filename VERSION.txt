@@ -5,6 +5,8 @@ Version 0.83 - 4th Jan 2018
 ----------------------------
 * Fixed - Hours in certain Inns wrapped over to the next day and you where not able to enter that inn.
 * Fixed - Player position on automap being off by one.
+* Added - A timeout option during fight, opponent will not do something instead of waiting forever.
+* Added - when you try to flee an encounter there is a chance it doesn't work.
 
 Version 0.82 - 21st May 2017
 ----------------------------
