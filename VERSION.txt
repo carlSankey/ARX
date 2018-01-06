@@ -7,7 +7,20 @@ Version 0.83 - 4th Jan 2018
 * Fixed - Player position on automap being off by one.
 * Added - A timeout option during fight, opponent will not do something instead of waiting forever.
 * Added - when you try to flee an encounter there is a chance it doesn't work.
+* Added - Added 16bit graphics to the graphics Mode
+* Added - Set a timeout during combat.  The opponent will react after a certain
+          amount of time no matter what the player does.			
 
+Notes:
+	Graphics Mode is now  
+		0 - 8bit, 
+		1 - 16bit (Amiga), 
+		2 - Alternate Small,
+		3 - Alternate Large				
+	16bit Amiga has a sunset.  Added sun to the game.  You can see the run rise and 
+	set.
+
+				
 Version 0.82 - 21st May 2017
 ----------------------------
 

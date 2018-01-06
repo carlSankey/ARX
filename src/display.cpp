@@ -617,10 +617,15 @@ void drawCompass()
 			int y = (windowHeight-128)/2;
 			compass.setPosition(x, y);
 		}
-		else
+		else 	if (graphicMode == A16BIT_SMALL)
+		{
+			 int x = (viewPortX-78)/2;
+			int y = viewPortY+((viewHeight-78)/2);
+			compass.setPosition(x, y);
+		} else 
 		{
 		    /* Normal Small 3D view mode */
-			int x = (viewPortX-128)/2;
+			 int x = (viewPortX-128)/2;
 			int y = viewPortY+((viewHeight-128)/2);
 			compass.setPosition(x, y);
 		}
@@ -637,10 +642,18 @@ void loadResources()
 
 	loadCounterImages();
 
-	compassN.loadFromFile("data/images/compass_n.png");
-	compassS.loadFromFile("data/images/compass_s.png");
-	compassW.loadFromFile("data/images/compass_w.png");
-	compassE.loadFromFile("data/images/compass_e.png");
+	if (graphicMode != A16BIT_SMALL)
+	{
+		compassN.loadFromFile("data/images/compass_n.png");
+		compassS.loadFromFile("data/images/compass_s.png");
+		compassW.loadFromFile("data/images/compass_w.png");
+		compassE.loadFromFile("data/images/compass_e.png");
+	} else {
+		compassN.loadFromFile("data/images/compass_n_16bit.png");
+		compassS.loadFromFile("data/images/compass_s_16bit.png");
+		compassW.loadFromFile("data/images/compass_w_16bit.png");
+		compassE.loadFromFile("data/images/compass_e_16bit.png");
+	}
 
 	// Create a sprite for the stat banner
 	BannerImageCity.loadFromFile("data/images/cityBanner.png");

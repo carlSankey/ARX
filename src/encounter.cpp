@@ -442,7 +442,7 @@ void updateOpponents()
 	{
 		if (Opponents[i].hp>0) encounterQuantity++;
 	}
-	
+	if (encounterQuantity > 1)
 	std:cout << "Num Opn# " << encounterQuantity << "\n";
 }
 

@@ -13,7 +13,7 @@
 
 // Storage for textures
 const int numberOfTextures = 68;
-const int numberOfBackgrounds = 49; //was 46
+const int numberOfBackgrounds = 55; //was 46
 GLuint texture[numberOfTextures];
 sf::Texture background[numberOfBackgrounds];
 string textureNames[numberOfTextures];
@@ -50,34 +50,36 @@ void draw3DView()
 void draw3DBackground()
 {
 	sf::Sprite Background;
+	sf::Sprite Mountain;
+	float scaleX, scaleY;
 	Background.setScale(1.0, 1.0);
 
 		if (graphicMode == ATARI_SMALL) // Atari 8bit original textures and size
 		{
-			float scaleX = float(viewWidth) / float(360);
-			float scaleY = float(viewHeight) / float(190);
+			scaleX = float(viewWidth) / float(360);
+			scaleY = float(viewHeight) / float(190);
 			Background.setScale(scaleX, scaleY);
 			Background.setPosition(viewPortX, viewPortY);
 		}
 		if (graphicMode == A16BIT_SMALL) // New textures and original size
 		{
-			float scaleX = float(viewWidth) / float(360);
-			float scaleY = float(viewHeight) / float(190);
+			scaleX = float(viewWidth) / float(360);
+			scaleY = float(viewHeight) / float(190);
 			Background.setScale(scaleX, scaleY);
 			Background.setPosition(viewPortX, viewPortY);
 		}
 		if (graphicMode == ALTERNATE_SMALL) // New textures and original size
 		{
-			float scaleX = float(viewWidth) / float(1024);
-			float scaleY = float(viewHeight/2) / float(384);
+			scaleX = float(viewWidth) / float(1024);
+			scaleY = float(viewHeight/2) / float(384);
 			Background.setScale(scaleX, scaleY);
 			Background.setPosition(viewPortX, viewPortY);
 		}
 		if (graphicMode == ALTERNATE_LARGE) // New textures and large size
 		{
 			Background.setPosition(0, 0); // Assumes large 3D view
-			float scaleX = float(viewWidth) / float(1024);
-			float scaleY = float(viewHeight/2) / float(384);
+			scaleX = float(viewWidth) / float(1024);
+			scaleY = float(viewHeight/2) / float(384);
 			Background.setScale(scaleX, scaleY);
 			Background.setPosition(viewPortX, (viewPortY));
 		}
@@ -129,51 +131,51 @@ void draw3DBackground()
 
 		if (plyr.timeOfDay==2) // sunrise1
 		{
-			if (plyr.facing==1) { Background.setTexture(background[21]); } // w view
-			if (plyr.facing==2) { Background.setTexture(background[20]); } // n view
-			if (plyr.facing==3) { Background.setTexture(background[18]); } // e view
+			if (plyr.facing==1) { Background.setTexture(background[21]); Mountain.setTexture(background[49]); } // w view
+			if (plyr.facing==2) { Background.setTexture(background[20]);  } // n view
+			if (plyr.facing==3) { Background.setTexture(background[18]);  } // e view
 			if (plyr.facing==4) { Background.setTexture(background[19]); } // s view
 		}
 
 
 		if (plyr.timeOfDay==3) // sunrise2
 		{
-			if (plyr.facing==1) { Background.setTexture(background[25]); } // w view
-			if (plyr.facing==2) { Background.setTexture(background[24]); } // n view
-			if (plyr.facing==3) { Background.setTexture(background[22]); } // e view
-			if (plyr.facing==4) { Background.setTexture(background[23]); } // s view
+			if (plyr.facing==1) { Background.setTexture(background[25]);  Mountain.setTexture(background[50]);} // w view
+			if (plyr.facing==2) { Background.setTexture(background[24]);  } // n view
+			if (plyr.facing==3) { Background.setTexture(background[22]);  } // e view
+			if (plyr.facing==4) { Background.setTexture(background[23]);  } // s view
 		}
 
 		if (plyr.timeOfDay==4) // sunrise3
 		{
-			if (plyr.facing==1) { Background.setTexture(background[29]); } // w view
-			if (plyr.facing==2) { Background.setTexture(background[28]); } // n view
-			if (plyr.facing==3) { Background.setTexture(background[26]); } // e view
+			if (plyr.facing==1) { Background.setTexture(background[29]); Mountain.setTexture(background[51]); } // w view
+			if (plyr.facing==2) { Background.setTexture(background[28]);  } // n view
+			if (plyr.facing==3) { Background.setTexture(background[26]);  } // e view
 			if (plyr.facing==4) { Background.setTexture(background[27]); } // s view
 		}
 
 		if (plyr.timeOfDay==5) // sunrise3
 		{
-			if (plyr.facing==1) { Background.setTexture(background[33]); } // w view
-			if (plyr.facing==2) { Background.setTexture(background[32]); } // n view
-			if (plyr.facing==3) { Background.setTexture(background[30]); } // e view
-			if (plyr.facing==4) { Background.setTexture(background[31]); } // s view
+			if (plyr.facing==1) { Background.setTexture(background[33]); Mountain.setTexture(background[52]); } // w view
+			if (plyr.facing==2) { Background.setTexture(background[32]);  } // n view
+			if (plyr.facing==3) { Background.setTexture(background[30]);  } // e view
+			if (plyr.facing==4) { Background.setTexture(background[31]);  } // s view
 		}
 
 		if (plyr.timeOfDay==6) // sunrise3
 		{
-			if (plyr.facing==1) { Background.setTexture(background[37]); } // w view
-			if (plyr.facing==2) { Background.setTexture(background[36]); } // n view
+			if (plyr.facing==1) { Background.setTexture(background[37]); Mountain.setTexture(background[53]); } // w view
+			if (plyr.facing==2) { Background.setTexture(background[36]);  } // n view
 			if (plyr.facing==3) { Background.setTexture(background[34]); } // e view
-			if (plyr.facing==4) { Background.setTexture(background[35]); } // s view
+			if (plyr.facing==4) { Background.setTexture(background[35]);  } // s view
 		}
 
 		if (plyr.timeOfDay==7) // sunrise3
 		{
-			if (plyr.facing==1) { Background.setTexture(background[41]); } // w view
-			if (plyr.facing==2) { Background.setTexture(background[40]); } // n view
-			if (plyr.facing==3) { Background.setTexture(background[38]); } // e view
-			if (plyr.facing==4) { Background.setTexture(background[39]); } // s view
+			if (plyr.facing==1) { Background.setTexture(background[41]); Mountain.setTexture(background[54]); } // w view
+			if (plyr.facing==2) { Background.setTexture(background[40]);  } // n view
+			if (plyr.facing==3) { Background.setTexture(background[38]);  } // e view
+			if (plyr.facing==4) { Background.setTexture(background[39]);  } // s view
 		}
 
 		if (plyr.timeOfDay==0)
@@ -184,7 +186,60 @@ void draw3DBackground()
 			if (plyr.facing==4) { Background.setTexture(background[5]); } // s view
 		}
 	}
+
+
+	
 		App.draw(Background);
+
+	if (plyr.facing==1 && graphicMode == A16BIT_SMALL)
+	{
+		//16bit version had a sun that moved at sunset and sunrise.   
+		//split background into 2 images,  the ground and sky.
+		// and mountain range.   So the run is displayed between those
+		// two image so the mountain draw ontop of the sun.
+		// This is only done for the West background during certain times.
+		int y = 0;
+		int display = 1;
+		
+		if ((plyr.hours==7) && (plyr.minutes>29)  )
+			display = 0;
+		if ((plyr.hours > 8) && (plyr.hours < 16)  )
+			display = 0;
+		if ((plyr.hours < 4) || (plyr.hours == 4 && plyr.minutes< 30) )
+			display = 0;
+			
+			if (display == 1)					
+			{
+				int time = ((plyr.hours - 16 )* 60) + plyr.minutes;
+				if (plyr.hours >= 16)
+				{
+					time = ((plyr.hours - 16 )* 60) + plyr.minutes;
+					y = ((int)time / 3);
+				} else 
+				if (plyr.hours <= 8 && ((plyr.hours == 4 && plyr.minutes > 29) || plyr.hours > 4))
+				{
+					time = ((plyr.hours - 4 )* 60) + plyr.minutes;
+					y = 61 - ((int)time / 3);
+				}
+
+				if (y < 60)
+				{
+					sf::CircleShape circle;
+					circle.setRadius(4);
+					circle.setOutlineColor(sf::Color::Yellow);
+					circle.setOutlineThickness(5);
+					circle.setPosition(viewPortX+185, viewPortY+y);
+					circle.setFillColor(sf::Color::Yellow);
+					App.draw(circle);
+				}
+
+				Mountain.setScale(scaleX, scaleY);
+				Mountain.setPosition(viewPortX, viewPortY);
+				App.draw(Mountain);
+			}
+	}		
+
+
 }
 
 

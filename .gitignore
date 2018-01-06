@@ -2,3 +2,4 @@ bin/
 *.o
 arx.exe
 obj/
+src\ARX.layout
