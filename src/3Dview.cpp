@@ -171,7 +171,7 @@ void draw3DBackground()
 		if (plyr.timeOfDay==7) // sunrise3
 		{
 			if (plyr.facing==1) { Background.setTexture(background[41]); } // w view
-			if (plyr.facing==2) { Background.setTexture(background[41]); } // n view
+			if (plyr.facing==2) { Background.setTexture(background[40]); } // n view
 			if (plyr.facing==3) { Background.setTexture(background[38]); } // e view
 			if (plyr.facing==4) { Background.setTexture(background[39]); } // s view
 		}
