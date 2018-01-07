@@ -13,6 +13,8 @@ Version 0.83 - 4th Jan 2018
 * Added - When you charm,trick or attack certain opponents, causes alignment decrease
 * Added - Ghost attach can now be the "Bone-Chilling" attack.  Certain percentage. Reduced STR by one 
 		  if was successful.
+* Added - 2 new diseases.  Mold and fungus from MOLD, slime.  Slime will foul your food once it 
+		  becomes active.  These takes 48hrs before they become active.		  
 Notes:
 	Graphics Mode is now  
 		0 - 8bit, 

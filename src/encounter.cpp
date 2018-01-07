@@ -277,6 +277,7 @@ void encounterLoop(int encounterType, int opponentQuantity)
     //checkSurprise();  // Check if player or opponent surprised
 
     selectEncounterTheme();
+  	attackCheckTime = sf::Time::Zero;
 	 
     while ( (encounterRunning) || (waitingForSpaceKey) )
 	{
@@ -1222,7 +1223,9 @@ std::cout << "opponent #: " << curOpponent << "\n";
     if (hitSuccess)
     {
 				//int damage = randn(1,6); // CHANGE!!!
-        if (opponentType==GIANT_RAT) { plyr.diseases[0] = 1;} // Rabies
+        if (opponentType==GIANT_RAT) { if (plyr.diseases[0] == 0) plyr.diseases[0] = 1;} // Rabies
+        if (opponentType== MOLD) { if (plyr.diseases[1] == 0) plyr.diseases[1] = 1;} // Mold
+        if (opponentType== SLIME) { if (plyr.diseases[2] == 0) plyr.diseases[2] = 1;} // Fungus
         float attackFactor = 1.0; //
         int damage = calcOpponentWeaponDamage(chosenWeapon,attackFactor, 1);
 
@@ -1236,8 +1239,8 @@ std::cout << "opponent #: " << curOpponent << "\n";
 	  	 	//There is a chance on a GHOST hit to take a point
 	  	 	// away from STR
    	 		plyr.str--;
-   	 		attackDesc = "strikes with a Bone-Chilling Touch";
-   	 		weaponName = "touch";
+   	 		attackDesc = "touches";
+   	 		weaponName = "Bone-Chilling Touch";
         } else  {
             weaponName = monsterWeapons[55].name;
             int weaponIndex = Opponents[0].w1;
@@ -1708,7 +1711,12 @@ void healerCureDiseases()
 		deductCoins(0,100,0);
 	}
     consoleMessage("The Healer lays his@hands upon you.");
-    plyr.diseases[0] = 0;
+    if (plyr.diseases[0] > 0)			// Rabies
+	     plyr.diseases[0] = 0;
+    if (plyr.diseases[1] > 0)			// Mold
+	     plyr.diseases[1] = 0;
+    if (plyr.diseases[2] > 0)			// Fungus
+	     plyr.diseases[2] = 0;
 	opponentLeaves();
 }
 
@@ -2058,6 +2066,10 @@ void chooseEncounter()
         //cout << "City monster " << monsterNo << " encountered.\n";
     }
     plyr.fixedEncounter = false;
+    
+    
+    
+    monsterNo = SLIME;
     encounterLoop( monsterNo, 1 ); // Only one currently except for fixed encounters
 
 

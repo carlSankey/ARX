@@ -26,7 +26,7 @@ string checkThirst();
 string checkEncumbrance();
 string checkPoison();
 string checkDisease();
-void updateDisease();
+void updateDisease(int hour);
 void updatePoison();
 
 

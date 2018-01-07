@@ -122,6 +122,12 @@ void addMinute()
 	}
 	// perform minute actions - disease, hp point loss, check for weather change etc
 	checkBackgroundTime();
+	
+
+	//update diseases every 15mins.  This will not increase incubation period.  Only once it is active.	
+	if (plyr.minutes == 0 || plyr.minutes == 15 || plyr.minutes == 30 || plyr.minutes == 45)
+		updateDisease(0);
+
 }
 
 void addHour()
@@ -143,7 +149,7 @@ void addHour()
 		if (plyr.alcohol > 0) { plyr.alcohol--; }
 	}
 	checkActiveMagic();
-	updateDisease();
+	updateDisease(1);
 	updatePoison();
 	checkBackgroundTime();
 
@@ -248,22 +254,63 @@ string checkPoison()
 string checkDisease()
 {
     string diseaseDesc ="";
-    if ((plyr.diseases[0]>0) || (plyr.diseases[0]>0) || (plyr.diseases[0]>0) || (plyr.diseases[0]>0))  { diseaseDesc = "Diseased!"; }
+    if ((plyr.diseases[0]>0) || (plyr.diseases[1]>0) || (plyr.diseases[1]>0) || (plyr.diseases[1]>0))  { diseaseDesc = "Diseased!"; }
     return diseaseDesc;
 }
 
-void updateDisease()
+void updateDisease(int hour)
 {
-    int rabiesStatus = plyr.diseases[0];
-    if (rabiesStatus > 0)
-    {
-        // 0 - no rabies, 1-14 in incubation, 15 - active and identified
-        if (rabiesStatus<15) { plyr.diseases[0]++; }
-        else
-        {
-            plyr.hp -= 5; // temporary penalty.
-        }
-    }
+	std::cout << "UpdateDisease\n";
+ 	  //for now treat all of the diseases the same.  Change in the future
+ 	  for(int i = 0;i<4;i++)
+	  {
+	    int incurbation = plyr.diseases[i];
+	    if (incurbation > 0)
+	    {
+	        // 0 - no rabies, 1-14 in incubation, 15 - active and identified
+	        if (incurbation<15 && i == 0 && hour == 1) { plyr.diseases[i]++; }
+	        if (incurbation<48 && i == 1 && hour == 1) { plyr.diseases[i]++; }
+	        if (incurbation<48 && i == 2 && hour == 1) { plyr.diseases[i]++; }
+	        else if (hour == 0)
+	        {
+	        	// hp effect is every 15mins once incubation period is over.
+        	  		std::string disease = "Rabies";
+        	  		switch(i)
+        	  		{
+        	  			case 1:
+        	  				disease = "Mold";
+        	  				break;
+  	  				   case 2:
+  	  				   	disease = "Fungus";
+  	  				   	break;
+				   }
+					clearDisplay();
+					plyr.status_text = disease + " has taken hold of you.";        	
+					drawText(2,5+i,plyr.status_text);
+					updateDisplay();
+					keyPressed();
+					
+					
+
+//std::cout << "disease " << i << "-5hp  status" << plyr.status << " " << plyr.status_text << "\n";
+
+	            plyr.hp -= 5; // temporary penalty.
+	            if (i == 2)		//Fungus - infexted by SLIME
+					{
+						if (plyr.food > 0)
+						{
+//std::cout << "foul food\n";
+						 	plyr.food = 0;
+						 	plyr.status_text = ("Fungus has fouled all your food.");
+							bText(2,5,plyr.status_text);
+							updateDisplay();
+						}
+					}	
+	        }
+	    }
+	  }
+
+
 }
 
 void updatePoison()

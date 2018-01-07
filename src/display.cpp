@@ -899,6 +899,8 @@ if (plyr.status!=3)
         cyText(1, "Known Diseases");
         int y = 3; // starting value for displaying items
         if (plyr.diseases[0] > 14) { cyText(y,"Rabies"); y++; }
+        if (plyr.diseases[1] > 47) { cyText(y,"Mold"); y++; }
+        if (plyr.diseases[2] > 47) { cyText(y,"Fungus"); y++; }
     }
 
 	if (plyr.infoPanel == 7)
@@ -1256,7 +1258,6 @@ void displayAcknowledgements()
         updateDisplay();
         if ( keyPressed() ) acknowledgements = false;
     }
-
 
 
 }

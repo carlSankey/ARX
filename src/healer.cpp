@@ -246,7 +246,9 @@ void shopHealer()
                     moduleMessage("IT SHALL BE DONE!");
                     deductCoins(0,0,diagnosePrice);
                     // Make diseases visible
-                    if ((plyr.diseases[0] > 0) && (plyr.diseases[0] < 15)) { plyr.diseases[0] = 15; }
+                    if ((plyr.diseases[0] > 0) && (plyr.diseases[0] < 15)) { plyr.diseases[0] = 15; }		//Rabies
+                    if ((plyr.diseases[1] > 0) && (plyr.diseases[1] < 48)) { plyr.diseases[1] = 48; }		//Mold
+                    if ((plyr.diseases[2] > 0) && (plyr.diseases[2] < 48)) { plyr.diseases[2] = 48; }		//Fungus
                     healerUpdateLastServiceTime();
                     healerUpdatePrices();
                 }
