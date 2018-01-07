@@ -6,4 +6,5 @@ The source code is under src folder.  You can look at it compile it.
 
 I will be releasing new versions all the time.  I will post that here and on the origianl forum that CRPG created for Alternate Reality X.
 
+<B>All</b> releases will be under the folder "Releases". I will zip them up there for downloading.
 
