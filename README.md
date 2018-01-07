@@ -8,3 +8,7 @@ I will be releasing new versions all the time.  I will post that here and on the
 
 <B>All</b> releases will be under the folder "Releases". I will zip them up there for downloading.
 
+<br/>
+If you wish to compile the code, it is located under "SRC".  it has code:block file and a dev-C++ project file.  Also a makefile for gcc is locate there.  You will need to change the libary file pointers to your setup.  
+
+I've not create a step by step instruction on how to compile the code.
