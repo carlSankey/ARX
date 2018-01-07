@@ -35,5 +35,7 @@ If have you any Amiga images from the game that are missing from this version,  
 
 Just create an Issue and attach the graphics to it.  It can just be a screen shot and we can get it into the system.
 
+If you have any of the Amiga songs captured please create an issue and upload the sound file so we can get them into the game.
+
 Thanks for all your support.
 
