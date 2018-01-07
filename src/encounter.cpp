@@ -941,6 +941,9 @@ void playerCharm()
 {
     updateDisplay(); // sloppy!
 	opponent = Opponents[0];
+
+	checkAlignmentEncounter(curOpponent);
+
 	encounterNotHostile = false;
 	bool charmSuccess = false;
 	if ( (opponent.inte > 5) && (plyr.chr != 0) )
@@ -991,6 +994,8 @@ void playerTrick()
     updateDisplay();
 	encounterNotHostile = false;
 	opponent = Opponents[0];
+
+	checkAlignmentEncounter(curOpponent);
 	bool trickSuccess = false;
 	if ( (opponent.inte > 3) && (plyr.inte != 0) )
 	{
@@ -1028,16 +1033,20 @@ void playerAttack(int attackType, float attackFactorBonus)
 {
 	bool missileWeapon = false;
 	bool missileAmmoAvailable = false;
-	encounterNotHostile = false; // Opponent now hostile as they have been attacked
 	bool hitSuccess;
 	float attackFactor = 1.00;
 	int weapon = plyr.priWeapon;
 	bool hitAttempt = true;
 
+
 	string weaponDesc = "ERROR";
 	weaponDesc = itemBuffer[plyr.priWeapon].name;
 
-
+	opponent = Opponents[0];
+	checkAlignmentEncounter(curOpponent);
+	
+	//Now change to hostile..
+	encounterNotHostile = false; // Opponent now hostile as they have been attacked
 	if (attackType==3)
 	{
 			if (randn(1,5) > 3)
@@ -1212,8 +1221,9 @@ std::cout << "opponent #: " << curOpponent << "\n";
 
     if (hitSuccess)
     {
+				//int damage = randn(1,6); // CHANGE!!!
         if (opponentType==GIANT_RAT) { plyr.diseases[0] = 1;} // Rabies
-        float attackFactor = 1.0; // change!
+        float attackFactor = 1.0; //
         int damage = calcOpponentWeaponDamage(chosenWeapon,attackFactor, 1);
 
         if (opponentType==DOPPLEGANGER)
@@ -1221,9 +1231,15 @@ std::cout << "opponent #: " << curOpponent << "\n";
             weaponName = itemBuffer[(Opponents[0].w1)].name;
             attackDesc = "hits";
         }
-        else
-        {
-            weaponName = monsterWeapons[(Opponents[0].w1)].name;
+	  	  else if (opponentType == GHOST && randn(1,10) < 4)
+	  	  {
+	  	 	//There is a chance on a GHOST hit to take a point
+	  	 	// away from STR
+   	 		plyr.str--;
+   	 		attackDesc = "strikes with a Bone-Chilling Touch";
+   	 		weaponName = "touch";
+        } else  {
+            weaponName = monsterWeapons[55].name;
             int weaponIndex = Opponents[0].w1;
             attackDesc = getAttackDesc(weaponIndex, damage);
         }
@@ -2049,7 +2065,42 @@ void chooseEncounter()
     // FBI Agent and Basilisk images missing
 }
 
+void checkAlignmentEncounter(int opponentNo)
+{
+	// Attacking, trick or charming  certain opponents is an evil act.
+	//  need to adjust the alignment to reflect this evil act.
+	
+//std::cout << "checkAlignmentEncounter   oppn align " << opponent.alignment << " ";	
+	if (opponent.alignment < 128)
+		return;		//  No harm comes to attacking evil opponents.
+		
+	if (encounterNotHostile)
+	{
+		switch(opponentType)
+		{
+		   case COMMONER:
+			case GUARD:
+			case NOBLEMAN:
+			case NOVICE:
+			case PAUPER:
+			case HEALER:
+			case APPRENTICE:
+			case ACOLYTE:
+			case WIZARD:
+  			    plyr.alignment -= 5;	//Evil act.
+  			    
+  			    if (plyr.alignment > 130)
+  			    	 plyr.alignment = 100;
+  			    	 
+			   if (plyr.alignment < 0) 	 
+			   	plyr.alignment = 0;
+  			    break;
+		}
+	
+	}	
+//std::cout << "plyr align " << plyr.alignment << " opn# " << opponentNo << "\n";	
 
+}
 
 
 void checkTreasure()

@@ -66,6 +66,7 @@ void playerSwitchWeapons();
 int opponentChooseWeapon();
 int calcPlayerWeaponDamage(int weaponNo, float attackFactor, int attacker);
 int calcOpponentWeaponDamage(int weaponNo,float attackFactor, int attacker);
+void checkAlignmentEncounter(int opponentNo);
 
 void surrenderToGuard();
 
