@@ -7,14 +7,17 @@ Version 0.83 - 4th Jan 2018
           to enter that inn.
 * Fixed - Player position on automap being off by one.
 * Added - A timeout option during fight, opponent will not do something instead 
-          of waiting forever.
+          of waiting forever.  
+		  If player leaves,  it will timeout after 20secs and clear the screen.
+		  No more locking up the games in waiting for keyboard inputs.
 * Added - when you try to flee an encounter there is a chance it doesn't work.
 * Added - Added 16bit graphics to the graphics Mode
 * Added - When you charm,trick or attack certain opponents, causes alignment decrease
 * Added - Ghost attach can now be the "Bone-Chilling" attack.  Certain percentage. Reduced STR by one 
 		  if was successful.
 * Added - 2 new diseases.  Mold and fungus from MOLD, slime.  Slime will foul your food once it 
-		  becomes active.  These takes 48hrs before they become active.		  
+		  becomes active.  These takes 48hrs before they become active.		
+		  
 Notes:
 	Graphics Mode is now  
 		0 - 8bit, 

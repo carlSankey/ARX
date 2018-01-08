@@ -201,11 +201,13 @@ void draw3DBackground()
 		int y = 0;
 		int display = 1;
 		
-		if ((plyr.hours==7) && (plyr.minutes>29)  )
-			display = 0;
-		if ((plyr.hours > 8) && (plyr.hours < 16)  )
-			display = 0;
 		if ((plyr.hours < 4) || (plyr.hours == 4 && plyr.minutes< 30) )
+			display = 0;
+		if ((plyr.hours ==7) && (plyr.minutes>29)  )
+			display = 0;
+		if ((plyr.hours >= 8) && (plyr.hours < 16)  )
+			display = 0;
+		if ((plyr.hours >= 19) )
 			display = 0;
 			
 			if (display == 1)					
@@ -214,7 +216,7 @@ void draw3DBackground()
 				if (plyr.hours >= 16)
 				{
 					time = ((plyr.hours - 16 )* 60) + plyr.minutes;
-					y = ((int)time / 3);
+					y = ((int)time / 3) - 10;
 				} else 
 				if (plyr.hours <= 8 && ((plyr.hours == 4 && plyr.minutes > 29) || plyr.hours > 4))
 				{
@@ -361,6 +363,9 @@ void initTextures()
 
 void buildLevelView()
 {
+		float adjustment = 0;
+		float tempadj = 0;
+
 	glFogi(GL_FOG_MODE, fogMode[fogfilter]);    // Fog Mode
 	glFogfv(GL_FOG_COLOR, fogColor);			// Set Fog Color
 	glFogf(GL_FOG_DENSITY, 0.2f);				// How Dense Will The Fog Be
@@ -368,12 +373,47 @@ void buildLevelView()
 	glFogf(GL_FOG_START, 1.0f);					// Fog Start Depth
 	glFogf(GL_FOG_END, 5.0f);					// Fog End Depth
 
+
+
 	// Enable and disable fog based on area and could adjust fog properties here for zones
 	if ((plyr.scenario==1) && (graphicMode == ALTERNATE_LARGE)) glEnable(GL_FOG);  // Enables GL_FOG for the Dungeon
 	if ((plyr.scenario==1) && (graphicMode == ALTERNATE_SMALL)) glEnable(GL_FOG);  // Enables GL_FOG for the Dungeon
 	if ((plyr.scenario==1) && (graphicMode == ATARI_SMALL)) glDisable(GL_FOG);  // Disables GL_FOG for the Dungeon
 	if ((plyr.scenario==1) && (graphicMode == A16BIT_SMALL)) glDisable(GL_FOG);  // Disables GL_FOG for the Dungeon
 	if (plyr.scenario==0)  glDisable(GL_FOG); // Disable GL_FOG for City
+
+
+	if ((plyr.scenario==0) && (graphicMode == A16BIT_SMALL))
+	{
+		bool display = false;
+		//16bit adjust the shading of the textures to reflect the time of day.
+		if (plyr.hours >= 16  )
+			display = true;
+		if ((plyr.hours < 7)  )
+			display = true;
+			
+			if (display == true)					
+			{
+				int time = 0;
+				if (plyr.hours >= 16)
+				{
+					time = ((plyr.hours - 16 )* 60) + plyr.minutes;
+//std::cout << "time " << time << "\n";	
+					adjustment = 1 -((float)time / 539);
+				} else 
+				if (plyr.hours <= 8)
+				{
+					time = ((plyr.hours - 4 )* 60) + plyr.minutes;
+					adjustment =   (((float)time / 539) *-1);
+				}
+//std::cout << "adjustment " << adjustment << "\n";	
+				if (adjustment < 0.20)
+				   adjustment = 0.20;
+//std::cout << "adjustment " << adjustment << "\n";	
+	 			glTexEnvi(GL_TEXTURE_ENV, GL_COMBINE_RGB,      GL_ADD);
+				glColor4f(adjustment,adjustment, adjustment, -1);
+			}
+		}
 
 	// Start with 5 variables - columns, depth, plyr.x, plyr.y, plyr.facing
 	// c and d hold current column and current depth value

@@ -240,7 +240,8 @@ int curOpponent; // 0-7
 sf::Time attackCheckTime;
 sf::Time attackTimer;
 sf::Clock attackClock;
-
+sf::Clock  OpponentLeftTimer;
+bool opponentLeft;
 
 void encounterLoop(int encounterType, int opponentQuantity)
 {
@@ -258,6 +259,7 @@ void encounterLoop(int encounterType, int opponentQuantity)
 	opponentSurprised = false;
 	waitingForAnyKey = false;
 	waitingForSpaceKey = false;
+  	opponentLeft = false;
     encounterMenu = 1;
     groundTurnsRemaining = 0;
     plyr.status_text = "                                        ";
@@ -319,6 +321,17 @@ void encounterLoop(int encounterType, int opponentQuantity)
 		updateOpponents();
         checkForActiveOpponents();
 
+
+
+		  if (opponentLeft == true)
+		  {
+			  if (OpponentLeftTimer.getElapsedTime() >= sf::seconds(20.0f))
+			  {
+	  		  	waitingForSpaceKey = false;
+	  		  	opponentLeft = false;
+			  }
+		  	
+		  }
 
 	}
 
@@ -884,6 +897,9 @@ void opponentLeaves()
     str = "The " + Opponents[0].name + " leaves.";
     consoleMessage(str);
     encounterRunning = false;
+    opponentLeft = true;
+    OpponentLeftTimer.restart();
+
 }
 
 
@@ -2069,7 +2085,6 @@ void chooseEncounter()
     
     
     
-    monsterNo = SLIME;
     encounterLoop( monsterNo, 1 ); // Only one currently except for fixed encounters
 
 
