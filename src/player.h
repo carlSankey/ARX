@@ -232,6 +232,7 @@ struct Player
   float z_offset;
 
   bool guildAwards[12];
+  bool guildAccepting[14];
   bool fixedEncounters[32];
   bool fixedTreasures[64];
 
@@ -262,5 +263,7 @@ extern int shopDailyWares[15][12]; //15 shops with 12 items each a day for sale
 extern int smithyDailyWares[4][10]; // 4 smithies with 10 items each a day for sale
 extern int tavernDailyFoods[14][6]; // 14 taverns with 6 food items each day for sale
 extern int tavernDailyDrinks[14][6]; // 14 taverns with 6 drink items each day for sale
+
+
 
  #endif

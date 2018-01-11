@@ -14,7 +14,7 @@
 #include "player.h"
 #include "encounter.h"
 #include "automap.h"
-
+#include "globals.h"
 // extern Player plyr;
 
 using std::ofstream;
@@ -126,7 +126,7 @@ void moveMapLevel()
 	{
 		plyr.x=49;
 		plyr.y=3;
-		plyr.facing=1;
+		plyr.facing= WEST;
 		plyr.map=0; // The City
 		plyr.scenario = 0; // The City
 		plyr.z_offset=1.0f;
@@ -142,7 +142,7 @@ void moveMapLevel()
 	{
 		plyr.x=59;
 		plyr.y=63;
-		plyr.facing=4;
+		plyr.facing= SOUTH;
 		plyr.map=0; // The City
 		plyr.scenario = 0; // The City
 		plyr.z_offset=1.0f;
@@ -159,7 +159,7 @@ void moveMapLevel()
 	{
 		plyr.x=49;
 		plyr.y=3;
-		plyr.facing=1;
+		plyr.facing=WEST;
 		plyr.map=1; // The Dungeon
 		plyr.scenario = 1; // The Dungeon
 		plyr.z_offset=1.0f;
@@ -174,7 +174,7 @@ void moveMapLevel()
 	{
 		plyr.x=59;
 		plyr.y=61;
-		plyr.facing=2;
+		plyr.facing=NORTH;
 		plyr.map=1; // The Dungeon
 		plyr.scenario = 1; // The Dungeon
 		plyr.z_offset=1.0f;
@@ -189,7 +189,7 @@ void moveMapLevel()
 	{
 		plyr.x=30;
 		plyr.y=31;
-		plyr.facing=1;
+		plyr.facing=WEST;
 		plyr.map=2; // The Dungeon
 		plyr.scenario = 1; // The Dungeon
 		plyr.z_offset=1.0f;
@@ -207,7 +207,7 @@ void moveMapLevel()
 	{
 		plyr.x=47;
 		plyr.y=48;
-		plyr.facing=1;
+		plyr.facing=WEST;
 		plyr.map=1; // The Dungeon
 		plyr.scenario = 1; // The Dungeon
 		plyr.z_offset=1.0f;
@@ -225,7 +225,7 @@ void moveMapLevel()
 	{
 		plyr.x=1;
 		plyr.y=31;
-		plyr.facing=3;
+		plyr.facing=EAST;
 		plyr.map=2; // The Dungeon
 		plyr.scenario = 1; // The Dungeon
 		plyr.z_offset=1.0f;
@@ -243,7 +243,7 @@ void moveMapLevel()
 	{
 		plyr.x=17;
 		plyr.y=48;
-		plyr.facing=3;
+		plyr.facing=EAST;
 		plyr.map=1; // The Dungeon
 		plyr.scenario = 1; // The Dungeon
 		plyr.z_offset=1.0f;
@@ -260,7 +260,7 @@ void moveMapLevel()
 	{
 		plyr.x=30;
 		plyr.y=0;
-		plyr.facing=1;
+		plyr.facing=WEST;
 		plyr.map=2; // The Dungeon
 		plyr.scenario = 1; // The Dungeon
 		plyr.z_offset=1.0f;
@@ -277,7 +277,7 @@ void moveMapLevel()
 	{
 		plyr.x=0;
 		plyr.y=0;
-		plyr.facing=2;
+		plyr.facing=NORTH;
 		plyr.map=2; // The Dungeon
 		plyr.scenario = 1; // The Dungeon
 		plyr.z_offset=1.0f;
@@ -294,7 +294,7 @@ void moveMapLevel()
 	{
 		plyr.x=16;
 		plyr.y=16;
-		plyr.facing=2;
+		plyr.facing=NORTH;
 		plyr.map=1; // The Dungeon
 		plyr.scenario = 1; // The Dungeon
 		plyr.z_offset=1.0f;
@@ -311,7 +311,7 @@ void moveMapLevel()
 	{
 		plyr.x=48;
 		plyr.y=17;
-		plyr.facing=1;
+		plyr.facing=WEST;
 		plyr.map=1; // The Dungeon
 		plyr.scenario = 1; // The Dungeon
 		plyr.z_offset=1.0f;
@@ -328,7 +328,7 @@ void moveMapLevel()
 	{
 		plyr.x=9;
 		plyr.y=3;
-		plyr.facing=1;
+		plyr.facing=WEST;
 		plyr.map=3; // The Dungeon level 3
 		plyr.scenario = 1; // The Dungeon
 		plyr.z_offset=1.0f;
@@ -345,7 +345,7 @@ void moveMapLevel()
 	{
 		plyr.x=16;
 		plyr.y=12;
-		plyr.facing=1;
+		plyr.facing=WEST;
 		plyr.map=2; // The Dungeon level 2
 		plyr.scenario = 1; // The Dungeon
 		plyr.z_offset=1.0f;
@@ -362,7 +362,7 @@ void moveMapLevel()
 	{
 		plyr.x=14;
 		plyr.y=22;
-		plyr.facing=2;
+		plyr.facing=NORTH;
 		plyr.map=2; // The Dungeon level 2
 		plyr.scenario = 1; // The Dungeon
 		plyr.z_offset=1.0f;

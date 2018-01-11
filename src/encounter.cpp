@@ -344,10 +344,10 @@ void encounterLoop(int encounterType, int opponentQuantity)
         plyr.fixedEncounter = false;
         if (playerRunsAway)
         {
-            if (plyr.facing==1) { plyr.x = plyr.oldx; }
-            if (plyr.facing==3) { plyr.x = plyr.oldx; }
-            if (plyr.facing==2) { plyr.y = plyr.oldy; }
-            if (plyr.facing==4) { plyr.y = plyr.oldy; }
+            if (plyr.facing== WEST) { plyr.x = plyr.oldx; }
+            if (plyr.facing== NORTH) { plyr.x = plyr.oldx; }
+            if (plyr.facing== EAST) { plyr.y = plyr.oldy; }
+            if (plyr.facing== SOUTH) { plyr.y = plyr.oldy; }
             plyr.z_offset=1.0;
         }
         else

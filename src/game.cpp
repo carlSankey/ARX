@@ -80,7 +80,7 @@ sf::Sprite tBackground;
 
 bool Running;
 
-
+bool diseaseactive;
 
 // Main game loop (excluding main menu)
 
@@ -103,9 +103,8 @@ void gameLoop()
 		if (plyr.hp<0) { plyr.alive=false; }
 
 		checkShop();
-
-		plyr.status_text = " ";
-
+			 
+			 
 		/* Update player loc details */
 
 		int ind = getMapIndex(plyr.x,plyr.y);
@@ -125,8 +124,9 @@ void gameLoop()
 		updateDisplay();
 
 		    encounterCheckTime += dt;
-		    if (encounterCheckTime >= sf::seconds(4.8f)) // was 0.8f
+		    if (encounterCheckTime >= sf::seconds(0.8f)) // 4.8f// was 0.8f
           {
+				plyr.status_text = " ";
               checkEncounter();
               encounterCheckTime = sf::Time::Zero;
               addMinute();
@@ -414,19 +414,19 @@ void moveForward()
 	{
         switch(plyr.facing)
         {
-        case 1: // w
+        case WEST: // w
 			moveWest();
 			break;
 
-        case 2: // n
+        case NORTH: // n
 			moveNorth();
             break;
 
-        case 3: // e
+        case EAST: // e
 			moveEast();
 			break;
 
-        case 4: // s
+        case SOUTH: // s
 			moveSouth();
 			break;
         }
@@ -449,21 +449,21 @@ void moveForward()
 
 			switch(plyr.facing)
 			{
-				case 1: // w
+				case WEST: // w
 					plyr.oldx = plyr.x;
 					plyr.x--;
 					break;
 
-				case 2: // n
+				case NORTH: // n
 					plyr.oldy = plyr.y;
 					plyr.y--;
 					break;
 
-				case 3: // e
+				case EAST: // e
 					plyr.oldx = plyr.x;
 					plyr.x++;
 					break;
-				case 4:
+				case SOUTH:
 					plyr.oldy = plyr.y;
 					plyr.y++; // s
 					break;
@@ -478,22 +478,22 @@ void moveForward()
 
 			switch(plyr.facing)
 			{
-				case 1: // w
+				case WEST: // w
 					plyr.oldx = plyr.x;
 					plyr.x--;
 					break;
 
-				case 2: // n
+				case NORTH: // n
 					plyr.oldy = plyr.y;
 					plyr.y--;
 					break;
 
-				case 3: // e
+				case EAST: // e
 					plyr.oldx = plyr.x;
 					plyr.x++;
 					break;
 
-				case 4:
+				case SOUTH:
 					plyr.oldy = plyr.y;
 					plyr.y++; // s
 					break;
@@ -507,22 +507,22 @@ void moveForward()
 
 			switch(plyr.facing)
 			{
-				case 1: // w
+				case WEST: // w
 					plyr.oldx = plyr.x;
 					plyr.x--;
 					break;
 
-				case 2: // n
+				case NORTH: // n
 					plyr.oldy = plyr.y;
 					plyr.y--;
 					break;
 
-				case 3: // e
+				case EAST: // e
 					plyr.oldx = plyr.x;
 					plyr.x++;
 					break;
 
-				case 4:
+				case SOUTH:
 					plyr.oldy = plyr.y;
 					plyr.y++; // s
 					break;
@@ -558,19 +558,19 @@ void moveBack()
 
     switch(plyr.facing)
         {
-        case 1: // facing west
+        case WEST: // facing west
             moveEast(); // opposite of west
             break;
 
-        case 2: // facing north
+        case NORTH: // facing north
             moveSouth(); // opposite of north
             break;
 
-        case 3: // facing east
+        case EAST: // facing east
         	moveWest();
             break;
 
-        case 4: // facing south
+        case SOUTH: // facing south
         	moveNorth();
         	break;
         }
@@ -594,21 +594,21 @@ void moveBack()
 
 			switch(plyr.facing)
 			{
-				case 1: // w
+				case WEST: // w
 					plyr.oldx = plyr.x;
 					plyr.x++;
 					break;
 
-				case 2: // n
+				case NORTH: // n
 					plyr.oldy = plyr.y;
 					plyr.y++;
 					break;
 
-				case 3: // e
+				case EAST: // e
 					plyr.oldx = plyr.x;
 					plyr.x--;
 					break;
-				case 4:
+				case SOUTH:
 					plyr.oldy = plyr.y;
 					plyr.y--; // s
 					break;
@@ -625,22 +625,22 @@ void moveBack()
 
 			switch(plyr.facing)
 			{
-				case 1: // w
+				case WEST: // w
 					plyr.oldx = plyr.x;
 					plyr.x++;
 					break;
 
-				case 2: // n
+				case NORTH: // n
 					plyr.oldy = plyr.y;
 					plyr.y++;
 					break;
 
-				case 3: // e
+				case EAST: // e
 					plyr.oldx = plyr.x;
 					plyr.x--;
 					break;
 
-				case 4:
+				case SOUTH:
 					plyr.oldy = plyr.y;
 					plyr.y--; // s
 					break;
@@ -654,22 +654,22 @@ void moveBack()
 
 			switch(plyr.facing)
 			{
-				case 1: // w
+				case WEST: // w
 					plyr.oldx = plyr.x;
 					plyr.x++;
 					break;
 
-				case 2: // n
+				case NORTH: // n
 					plyr.oldy = plyr.y;
 					plyr.y++;
 					break;
 
-				case 3: // e
+				case EAST: // e
 					plyr.oldx = plyr.x;
 					plyr.x--;
 					break;
 
-				case 4:
+				case SOUTH:
 					plyr.oldy = plyr.y;
 					plyr.y--; // s
 					break;
@@ -688,25 +688,25 @@ void turnLeft()
 {
 	switch(plyr.facing)
     {
-    case 2: // n
+    case NORTH: // n
 
         plyr.facing = WEST;
 		plyr.z_offset=1.0f;
         break;
 
-    case 1: //  facing w before turning
+    case WEST: //  facing w before turning
 
         plyr.facing = SOUTH;
 		plyr.z_offset=1.0f;
         break;
 
-    case 3: // e
+    case EAST: // e
 
     	plyr.facing = NORTH;
 		plyr.z_offset=1.0f;
         break;
 
-    case 4: // s
+    case SOUTH: // s
 
     	plyr.facing = EAST;
     	plyr.z_offset=1.0f;
@@ -719,25 +719,25 @@ void turnRight()
 {
     switch(plyr.facing)
     {
-    case 2: // n
+    case NORTH: // n
 
         plyr.facing = EAST;
         plyr.z_offset=1.0f;
 		break;
 
-    case 1: // w
+    case WEST: // w
 
         plyr.facing = NORTH;
         plyr.z_offset=1.0f;
 		break;
 
-    case 3: // e
+    case EAST: // e
 
     	plyr.facing = SOUTH;
         plyr.z_offset=1.0f;
 		break;
 
-    case 4: // s
+    case SOUTH: // s
     	plyr.facing = WEST;
     	plyr.z_offset=1.0f;
 		break;

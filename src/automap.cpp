@@ -300,10 +300,10 @@ void drawAutomap()
         // Draw arrow to represent position and direction of player
         pixelx=miniMapX+(((automapWidth-1)/2)*pixelSize);
         pixely=miniMapY+(((automapHeight-1)/2)*pixelSize);
-        if (plyr.facing==1) { DrawImage(pixelx,pixely,17); }
-        if (plyr.facing==2) { DrawImage(pixelx,pixely,14); }
-        if (plyr.facing==3) { DrawImage(pixelx,pixely,16); }
-        if (plyr.facing==4) { DrawImage(pixelx,pixely,15); }
+        if (plyr.facing== WEST) { DrawImage(pixelx,pixely,17); }
+        if (plyr.facing== NORTH) { DrawImage(pixelx,pixely,14); }
+        if (plyr.facing== EAST) { DrawImage(pixelx,pixely,16); }
+        if (plyr.facing== SOUTH) { DrawImage(pixelx,pixely,15); }
     }
 }
 
@@ -368,10 +368,10 @@ void drawFullAutomap()
 	pixely=(plyr.y)*pixelSize;
 	if (plyr.y>31) { pixely=(plyr.y-32)*pixelSize; }
 	if (plyr.x>31) { pixelx=(plyr.x-32)*pixelSize; }
-	if (plyr.facing==1) { DrawImage(pixelx,pixely,17); }
-	if (plyr.facing==2) { DrawImage(pixelx,pixely,14); }
-	if (plyr.facing==3) { DrawImage(pixelx,pixely,16); }
-	if (plyr.facing==4) { DrawImage(pixelx,pixely,15); }
+	if (plyr.facing== WEST) { DrawImage(pixelx,pixely,17); }
+	if (plyr.facing== NORTH) { DrawImage(pixelx,pixely,14); }
+	if (plyr.facing== EAST) { DrawImage(pixelx,pixely,16); }
+	if (plyr.facing== SOUTH) { DrawImage(pixelx,pixely,15); }
 
     // Draw legend sprite
     mapLegend.setPosition(512+16, 16);

@@ -606,10 +606,10 @@ void drawCompass()
             App.draw(rectangle);
         }
 
-		if (plyr.facing == 1) { compass.setTexture(compassW); }
-		if (plyr.facing == 2) { compass.setTexture(compassN); }
-		if (plyr.facing == 3) { compass.setTexture(compassE); }
-		if (plyr.facing == 4) { compass.setTexture(compassS); }
+		if (plyr.facing == WEST) { compass.setTexture(compassW); }
+		if (plyr.facing == NORTH) { compass.setTexture(compassN); }
+		if (plyr.facing == EAST) { compass.setTexture(compassE); }
+		if (plyr.facing == SOUTH) { compass.setTexture(compassS); }
 
 		if (graphicMode== ALTERNATE_LARGE)
 		{

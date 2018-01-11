@@ -22,10 +22,10 @@
 #include "items.h"
 #include "spells.h"
 #include "automap.h"
+#include "guild.h"
 
 
 using namespace std;
-
 
 Player plyr;
 
@@ -174,6 +174,7 @@ void addDay()
     stockTavernDrinks();
     stockTavernFoods();
     checkDailybankInterest();
+    checkGuildApplications();
     if (plyr.forgeDays > 0) plyr.forgeDays--;
 }
 
@@ -284,26 +285,14 @@ void updateDisease(int hour)
   	  				   	disease = "Fungus";
   	  				   	break;
 				   }
-					clearDisplay();
 					plyr.status_text = disease + " has taken hold of you.";        	
-					drawText(2,5+i,plyr.status_text);
-					updateDisplay();
-					keyPressed();
-					
-					
-
-//std::cout << "disease " << i << "-5hp  status" << plyr.status << " " << plyr.status_text << "\n";
-
-	            plyr.hp -= 5; // temporary penalty.
+	            plyr.hp -= 2; // temporary penalty.
 	            if (i == 2)		//Fungus - infexted by SLIME
 					{
 						if (plyr.food > 0)
 						{
-//std::cout << "foul food\n";
 						 	plyr.food = 0;
 						 	plyr.status_text = ("Fungus has fouled all your food.");
-							bText(2,5,plyr.status_text);
-							updateDisplay();
 						}
 					}	
 	        }
@@ -358,7 +347,7 @@ void initStats()
     plyr.map = 0; // city
     plyr.x = 63; // 49
     plyr.y = 63; // 3
-    plyr.facing = 2; // 2 equals north?
+    plyr.facing = NORTH; // 2 equals north?
     plyr.sta = 16;
     plyr.chr = 13;
     plyr.str = 17;

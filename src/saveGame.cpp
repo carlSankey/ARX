@@ -19,6 +19,7 @@
 #include "player.h"
 #include "items.h"
 #include "spells.h"
+#include "guild.h"
 
 
 //using namespace std;
@@ -368,6 +369,12 @@ plyr.forgeBonus = atoi(character[234].c_str());
 plyr.forgeName  = character[235];
 plyr.stolenFromVault = atoi(character[236].c_str());
 
+for(int y = 0; y < numberOfGuilds; ++y) 
+{ 
+	plyr.guildAccepting[y] = atoi(character[237+y].c_str()); 
+}
+
+
 int loadGameIndex = 400; // start location for object buffer items
 for(int z = 0; z < itemBufferSize; ++z)
 {
@@ -693,6 +700,12 @@ bool saveCharacter(int saveSlot)
         character[234] = itos(plyr.forgeBonus);
         character[235] = plyr.forgeName;
         character[236] = itos(plyr.stolenFromVault);
+
+    for(int y = 0; y < numberOfGuilds; ++y) 
+	 { 
+	 	character[237+y] = itos(plyr.guildAccepting[y]); 
+	 }
+
 
 		character[399] = "Line 400: Item Buffer follows";
 
