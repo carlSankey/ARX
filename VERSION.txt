@@ -16,7 +16,9 @@ Version 0.83 - 4th Jan 2018
 * Added - Ghost attach can now be the "Bone-Chilling" attack.  Certain percentage. Reduced STR by one 
 		  if was successful.
 * Added - 2 new diseases.  Mold and fungus from MOLD, slime.  Slime will foul your food once it 
-		  becomes active.  These takes 48hrs before they become active.		
+		  becomes active.  These takes 48hrs before they become active.	
+* Added  - Sun set and sun rise to 16bit graphics.  It is not done by still graphics. Drawn on the screen based on
+		  time.  that way it moves like a real sun.
 		  
 Notes:
 	Graphics Mode is now  
