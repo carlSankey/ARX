@@ -53,4 +53,10 @@
 52 mountain = cityMount4W_16bit
 53 mountain = cityMount5W_16bit
 54 mountain = cityMount6W_16bit
+55 mountain = cityMount1E_16bit
+56 mountain = cityMount2E_16bit
+57 mountain = cityMount3E_16bit
+58 mountain = cityMount4E_16bit
+59 mountain = cityMount5E_16bit
+60 mountain = cityMount6E_16bit
 

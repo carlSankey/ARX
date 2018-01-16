@@ -53,7 +53,9 @@ void draw3DBackground()
 	sf::Sprite Mountain;
 	float scaleX, scaleY;
 	Background.setScale(1.0, 1.0);
-
+	bool drawMounain = false;
+	
+	
 		if (graphicMode == ATARI_SMALL) // Atari 8bit original textures and size
 		{
 			scaleX = float(viewWidth) / float(360);
@@ -131,7 +133,7 @@ void draw3DBackground()
 
 		if (plyr.timeOfDay==2) // sunrise1
 		{
-			if (plyr.facing== WEST) { Background.setTexture(background[21]); Mountain.setTexture(background[49]); } // w view
+			if (plyr.facing== WEST) { Background.setTexture(background[21]); Mountain.setTexture(background[49]); drawMounain = true; } // w view
 			if (plyr.facing== NORTH) { Background.setTexture(background[20]);  } // n view
 			if (plyr.facing== EAST) { 
 				if ( graphicMode != A16BIT_SMALL)
@@ -140,6 +142,7 @@ void draw3DBackground()
 					 Background.setTexture(background[21]);  
 
 				Mountain.setTexture(background[55]); 
+				drawMounain = true;
 			} // e view
 			if (plyr.facing== SOUTH) { Background.setTexture(background[19]); } // s view
 		}
@@ -147,7 +150,7 @@ void draw3DBackground()
 
 		if (plyr.timeOfDay==3) // sunrise2
 		{
-			if (plyr.facing== WEST) { Background.setTexture(background[25]);  Mountain.setTexture(background[50]);} // w view
+			if (plyr.facing== WEST) { Background.setTexture(background[25]);  Mountain.setTexture(background[50]);drawMounain = true;} // w view
 			if (plyr.facing== NORTH) { Background.setTexture(background[24]);  } // n view
 			if (plyr.facing== EAST) { 
 				if ( graphicMode != A16BIT_SMALL)
@@ -156,13 +159,14 @@ void draw3DBackground()
 					 Background.setTexture(background[25]);  
 
 				Mountain.setTexture(background[56]); 
+				drawMounain = true;
 			} // e view
 			if (plyr.facing== SOUTH) { Background.setTexture(background[23]);  } // s view
 		}
 
 		if (plyr.timeOfDay==4) // sunrise3
 		{
-			if (plyr.facing== WEST) { Background.setTexture(background[29]); Mountain.setTexture(background[51]); } // w view
+			if (plyr.facing== WEST) { Background.setTexture(background[29]); Mountain.setTexture(background[51]); drawMounain = true;} // w view
 			if (plyr.facing==NORTH) { Background.setTexture(background[28]);  } // n view
 			if (plyr.facing== EAST) { 
 				if ( graphicMode != A16BIT_SMALL)
@@ -171,13 +175,14 @@ void draw3DBackground()
 					 Background.setTexture(background[29]);  
 
 				Mountain.setTexture(background[57]); 
+				drawMounain = true;
 			} // e view
 			if (plyr.facing== SOUTH) { Background.setTexture(background[27]); } // s view
 		}
 
 		if (plyr.timeOfDay==5) // sunrise3
 		{
-			if (plyr.facing== WEST) { Background.setTexture(background[33]); Mountain.setTexture(background[52]); } // w view
+			if (plyr.facing== WEST) { Background.setTexture(background[33]); Mountain.setTexture(background[52]); drawMounain = true;} // w view
 			if (plyr.facing== NORTH) { Background.setTexture(background[32]);  } // n view
 			if (plyr.facing== EAST) { 
 				if ( graphicMode != A16BIT_SMALL)
@@ -186,13 +191,14 @@ void draw3DBackground()
 					 Background.setTexture(background[33]);  
 
 				Mountain.setTexture(background[58]); 
+				drawMounain = true;
 			} // e view
 			if (plyr.facing== SOUTH) { Background.setTexture(background[31]);  } // s view
 		}
 
 		if (plyr.timeOfDay==6) // sunrise3
 		{
-			if (plyr.facing== WEST) { Background.setTexture(background[37]); Mountain.setTexture(background[53]); } // w view
+			if (plyr.facing== WEST) { Background.setTexture(background[37]); Mountain.setTexture(background[53]); drawMounain = true; } // w view
 			if (plyr.facing==NORTH) { Background.setTexture(background[36]);  } // n view
 			if (plyr.facing== EAST) { 
 				if ( graphicMode != A16BIT_SMALL)
@@ -201,13 +207,14 @@ void draw3DBackground()
 					 Background.setTexture(background[37]);  
 
 				Mountain.setTexture(background[59]); 
+				drawMounain = true;
 			} // e view
 			if (plyr.facing== SOUTH) { Background.setTexture(background[35]);  } // s view
 		}
 
 		if (plyr.timeOfDay==7) // sunrise3
 		{
-			if (plyr.facing== WEST) { Background.setTexture(background[41]); Mountain.setTexture(background[54]); } // w view
+			if (plyr.facing== WEST) { Background.setTexture(background[41]); Mountain.setTexture(background[54]); drawMounain = true;} // w view
 			if (plyr.facing==NORTH) { Background.setTexture(background[40]);  } // n view
 			if (plyr.facing== EAST) { 
 				if ( graphicMode != A16BIT_SMALL)
@@ -216,6 +223,7 @@ void draw3DBackground()
 					 Background.setTexture(background[41]);  
 
 				Mountain.setTexture(background[60]); 
+				drawMounain = true;
 			} // e view
 			if (plyr.facing==SOUTH) { Background.setTexture(background[39]);  } // s view
 		}
@@ -273,6 +281,9 @@ void draw3DBackground()
 			App.draw(circle);
 		}
 
+	}
+	if (drawMounain == true)
+	{
 		Mountain.setScale(scaleX, scaleY);
 		Mountain.setPosition(viewPortX, viewPortY);
 		App.draw(Mountain);
@@ -437,17 +448,17 @@ void buildLevelView()
 //std::cout << "time " << time << "\n";	
 					adjustment = 1 -((float)time / 539);
 				} else 
-				if (plyr.hours <= 8)
+				if (plyr.hours < 7)
 				{
 					time = ((plyr.hours - 4 )* 60) + plyr.minutes;
-					adjustment =   (((float)time / 539) *-1);
+					adjustment =   (((float)time / 179) );
 				}
 //std::cout << "adjustment " << adjustment << "\n";	
 				if (adjustment < 0.20)
 				   adjustment = 0.20;
 //std::cout << "adjustment " << adjustment << "\n";	
 	 			glTexEnvi(GL_TEXTURE_ENV, GL_COMBINE_RGB,      GL_ADD);
-				glColor4f(adjustment,adjustment, adjustment, -1);
+				glColor4f(adjustment,adjustment, adjustment, 0);
 			}
 		}
 
@@ -484,6 +495,7 @@ void buildLevelView()
 	{
 		   calculateWallPositions(c,d);
 	}
+	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 }
 
 
