@@ -80,7 +80,6 @@ sf::Sprite tBackground;
 
 bool Running;
 
-bool diseaseactive;
 
 // Main game loop (excluding main menu)
 
@@ -124,7 +123,7 @@ void gameLoop()
 		updateDisplay();
 
 		    encounterCheckTime += dt;
-		    if (encounterCheckTime >= sf::seconds(0.8f)) // 4.8f// was 0.8f
+		    if (encounterCheckTime >= sf::seconds(4.8f)) // 4.8f// was 0.8f
           {
 				plyr.status_text = " ";
               checkEncounter();

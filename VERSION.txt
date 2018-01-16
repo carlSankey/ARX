@@ -1,4 +1,4 @@
-﻿Alternate Reality X
+Alternate Reality X
 -------------------
 
 Version 0.83 - 4th Jan 2018
@@ -17,9 +17,18 @@ Version 0.83 - 4th Jan 2018
 		  if was successful.
 * Added - 2 new diseases.  Mold and fungus from MOLD, slime.  Slime will foul your food once it 
 		  becomes active.  These takes 48hrs before they become active.	
-* Added  - Sun set and sun rise to 16bit graphics.  It is not done by still graphics. Drawn on the screen based on
+* Added - Sun set and sun rise to 16bit graphics.  It is not done by still graphics. Drawn on the screen based on
 		  time.  that way it moves like a real sun.
+* Fixed - Ghost information was not correct on armour.  He is suppose to be invulnerable to blunt, sharp weapons.
+          you need magical weapons for the most part.  Fixed that.
+* Fixed	- put back in the weapon selection for opponent when they attack.  Many opponents have different attacks
+          was hard coded to just the first weapon.
+* Fixed - Armour ability to handle different weapons is back into the system.  If using a blunt weapon and the 
+          armour is invulnerable to blunt.  You will not be able to do any damages with that kind of weapon.
+* Fixed - Certain armour is vulnerable to certain weapons, and these weapons cause double damage.
 		  
+
+ 	  
 Notes:
 	Graphics Mode is now  
 		0 - 8bit, 

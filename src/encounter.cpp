@@ -1209,8 +1209,8 @@ std::cout << "opponent #: " << curOpponent << "\n";
     if (opponentNoAttacking==6) prefix="7th ";
     if (opponentNoAttacking==7) prefix="8th ";
 
-    //int chosenWeapon = opponentChooseWeapon();
-    int chosenWeapon = Opponents[0].w1;
+    int chosenWeapon = opponentChooseWeapon();
+    //int chosenWeapon = Opponents[0].w1;
 
 
 
@@ -1258,9 +1258,10 @@ std::cout << "opponent #: " << curOpponent << "\n";
    	 		attackDesc = "touches";
    	 		weaponName = "Bone-Chilling Touch";
         } else  {
-            weaponName = monsterWeapons[55].name;
-            int weaponIndex = Opponents[0].w1;
-            attackDesc = getAttackDesc(weaponIndex, damage);
+            weaponName = monsterWeapons[chosenWeapon].name;
+            //int weaponIndex = Opponents[0].w1;
+std::cout << " weapon desc " << chosenWeapon << "\n";
+            attackDesc = getAttackDesc(chosenWeapon, damage);
         }
 
         if (damage!=1000) { plyr.hp-=damage; }
@@ -1512,16 +1513,20 @@ int calcOpponentWeaponDamage(int weaponNo, float attackFactor, int attacker)
 	// 0xf0 = absorbs power from this damage type.
 	// 0x0f = takes double damage from this damage type.
 
-	/*
+/*
 	if (attacker==0) // Player attacking
 	{
 		for(int i = 0; i < 11; ++i) // number of damages to compare against armors
 		{
-			damages[i] -= armors[i];
+			if (armors[i] == 0xff)	//Invulnerbale
+				damges[i] = 0;
+			else
+				 damages[i] -= armors[i];
 
 			if ( damages[i] < 0 ) { damages[i] = 0; }
 		}
-		//totalDamage = damages[0] + damages[1] + damages[2] + damages[3] + damages[4] + damages[5] + damages[6] + damages[7] + damages[8];
+		totalDamage = damages[0] + damages[1] + damages[2] + damages[3] + damages[4] + damages[5] + damages[6] + damages[7] + damages[8] + damages[9] + damages[10];
+		std::cout << "B:" << damages[0] << " S:" << damages[1] << " E:" << damages[2] << " A:" << damages[3] << " F:" << damages[4] << " W:" << damages[5] << " P:" << damages[6] << " M:" << damages[7] << " G:" << damages[8] << " E:" << damages[9] << " C:" << damages[10] << std::endl;
 		//if (totalDamage==0) { return 1000; }
 		//if (totalDamage >0) { return totalDamage; }
 	}
@@ -1556,7 +1561,7 @@ int calcPlayerWeaponDamage(int weaponNo, float attackFactor, int attacker)
 
 	int armorValues[11] = { 0,0,0,0,0,0,0,0,0,0,0 };
     int armors[11] = { 0,0,0,0,0,0,0,0,0,0,0 };
-/*
+
 	if (attacker==0) // Player attacking
 	{
 		armorValues[0] = Opponents[0].aBlunt;
@@ -1581,7 +1586,7 @@ int calcPlayerWeaponDamage(int weaponNo, float attackFactor, int attacker)
 			armorIndex++;
 		}
 	}
-*/
+
 
 
 	int damages[11] = { 0,0,0,0,0,0,0,0,0,0,0 }; // holds results of rolling for damage
@@ -1615,7 +1620,12 @@ int calcPlayerWeaponDamage(int weaponNo, float attackFactor, int attacker)
 	{
 		for(int i = 0; i < 11; ++i) // number of damage slots to compare against armour slots
 		{
-			damages[i] -= armors[i];
+			if (armors[i] == 0xf0)	// Double damage
+				damages[i] *=  2;
+			else if (armors[i] == 0xff)	// Invulnerable to this weapon
+				  damages[i] = 0;
+			else
+				 damages[i] -= armors[i];
 			if ( damages[i] < 0 ) { damages[i] = 0; }
 		}
 	}
@@ -1637,12 +1647,17 @@ int opponentChooseWeapon()
 	weaponProbabilities[4] = Opponents[0].c5;
 	weaponProbabilities[5] = Opponents[0].c6;
 
+std::cout <<" Weapon chose " << Opponents[0].c1 << " 1 " << Opponents[0].c2 << " 2 " << Opponents[0].c3 << "\n";
+
+
 	weaponReferences[0] = Opponents[0].w1;
 	weaponReferences[1] = Opponents[0].w2;
 	weaponReferences[2] = Opponents[0].w3;
 	weaponReferences[3] = Opponents[0].w4;
 	weaponReferences[4] = Opponents[0].w5;
 	weaponReferences[5] = Opponents[0].w6;
+
+std::cout <<" Weapon chose " << Opponents[0].w1 << " 1 " << Opponents[0].w2 << " 2 " << Opponents[0].w3 << "\n";
 
 	int chosenWeaponNo = 255;
 	int weaponProbability = randn(1,100);
@@ -1656,6 +1671,7 @@ int opponentChooseWeapon()
 		if ( weaponIndex == 6) { chosenWeaponNo = 0; } // error weapon!
 		weaponIndex++;
 	}
+std::cout <<" Weapon chose " << chosenWeaponNo << " name " << monsterWeapons[chosenWeaponNo].name << "\n";
 	return chosenWeaponNo;
 }
 
@@ -2082,7 +2098,8 @@ void chooseEncounter()
         //cout << "City monster " << monsterNo << " encountered.\n";
     }
     plyr.fixedEncounter = false;
-    
+
+	 monsterNo = GHOST;    
     
     
     encounterLoop( monsterNo, 1 ); // Only one currently except for fixed encounters
