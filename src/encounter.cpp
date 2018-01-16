@@ -2099,9 +2099,6 @@ void chooseEncounter()
     }
     plyr.fixedEncounter = false;
 
-	 monsterNo = GHOST;    
-    
-    
     encounterLoop( monsterNo, 1 ); // Only one currently except for fixed encounters
 
 
