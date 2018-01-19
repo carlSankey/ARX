@@ -26,6 +26,14 @@ Version 0.83 - 4th Jan 2018
 * Fixed - Armour ability to handle different weapons is back into the system.  If using a blunt weapon and the 
           armour is invulnerable to blunt.  You will not be able to do any damages with that kind of weapon.
 * Fixed - Certain armour is vulnerable to certain weapons, and these weapons cause double damage.
+* Added - Added in 3 missing encounters from binary, Cutthroat, Brigand, Master Thief
+* Added - Put these encounters into possible city/dungeon encounters.
+* Added - capture the number of encounters variable from binary.  When in the dungeon you can 
+          have multiple encounters now, up to the max defined in binary.  City still is only allowed 1 
+		  encounter at a time.
+* Added - Started loading in attributes for weapons. Its loads in weapons that causes curses and dieseases.
+          Not active in the code yet. Have not loaded the weapon attributes values into the system yet.  Like
+          How long it last.
 		  
 
  	  

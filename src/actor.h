@@ -1,6 +1,6 @@
 #include <string>
 
-const int noOfEncounters = 84;
+const int noOfEncounters = 86;
 const int noOfMonsterWeapons = 250;
 
 const int noOfWeapons = 111;
@@ -29,6 +29,7 @@ struct monster
 
     //uint8_t from stdint.h
     int type;
+    int maxencounters;
 	std::string name;
 	std::string pluName;
 	std::string armorText;
@@ -125,6 +126,10 @@ struct weapon
 	int melee;
 	int ammo;
 	int parry;
+	
+	int special;
+	int specialType;
+	std::string specialName;
 };
 
 

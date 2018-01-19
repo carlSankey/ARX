@@ -1,0 +1,8000 @@
+
+offset: ox0
+numenc:1
+anim#:0
+name:devourer
+name plural:
+death Text:dissolves in a puddle@of thick smelly ooze.
+hp:72
+maxhp:72
+alignment:128
+sta:20
+cha:8
+str:30
+inte:0
+wis:22
+skl:60
+spd:50
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:85
+aSharp:85
+aEarth:51
+aAir:51
+aFire:51
+aWater:51
+aPower:51
+aMagic:51
+aGood:51
+aEvil:51
+aCold:51
+wpn1 offset: 0x79
+name: slimy tentacle
+type: 255
+alignment: 0
+weight: 2
+Special Abilit: 0 0x8e
+melee: 255
+ammo: 0
+blunt: 40
+sharp: 18
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 133
+parry: 0
+
+offset: ox246
+numenc:4
+anim#:1
+name:thief
+name plural:thieves
+death Text:will plague@this world no longer
+hp:5
+maxhp:5
+alignment:128
+sta:12
+cha:12
+str:12
+inte:12
+wis:12
+skl:12
+spd:12
+tFood:0
+tWater:0
+tTorches:1
+tTimepieces:1
+tCompasses:1
+tKeys:2
+tCrystals:0
+tGems:3
+tJewels:1
+tGold:2
+tSilver:10
+tCopper:60
+aBlunt:19
+aSharp:19
+aEarth:0
+aAir:0
+aFire:18
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x2ea
+name: Stilletto
+type: 0
+alignment: 0
+weight: 0
+Special Abilit: x083 0x2fbtype (Clumsiness):1
+ 0xc1 0x63 0x1e 0x0 0x1e 0x0 0x0 0x91 0x78 0x0 0x1 0x0 0x1 0x0 0xeb 0x0
+Spcl Descrip: Clumsiness
+melee: 104
+ammo: 114
+blunt: 111
+sharp: 97
+earth: 116
+air: 115
+fire: 0
+water: 98
+power: 114
+magic: 105
+good: 103
+evil: 97
+cold: 110
+minStrength: 100
+minDexterity: 115
+hp: 0
+maxHP: 0
+flags: 3
+parry: 68
+wpn2 offset: 0x32f
+name: Skean
+type: 3
+alignment: 0
+weight: 1
+Special Abilit: 0 0x33b
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 21
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 6
+hp: 16
+maxHP: 16
+flags: 129
+parry: 2
+wpn3 offset: 0x34f
+name: Nasty Knife
+type: 3
+alignment: 0
+weight: 2
+Special Abilit: x083 0x361type (Slow Death):4
+ 0xc1 0xff 0x5 0x0 0x11 0x0 0x0 0x92 0x45 0x0 0x1 0x0 0x3 0x0 0xeb 0x0
+Spcl Descrip: Slow Death
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 22
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 7
+hp: 24
+maxHP: 24
+flags: 128
+parry: 5
+wpn4 offset: 0x34f
+name: Nasty Knife
+type: 3
+alignment: 0
+weight: 2
+Special Abilit: x083 0x361type (Slow Death):4
+ 0xc1 0xff 0x5 0x0 0x11 0x0 0x0 0x92 0x45 0x0 0x1 0x0 0x3 0x0 0xeb 0x0
+Spcl Descrip: Slow Death
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 22
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 7
+hp: 24
+maxHP: 24
+flags: 128
+parry: 5
+wpn5 offset: 0x34f
+name: Nasty Knife
+type: 3
+alignment: 0
+weight: 2
+Special Abilit: x083 0x361type (Slow Death):4
+ 0xc1 0xff 0x5 0x0 0x11 0x0 0x0 0x92 0x45 0x0 0x1 0x0 0x3 0x0 0xeb 0x0
+Spcl Descrip: Slow Death
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 22
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 7
+hp: 24
+maxHP: 24
+flags: 128
+parry: 5
+wpn6 offset: 0x34f
+name: Nasty Knife
+type: 3
+alignment: 0
+weight: 2
+Special Abilit: x083 0x361type (Slow Death):4
+ 0xc1 0xff 0x5 0x0 0x11 0x0 0x0 0x92 0x45 0x0 0x1 0x0 0x3 0x0 0xeb 0x0
+Spcl Descrip: Slow Death
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 22
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 7
+hp: 24
+maxHP: 24
+flags: 128
+parry: 5
+
+offset: ox763
+numenc:1
+anim#:2
+name:assassin
+name plural:
+death Text:dies, his face frozen in@an expression of shock and disbelief
+hp:40
+maxhp:40
+alignment:64
+sta:20
+cha:20
+str:60
+inte:20
+wis:20
+skl:65
+spd:99
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:7
+tCrystals:1
+tGems:0
+tJewels:3
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:22
+aSharp:22
+aEarth:0
+aAir:0
+aFire:19
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x7ee
+name: Katar
+type: 3
+alignment: 0
+weight: 3
+Special Abilit: 0 0x7fa
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 24
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 16
+minDexterity: 24
+hp: 24
+maxHP: 24
+flags: 128
+parry: 2
+wpn2 offset: 0x80e
+name: Katar
+type: 3
+alignment: 0
+weight: 3
+Special Abilit: 0 0x81a
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 24
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 16
+minDexterity: 24
+hp: 24
+maxHP: 24
+flags: 128
+parry: 2
+wpn3 offset: 0x82e
+name: Katana
+type: 3
+alignment: 0
+weight: 12
+Special Abilit: 0 0x83b
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 37
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 14
+minDexterity: 24
+hp: 32
+maxHP: 32
+flags: 136
+parry: 21
+
+offset: ox875
+numenc:2
+anim#:3
+name:goblin
+name plural:goblins
+death Text:dies
+hp:17
+maxhp:17
+alignment:64
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:20
+spd:20
+tFood:2
+tWater:1
+tTorches:1
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:80
+aBlunt:20
+aSharp:20
+aEarth:15
+aAir:0
+aFire:18
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x910
+name: War Hammer
+type: 3
+alignment: 0
+weight: 16
+Special Abilit: 0 0x921
+melee: 255
+ammo: 0
+blunt: 36
+sharp: 0
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 16
+minDexterity: 6
+hp: 36
+maxHP: 36
+flags: 130
+parry: 9
+wpn2 offset: 0x8cb
+name: Battle Axe
+type: 3
+alignment: 0
+weight: 20
+Special Abilit: x083 0x8dctype (Slow Death):4
+ 0xc1 0xff 0x5 0x0 0x11 0x0 0x0 0x92 0x45 0x0 0x1 0x0 0x3 0x0 0xeb 0x0
+Spcl Descrip: Slow Death
+melee: 255
+ammo: 0
+blunt: 18
+sharp: 39
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 22
+minDexterity: 16
+hp: 48
+maxHP: 48
+flags: 128
+parry: 16
+
+offset: oxa22
+numenc:4
+anim#:4
+name:troll
+name plural:trolls
+death Text:dies
+hp:15
+maxhp:15
+alignment:64
+sta:28
+cha:20
+str:40
+inte:20
+wis:20
+skl:20
+spd:20
+tFood:2
+tWater:1
+tTorches:1
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:80
+aBlunt:34
+aSharp:34
+aEarth:15
+aAir:0
+aFire:17
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0xa76
+name: Halberd
+type: 3
+alignment: 0
+weight: 20
+Special Abilit: 0 0xa84
+melee: 255
+ammo: 0
+blunt: 17
+sharp: 38
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 20
+minDexterity: 16
+hp: 40
+maxHP: 40
+flags: 192
+parry: 32
+wpn2 offset: 0xa98
+name: Halberd
+type: 3
+alignment: 0
+weight: 20
+Special Abilit: x083 0xaa6type (Slow Death):4
+ 0xc1 0xff 0x5 0x0 0x11 0x0 0x0 0x92 0x45 0x0 0x1 0x0 0x3 0x0 0xeb 0x0
+Spcl Descrip: Slow Death
+melee: 255
+ammo: 0
+blunt: 17
+sharp: 38
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 20
+minDexterity: 16
+hp: 40
+maxHP: 40
+flags: 192
+parry: 32
+wpn3 offset: 0xada
+name: Great Axe
+type: 3
+alignment: 0
+weight: 25
+Special Abilit: 0 0xaea
+melee: 255
+ammo: 0
+blunt: 18
+sharp: 40
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 32
+minDexterity: 16
+hp: 48
+maxHP: 48
+flags: 192
+parry: 18
+
+offset: oxb58
+numenc:1
+anim#:5
+name:lich
+name plural:
+death Text:dies for@for the last time
+hp:45
+maxhp:45
+alignment:0
+sta:20
+cha:20
+str:16
+inte:70
+wis:70
+skl:38
+spd:30
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:9
+tGems:3
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:34
+aSharp:34
+aEarth:0
+aAir:0
+aFire:0
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0xbbc
+name: Sceptre of Chaos
+type: 3
+alignment: 32
+weight: 0
+Special Abilit: 0x88 0xbd3 0xa5 0xff 0x1 0x0 0x13 0x0 0x0 0x92 0x45 0x0 0x1 0x0 0x3 0x0 0x0 0xff 0x0 0x24 0x0 0x0 0x0 0x0 0x0 0x0 0x16 0x0 0x16 0x0 0x0 0x0 0x40 0x40 0x2
+Spcl Descrip: y™á™à™à™à™ÄˇF
+melee: 255
+ammo: 0
+blunt: 36
+sharp: 0
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 22
+good: 0
+evil: 22
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 64
+maxHP: 64
+flags: 2
+parry: 8
+
+offset: oxbf7
+numenc:1
+anim#:6
+name:Undead Knight
+name plural:
+death Text:fades away exclaiming,@"I'm free!  Art thou The One?"
+hp:65
+maxhp:65
+alignment:128
+sta:50
+cha:50
+str:50
+inte:50
+wis:50
+skl:75
+spd:50
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:51
+aSharp:51
+aEarth:17
+aAir:17
+aFire:17
+aWater:17
+aPower:51
+aMagic:17
+aGood:17
+aEvil:17
+aCold:34
+wpn1 offset: 0xc7f
+name: Ebon Blade
+type: 3
+alignment: 0
+weight: 16
+Special Abilit: 0 0xc90
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 38
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 36
+good: 0
+evil: 0
+cold: 0
+minStrength: 24
+minDexterity: 24
+hp: 80
+maxHP: 80
+flags: 128
+parry: 21
+
+offset: oxcee
+numenc:2
+anim#:7
+name:guard
+name plural:guards
+death Text:dies
+hp:46
+maxhp:46
+alignment:129
+sta:20
+cha:20
+str:40
+inte:20
+wis:20
+skl:38
+spd:20
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:3
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:33
+tCopper:0
+aBlunt:51
+aSharp:51
+aEarth:0
+aAir:0
+aFire:35
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:34
+wpn1 offset: 0xd4f
+name: Gladius
+type: 3
+alignment: 0
+weight: 7
+Special Abilit: 0 0xd5d
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 35
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 10
+minDexterity: 10
+hp: 35
+maxHP: 35
+flags: 128
+parry: 16
+wpn2 offset: 0xd71
+name: Longsword
+type: 3
+alignment: 0
+weight: 16
+Special Abilit: 0 0xd81
+melee: 255
+ammo: 0
+blunt: 17
+sharp: 36
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 14
+minDexterity: 16
+hp: 40
+maxHP: 40
+flags: 128
+parry: 21
+wpn3 offset: 0xd95
+name: Sword of Light
+type: 3
+alignment: 129
+weight: 12
+Special Abilit: 0x88 0xdaa 0x4 0x1 0x1 0x0 0x0 0x0 0x0 0x81 0x90 0x0 0x1 0x0 0x1 0x0 0x88 0xff 0x48 0x1 0x1 0x0 0x0 0x0 0x0 0x91 0x90 0x0 0x1 0x0 0x1 0x0 0x88 0xff 0x25
+Spcl Descrip: 
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 26
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 16
+minDexterity: 16
+hp: 128
+maxHP: 128
+flags: 128
+parry: 21
+
+offset: ox10e7
+numenc:2
+anim#:8
+name:F.B.I. Agent
+name plural:F.B.I. Agents
+death Text:shall return
+hp:0
+maxhp:0
+alignment:128
+sta:90
+cha:90
+str:90
+inte:90
+wis:90
+skl:90
+spd:90
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:240
+aSharp:240
+aEarth:240
+aAir:240
+aFire:240
+aWater:240
+aPower:240
+aMagic:240
+aGood:240
+aEvil:240
+aCold:240
+wpn1 offset: 0x1151
+name: Long Arm of the Law
+type: 0
+alignment: 0
+weight: 0
+Special Abilit: 0 0x116b
+melee: 17
+ammo: 0
+blunt: 17
+sharp: 17
+earth: 17
+air: 17
+fire: 17
+water: 17
+power: 17
+magic: 17
+good: 17
+evil: 17
+cold: 17
+minStrength: 17
+minDexterity: 17
+hp: 0
+maxHP: 0
+flags: 7
+parry: 17
+
+offset: ox117f
+numenc:1
+anim#:6
+name:Dark Knight
+name plural:
+death Text:falls
+hp:37
+maxhp:37
+alignment:64
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:20
+spd:30
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:3
+tCrystals:9
+tGems:1
+tJewels:1
+tGold:70
+tSilver:0
+tCopper:0
+aBlunt:36
+aSharp:36
+aEarth:18
+aAir:18
+aFire:50
+aWater:18
+aPower:18
+aMagic:18
+aGood:18
+aEvil:18
+aCold:18
+wpn1 offset: 0x11d3
+name: Broadsword
+type: 3
+alignment: 0
+weight: 12
+Special Abilit: 0 0x11e4
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 24
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 12
+minDexterity: 12
+hp: 61
+maxHP: 61
+flags: 128
+parry: 17
+wpn2 offset: 0x11f8
+name: Mace
+type: 3
+alignment: 0
+weight: 12
+Special Abilit: 0 0x1203
+melee: 255
+ammo: 0
+blunt: 24
+sharp: 0
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 8
+minDexterity: 4
+hp: 40
+maxHP: 40
+flags: 170
+parry: 5
+wpn3 offset: 0x1217
+name: Sword of Doom
+type: 3
+alignment: 96
+weight: 12
+Special Abilit: 0x88 0x122b 0x25 0x1 0x1 0x0 0x0 0x0 0x0 0x92 0x45 0x0 0x1 0x0 0xa 0x0 0x0 0xff 0x0 0x11 0x24 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x16 0x0 0x10 0x10 0x40 0x40 0x88
+Spcl Descrip: ]™]™f™f™â™©êMˇ
+melee: 255
+ammo: 0
+blunt: 17
+sharp: 36
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 22
+cold: 0
+minStrength: 16
+minDexterity: 16
+hp: 64
+maxHP: 64
+flags: 136
+parry: 21
+
+offset: ox124f
+numenc:1
+anim#:9
+name:Champion
+name plural:
+death Text:has fought his last battle
+hp:68
+maxhp:68
+alignment:144
+sta:30
+cha:20
+str:45
+inte:20
+wis:20
+skl:50
+spd:40
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:3
+tCrystals:6
+tGems:9
+tJewels:4
+tGold:0
+tSilver:40
+tCopper:0
+aBlunt:52
+aSharp:52
+aEarth:34
+aAir:34
+aFire:34
+aWater:34
+aPower:34
+aMagic:34
+aGood:34
+aEvil:34
+aCold:34
+wpn1 offset: 0x12b5
+name: Scimitar
+type: 3
+alignment: 0
+weight: 14
+Special Abilit: 0 0x12c4
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 25
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 16
+minDexterity: 22
+hp: 36
+maxHP: 36
+flags: 128
+parry: 21
+wpn3 offset: 0x12d8
+name: Sword of Light
+type: 3
+alignment: 129
+weight: 12
+Special Abilit: 0x88 0x12ed 0x4 0x1 0x1 0x0 0x0 0x0 0x0 0x81 0x90 0x0 0x1 0x0 0x1 0x0 0x88 0xff 0x48 0x1 0x1 0x0 0x0 0x0 0x0 0x91 0x90 0x0 0x1 0x0 0x1 0x0 0x88 0xff 0x25
+Spcl Descrip: 
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 26
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 16
+minDexterity: 16
+hp: 128
+maxHP: 128
+flags: 128
+parry: 21
+
+offset: ox1364
+numenc:1
+anim#:10
+name:Healer
+name plural:
+death Text:curses you@with his last breath
+hp:20
+maxhp:20
+alignment:128
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:20
+spd:20
+tFood:1
+tWater:1
+tTorches:0
+tTimepieces:0
+tCompasses:1
+tKeys:1
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:88
+tSilver:88
+tCopper:88
+aBlunt:0
+aSharp:0
+aEarth:0
+aAir:0
+aFire:0
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x13ce
+name: Dagger
+type: 3
+alignment: 0
+weight: 1
+Special Abilit: 0 0x13db
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 21
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 6
+hp: 16
+maxHP: 16
+flags: 129
+parry: 2
+
+offset: ox169b
+numenc:1
+anim#:9
+name:Knight
+name plural:
+death Text:is undone
+hp:28
+maxhp:28
+alignment:255
+sta:20
+cha:20
+str:40
+inte:20
+wis:20
+skl:40
+spd:40
+tFood:0
+tWater:1
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:3
+tCrystals:5
+tGems:2
+tJewels:1
+tGold:11
+tSilver:59
+tCopper:0
+aBlunt:51
+aSharp:51
+aEarth:17
+aAir:17
+aFire:35
+aWater:17
+aPower:17
+aMagic:17
+aGood:17
+aEvil:17
+aCold:34
+wpn1 offset: 0x16ee
+name: Claymore
+type: 3
+alignment: 0
+weight: 25
+Special Abilit: 0 0x16fd
+melee: 255
+ammo: 0
+blunt: 19
+sharp: 40
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 40
+minDexterity: 32
+hp: 48
+maxHP: 48
+flags: 128
+parry: 21
+wpn2 offset: 0x1711
+name: Flamesword
+type: 3
+alignment: 0
+weight: 16
+Special Abilit: 0 0x1722
+melee: 255
+ammo: 0
+blunt: 17
+sharp: 36
+earth: 0
+air: 0
+fire: 21
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 14
+minDexterity: 16
+hp: 48
+maxHP: 48
+flags: 128
+parry: 21
+
+offset: ox184f
+numenc:1
+anim#:11
+name:pauper
+name plural:
+death Text:gasps:@"What you sow, you shall reap!"
+hp:10
+maxhp:10
+alignment:128
+sta:20
+cha:20
+str:40
+inte:20
+wis:20
+skl:40
+spd:28
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:1
+aBlunt:17
+aSharp:17
+aEarth:17
+aAir:17
+aFire:17
+aWater:17
+aPower:17
+aMagic:17
+aGood:17
+aEvil:17
+aCold:17
+wpn1 offset: 0x18c1
+name: Hardened Fist
+type: 0
+alignment: 0
+weight: 0
+Special Abilit: 0 0x18d5
+melee: 255
+ammo: 0
+blunt: 51
+sharp: 0
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 6
+parry: 0
+wpn2 offset: 0x18e9
+name: Bare Foot
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x18f9
+melee: 255
+ammo: 0
+blunt: 53
+sharp: 0
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 1
+parry: 0
+
+offset: ox1a21
+numenc:1
+anim#:12
+name:nobleman
+name plural:
+death Text:dies with@a sneer on his face
+hp:18
+maxhp:18
+alignment:128
+sta:20
+cha:20
+str:29
+inte:20
+wis:20
+skl:30
+spd:30
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:1
+tCrystals:0
+tGems:3
+tJewels:1
+tGold:40
+tSilver:80
+tCopper:0
+aBlunt:20
+aSharp:20
+aEarth:0
+aAir:0
+aFire:19
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x1a8b
+name: Broadsword
+type: 3
+alignment: 0
+weight: 12
+Special Abilit: 0 0x1a9c
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 24
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 12
+minDexterity: 12
+hp: 61
+maxHP: 61
+flags: 128
+parry: 17
+wpn3 offset: 0x1ab0
+name: Ruby Rapier
+type: 3
+alignment: 0
+weight: 4
+Special Abilit: 0 0x1ac2
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 37
+earth: 0
+air: 0
+fire: 24
+water: 0
+power: 19
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 16
+minDexterity: 24
+hp: 224
+maxHP: 224
+flags: 128
+parry: 21
+
+offset: ox1b6c
+numenc:1
+anim#:13
+name:alien sentry
+name plural:
+death Text:dissolves in a@thick green puddle
+hp:49
+maxhp:49
+alignment:128
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:60
+spd:60
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:68
+aSharp:68
+aEarth:255
+aAir:255
+aFire:35
+aWater:35
+aPower:19
+aMagic:56
+aGood:255
+aEvil:255
+aCold:56
+wpn1 offset: 0x1bdf
+name: Beam Weapon
+type: 3
+alignment: 0
+weight: 4
+Special Abilit: 0x88 0x1bf1 0x4 0x1 0x1 0x0 0x0 0x0 0x0 0x1 0x2 0x80 0x1 0x0 0x10 0x0 0x88 0xff 0x44 0x1 0x1 0x0 0x0 0x0 0x0 0x92 0x45 0x0 0x1 0x0 0xe 0x0 0x0 0xff 0x0
+Spcl Descrip: 
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 0
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 104
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 18
+minDexterity: 24
+hp: 32
+maxHP: 32
+flags: 5
+parry: 0
+
+offset: ox1c25
+numenc:2
+anim#:14
+name:robot
+name plural:'bots
+death Text:sputters around a bit@and then explodes
+hp:30
+maxhp:30
+alignment:128
+sta:20
+cha:20
+str:20
+inte:20
+wis:0
+skl:38
+spd:24
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:34
+aSharp:34
+aEarth:255
+aAir:255
+aFire:34
+aWater:51
+aPower:0
+aMagic:255
+aGood:255
+aEvil:255
+aCold:19
+wpn1 offset: 0x1c9c
+name: Blade Attachment
+type: 0
+alignment: 0
+weight: 0
+Special Abilit: 0 0x1cb3
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 88
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 0
+parry: 21
+wpn2 offset: 0x1cc7
+name: Lens Attachment
+type: 0
+alignment: 0
+weight: 0
+Special Abilit: 0 0x1cdd
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 0
+earth: 0
+air: 0
+fire: 56
+water: 0
+power: 56
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 5
+parry: 0
+wpn3 offset: 0x1cf1
+name: Nozzle Attachment
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x1d09
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 0
+earth: 0
+air: 0
+fire: 111
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 6
+parry: 0
+
+offset: ox1d1d
+numenc:3
+anim#:15
+name:novice
+name plural:novices
+death Text:swears vengeance
+hp:8
+maxhp:8
+alignment:128
+sta:15
+cha:15
+str:15
+inte:15
+wis:15
+skl:15
+spd:15
+tFood:0
+tWater:1
+tTorches:1
+tTimepieces:0
+tCompasses:1
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:43
+aBlunt:17
+aSharp:17
+aEarth:0
+aAir:0
+aFire:17
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x1d7f
+name: Dagger
+type: 3
+alignment: 0
+weight: 1
+Special Abilit: 0 0x1d8c
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 21
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 6
+hp: 16
+maxHP: 16
+flags: 129
+parry: 2
+wpn2 offset: 0x1da0
+name: Dagger
+type: 3
+alignment: 0
+weight: 1
+Special Abilit: x083 0x1dad 0xc1 0x4 0xd0 0x2 0xa0 0x5 0x0 0x91 0x5a 0x0 0x1 0x0 0x1 0x0 0xeb 0x0
+Spcl Descrip: Weakness
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 21
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 6
+hp: 16
+maxHP: 16
+flags: 129
+parry: 2
+
+offset: ox1de1
+numenc:2
+anim#:15
+name:apprentice
+name plural:apprentices
+death Text:dies
+hp:12
+maxhp:12
+alignment:128
+sta:15
+cha:15
+str:15
+inte:15
+wis:15
+skl:15
+spd:15
+tFood:1
+tWater:1
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:3
+tCrystals:7
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:11
+aBlunt:17
+aSharp:17
+aEarth:0
+aAir:0
+aFire:18
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x1e3f
+name: Dagger
+type: 3
+alignment: 0
+weight: 1
+Special Abilit: 0 0x1e4c
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 21
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 6
+hp: 16
+maxHP: 16
+flags: 129
+parry: 2
+wpn2 offset: 0x1e60
+name: Dagger
+type: 3
+alignment: 0
+weight: 1
+Special Abilit: x083 0x1e6dtype (Slow Death):4
+ 0xc1 0xff 0x5 0x0 0x11 0x0 0x0 0x92 0x45 0x0 0x1 0x0 0x3 0x0 0xeb 0x0
+Spcl Descrip: Slow Death
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 21
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 6
+hp: 16
+maxHP: 16
+flags: 129
+parry: 2
+
+offset: ox1ea1
+numenc:1
+anim#:10
+name:mage
+name plural:
+death Text:expires
+hp:37
+maxhp:37
+alignment:128
+sta:25
+cha:25
+str:25
+inte:55
+wis:55
+skl:35
+spd:25
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:3
+tCrystals:7
+tGems:1
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:20
+aSharp:20
+aEarth:18
+aAir:18
+aFire:18
+aWater:18
+aPower:18
+aMagic:18
+aGood:18
+aEvil:18
+aCold:18
+wpn1 offset: 0x1ef0
+name: Staff
+type: 3
+alignment: 0
+weight: 6
+Special Abilit: x083 0x1efctype (Slow Death):4
+ 0xc1 0xff 0x5 0x0 0x11 0x0 0x0 0x92 0x45 0x0 0x1 0x0 0x3 0x0 0xeb 0x0
+Spcl Descrip: Slow Death
+melee: 255
+ammo: 0
+blunt: 22
+sharp: 0
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 6
+minDexterity: 24
+hp: 24
+maxHP: 24
+flags: 210
+parry: 64
+wpn3 offset: 0x1f30
+name: Serpent Staff
+type: 3
+alignment: 0
+weight: 8
+Special Abilit: 0 0x1f44
+melee: 255
+ammo: 0
+blunt: 38
+sharp: 22
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 18
+minDexterity: 24
+hp: 32
+maxHP: 32
+flags: 202
+parry: 64
+
+offset: ox1f58
+numenc:1
+anim#:16
+name:wizard
+name plural:
+death Text:dies
+hp:67
+maxhp:67
+alignment:128
+sta:20
+cha:20
+str:20
+inte:60
+wis:60
+skl:50
+spd:40
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:17
+tCrystals:33
+tGems:4
+tJewels:6
+tGold:11
+tSilver:19
+tCopper:0
+aBlunt:35
+aSharp:35
+aEarth:34
+aAir:34
+aFire:34
+aWater:34
+aPower:34
+aMagic:34
+aGood:34
+aEvil:34
+aCold:34
+wpn1 offset: 0x1faf
+name: Staff of Power
+type: 3
+alignment: 0
+weight: 6
+Special Abilit: 0 0x1fc4
+melee: 255
+ammo: 0
+blunt: 38
+sharp: 0
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 18
+magic: 19
+good: 0
+evil: 0
+cold: 0
+minStrength: 6
+minDexterity: 24
+hp: 24
+maxHP: 24
+flags: 202
+parry: 64
+wpn3 offset: 0x1fd8
+name: Serpent Staff
+type: 3
+alignment: 0
+weight: 8
+Special Abilit: 0 0x1fec
+melee: 255
+ammo: 0
+blunt: 38
+sharp: 22
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 18
+minDexterity: 24
+hp: 32
+maxHP: 32
+flags: 202
+parry: 64
+
+offset: ox20d7
+numenc:4
+anim#:15
+name:acolyte
+name plural:acolytes
+death Text:goes to@his final reward
+hp:9
+maxhp:9
+alignment:128
+sta:20
+cha:20
+str:20
+inte:30
+wis:30
+skl:30
+spd:30
+tFood:7
+tWater:6
+tTorches:4
+tTimepieces:0
+tCompasses:1
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:17
+aSharp:17
+aEarth:0
+aAir:0
+aFire:0
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x2144
+name: Dagger
+type: 3
+alignment: 0
+weight: 1
+Special Abilit: 0 0x2151
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 21
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 6
+hp: 16
+maxHP: 16
+flags: 129
+parry: 2
+wpn2 offset: 0x2165
+name: Dagger
+type: 3
+alignment: 0
+weight: 1
+Special Abilit: x083 0x2172type (Thirst):2
+ 0xc1 0xff 0x10 0x0 0x10 0x0 0x0 0x91 0x9a 0x0 0x1 0x0 0x1 0x0 0xeb 0x0
+Spcl Descrip: Thirst
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 21
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 6
+hp: 16
+maxHP: 16
+flags: 129
+parry: 2
+wpn3 offset: 0x21a6
+name: Katar
+type: 3
+alignment: 0
+weight: 3
+Special Abilit: 0 0x21b2
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 24
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 16
+minDexterity: 24
+hp: 24
+maxHP: 24
+flags: 128
+parry: 2
+
+offset: ox21c6
+numenc:1
+anim#:10
+name:sage
+name plural:
+death Text:expires
+hp:30
+maxhp:30
+alignment:128
+sta:20
+cha:20
+str:20
+inte:200
+wis:200
+skl:70
+spd:50
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:1
+tKeys:1
+tCrystals:3
+tGems:2
+tJewels:2
+tGold:4
+tSilver:20
+tCopper:0
+aBlunt:34
+aSharp:34
+aEarth:0
+aAir:0
+aFire:34
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x2216
+name: Diamond Dagger
+type: 3
+alignment: 0
+weight: 5
+Special Abilit: 0 0x222b
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 31
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 8
+minDexterity: 12
+hp: 255
+maxHP: 255
+flags: 137
+parry: 48
+
+offset: ox230c
+numenc:3
+anim#:17
+name:orc
+name plural:orcs
+death Text:dies
+hp:23
+maxhp:23
+alignment:64
+sta:50
+cha:1
+str:40
+inte:1
+wis:8
+skl:20
+spd:20
+tFood:3
+tWater:3
+tTorches:3
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:35
+aSharp:35
+aEarth:15
+aAir:0
+aFire:19
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x235c
+name: Halberd
+type: 3
+alignment: 0
+weight: 20
+Special Abilit: 0 0x236a
+melee: 255
+ammo: 0
+blunt: 17
+sharp: 38
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 20
+minDexterity: 16
+hp: 40
+maxHP: 40
+flags: 192
+parry: 32
+wpn2 offset: 0x237e
+name: Great Axe
+type: 3
+alignment: 0
+weight: 25
+Special Abilit: 0 0x238e
+melee: 255
+ammo: 0
+blunt: 18
+sharp: 40
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 32
+minDexterity: 16
+hp: 48
+maxHP: 48
+flags: 192
+parry: 18
+wpn3 offset: 0x23a2
+name: Claymore
+type: 3
+alignment: 0
+weight: 25
+Special Abilit: 0 0x23b1
+melee: 255
+ammo: 0
+blunt: 19
+sharp: 40
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 40
+minDexterity: 32
+hp: 48
+maxHP: 48
+flags: 128
+parry: 21
+
+offset: ox23c5
+numenc:5
+anim#:3
+name:gnome
+name plural:gnomes
+death Text:poofs
+hp:10
+maxhp:10
+alignment:128
+sta:20
+cha:10
+str:15
+inte:60
+wis:20
+skl:25
+spd:33
+tFood:5
+tWater:5
+tTorches:2
+tTimepieces:1
+tCompasses:1
+tKeys:0
+tCrystals:0
+tGems:2
+tJewels:0
+tGold:17
+tSilver:0
+tCopper:0
+aBlunt:20
+aSharp:20
+aEarth:15
+aAir:17
+aFire:17
+aWater:17
+aPower:17
+aMagic:17
+aGood:17
+aEvil:17
+aCold:17
+wpn1 offset: 0x241a
+name: Club
+type: 3
+alignment: 0
+weight: 7
+Special Abilit: 0 0x2425
+melee: 255
+ammo: 0
+blunt: 23
+sharp: 0
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 8
+minDexterity: 2
+hp: 24
+maxHP: 24
+flags: 170
+parry: 5
+wpn2 offset: 0x2439
+name: lighting jolt
+type: 0
+alignment: 0
+weight: 0
+Special Abilit: 0 0x244d
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 0
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 36
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 5
+parry: 0
+
+offset: ox2461
+numenc:7
+anim#:18
+name:dwarf
+name plural:dwarves
+death Text:disappears in a@puff of greasy black smoke
+hp:12
+maxhp:12
+alignment:128
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:20
+spd:20
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:1
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:16
+tJewels:5
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:35
+aSharp:35
+aEarth:15
+aAir:18
+aFire:18
+aWater:18
+aPower:18
+aMagic:18
+aGood:18
+aEvil:18
+aCold:18
+wpn1 offset: 0x24dd
+name: Thunder Hammer
+type: 3
+alignment: 0
+weight: 28
+Special Abilit: x083 0x24f2type (Loki's Wrath):3
+ 0xc1 0x63 0x1 0x0 0x1e 0x0 0x0 0x91 0x50 0x0 0x6 0x8 0x1 0x0 0xeb 0x0
+Spcl Descrip: Loki's Wrath
+melee: 255
+ammo: 0
+blunt: 56
+sharp: 0
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 64
+minDexterity: 64
+hp: 64
+maxHP: 64
+flags: 130
+parry: 8
+
+offset: ox2526
+numenc:1
+anim#:19
+name:slime
+name plural:
+death Text:splatters@into nothingness
+hp:7
+maxhp:7
+alignment:128
+sta:20
+cha:20
+str:20
+inte:0
+wis:0
+skl:20
+spd:20
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:1
+tCrystals:3
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:0
+aSharp:255
+aEarth:0
+aAir:0
+aFire:0
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x258a
+name: acidic goo
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x259b
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 0
+earth: 0
+air: 0
+fire: 19
+water: 19
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 6
+parry: 0
+wpn2 offset: 0x25af
+name: corrosive jelly
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x25c5
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 0
+earth: 17
+air: 17
+fire: 18
+water: 18
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 6
+parry: 0
+
+offset: ox2664
+numenc:1
+anim#:19
+name:mold
+name plural:
+death Text:explodes into@fine powder
+hp:8
+maxhp:8
+alignment:128
+sta:20
+cha:20
+str:20
+inte:0
+wis:0
+skl:20
+spd:20
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:1
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:0
+aSharp:255
+aEarth:0
+aAir:0
+aFire:15
+aWater:0
+aPower:0
+aMagic:17
+aGood:0
+aEvil:0
+aCold:34
+wpn1 offset: 0x26c6
+name: noxious fumes
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x26da
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 0
+earth: 0
+air: 24
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 4
+parry: 0
+wpn2 offset: 0x26ee
+name: burst of spores
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0x88 0x2704 0x1 0x1 0x1 0x0 0x1 0x0 0x0 0x1 0x2 0x80 0x1 0x0 0x10 0x0 0xc1 0xff 0xc1 0xff 0x64 0x5 0x22 0x0 0x7 0x92 0x45 0x0 0x1 0x0 0x1 0xff 0xe1 0x0 0x41
+Spcl Descrip: Green Lung
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 0
+earth: 18
+air: 20
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 4
+parry: 0
+
+offset: ox2748
+numenc:7
+anim#:20
+name:homunculus
+name plural:homunculii
+death Text:goes up@in a cloud of smoke
+hp:7
+maxhp:7
+alignment:0
+sta:10
+cha:0
+str:15
+inte:60
+wis:60
+skl:50
+spd:40
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:5
+tGems:3
+tJewels:1
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:17
+aSharp:17
+aEarth:17
+aAir:17
+aFire:17
+aWater:17
+aPower:17
+aMagic:17
+aGood:17
+aEvil:17
+aCold:17
+wpn1 offset: 0x27bd
+name: talons
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x27ca
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 19
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 0
+parry: 0
+
+offset: ox27de
+numenc:1
+anim#:21
+name:phoenix
+name plural:
+death Text:is consumed@in a fiery orange ball
+hp:39
+maxhp:39
+alignment:255
+sta:30
+cha:10
+str:30
+inte:20
+wis:21
+skl:30
+spd:40
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:25
+tGems:30
+tJewels:10
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:255
+aSharp:255
+aEarth:0
+aAir:0
+aFire:240
+aWater:15
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:15
+wpn1 offset: 0x284c
+name: fiery talons
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x285f
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 20
+earth: 0
+air: 0
+fire: 19
+water: 0
+power: 0
+magic: 0
+good: 18
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 3
+parry: 0
+wpn2 offset: 0x2873
+name: immolation
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x2884
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 0
+earth: 0
+air: 0
+fire: 42
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 6
+parry: 0
+
+offset: ox2898
+numenc:1
+anim#:22
+name:sorceress
+name plural:
+death Text:dies
+hp:41
+maxhp:41
+alignment:128
+sta:20
+cha:20
+str:20
+inte:50
+wis:50
+skl:50
+spd:50
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:15
+tGems:5
+tJewels:0
+tGold:0
+tSilver:45
+tCopper:0
+aBlunt:19
+aSharp:19
+aEarth:19
+aAir:19
+aFire:19
+aWater:19
+aPower:19
+aMagic:19
+aGood:19
+aEvil:19
+aCold:19
+wpn1 offset: 0x28e9
+name: Silver Needle
+type: 3
+alignment: 0
+weight: 0
+Special Abilit: 0 0x28fd
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 31
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 20
+good: 20
+evil: 0
+cold: 0
+minStrength: 10
+minDexterity: 24
+hp: 3
+maxHP: 3
+flags: 129
+parry: 0
+wpn2 offset: 0x2911
+name: Silver Needle
+type: 3
+alignment: 0
+weight: 0
+Special Abilit: x083 0x2925type (Slow Death):4
+ 0xc1 0xff 0x5 0x0 0x11 0x0 0x0 0x92 0x45 0x0 0x1 0x0 0x3 0x0 0xeb 0x0
+Spcl Descrip: Slow Death
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 31
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 20
+good: 20
+evil: 0
+cold: 0
+minStrength: 10
+minDexterity: 24
+hp: 3
+maxHP: 3
+flags: 129
+parry: 0
+wpn3 offset: 0x2959
+name: Emerald Knife
+type: 3
+alignment: 0
+weight: 3
+Special Abilit: 0 0x296d
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 36
+earth: 24
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 24
+minDexterity: 32
+hp: 224
+maxHP: 224
+flags: 130
+parry: 12
+
+offset: ox2981
+numenc:1
+anim#:23
+name:whirlwind
+name plural:
+death Text:subsides
+hp:17
+maxhp:17
+alignment:128
+sta:20
+cha:0
+str:50
+inte:1
+wis:1
+skl:23
+spd:44
+tFood:7
+tWater:5
+tTorches:4
+tTimepieces:6
+tCompasses:3
+tKeys:4
+tCrystals:1
+tGems:1
+tJewels:1
+tGold:35
+tSilver:35
+tCopper:35
+aBlunt:22
+aSharp:255
+aEarth:0
+aAir:15
+aFire:255
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x29d6
+name: flying debris
+type: 0
+alignment: 0
+weight: 0
+Special Abilit: 0 0x29ea
+melee: 255
+ammo: 0
+blunt: 40
+sharp: 0
+earth: 20
+air: 20
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 132
+parry: 32
+wpn2 offset: 0x29fe
+name: ripping winds
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x2a12
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 0
+earth: 0
+air: 42
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 4
+parry: 0
+wpn3 offset: 0x2a26
+name: lightning bolt
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x2a3b
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 0
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 26
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 6
+parry: 0
+
+offset: ox2a82
+numenc:6
+anim#:24
+name:giant rat
+name plural:giant rats
+death Text:lays lifeless@on the ground
+hp:6
+maxhp:6
+alignment:128
+sta:20
+cha:0
+str:20
+inte:0
+wis:0
+skl:10
+spd:25
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:1
+tJewels:0
+tGold:1
+tSilver:0
+tCopper:0
+aBlunt:0
+aSharp:0
+aEarth:0
+aAir:0
+aFire:0
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x2af6
+name: sharp pointy teeth
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0x88 0x2b0f 0x1 0x1 0x1 0x0 0x1 0x0 0x0 0x1 0x2 0x80 0x1 0x0 0x10 0x0 0xc1 0xff 0xc1 0xff 0xdc 0x5 0x25 0x0 0x5 0x92 0x45 0x0 0x1 0x0 0x1 0xff 0xe1 0x0 0x41
+Spcl Descrip: Rabies
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 20
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 2
+parry: 0
+
+offset: ox2b53
+numenc:1
+anim#:25
+name:small dragon
+name plural:
+death Text:is slain
+hp:68
+maxhp:68
+alignment:128
+sta:60
+cha:20
+str:60
+inte:70
+wis:70
+skl:45
+spd:40
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:30
+tJewels:10
+tGold:200
+tSilver:200
+tCopper:200
+aBlunt:68
+aSharp:68
+aEarth:34
+aAir:34
+aFire:255
+aWater:34
+aPower:34
+aMagic:34
+aGood:34
+aEvil:34
+aCold:34
+wpn1 offset: 0x2bab
+name: huge jaws
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x2bbb
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 68
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 2
+parry: 0
+wpn2 offset: 0x2bcf
+name: claw
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x2bda
+melee: 255
+ammo: 0
+blunt: 38
+sharp: 18
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 0
+parry: 0
+wpn3 offset: 0x2bee
+name: spiked tail
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x2c00
+melee: 255
+ammo: 0
+blunt: 38
+sharp: 36
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 5
+parry: 0
+
+offset: ox2c14
+numenc:8
+anim#:26
+name:skeleton
+name plural:skeletons
+death Text:crumbles into a@heap of shattered bones
+hp:6
+maxhp:6
+alignment:0
+sta:20
+cha:0
+str:20
+inte:0
+wis:0
+skl:20
+spd:20
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:23
+aBlunt:0
+aSharp:0
+aEarth:17
+aAir:0
+aFire:17
+aWater:0
+aPower:0
+aMagic:255
+aGood:0
+aEvil:0
+aCold:255
+wpn1 offset: 0x2c92
+name: Sword
+type: 3
+alignment: 0
+weight: 7
+Special Abilit: x083 0x2c9etype (Clumsiness):1
+ 0xc1 0x63 0x1e 0x0 0x1e 0x0 0x0 0x91 0x78 0x0 0x1 0x0 0x1 0x0 0xeb 0x0
+Spcl Descrip: Clumsiness
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 35
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 10
+minDexterity: 10
+hp: 35
+maxHP: 35
+flags: 128
+parry: 16
+
+offset: ox2cd2
+numenc:5
+anim#:5
+name:zombie
+name plural:zombies
+death Text:is no longer animate
+hp:10
+maxhp:10
+alignment:0
+sta:20
+cha:0
+str:20
+inte:0
+wis:0
+skl:20
+spd:10
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:22
+aBlunt:0
+aSharp:0
+aEarth:0
+aAir:0
+aFire:15
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x2d38
+name: rotting arm
+type: 0
+alignment: 0
+weight: 0
+Special Abilit: 0x88 0x2d4a 0x1 0x1 0x1 0x0 0x1 0x0 0x0 0x1 0x2 0x80 0x1 0x0 0x10 0x0 0xc1 0xff 0xc1 0xff 0x1f 0x0 0x1f 0x0 0x5 0x91 0x62 0x0 0x2 0x8 0x1 0xff 0xe1 0x0 0x41
+Spcl Descrip: Living Death
+melee: 255
+ammo: 0
+blunt: 22
+sharp: 0
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 2
+parry: 0
+
+offset: ox2d8e
+numenc:7
+anim#:5
+name:ghoul
+name plural:ghouls
+death Text:has robbed his@last crypt
+hp:9
+maxhp:9
+alignment:0
+sta:20
+cha:0
+str:80
+inte:0
+wis:0
+skl:20
+spd:20
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:88
+aBlunt:0
+aSharp:0
+aEarth:0
+aAir:0
+aFire:15
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x2df8
+name: powerful hands
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x2e0d
+melee: 255
+ammo: 0
+blunt: 19
+sharp: 19
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 0
+parry: 0
+
+offset: ox2e92
+numenc:1
+anim#:27
+name:ghost
+name plural:
+death Text:dissipates@into thin air
+hp:12
+maxhp:12
+alignment:0
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:20
+spd:20
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:80
+tSilver:0
+tCopper:0
+aBlunt:255
+aSharp:255
+aEarth:15
+aAir:15
+aFire:35
+aWater:15
+aPower:15
+aMagic:255
+aGood:15
+aEvil:15
+aCold:15
+wpn1 offset: 0x2ef4
+name: Chain
+type: 3
+alignment: 0
+weight: 8
+Special Abilit: 0 0x2f00
+melee: 255
+ammo: 0
+blunt: 21
+sharp: 0
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 8
+minDexterity: 4
+hp: 40
+maxHP: 40
+flags: 175
+parry: 5
+wpn2 offset: 0x2f14
+name: hideous scream
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x2f29
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 0
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 24
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 3
+parry: 0
+
+offset: ox2f3d
+numenc:1
+anim#:27
+name:spectre
+name plural:
+death Text:fades away
+hp:20
+maxhp:20
+alignment:0
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:20
+spd:20
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:255
+aSharp:255
+aEarth:15
+aAir:15
+aFire:35
+aWater:15
+aPower:15
+aMagic:255
+aGood:15
+aEvil:15
+aCold:15
+wpn1 offset: 0x2f92
+name: touch of death
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x2fa7
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 0
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 20
+good: 0
+evil: 17
+cold: 21
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 0
+parry: 0
+wpn2 offset: 0x2fbb
+name: gaze of evil
+type: 0
+alignment: 0
+weight: 0
+Special Abilit: 0 0x2fce
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 0
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 18
+good: 18
+evil: 22
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 5
+parry: 0
+
+offset: ox2fe2
+numenc:3
+anim#:27
+name:wraith
+name plural:wraiths
+death Text:dissolves in@a thick vile cloud of gas
+hp:39
+maxhp:39
+alignment:0
+sta:30
+cha:20
+str:40
+inte:40
+wis:40
+skl:40
+spd:40
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:9
+tJewels:3
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:35
+aSharp:35
+aEarth:17
+aAir:17
+aFire:0
+aWater:17
+aPower:0
+aMagic:0
+aGood:15
+aEvil:0
+aCold:17
+wpn1 offset: 0x305b
+name: Unholy Mace
+type: 3
+alignment: 0
+weight: 12
+Special Abilit: 0 0x306d
+melee: 255
+ammo: 0
+blunt: 26
+sharp: 0
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 22
+cold: 0
+minStrength: 24
+minDexterity: 32
+hp: 72
+maxHP: 72
+flags: 130
+parry: 21
+wpn2 offset: 0x3081
+name: Unholy Mace
+type: 3
+alignment: 0
+weight: 12
+Special Abilit: x083 0x3093 0xc1 0x18 0x13 0x0 0x3f 0x0 0x0 0x91 0x60 0x0 0x1 0x0 0x1 0x0 0xeb 0x0
+Spcl Descrip: Weakness
+melee: 255
+ammo: 0
+blunt: 26
+sharp: 0
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 22
+cold: 0
+minStrength: 24
+minDexterity: 32
+hp: 72
+maxHP: 72
+flags: 130
+parry: 21
+wpn3 offset: 0x30c7
+name: Onyx Scythe
+type: 3
+alignment: 0
+weight: 20
+Special Abilit: 0 0x30d9
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 42
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 32
+minDexterity: 32
+hp: 224
+maxHP: 224
+flags: 232
+parry: 32
+
+offset: ox30ed
+numenc:1
+anim#:28
+name:vampire
+name plural:
+death Text:crumbles to dust
+hp:50
+maxhp:50
+alignment:0
+sta:99
+cha:99
+str:99
+inte:99
+wis:99
+skl:99
+spd:99
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:1
+tCompasses:0
+tKeys:9
+tCrystals:19
+tGems:7
+tJewels:7
+tGold:55
+tSilver:0
+tCopper:0
+aBlunt:24
+aSharp:24
+aEarth:24
+aAir:24
+aFire:0
+aWater:15
+aPower:0
+aMagic:0
+aGood:15
+aEvil:20
+aCold:255
+wpn1 offset: 0x3184
+name: Unholy Sword
+type: 3
+alignment: 32
+weight: 25
+Special Abilit: 0x88 0x3197 0xa5 0xff 0x1 0x0 0xd 0x0 0x0 0x92 0x45 0x0 0x1 0x0 0x1 0x0 0x0 0xff 0x0 0x13 0x28 0x0 0x0 0x0 0x0 0x0 0x12 0x0 0x14 0x0 0x30 0x20 0x80 0x80 0xc0
+Spcl Descrip:  w≠
+“…Ë∞L˚v aw©Öñ•x0–FñFñ≠éceñÖñ¢™†˚L
+w¨Svcharms you•with a look.ˇa™k™v™ù™ù™
+melee: 255
+ammo: 0
+blunt: 19
+sharp: 40
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 18
+good: 0
+evil: 20
+cold: 0
+minStrength: 48
+minDexterity: 32
+hp: 128
+maxHP: 128
+flags: 192
+parry: 21
+wpn3 offset: 0x3149
+name: Stealer of Souls
+type: 3
+alignment: 32
+weight: 21
+Special Abilit: 0x88 0x3160 0x25 0x1 0x1 0x0 0x0 0x0 0x0 0x92 0x45 0x0 0x1 0x0 0x19 0x0 0x0 0xff 0x0 0x0 0x26 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x1f 0x0 0x14 0x14 0x80 0x80 0x88
+Spcl Descrip: 7
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 38
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 31
+cold: 0
+minStrength: 20
+minDexterity: 20
+hp: 128
+maxHP: 128
+flags: 136
+parry: 24
+
+offset: ox3205
+numenc:8
+anim#:20
+name:great bat
+name plural:great bats
+death Text:has flapped@for the last time
+hp:7
+maxhp:7
+alignment:128
+sta:20
+cha:20
+str:20
+inte:0
+wis:0
+skl:10
+spd:20
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:1
+tGems:1
+tJewels:0
+tGold:1
+tSilver:1
+tCopper:1
+aBlunt:0
+aSharp:0
+aEarth:0
+aAir:0
+aFire:0
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x327b
+name: yellow fangs
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x328e
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 19
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 2
+parry: 0
+wpn2 offset: 0x32a2
+name: sharp claws
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x32b4
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 18
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 0
+parry: 0
+
+offset: ox32c8
+numenc:3
+anim#:29
+name:hellhound
+name plural:hellhounds
+death Text:is consumed in a@sulphurous cloud of smoke
+hp:30
+maxhp:30
+alignment:0
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:50
+spd:40
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:7
+tCrystals:3
+tGems:1
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:17
+aSharp:17
+aEarth:0
+aAir:0
+aFire:255
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x334b
+name: powerful jaws
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x335f
+melee: 255
+ammo: 0
+blunt: 20
+sharp: 20
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 2
+parry: 0
+wpn2 offset: 0x3373
+name: scorching breath
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x338a
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 0
+earth: 0
+air: 0
+fire: 38
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 6
+parry: 0
+
+offset: ox339e
+numenc:5
+anim#:30
+name:harpy
+name plural:harpies
+death Text:falls to the@ground in a crumpled heap
+hp:27
+maxhp:27
+alignment:0
+sta:20
+cha:3
+str:20
+inte:8
+wis:20
+skl:70
+spd:20
+tFood:1
+tWater:1
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:12
+tSilver:30
+tCopper:99
+aBlunt:19
+aSharp:19
+aEarth:0
+aAir:0
+aFire:0
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x3437
+name: talons
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x3444
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 19
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 3
+parry: 0
+wpn2 offset: 0x3416
+name: Sickle
+type: 3
+alignment: 0
+weight: 7
+Special Abilit: 0 0x3423
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 35
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 10
+minDexterity: 10
+hp: 20
+maxHP: 20
+flags: 128
+parry: 4
+
+offset: ox3479
+numenc:1
+anim#:31
+name:gremlin
+name plural:
+death Text:melts into a puddle@of bubbling goo
+hp:14
+maxhp:14
+alignment:0
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:20
+spd:20
+tFood:1
+tWater:1
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:2
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:18
+aSharp:18
+aEarth:0
+aAir:0
+aFire:255
+aWater:15
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:20
+wpn1 offset: 0x34e8
+name: bony claw
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x34f8
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 20
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 0
+parry: 0
+wpn2 offset: 0x350c
+name: razor-like teeth
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x3523
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 22
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 2
+parry: 0
+
+offset: ox3537
+numenc:1
+anim#:31
+name:imp
+name plural:
+death Text:leaves this mortal plane
+hp:14
+maxhp:14
+alignment:0
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:20
+spd:20
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:55
+tSilver:0
+tCopper:0
+aBlunt:19
+aSharp:19
+aEarth:0
+aAir:0
+aFire:255
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:18
+wpn1 offset: 0x3596
+name: claw
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x35a1
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 20
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 3
+parry: 0
+wpn2 offset: 0x35b5
+name: poisoned tail
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0x88 0x35c9 0x1 0x1 0x1 0x0 0x1 0x0 0x0 0x1 0x2 0x80 0x1 0x0 0x10 0x0 0x82 0xff 0xc1 0xff 0x1 0x0 0x12 0x0 0x15 0x92 0x45 0x0 0x1 0x0 0x1 0xff 0x0 0xff 0x0
+Spcl Descrip: 
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 21
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 7
+parry: 0
+
+offset: ox35fd
+numenc:4
+anim#:32
+name:flame demon
+name plural:flame demons
+death Text:is consumed@in its own blaze
+hp:46
+maxhp:46
+alignment:0
+sta:23
+cha:23
+str:30
+inte:20
+wis:20
+skl:20
+spd:35
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:255
+tSilver:255
+tCopper:0
+aBlunt:51
+aSharp:51
+aEarth:51
+aAir:51
+aFire:240
+aWater:15
+aPower:51
+aMagic:51
+aGood:51
+aEvil:51
+aCold:15
+wpn1 offset: 0x36b0
+name: Flaming Pitchfork
+type: 3
+alignment: 0
+weight: 18
+Special Abilit: 0 0x36c8
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 25
+earth: 0
+air: 0
+fire: 19
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 32
+minDexterity: 32
+hp: 32
+maxHP: 32
+flags: 195
+parry: 32
+wpn2 offset: 0x3676
+name: Sword of Demons
+type: 3
+alignment: 0
+weight: 16
+Special Abilit: 0x88 0x368c 0x81 0x0 0x3c 0x0 0x3c 0x0 0x0 0x1 0x20 0x0 0x1 0x0 0x34 0x0 0x0 0xff 0x0 0x12 0x18 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x24 0x0 0x18 0x18 0x24 0x24 0x80
+Spcl Descrip: ,
+melee: 255
+ammo: 0
+blunt: 18
+sharp: 24
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 36
+cold: 0
+minStrength: 24
+minDexterity: 24
+hp: 36
+maxHP: 36
+flags: 128
+parry: 21
+
+offset: ox3781
+numenc:1
+anim#:23
+name:storm devil
+name plural:
+death Text:goes out with a flash
+hp:31
+maxhp:31
+alignment:0
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:20
+spd:20
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:1
+tGems:1
+tJewels:1
+tGold:1
+tSilver:1
+tCopper:1
+aBlunt:24
+aSharp:24
+aEarth:17
+aAir:17
+aFire:255
+aWater:17
+aPower:17
+aMagic:17
+aGood:17
+aEvil:17
+aCold:17
+wpn1 offset: 0x37e6
+name: bolt of lightning
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x37fe
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 0
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 23
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 5
+parry: 0
+wpn2 offset: 0x3812
+name: Nature
+type: 0
+alignment: 0
+weight: 0
+Special Abilit: 0 0x381f
+melee: 255
+ammo: 0
+blunt: 17
+sharp: 17
+earth: 18
+air: 18
+fire: 18
+water: 18
+power: 18
+magic: 0
+good: 0
+evil: 0
+cold: 18
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 7
+parry: 0
+
+offset: ox3833
+numenc:3
+anim#:29
+name:giant wolf
+name plural:giant wolves
+death Text:dies
+hp:15
+maxhp:15
+alignment:128
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:30
+spd:40
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:2
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:12
+tCopper:0
+aBlunt:0
+aSharp:0
+aEarth:0
+aAir:0
+aFire:0
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x3892
+name: dripping canines
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x38a9
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 22
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 2
+parry: 0
+
+offset: ox38bd
+numenc:1
+anim#:29
+name:werewolf
+name plural:
+death Text:appears human for an@instant and then expires
+hp:33
+maxhp:33
+alignment:0
+sta:50
+cha:20
+str:60
+inte:20
+wis:20
+skl:30
+spd:40
+tFood:3
+tWater:3
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:99
+tSilver:0
+tCopper:99
+aBlunt:17
+aSharp:17
+aEarth:0
+aAir:0
+aFire:0
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x39a8
+name: claws
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x39b4
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 20
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 0
+parry: 0
+wpn2 offset: 0x3938
+name: fangs
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0x88 0x3944 0x1 0x1 0x1 0x0 0x1 0x0 0x0 0x1 0x2 0x80 0x1 0x0 0x10 0x0 0xc1 0xff 0xc1 0x0 0xf3 0x0 0xdd 0x2 0x0 0x91 0x85 0x0 0x2 0x1 0x1 0xff 0x81 0x0 0xc1
+Spcl Descrip: 
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 22
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 2
+parry: 0
+
+offset: ox39c8
+numenc:1
+anim#:42
+name:warrior
+name plural:
+death Text:has fallen
+hp:13
+maxhp:13
+alignment:128
+sta:20
+cha:20
+str:47
+inte:20
+wis:20
+skl:29
+spd:20
+tFood:4
+tWater:5
+tTorches:2
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:5
+tSilver:10
+tCopper:20
+aBlunt:35
+aSharp:35
+aEarth:0
+aAir:0
+aFire:19
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x3a1d
+name: Baselard
+type: 3
+alignment: 0
+weight: 3
+Special Abilit: 0 0x3a2c
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 36
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 16
+hp: 24
+maxHP: 24
+flags: 128
+parry: 8
+wpn2 offset: 0x3a40
+name: Falchion
+type: 3
+alignment: 0
+weight: 16
+Special Abilit: 0 0x3a4f
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 25
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 16
+minDexterity: 24
+hp: 40
+maxHP: 40
+flags: 128
+parry: 21
+wpn3 offset: 0x3a63
+name: Jade Lance
+type: 3
+alignment: 0
+weight: 20
+Special Abilit: 0 0x3a74
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 26
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 24
+minStrength: 24
+minDexterity: 24
+hp: 224
+maxHP: 224
+flags: 235
+parry: 16
+
+offset: ox3a88
+numenc:1
+anim#:33
+name:weapon master
+name plural:
+death Text:dies
+hp:43
+maxhp:43
+alignment:255
+sta:80
+cha:20
+str:30
+inte:20
+wis:20
+skl:80
+spd:45
+tFood:0
+tWater:1
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:3
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:20
+tSilver:20
+tCopper:0
+aBlunt:35
+aSharp:35
+aEarth:34
+aAir:34
+aFire:51
+aWater:34
+aPower:34
+aMagic:34
+aGood:34
+aEvil:34
+aCold:34
+wpn1 offset: 0x3add
+name: Daito
+type: 3
+alignment: 0
+weight: 16
+Special Abilit: 0 0x3ae9
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 39
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 32
+minDexterity: 40
+hp: 32
+maxHP: 32
+flags: 200
+parry: 32
+wpn2 offset: 0x3afd
+name: Kusarikama
+type: 3
+alignment: 0
+weight: 16
+Special Abilit: 0 0x3b0e
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 24
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 16
+minDexterity: 24
+hp: 36
+maxHP: 36
+flags: 232
+parry: 48
+wpn3 offset: 0x3b22
+name: Triple Irons
+type: 3
+alignment: 0
+weight: 15
+Special Abilit: 0 0x3b35
+melee: 255
+ammo: 0
+blunt: 52
+sharp: 0
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 16
+minDexterity: 48
+hp: 36
+maxHP: 36
+flags: 194
+parry: 56
+
+offset: ox3b55
+numenc:1
+anim#:34
+name:valkyrie
+name plural:
+death Text:slowly fades away
+hp:50
+maxhp:50
+alignment:255
+sta:20
+cha:20
+str:60
+inte:20
+wis:20
+skl:30
+spd:70
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:255
+tSilver:0
+tCopper:0
+aBlunt:36
+aSharp:36
+aEarth:0
+aAir:0
+aFire:255
+aWater:0
+aPower:0
+aMagic:0
+aGood:255
+aEvil:255
+aCold:0
+wpn1 offset: 0x3bb2
+name: Golden Spear
+type: 3
+alignment: 0
+weight: 10
+Special Abilit: 0 0x3bc5
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 22
+earth: 26
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 20
+minDexterity: 30
+hp: 40
+maxHP: 40
+flags: 195
+parry: 48
+
+offset: ox3bd9
+numenc:1
+anim#:42
+name:gladiator
+name plural:
+death Text:lies in@agony of defeat
+hp:9
+maxhp:9
+alignment:0
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:30
+spd:20
+tFood:2
+tWater:2
+tTorches:1
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:13
+tSilver:0
+tCopper:0
+aBlunt:19
+aSharp:19
+aEarth:0
+aAir:0
+aFire:19
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x3c3e
+name: Trident
+type: 3
+alignment: 0
+weight: 18
+Special Abilit: 0 0x3c4c
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 24
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 16
+minDexterity: 16
+hp: 32
+maxHP: 32
+flags: 195
+parry: 32
+
+offset: ox3c60
+numenc:4
+anim#:6
+name:mercenary
+name plural:mercenaries
+death Text:dies
+hp:9
+maxhp:9
+alignment:0
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:20
+spd:20
+tFood:3
+tWater:3
+tTorches:4
+tTimepieces:1
+tCompasses:1
+tKeys:4
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:66
+tCopper:99
+aBlunt:34
+aSharp:34
+aEarth:0
+aAir:0
+aFire:20
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x3cbd
+name: Glaive
+type: 3
+alignment: 0
+weight: 14
+Special Abilit: 0 0x3cca
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 37
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 20
+minDexterity: 22
+hp: 36
+maxHP: 36
+flags: 192
+parry: 37
+
+offset: ox3cec
+numenc:1
+anim#:35
+name:doppleganger
+name plural:
+death Text:merges back@into the wall
+hp:0
+maxhp:0
+alignment:0
+sta:0
+cha:0
+str:0
+inte:0
+wis:0
+skl:0
+spd:0
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:34
+aSharp:34
+aEarth:34
+aAir:34
+aFire:34
+aWater:34
+aPower:34
+aMagic:34
+aGood:34
+aEvil:34
+aCold:34
+wpn1 offset: 0x3daa
+name: bare hand
+type: 0
+alignment: 0
+weight: 0
+Special Abilit: 0 0x3dba
+melee: 255
+ammo: 0
+blunt: 20
+sharp: 0
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 6
+parry: 0
+
+offset: ox3dce
+numenc:1
+anim#:36
+name:adventurer
+name plural:
+death Text:is no longer joined
+hp:23
+maxhp:23
+alignment:128
+sta:15
+cha:15
+str:15
+inte:66
+wis:44
+skl:45
+spd:35
+tFood:8
+tWater:7
+tTorches:9
+tTimepieces:1
+tCompasses:1
+tKeys:1
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:47
+tCopper:23
+aBlunt:35
+aSharp:35
+aEarth:19
+aAir:19
+aFire:51
+aWater:19
+aPower:19
+aMagic:19
+aGood:19
+aEvil:19
+aCold:51
+wpn1 offset: 0x3e52
+name: War Scythe
+type: 3
+alignment: 0
+weight: 16
+Special Abilit: 0 0x3e63
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 40
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 32
+minDexterity: 32
+hp: 36
+maxHP: 36
+flags: 192
+parry: 32
+wpn2 offset: 0x3e2f
+name:  Rapier
+type: 3
+alignment: 0
+weight: 12
+Special Abilit: 0 0x3e3e
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 36
+earth: 0
+air: 21
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 30
+minDexterity: 28
+hp: 48
+maxHP: 48
+flags: 128
+parry: 25
+
+offset: ox3e77
+numenc:1
+anim#:37
+name:water sprite
+name plural:
+death Text:dies
+hp:4
+maxhp:4
+alignment:128
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:200
+spd:20
+tFood:0
+tWater:3
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:5
+tSilver:0
+tCopper:0
+aBlunt:34
+aSharp:34
+aEarth:0
+aAir:0
+aFire:0
+aWater:255
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x3ecb
+name: Trident
+type: 3
+alignment: 0
+weight: 18
+Special Abilit: 0 0x3ed9
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 24
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 16
+minDexterity: 16
+hp: 32
+maxHP: 32
+flags: 235
+parry: 32
+
+offset: ox3eed
+numenc:1
+anim#:38
+name:night stalker
+name plural:
+death Text:dissipates@in a puff of smoke
+hp:37
+maxhp:37
+alignment:0
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:20
+spd:199
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:7
+tGold:200
+tSilver:0
+tCopper:0
+aBlunt:18
+aSharp:18
+aEarth:0
+aAir:0
+aFire:0
+aWater:0
+aPower:0
+aMagic:255
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x3f5c
+name: sucking tentacle
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x3f73
+melee: 255
+ammo: 0
+blunt: 23
+sharp: 0
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 5
+parry: 0
+wpn2 offset: 0x3f87
+name: mind blast
+type: 0
+alignment: 0
+weight: 0
+Special Abilit: 0 0x3f98
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 0
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 30
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 7
+parry: 0
+
+offset: ox3fac
+numenc:1
+anim#:25
+name:salamander
+name plural:
+death Text:dies
+hp:23
+maxhp:23
+alignment:128
+sta:40
+cha:40
+str:40
+inte:0
+wis:0
+skl:40
+spd:40
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:5
+tJewels:5
+tGold:50
+tSilver:99
+tCopper:200
+aBlunt:34
+aSharp:34
+aEarth:0
+aAir:0
+aFire:255
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x3ffe
+name: scorching breath
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x4015
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 0
+earth: 0
+air: 0
+fire: 38
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 6
+parry: 0
+wpn2 offset: 0x4029
+name: teeth
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x4035
+melee: 255
+ammo: 0
+blunt: 19
+sharp: 26
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 2
+parry: 0
+wpn3 offset: 0x4049
+name: claw
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x4054
+melee: 255
+ammo: 0
+blunt: 18
+sharp: 36
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 3
+parry: 0
+
+offset: ox4068
+numenc:3
+anim#:33
+name:ronin
+name plural:!
+death Text:dies
+hp:38
+maxhp:38
+alignment:128
+sta:20
+cha:20
+str:29
+inte:20
+wis:20
+skl:80
+spd:40
+tFood:3
+tWater:3
+tTorches:3
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:50
+tSilver:0
+tCopper:22
+aBlunt:35
+aSharp:35
+aEarth:0
+aAir:0
+aFire:66
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x40b5
+name: Katana
+type: 3
+alignment: 0
+weight: 12
+Special Abilit: 0 0x40c2
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 37
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 14
+minDexterity: 24
+hp: 32
+maxHP: 32
+flags: 136
+parry: 21
+wpn2 offset: 0x40d6
+name: Naginata
+type: 3
+alignment: 0
+weight: 16
+Special Abilit: 0 0x40e5
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 38
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 16
+minDexterity: 24
+hp: 36
+maxHP: 36
+flags: 200
+parry: 72
+wpn3 offset: 0x40f9
+name: Nunchaku
+type: 3
+alignment: 0
+weight: 2
+Special Abilit: 0 0x4108
+melee: 255
+ammo: 0
+blunt: 37
+sharp: 0
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 6
+minDexterity: 32
+hp: 19
+maxHP: 19
+flags: 170
+parry: 112
+
+offset: ox416c
+numenc:3
+anim#:39
+name:serpentman
+name plural:serpentmen
+death Text:lets out one@final hiss
+hp:11
+maxhp:11
+alignment:0
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:20
+spd:20
+tFood:2
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:40
+tSilver:10
+tCopper:0
+aBlunt:18
+aSharp:18
+aEarth:0
+aAir:0
+aFire:0
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x41dd
+name: Sawtoothed Club
+type: 3
+alignment: 0
+weight: 10
+Special Abilit: 0 0x41f3
+melee: 255
+ammo: 0
+blunt: 24
+sharp: 20
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 32
+minDexterity: 12
+hp: 24
+maxHP: 24
+flags: 130
+parry: 8
+wpn2 offset: 0x4207
+name: Spear
+type: 3
+alignment: 0
+weight: 10
+Special Abilit: 0 0x4213
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 22
+earth: 26
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 20
+minDexterity: 30
+hp: 40
+maxHP: 40
+flags: 195
+parry: 48
+
+offset: ox4227
+numenc:1
+anim#:40
+name:big snake
+name plural:
+death Text:lays motionless
+hp:28
+maxhp:28
+alignment:128
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:40
+spd:60
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:33
+tSilver:66
+tCopper:99
+aBlunt:19
+aSharp:19
+aEarth:0
+aAir:0
+aFire:17
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:19
+wpn1 offset: 0x4283
+name: poisonous fangs
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0x88 0x4299 0x1 0x1 0x1 0x0 0x1 0x0 0x0 0x1 0x2 0x80 0x1 0x0 0x10 0x0 0x82 0xff 0xc1 0xff 0x1 0x0 0xa 0x0 0x11 0x92 0x45 0x0 0x1 0x0 0x1 0xff 0x0 0xff 0x0
+Spcl Descrip: 
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 25
+earth: 0
+air: 0
+fire: 0
+water: 22
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 2
+parry: 0
+
+offset: ox42cd
+numenc:1
+anim#:40
+name:Great Naga
+name plural:
+death Text:has vanished
+hp:55
+maxhp:55
+alignment:128
+sta:20
+cha:20
+str:20
+inte:80
+wis:80
+skl:40
+spd:60
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:4
+tGems:5
+tJewels:1
+tGold:33
+tSilver:66
+tCopper:99
+aBlunt:35
+aSharp:35
+aEarth:17
+aAir:17
+aFire:17
+aWater:17
+aPower:17
+aMagic:17
+aGood:17
+aEvil:17
+aCold:17
+wpn1 offset: 0x4327
+name: dripping fangs
+type: 0
+alignment: 0
+weight: 0
+Special Abilit: 0 0x433c
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 25
+earth: 0
+air: 0
+fire: 0
+water: 22
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 0
+parry: 0
+
+offset: ox4350
+numenc:8
+anim#:42
+name:berserker
+name plural:berserkers
+death Text:gives one@final battle cry
+hp:17
+maxhp:17
+alignment:0
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:20
+spd:20
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:18
+aSharp:18
+aEarth:0
+aAir:0
+aFire:18
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x43c3
+name: Kukri
+type: 3
+alignment: 0
+weight: 4
+Special Abilit: 0 0x43cf
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 23
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 16
+minDexterity: 24
+hp: 24
+maxHP: 24
+flags: 128
+parry: 4
+wpn2 offset: 0x43e3
+name: Kukri
+type: 3
+alignment: 0
+weight: 4
+Special Abilit: x083 0x43eftype (Slow Death):4
+ 0xc1 0xff 0x5 0x0 0x11 0x0 0x0 0x92 0x45 0x0 0x1 0x0 0x3 0x0 0xeb 0x0
+Spcl Descrip: Slow Death
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 23
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 16
+minDexterity: 24
+hp: 24
+maxHP: 24
+flags: 128
+parry: 4
+
+offset: ox4423
+numenc:1
+anim#:25
+name:basilisk
+name plural:
+death Text:has died
+hp:63
+maxhp:63
+alignment:0
+sta:20
+cha:20
+str:70
+inte:20
+wis:20
+skl:20
+spd:70
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:9
+tJewels:5
+tGold:200
+tSilver:255
+tCopper:0
+aBlunt:0
+aSharp:255
+aEarth:0
+aAir:0
+aFire:65
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x4477
+name: freezing breath
+type: 0
+alignment: 0
+weight: 0
+Special Abilit: 0 0x448d
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 0
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 58
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 7
+parry: 0
+wpn2 offset: 0x44a1
+name: teeth
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x44ad
+melee: 255
+ammo: 0
+blunt: 35
+sharp: 39
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 2
+parry: 0
+wpn3 offset: 0x44c1
+name: claw
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x44cc
+melee: 255
+ammo: 0
+blunt: 34
+sharp: 38
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 3
+parry: 0
+
+offset: ox4631
+numenc:1
+anim#:25
+name:Great Wyrm
+name plural:
+death Text:dies, totally@shocked and appalled
+hp:207
+maxhp:207
+alignment:128
+sta:252
+cha:252
+str:252
+inte:252
+wis:252
+skl:252
+spd:252
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:255
+tCrystals:255
+tGems:255
+tJewels:255
+tGold:255
+tSilver:255
+tCopper:255
+aBlunt:52
+aSharp:52
+aEarth:24
+aAir:24
+aFire:255
+aWater:24
+aPower:24
+aMagic:24
+aGood:24
+aEvil:24
+aCold:24
+wpn1 offset: 0x46a2
+name: fiery breath
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x46b5
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 0
+earth: 0
+air: 0
+fire: 79
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 6
+parry: 0
+wpn2 offset: 0x46c9
+name: teeth
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x46d5
+melee: 255
+ammo: 0
+blunt: 35
+sharp: 58
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 2
+parry: 0
+wpn3 offset: 0x46e9
+name: claw
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x46f4
+melee: 255
+ammo: 0
+blunt: 51
+sharp: 52
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 3
+parry: 0
+
+offset: ox4708
+numenc:1
+anim#:3
+name:Goblin Lord
+name plural:
+death Text:dies snarling:@"Guards, kill him!"
+hp:73
+maxhp:73
+alignment:0
+sta:20
+cha:20
+str:50
+inte:20
+wis:20
+skl:70
+spd:50
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:51
+aSharp:51
+aEarth:51
+aAir:51
+aFire:51
+aWater:51
+aPower:51
+aMagic:51
+aGood:51
+aEvil:51
+aCold:51
+wpn1 offset: 0x477b
+name: Sceptre of Evil
+type: 3
+alignment: 64
+weight: 10
+Special Abilit: 0x88 0x4791 0x25 0x1 0x1 0x0 0x0 0x0 0x0 0x92 0x45 0x0 0x1 0x0 0x14 0x0 0x0 0xff 0x0 0x2a 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x26 0x0 0x10 0x28 0x50 0x50 0x8a
+Spcl Descrip: 
+©ç c¢u†©8 `¢u†© cê¢u†©8 `©Ü–©Åçäu`\™h™i™i™i™
+melee: 255
+ammo: 0
+blunt: 42
+sharp: 0
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 38
+cold: 0
+minStrength: 16
+minDexterity: 40
+hp: 80
+maxHP: 80
+flags: 138
+parry: 10
+
+offset: ox47e3
+numenc:1
+anim#:4
+name:Troll Tyrant
+name plural:
+death Text:has given his@last order
+hp:80
+maxhp:80
+alignment:0
+sta:20
+cha:20
+str:50
+inte:20
+wis:20
+skl:50
+spd:50
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:51
+aSharp:51
+aEarth:34
+aAir:34
+aFire:34
+aWater:34
+aPower:34
+aMagic:34
+aGood:34
+aEvil:34
+aCold:34
+wpn1 offset: 0x484c
+name: Sceptre of Evil
+type: 3
+alignment: 64
+weight: 10
+Special Abilit: 0x88 0x4862 0x25 0x1 0x1 0x0 0x0 0x0 0x0 0x92 0x45 0x0 0x1 0x0 0x14 0x0 0x0 0xff 0x0 0x28 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x24 0x0 0x10 0x28 0x50 0x50 0x8a
+Spcl Descrip: 
+© ôe≥Ö≥êÊ≤ 4wL¯v©ç c¢u†©8 `¢u†© cê¢u†©8 `©Ü–©Ççäu`K™U™`™`™`™a
+melee: 255
+ammo: 0
+blunt: 40
+sharp: 0
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 36
+cold: 0
+minStrength: 16
+minDexterity: 40
+hp: 80
+maxHP: 80
+flags: 138
+parry: 10
+
+offset: ox48c8
+numenc:3
+anim#:41
+name:ice demon
+name plural:ice demons
+death Text:shatters
+hp:35
+maxhp:35
+alignment:0
+sta:20
+cha:20
+str:30
+inte:20
+wis:20
+skl:40
+spd:50
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:2
+tGems:2
+tJewels:2
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:51
+aSharp:51
+aEarth:34
+aAir:34
+aFire:51
+aWater:34
+aPower:34
+aMagic:34
+aGood:34
+aEvil:34
+aCold:255
+wpn1 offset: 0x4928
+name: Ice Axe
+type: 3
+alignment: 0
+weight: 20
+Special Abilit: 0 0x4936
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 39
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 24
+minStrength: 40
+minDexterity: 24
+hp: 40
+maxHP: 40
+flags: 128
+parry: 18
+
+offset: ox494a
+numenc:1
+anim#:41
+name:horned devil
+name plural:
+death Text:is consumed in a@huge red cloud of smoke
+hp:69
+maxhp:69
+alignment:0
+sta:20
+cha:20
+str:50
+inte:80
+wis:80
+skl:80
+spd:40
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:51
+aSharp:51
+aEarth:255
+aAir:255
+aFire:255
+aWater:255
+aPower:17
+aMagic:255
+aGood:0
+aEvil:255
+aCold:255
+wpn1 offset: 0x49c3
+name: Stealer of Souls
+type: 3
+alignment: 32
+weight: 21
+Special Abilit: 0x88 0x49da 0x25 0x1 0x1 0x0 0x0 0x0 0x0 0x92 0x45 0x0 0x1 0x0 0x19 0x0 0x0 0xff 0x0 0x0 0x26 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x1f 0x0 0x14 0x14 0x80 0x80 0x80
+Spcl Descrip: BOHD
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 38
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 31
+cold: 0
+minStrength: 20
+minDexterity: 20
+hp: 128
+maxHP: 128
+flags: 128
+parry: 24
+
+offset: ox1d1d
+numenc:3
+anim#:15
+name:Mugger
+name plural:novices
+death Text:swears vengeance
+hp:8
+maxhp:8
+alignment:128
+sta:15
+cha:15
+str:15
+inte:15
+wis:15
+skl:15
+spd:15
+tFood:0
+tWater:1
+tTorches:1
+tTimepieces:0
+tCompasses:1
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:43
+aBlunt:17
+aSharp:17
+aEarth:0
+aAir:0
+aFire:17
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x1d7f
+name: Dagger
+type: 3
+alignment: 0
+weight: 1
+Special Abilit: 0 0x1d8c
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 21
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 6
+hp: 16
+maxHP: 16
+flags: 129
+parry: 2
+wpn2 offset: 0x1da0
+name: Dagger
+type: 3
+alignment: 0
+weight: 1
+Special Abilit: x083 0x1dad 0xc1 0x4 0xd0 0x2 0xa0 0x5 0x0 0x91 0x5a 0x0 0x1 0x0 0x1 0x0 0xeb 0x0
+Spcl Descrip: Weakness
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 21
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 6
+hp: 16
+maxHP: 16
+flags: 129
+parry: 2
+
+offset: ox1d1d
+numenc:3
+anim#:15
+name:Robber
+name plural:novices
+death Text:swears vengeance
+hp:8
+maxhp:8
+alignment:128
+sta:15
+cha:15
+str:15
+inte:15
+wis:15
+skl:15
+spd:15
+tFood:0
+tWater:1
+tTorches:1
+tTimepieces:0
+tCompasses:1
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:43
+aBlunt:17
+aSharp:17
+aEarth:0
+aAir:0
+aFire:17
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x1d7f
+name: Dagger
+type: 3
+alignment: 0
+weight: 1
+Special Abilit: 0 0x1d8c
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 21
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 6
+hp: 16
+maxHP: 16
+flags: 129
+parry: 2
+wpn2 offset: 0x1da0
+name: Dagger
+type: 3
+alignment: 0
+weight: 1
+Special Abilit: x083 0x1dad 0xc1 0x4 0xd0 0x2 0xa0 0x5 0x0 0x91 0x5a 0x0 0x1 0x0 0x1 0x0 0xeb 0x0
+Spcl Descrip: Weakness
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 21
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 6
+hp: 16
+maxHP: 16
+flags: 129
+parry: 2
+
+offset: ox124f
+numenc:1
+anim#:9
+name:Fighter
+name plural:
+death Text:has fought his last battle
+hp:68
+maxhp:68
+alignment:144
+sta:30
+cha:20
+str:45
+inte:20
+wis:20
+skl:50
+spd:40
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:3
+tCrystals:6
+tGems:9
+tJewels:4
+tGold:0
+tSilver:40
+tCopper:0
+aBlunt:52
+aSharp:52
+aEarth:34
+aAir:34
+aFire:34
+aWater:34
+aPower:34
+aMagic:34
+aGood:34
+aEvil:34
+aCold:34
+wpn1 offset: 0x12b5
+name: Scimitar
+type: 3
+alignment: 0
+weight: 14
+Special Abilit: 0 0x12c4
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 25
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 16
+minDexterity: 22
+hp: 36
+maxHP: 36
+flags: 128
+parry: 21
+wpn3 offset: 0x12d8
+name: Sword of Light
+type: 3
+alignment: 129
+weight: 12
+Special Abilit: 0x88 0x12ed 0x4 0x1 0x1 0x0 0x0 0x0 0x0 0x81 0x90 0x0 0x1 0x0 0x1 0x0 0x88 0xff 0x48 0x1 0x1 0x0 0x0 0x0 0x0 0x91 0x90 0x0 0x1 0x0 0x1 0x0 0x88 0xff 0x25
+Spcl Descrip: 
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 26
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 16
+minDexterity: 16
+hp: 128
+maxHP: 128
+flags: 128
+parry: 21
+
+offset: ox124f
+numenc:1
+anim#:9
+name:Swordsman
+name plural:
+death Text:has fought his last battle
+hp:68
+maxhp:68
+alignment:144
+sta:30
+cha:20
+str:45
+inte:20
+wis:20
+skl:50
+spd:40
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:3
+tCrystals:6
+tGems:9
+tJewels:4
+tGold:0
+tSilver:40
+tCopper:0
+aBlunt:52
+aSharp:52
+aEarth:34
+aAir:34
+aFire:34
+aWater:34
+aPower:34
+aMagic:34
+aGood:34
+aEvil:34
+aCold:34
+wpn1 offset: 0x12b5
+name: Scimitar
+type: 3
+alignment: 0
+weight: 14
+Special Abilit: 0 0x12c4
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 25
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 16
+minDexterity: 22
+hp: 36
+maxHP: 36
+flags: 128
+parry: 21
+wpn3 offset: 0x12d8
+name: Sword of Light
+type: 3
+alignment: 129
+weight: 12
+Special Abilit: 0x88 0x12ed 0x4 0x1 0x1 0x0 0x0 0x0 0x0 0x81 0x90 0x0 0x1 0x0 0x1 0x0 0x88 0xff 0x48 0x1 0x1 0x0 0x0 0x0 0x0 0x91 0x90 0x0 0x1 0x0 0x1 0x0 0x88 0xff 0x25
+Spcl Descrip: 
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 26
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 16
+minDexterity: 16
+hp: 128
+maxHP: 128
+flags: 128
+parry: 21
+
+offset: ox1d1d
+numenc:3
+anim#:15
+name:Courier
+name plural:novices
+death Text:swears vengeance
+hp:8
+maxhp:8
+alignment:128
+sta:15
+cha:15
+str:15
+inte:15
+wis:15
+skl:15
+spd:15
+tFood:0
+tWater:1
+tTorches:1
+tTimepieces:0
+tCompasses:1
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:43
+aBlunt:17
+aSharp:17
+aEarth:0
+aAir:0
+aFire:17
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x1d7f
+name: Dagger
+type: 3
+alignment: 0
+weight: 1
+Special Abilit: 0 0x1d8c
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 21
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 6
+hp: 16
+maxHP: 16
+flags: 129
+parry: 2
+wpn2 offset: 0x1da0
+name: Dagger
+type: 3
+alignment: 0
+weight: 1
+Special Abilit: x083 0x1dad 0xc1 0x4 0xd0 0x2 0xa0 0x5 0x0 0x91 0x5a 0x0 0x1 0x0 0x1 0x0 0xeb 0x0
+Spcl Descrip: Weakness
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 21
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 6
+hp: 16
+maxHP: 16
+flags: 129
+parry: 2
+
+offset: ox1d1d
+numenc:3
+anim#:15
+name:Commoner
+name plural:novices
+death Text:swears vengeance
+hp:8
+maxhp:8
+alignment:128
+sta:15
+cha:15
+str:15
+inte:15
+wis:15
+skl:15
+spd:15
+tFood:0
+tWater:1
+tTorches:1
+tTimepieces:0
+tCompasses:1
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:43
+aBlunt:17
+aSharp:17
+aEarth:0
+aAir:0
+aFire:17
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x1d7f
+name: Dagger
+type: 3
+alignment: 0
+weight: 1
+Special Abilit: 0 0x1d8c
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 21
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 6
+hp: 16
+maxHP: 16
+flags: 129
+parry: 2
+wpn2 offset: 0x1da0
+name: Dagger
+type: 3
+alignment: 0
+weight: 1
+Special Abilit: x083 0x1dad 0xc1 0x4 0xd0 0x2 0xa0 0x5 0x0 0x91 0x5a 0x0 0x1 0x0 0x1 0x0 0xeb 0x0
+Spcl Descrip: Weakness
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 21
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 6
+hp: 16
+maxHP: 16
+flags: 129
+parry: 2
+
+offset: ox1d1d
+numenc:3
+anim#:15
+name:Merchant
+name plural:novices
+death Text:swears vengeance
+hp:8
+maxhp:8
+alignment:128
+sta:15
+cha:15
+str:15
+inte:15
+wis:15
+skl:15
+spd:15
+tFood:0
+tWater:1
+tTorches:1
+tTimepieces:0
+tCompasses:1
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:43
+aBlunt:17
+aSharp:17
+aEarth:0
+aAir:0
+aFire:17
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x1d7f
+name: Dagger
+type: 3
+alignment: 0
+weight: 1
+Special Abilit: 0 0x1d8c
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 21
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 6
+hp: 16
+maxHP: 16
+flags: 129
+parry: 2
+wpn2 offset: 0x1da0
+name: Dagger
+type: 3
+alignment: 0
+weight: 1
+Special Abilit: x083 0x1dad 0xc1 0x4 0xd0 0x2 0xa0 0x5 0x0 0x91 0x5a 0x0 0x1 0x0 0x1 0x0 0xeb 0x0
+Spcl Descrip: Weakness
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 21
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 6
+hp: 16
+maxHP: 16
+flags: 129
+parry: 2
+
+offset: ox1f58
+numenc:1
+anim#:16
+name:Arch Mage
+name plural:
+death Text:dies
+hp:67
+maxhp:67
+alignment:128
+sta:20
+cha:20
+str:20
+inte:60
+wis:60
+skl:50
+spd:40
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:17
+tCrystals:33
+tGems:4
+tJewels:6
+tGold:11
+tSilver:19
+tCopper:0
+aBlunt:35
+aSharp:35
+aEarth:34
+aAir:34
+aFire:34
+aWater:34
+aPower:34
+aMagic:34
+aGood:34
+aEvil:34
+aCold:34
+wpn1 offset: 0x1faf
+name: Staff of Power
+type: 3
+alignment: 0
+weight: 6
+Special Abilit: 0 0x1fc4
+melee: 255
+ammo: 0
+blunt: 38
+sharp: 0
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 18
+magic: 19
+good: 0
+evil: 0
+cold: 0
+minStrength: 6
+minDexterity: 24
+hp: 24
+maxHP: 24
+flags: 202
+parry: 64
+wpn3 offset: 0x1fd8
+name: Serpent Staff
+type: 3
+alignment: 0
+weight: 8
+Special Abilit: 0 0x1fec
+melee: 255
+ammo: 0
+blunt: 38
+sharp: 22
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 18
+minDexterity: 24
+hp: 32
+maxHP: 32
+flags: 202
+parry: 64
+
+offset: oxa22
+numenc:4
+anim#:4
+name:Gnoll
+name plural:trolls
+death Text:dies
+hp:15
+maxhp:15
+alignment:64
+sta:28
+cha:20
+str:40
+inte:20
+wis:20
+skl:20
+spd:20
+tFood:2
+tWater:1
+tTorches:1
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:80
+aBlunt:34
+aSharp:34
+aEarth:15
+aAir:0
+aFire:17
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0xa76
+name: Halberd
+type: 3
+alignment: 0
+weight: 20
+Special Abilit: 0 0xa84
+melee: 255
+ammo: 0
+blunt: 17
+sharp: 38
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 20
+minDexterity: 16
+hp: 40
+maxHP: 40
+flags: 192
+parry: 32
+wpn2 offset: 0xa98
+name: Halberd
+type: 3
+alignment: 0
+weight: 20
+Special Abilit: x083 0xaa6type (Slow Death):4
+ 0xc1 0xff 0x5 0x0 0x11 0x0 0x0 0x92 0x45 0x0 0x1 0x0 0x3 0x0 0xeb 0x0
+Spcl Descrip: Slow Death
+melee: 255
+ammo: 0
+blunt: 17
+sharp: 38
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 20
+minDexterity: 16
+hp: 40
+maxHP: 40
+flags: 192
+parry: 32
+wpn3 offset: 0xada
+name: Great Axe
+type: 3
+alignment: 0
+weight: 25
+Special Abilit: 0 0xaea
+melee: 255
+ammo: 0
+blunt: 18
+sharp: 40
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 32
+minDexterity: 16
+hp: 48
+maxHP: 48
+flags: 192
+parry: 18
+
+offset: ox875
+numenc:2
+anim#:3
+name:Hobbit
+name plural:goblins
+death Text:dies
+hp:17
+maxhp:17
+alignment:64
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:20
+spd:20
+tFood:2
+tWater:1
+tTorches:1
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:80
+aBlunt:20
+aSharp:20
+aEarth:15
+aAir:0
+aFire:18
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x910
+name: War Hammer
+type: 3
+alignment: 0
+weight: 16
+Special Abilit: 0 0x921
+melee: 255
+ammo: 0
+blunt: 36
+sharp: 0
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 16
+minDexterity: 6
+hp: 36
+maxHP: 36
+flags: 130
+parry: 9
+wpn2 offset: 0x8cb
+name: Battle Axe
+type: 3
+alignment: 0
+weight: 20
+Special Abilit: x083 0x8dctype (Slow Death):4
+ 0xc1 0xff 0x5 0x0 0x11 0x0 0x0 0x92 0x45 0x0 0x1 0x0 0x3 0x0 0xeb 0x0
+Spcl Descrip: Slow Death
+melee: 255
+ammo: 0
+blunt: 18
+sharp: 39
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 22
+minDexterity: 16
+hp: 48
+maxHP: 48
+flags: 128
+parry: 16
+
+offset: oxa22
+numenc:4
+anim#:4
+name:Giant
+name plural:trolls
+death Text:dies
+hp:15
+maxhp:15
+alignment:64
+sta:28
+cha:20
+str:40
+inte:20
+wis:20
+skl:20
+spd:20
+tFood:2
+tWater:1
+tTorches:1
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:80
+aBlunt:34
+aSharp:34
+aEarth:15
+aAir:0
+aFire:17
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0xa76
+name: Halberd
+type: 3
+alignment: 0
+weight: 20
+Special Abilit: 0 0xa84
+melee: 255
+ammo: 0
+blunt: 17
+sharp: 38
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 20
+minDexterity: 16
+hp: 40
+maxHP: 40
+flags: 192
+parry: 32
+wpn2 offset: 0xa98
+name: Halberd
+type: 3
+alignment: 0
+weight: 20
+Special Abilit: x083 0xaa6type (Slow Death):4
+ 0xc1 0xff 0x5 0x0 0x11 0x0 0x0 0x92 0x45 0x0 0x1 0x0 0x3 0x0 0xeb 0x0
+Spcl Descrip: Slow Death
+melee: 255
+ammo: 0
+blunt: 17
+sharp: 38
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 20
+minDexterity: 16
+hp: 40
+maxHP: 40
+flags: 192
+parry: 32
+wpn3 offset: 0xada
+name: Great Axe
+type: 3
+alignment: 0
+weight: 25
+Special Abilit: 0 0xaea
+melee: 255
+ammo: 0
+blunt: 18
+sharp: 40
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 32
+minDexterity: 16
+hp: 48
+maxHP: 48
+flags: 192
+parry: 18
+
+offset: ox2b53
+numenc:1
+anim#:25
+name:Small Green Dragon
+name plural:
+death Text:is slain
+hp:68
+maxhp:68
+alignment:128
+sta:60
+cha:20
+str:60
+inte:70
+wis:70
+skl:45
+spd:40
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:30
+tJewels:10
+tGold:200
+tSilver:200
+tCopper:200
+aBlunt:68
+aSharp:68
+aEarth:34
+aAir:34
+aFire:255
+aWater:34
+aPower:34
+aMagic:34
+aGood:34
+aEvil:34
+aCold:34
+wpn1 offset: 0x2bab
+name: huge jaws
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x2bbb
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 68
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 2
+parry: 0
+wpn2 offset: 0x2bcf
+name: claw
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x2bda
+melee: 255
+ammo: 0
+blunt: 38
+sharp: 18
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 0
+parry: 0
+wpn3 offset: 0x2bee
+name: spiked tail
+type: 255
+alignment: 0
+weight: 0
+Special Abilit: 0 0x2c00
+melee: 255
+ammo: 0
+blunt: 38
+sharp: 36
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 0
+minDexterity: 0
+hp: 0
+maxHP: 0
+flags: 5
+parry: 0
+
+offset: ox1d1d
+numenc:3
+anim#:15
+name:Noble Woman
+name plural:novices
+death Text:swears vengeance
+hp:8
+maxhp:8
+alignment:128
+sta:15
+cha:15
+str:15
+inte:15
+wis:15
+skl:15
+spd:15
+tFood:0
+tWater:1
+tTorches:1
+tTimepieces:0
+tCompasses:1
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:43
+aBlunt:17
+aSharp:17
+aEarth:0
+aAir:0
+aFire:17
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x1d7f
+name: Dagger
+type: 3
+alignment: 0
+weight: 1
+Special Abilit: 0 0x1d8c
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 21
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 6
+hp: 16
+maxHP: 16
+flags: 129
+parry: 2
+wpn2 offset: 0x1da0
+name: Dagger
+type: 3
+alignment: 0
+weight: 1
+Special Abilit: x083 0x1dad 0xc1 0x4 0xd0 0x2 0xa0 0x5 0x0 0x91 0x5a 0x0 0x1 0x0 0x1 0x0 0xeb 0x0
+Spcl Descrip: Weakness
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 21
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 6
+hp: 16
+maxHP: 16
+flags: 129
+parry: 2
+
+offset: ox246
+numenc:4
+anim#:1
+name:cutthroat
+name plural:thieves
+death Text:will plague@this world no longer
+hp:0
+maxhp:0
+alignment:128
+sta:12
+cha:12
+str:12
+inte:12
+wis:12
+skl:12
+spd:12
+tFood:0
+tWater:0
+tTorches:1
+tTimepieces:1
+tCompasses:1
+tKeys:2
+tCrystals:0
+tGems:3
+tJewels:1
+tGold:2
+tSilver:10
+tCopper:60
+aBlunt:19
+aSharp:19
+aEarth:0
+aAir:0
+aFire:18
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x2ea
+name: Stilletto
+type: 0
+alignment: 0
+weight: 0
+Special Abilit: x083 0x2fbtype (Clumsiness):1
+ 0xc1 0x63 0x1e 0x0 0x1e 0x0 0x0 0x91 0x78 0x0 0x1 0x0 0x1 0x0 0xeb 0x0
+Spcl Descrip: Clumsiness
+melee: 104
+ammo: 114
+blunt: 111
+sharp: 97
+earth: 116
+air: 115
+fire: 0
+water: 98
+power: 114
+magic: 105
+good: 103
+evil: 97
+cold: 110
+minStrength: 100
+minDexterity: 115
+hp: 0
+maxHP: 0
+flags: 3
+parry: 68
+wpn2 offset: 0x32f
+name: Skean
+type: 3
+alignment: 0
+weight: 1
+Special Abilit: 0 0x33b
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 21
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 6
+hp: 16
+maxHP: 16
+flags: 129
+parry: 2
+wpn3 offset: 0x34f
+name: Nasty Knife
+type: 3
+alignment: 0
+weight: 2
+Special Abilit: x083 0x361type (Slow Death):4
+ 0xc1 0xff 0x5 0x0 0x11 0x0 0x0 0x92 0x45 0x0 0x1 0x0 0x3 0x0 0xeb 0x0
+Spcl Descrip: Slow Death
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 22
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 7
+hp: 24
+maxHP: 24
+flags: 128
+parry: 5
+wpn4 offset: 0x34f
+name: Nasty Knife
+type: 3
+alignment: 0
+weight: 2
+Special Abilit: x083 0x361type (Slow Death):4
+ 0xc1 0xff 0x5 0x0 0x11 0x0 0x0 0x92 0x45 0x0 0x1 0x0 0x3 0x0 0xeb 0x0
+Spcl Descrip: Slow Death
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 22
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 7
+hp: 24
+maxHP: 24
+flags: 128
+parry: 5
+wpn5 offset: 0x34f
+name: Nasty Knife
+type: 3
+alignment: 0
+weight: 2
+Special Abilit: x083 0x361type (Slow Death):4
+ 0xc1 0xff 0x5 0x0 0x11 0x0 0x0 0x92 0x45 0x0 0x1 0x0 0x3 0x0 0xeb 0x0
+Spcl Descrip: Slow Death
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 22
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 7
+hp: 24
+maxHP: 24
+flags: 128
+parry: 5
+wpn6 offset: 0x34f
+name: Nasty Knife
+type: 3
+alignment: 0
+weight: 2
+Special Abilit: x083 0x361type (Slow Death):4
+ 0xc1 0xff 0x5 0x0 0x11 0x0 0x0 0x92 0x45 0x0 0x1 0x0 0x3 0x0 0xeb 0x0
+Spcl Descrip: Slow Death
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 22
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 7
+hp: 24
+maxHP: 24
+flags: 128
+parry: 5
+
+offset: ox246
+numenc:4
+anim#:1
+name:brigand
+name plural:cuthroats
+death Text:will plague@this world no longer
+hp:0
+maxhp:0
+alignment:128
+sta:12
+cha:12
+str:12
+inte:12
+wis:12
+skl:12
+spd:12
+tFood:0
+tWater:0
+tTorches:1
+tTimepieces:1
+tCompasses:1
+tKeys:2
+tCrystals:0
+tGems:3
+tJewels:1
+tGold:2
+tSilver:10
+tCopper:60
+aBlunt:19
+aSharp:19
+aEarth:0
+aAir:0
+aFire:18
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x2ea
+name: Stilletto
+type: 0
+alignment: 0
+weight: 0
+Special Abilit: x083 0x2fbtype (Clumsiness):1
+ 0xc1 0x63 0x1e 0x0 0x1e 0x0 0x0 0x91 0x78 0x0 0x1 0x0 0x1 0x0 0xeb 0x0
+Spcl Descrip: Clumsiness
+melee: 104
+ammo: 114
+blunt: 111
+sharp: 97
+earth: 116
+air: 115
+fire: 0
+water: 98
+power: 114
+magic: 105
+good: 103
+evil: 97
+cold: 110
+minStrength: 100
+minDexterity: 115
+hp: 0
+maxHP: 0
+flags: 3
+parry: 68
+wpn2 offset: 0x32f
+name: Skean
+type: 3
+alignment: 0
+weight: 1
+Special Abilit: 0 0x33b
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 21
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 6
+hp: 16
+maxHP: 16
+flags: 129
+parry: 2
+wpn3 offset: 0x34f
+name: Nasty Knife
+type: 3
+alignment: 0
+weight: 2
+Special Abilit: x083 0x361type (Slow Death):4
+ 0xc1 0xff 0x5 0x0 0x11 0x0 0x0 0x92 0x45 0x0 0x1 0x0 0x3 0x0 0xeb 0x0
+Spcl Descrip: Slow Death
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 22
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 7
+hp: 24
+maxHP: 24
+flags: 128
+parry: 5
+wpn4 offset: 0x34f
+name: Nasty Knife
+type: 3
+alignment: 0
+weight: 2
+Special Abilit: x083 0x361type (Slow Death):4
+ 0xc1 0xff 0x5 0x0 0x11 0x0 0x0 0x92 0x45 0x0 0x1 0x0 0x3 0x0 0xeb 0x0
+Spcl Descrip: Slow Death
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 22
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 7
+hp: 24
+maxHP: 24
+flags: 128
+parry: 5
+wpn5 offset: 0x34f
+name: Nasty Knife
+type: 3
+alignment: 0
+weight: 2
+Special Abilit: x083 0x361type (Slow Death):4
+ 0xc1 0xff 0x5 0x0 0x11 0x0 0x0 0x92 0x45 0x0 0x1 0x0 0x3 0x0 0xeb 0x0
+Spcl Descrip: Slow Death
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 22
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 7
+hp: 24
+maxHP: 24
+flags: 128
+parry: 5
+wpn6 offset: 0x34f
+name: Nasty Knife
+type: 3
+alignment: 0
+weight: 2
+Special Abilit: x083 0x361type (Slow Death):4
+ 0xc1 0xff 0x5 0x0 0x11 0x0 0x0 0x92 0x45 0x0 0x1 0x0 0x3 0x0 0xeb 0x0
+Spcl Descrip: Slow Death
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 22
+earth: 0
+air: 0
+fire: 0
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 7
+hp: 24
+maxHP: 24
+flags: 128
+parry: 5

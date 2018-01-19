@@ -124,7 +124,7 @@ encRecord wellLitEncTable[11]=
     {15,	ACOLYTE}
 };
 
-encRecord nightEncTable[48]=
+encRecord nightEncTable[51]=
 {
 	{19,	GHOST},
 	{17,	MUGGER},
@@ -173,10 +173,13 @@ encRecord nightEncTable[48]=
 	{1,		NOBLEMAN},
 	{1,		PAUPER},
 	{1,		MAGE},
-	{1,		ASSASSIN}
+	{1,		ASSASSIN},
+	{2,		MASTER_THIEF},
+	{2,		BRIGAND},
+	{2,		CUTTHROAT}
 };
 
-encRecord dayEncTable[29] =
+encRecord dayEncTable[32] =
 {
 	{41,	GUARD},
 	{19,	COMMONER},
@@ -206,7 +209,11 @@ encRecord dayEncTable[29] =
 	{1,		ASSASSIN},
 	{1,		THIEF},
 	{1,		WEAPONMASTER},
-	{2,     NOBLEWOMAN}
+	{2,     NOBLEWOMAN},
+	{1,		CUTTHROAT},
+	{1,		BRIGAND},
+	{1,		MASTER_THIEF}
+	
 };
 
 
@@ -2034,6 +2041,7 @@ void checkEncounter()
 void chooseEncounter()
 {
 	int monsterNo = 0;
+	int numMonsters = 1;
     plyr.status = ENCOUNTER;
 
     // CITY - Day
@@ -2099,7 +2107,12 @@ void chooseEncounter()
     }
     plyr.fixedEncounter = false;
 
-    encounterLoop( monsterNo, 1 ); // Only one currently except for fixed encounters
+
+	 //Dungeons have a chance of multiple monsters.
+	if ((plyr.scenario==DUNGEON) &&	 Monsters[monsterNo].maxencounters > 1)
+		numMonsters = randn(1, Monsters[monsterNo].maxencounters);
+
+    encounterLoop( monsterNo, numMonsters ); // Only one currently except for fixed encounters
 
 
     //if (checkForTreasure) checkTreasure();

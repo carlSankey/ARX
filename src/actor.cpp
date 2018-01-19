@@ -1,8 +1,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
-#include <string>
-
+#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -72,6 +71,8 @@ int monsterOffsets[noOfEncounters];
 int pluralNameOffset;
 int maxNumberEncountered;
 int currentWeapon;
+
+	ofstream outdata; // outdata is like cin
 
 void initialiseMonsterOffsets()
 {
@@ -152,10 +153,35 @@ void initialiseMonsterOffsets()
     monsterOffsets[68] = 0x47E3;    // Troll Tyrant
     monsterOffsets[69] = 0x48C8;    // ice demon
     monsterOffsets[70] = 0x494A;    // horned devil
+    monsterOffsets[71] = 0x1D1D;    // MUGGER
+    monsterOffsets[72] = 0x1D1D;    // ROBBER
+    monsterOffsets[73] = 0x124F;    // FIGHTER
+    monsterOffsets[74] = 0x124F;    // SWORDSMAN
+    monsterOffsets[75] = 0x1D1D;    // COURIER
+    monsterOffsets[76] = 0x1D1D;    // COMMONER
+    monsterOffsets[77] = 0x1D1D;    // MERCHANT
+    monsterOffsets[78] = 0x1F58;    // ARCHMAGE
+    monsterOffsets[79] = 0xA22;    // GNOLL
+    monsterOffsets[80] = 0x875;    // HOBBIT
+    monsterOffsets[81] = 0xA22;    // GIANT
+    monsterOffsets[82] = 0x2B53;    // SMALL_GREEN_DRAGON
+    monsterOffsets[83] = 0x1D1D;    // NOBLEWOMAN
+    monsterOffsets[84] = 0x246;    // CUTTHROAT
+    monsterOffsets[85] = 0x246;    // BRIGAND
+    monsterOffsets[86] = 0x246;    // Master Thief
 }
 
 void convertMonstersBinary()
 {
+    string filename = "data/map/encountersNew.txt";
+    outdata.open(filename.c_str()); // opens the file
+    if( !outdata )
+    {
+        cerr << "Error: character file could not be saved" << endl;
+    }
+	
+	
+	
     // Reads through the binary block and creates entry in Monsters[]
     // Bytes 2, 4, 6, 8 and 10 appear to always have a value of 0xAA
 
@@ -165,64 +191,191 @@ void convertMonstersBinary()
     for (int i=0; i<noOfEncounters; i++)
     {
         idx = monsterOffsets[i];  // Sets current monster start address in binary block
+        if (i==THIEF || i == CUTTHROAT || i == BRIGAND || i == MASTER_THIEF)
+		  	  idx = monsterOffsets[1];
 
         int attackOffset[3]; // Array of offsets to 3 Dungeon weapons / attacks
         maxNumberEncountered = monstersBinary[idx];
 
+		  Monsters[i].maxencounters = maxNumberEncountered;
+        outdata <<  endl;
+        outdata << "offset: ox" << std::hex << idx << endl;
+        outdata << std::dec <<  "numenc:" << Monsters[i].maxencounters << endl;
+
+
         int animationNumber = monstersBinary[idx+0x1D];
         Monsters[i].image = animations[animationNumber].startFrame;
         Monsters[i].image2 = animations[animationNumber].endFrame;
+        outdata << "anim#:" << animationNumber << endl;
 
+if (i == DEVOURER)
+{
+	std::cout << "GHOST" << " idx " << idx << "  monstersBinary[(idx+1)] " <<  monstersBinary[(idx+1)] << "\n";
+}
         int nameTextOffset = idx + monstersBinary[(idx+1)];
+		  switch(i)
+		  {
+		  			  case CUTTHROAT:
+					  		nameTextOffset = 0x2b0;
+					  		break;
+		  			  case BRIGAND:
+					  		nameTextOffset = 0x2ba;
+					  		break;
+		  			  case MASTER_THIEF:
+					  		nameTextOffset = 0x2c2;
+							maxNumberEncountered = 0;
+        					Monsters[i].maxencounters = 0;
+					  		break;
+		  }
+
         readMonsterNameText(i,nameTextOffset);
-std::cout << "Monster " << Monsters[i].name << " anim " << animationNumber << " s: " << Monsters[i].image  << ":" << Monsters[i].image2 << std::endl ;
+		  switch(i)
+		  {
+		  			  case MUGGER:
+		  			  	Monsters[i].name = "Mugger";
+					  		break;
+		  			  case ROBBER:
+		  			  	Monsters[i].name = "Robber";
+					  		break;
+		  			  case FIGHTER:
+		  			  	Monsters[i].name = "Fighter";
+					  		break;
+		  			  case SWORDSMAN:
+		  			  	Monsters[i].name = "Swordsman";
+					  		break;
+		  			  case COURIER:
+		  			  	Monsters[i].name = "Courier";
+					  		break;
+		  			  case COMMONER:
+		  			  	Monsters[i].name = "Commoner";
+					  		break;
+		  			  case MERCHANT:
+		  			  	Monsters[i].name = "Merchant";
+					  		break;
+		  			  case ARCHMAGE:
+		  			  	Monsters[i].name = "Arch Mage";
+					  		break;
+		  			  case GNOLL:
+		  			  	Monsters[i].name = "Gnoll";
+					  		break;
+		  			  case HOBBIT:
+		  			  	Monsters[i].name = "Hobbit";
+					  		break;
+		  			  case GIANT:
+		  			  	Monsters[i].name = "Giant";
+					  		break;
+		  			  case SMALL_GREEN_DRAGON:
+		  			  	Monsters[i].name = "Small Green Dragon";
+					  		break;
+		  			  case NOBLEWOMAN:
+		  			  	Monsters[i].name = "Noble Woman";
+					  		break;
+		  }
+
+
+        outdata << "name:" << Monsters[i].name << endl;
+		  
+
         // Note: idx+3 might be offset for plural name - if one exists
+		  if( i == CUTTHROAT)
+        		nameTextOffset = 0x2b0;
+		  if( i == BRIGAND)
+        		nameTextOffset = 0x2ba;
+		  if( i == MASTER_THIEF)
+        		nameTextOffset = 0x2c2;
+
         if (maxNumberEncountered>1) readMonsterPluralNameText(i,pluralNameOffset);
+        outdata << "name plural:" <<     Monsters[i].pluName  << endl;
+
+
 
         int deathTextOffset = idx + 66;
         readMonsterDeathText(i,deathTextOffset);
+        outdata << "death Text:" <<     Monsters[i].armorText  << endl;
 
         Monsters[i].hp = monstersBinary[idx+0x23];
         Monsters[i].maxHP = monstersBinary[idx+0x23];
 
         // Special cases - thief
         if (i==THIEF) { Monsters[i].hp = 5; Monsters[i].maxHP = 5; }
+        if (i==MASTER_THIEF) { Monsters[i].hp = 35; Monsters[i].maxHP = 35; }
         if (i==FBI_AGENT) { Monsters[i].hp = 0; Monsters[i].maxHP = 0; }
+        outdata << "hp:" <<     Monsters[i].hp  << endl;
+        outdata << "maxhp:" <<     Monsters[i].maxHP  << endl;
+
+if (i == DEVOURER)
+{
+	std::cout << "GHOST" << " idx " << idx << " i " << i << "\n";
+}
 
         Monsters[i].alignment = monstersBinary[idx+12];
+        outdata << "alignment:" <<     Monsters[i].alignment  << endl;
+
+
 
         Monsters[i].sta =   monstersBinary[idx+0x24];
+        outdata << "sta:" <<     Monsters[i].sta  << endl;
         Monsters[i].cha =   monstersBinary[idx+0x25];
+        outdata << "cha:" <<     Monsters[i].cha  << endl;
         Monsters[i].str =   monstersBinary[idx+0x26];
+        outdata << "str:" <<     Monsters[i].str  << endl;
         Monsters[i].inte =  monstersBinary[idx+0x27];
+        outdata << "inte:" <<     Monsters[i].inte  << endl;
         Monsters[i].wis =   monstersBinary[idx+0x28];
+        outdata << "wis:" <<     Monsters[i].wis  << endl;
         Monsters[i].skl =   monstersBinary[idx+0x29];
+        outdata << "skl:" <<     Monsters[i].skl  << endl;
         Monsters[i].spd =   monstersBinary[idx+0x2A];
+        if (i==MASTER_THIEF) { Monsters[i].hp = 35; Monsters[i].maxHP = 35; }
+        outdata << "spd:" <<     Monsters[i].spd  << endl;
 
         Monsters[i].tFood =         monstersBinary[idx+0x2B];
+        outdata << "tFood:" <<     Monsters[i].tFood  << endl;
         Monsters[i].tWater =        monstersBinary[idx+0x2C];
+        outdata << "tWater:" <<     Monsters[i].tWater  << endl;
         Monsters[i].tTorches =      monstersBinary[idx+0x2D];
+        outdata << "tTorches:" <<     Monsters[i].tTorches  << endl;
         Monsters[i].tTimepieces =   monstersBinary[idx+0x2E];
+        outdata << "tTimepieces:" <<     Monsters[i].tTimepieces  << endl;
         Monsters[i].tCompasses =    monstersBinary[idx+0x2F];
+        outdata << "tCompasses:" <<     Monsters[i].tCompasses  << endl;
         Monsters[i].tKeys =         monstersBinary[idx+0x30];
+        outdata << "tKeys:" <<     Monsters[i].tKeys  << endl;
         Monsters[i].tCrystals =     monstersBinary[idx+0x31];
+        outdata << "tCrystals:" <<     Monsters[i].tCrystals  << endl;
         Monsters[i].tGems =         monstersBinary[idx+0x32];
+        outdata << "tGems:" <<     Monsters[i].tGems  << endl;
         Monsters[i].tJewels =       monstersBinary[idx+0x33];
+        outdata << "tJewels:" <<     Monsters[i].tJewels  << endl;
         Monsters[i].tGold =         monstersBinary[idx+0x34];
+        outdata << "tGold:" <<     Monsters[i].tGold  << endl;
         Monsters[i].tSilver =       monstersBinary[idx+0x35];
+        outdata << "tSilver:" <<     Monsters[i].tSilver  << endl;
         Monsters[i].tCopper =       monstersBinary[idx+0x36];
+        outdata << "tCopper:" <<     Monsters[i].tCopper  << endl;
 
         Monsters[i].aBlunt =    monstersBinary[idx+0x37];
+        outdata << "aBlunt:" <<     Monsters[i].aBlunt  << endl;
         Monsters[i].aSharp =    monstersBinary[idx+0x38];
+        outdata << "aSharp:" <<     Monsters[i].aSharp  << endl;
         Monsters[i].aEarth =    monstersBinary[idx+0x39];
+        outdata << "aEarth:" <<     Monsters[i].aEarth  << endl;
         Monsters[i].aAir =      monstersBinary[idx+0x3A];
+        outdata << "aAir:" <<     Monsters[i].aAir  << endl;
         Monsters[i].aFire =     monstersBinary[idx+0x3B];
+        outdata << "aFire:" <<     Monsters[i].aFire  << endl;
         Monsters[i].aWater =    monstersBinary[idx+0x3C];
+        outdata << "aWater:" <<     Monsters[i].aWater  << endl;
         Monsters[i].aPower =    monstersBinary[idx+0x3D];
+        outdata << "aPower:" <<     Monsters[i].aPower  << endl;
         Monsters[i].aMagic =    monstersBinary[idx+0x3E];
+        outdata << "aMagic:" <<     Monsters[i].aMagic  << endl;
         Monsters[i].aGood =     monstersBinary[idx+0x3F];
+        outdata << "aGood:" <<     Monsters[i].aGood  << endl;
         Monsters[i].aEvil =     monstersBinary[idx+0x40];
+        outdata << "aEvil:" <<     Monsters[i].aEvil  << endl;
         Monsters[i].aCold =     monstersBinary[idx+0x41];
+        outdata << "aCold:" <<     Monsters[i].aCold  << endl;
 
 
         // Temporary weapon values based on existing ARX weapon handling
@@ -232,32 +385,39 @@ std::cout << "Monster " << Monsters[i].name << " anim " << animationNumber << " 
         Monsters[i].w4 = 0;
         Monsters[i].w5 = 0;
         Monsters[i].w6 = 0;
-        Monsters[i].c1 = 100;
-        Monsters[i].c2 = 0;
-        Monsters[i].c3 = 0;
-        Monsters[i].c4 = 0;
-        Monsters[i].c5 = 0;
-        Monsters[i].c6 = 0;
 
         // Weapon / attack reading
-
         int weapon1 = idx + monstersBinary[idx+5];
         int weapon2 = idx + monstersBinary[idx+7];
         int weapon3 = idx + monstersBinary[idx+9];
+        int weapon4 = 0;
+        int weapon5 = 0;
+        int weapon6 = 0;
+if (i == DEVOURER)
+std::cout << "weapon1 "  << weapon1 << " 2"  << weapon2 << " 3"  << weapon3 << "\n\n";
 
-        if (i==THIEF)
+//        int weapon1 = idx + monstersBinary[idx+5];
+//        int weapon2 = idx + monstersBinary[idx+7];
+//        int weapon3 = idx + monstersBinary[idx+9];
+
+        if (i==THIEF || i == CUTTHROAT || i == BRIGAND || i == MASTER_THIEF)
         {
-            weapon1 = 0x32F; // Skean
-            weapon1 = 0x32F;
-            weapon1 = 0x32F;
+            weapon1 = 0x2eb; // Skean
+            weapon2 = 0x32F;
+            weapon3 = 0x34F;
+            weapon4 = 0x395;
+            weapon5 = 0x3ba;
+            weapon6 = 0x3e1;
         }
 
+        outdata <<  "wpn1 offset: 0x" <<  std::hex <<   weapon1 << std::dec  << endl;
         createMonsterWeapon(currentWeapon, weapon1);
         Monsters[i].w1 = currentWeapon;
         currentWeapon++; // Increment each time a new weapon or attack is created
 
         if (!(weapon1 == weapon2))
         {
+        outdata <<  "wpn2 offset: 0x" <<  std::hex <<   weapon2 << std::dec  << endl;
             createMonsterWeapon(currentWeapon, weapon2);
             Monsters[i].w2 = currentWeapon;
             currentWeapon++; // Increment each time a new weapon or attack is created
@@ -265,11 +425,103 @@ std::cout << "Monster " << Monsters[i].name << " anim " << animationNumber << " 
 
         if ((!(weapon1 == weapon3)) && (!(weapon2 == weapon3)))
         {
+        outdata <<  "wpn3 offset: 0x" <<  std::hex <<   weapon3 << std::dec  << endl;
             createMonsterWeapon(currentWeapon, weapon3);
             Monsters[i].w3 = currentWeapon;
             currentWeapon++; // Increment each time a new weapon or attack is created
         }
+        
+        if ((!(weapon1 == weapon4)) && (!(weapon2 == weapon4))  && weapon4 != 0)
+        {
+        outdata <<  "wpn4 offset: 0x" <<  std::hex <<   weapon3 << std::dec  << endl;
+            createMonsterWeapon(currentWeapon, weapon3);
+            Monsters[i].w4 = currentWeapon;
+            currentWeapon++; // Increment each time a new weapon or attack is created
+        }
+
+        if ((!(weapon1 == weapon5)) && (!(weapon2 == weapon5))  && weapon5 != 0)
+        {
+        outdata <<  "wpn5 offset: 0x" <<  std::hex <<   weapon3 << std::dec  << endl;
+            createMonsterWeapon(currentWeapon, weapon3);
+            Monsters[i].w5 = currentWeapon;
+            currentWeapon++; // Increment each time a new weapon or attack is created
+        }
+
+        if ((!(weapon1 == weapon6)) && (!(weapon2 == weapon6))  && weapon6 != 0)
+        {
+        outdata <<  "wpn6 offset: 0x" <<  std::hex <<   weapon3 << std::dec  << endl;
+            createMonsterWeapon(currentWeapon, weapon3);
+            Monsters[i].w6 = currentWeapon;
+            currentWeapon++; // Increment each time a new weapon or attack is created
+        }
+        
+
+        Monsters[i].c1 = 100;
+        Monsters[i].c2 = 0;
+        Monsters[i].c3 = 0;
+        Monsters[i].c4 = 0;
+        Monsters[i].c5 = 0;
+        Monsters[i].c6 = 0;
+        
+        int numWeapons = 0;
+        if (Monsters[i].w1 != 0)
+		  	  numWeapons++;
+        if (Monsters[i].w2 != 0)
+		  	  numWeapons++;
+        if (Monsters[i].w3 != 0)
+		  	  numWeapons++;
+        if (Monsters[i].w4 != 0)
+		  	  numWeapons++;
+        if (Monsters[i].w5 != 0)
+		  	  numWeapons++;
+        if (Monsters[i].w6 != 0)
+		  	  numWeapons++;
+
+        if (Monsters[i].w1 != 0)
+		  	  Monsters[i].c1 = ((int)100 / numWeapons);
+        if (Monsters[i].w2 != 0)
+		  	  Monsters[i].c2 = ((int)100 / numWeapons);
+        if (Monsters[i].w3 != 0)
+		  	  Monsters[i].c3 = ((int)100 / numWeapons);
+        if (Monsters[i].w4 != 0)
+		  	  Monsters[i].c4 = ((int)100 / numWeapons);
+        if (Monsters[i].w5 != 0)
+		  	  Monsters[i].c5 = ((int)100 / numWeapons);
+        if (Monsters[i].w6 != 0)
+		  	  Monsters[i].c6 = ((int)100 / numWeapons);
+         std::cout << "c1 "  << Monsters[i].c1  << "\n\n";
+         std::cout << "c2 "  << Monsters[i].c2  << "\n\n";
+         std::cout << "c3 "  << Monsters[i].c3  << "\n\n";
+         std::cout << "c4 "  << Monsters[i].c4  << "\n\n";
+         std::cout << "c5 "  << Monsters[i].c5  << "\n\n";
+         std::cout << "c6 "  << Monsters[i].c6  << "\n\n";
+
+
+
+        
+if (i == DEVOURER)
+{
+
+std::cout << "Monster " << Monsters[i].name << " anim " << animationNumber << " s: " << Monsters[i].image  << ":" << Monsters[i].image2 << "algn: " << Monsters[i].alignment << std::endl ;
+    std::cout << "Name:  " << Monsters[i].name << "\n";
+    std::cout << "  HP:    " << Monsters[i].hp ;
+    std::cout << "  Align: " << Monsters[i].alignment;
+    std::cout << "  Sta: " << Monsters[i].sta << " Cha: " << Monsters[i].cha << " Str: " << Monsters[i].str << " Int: " << Monsters[i].inte <<
+       " Wis: " << Monsters[i].wis << " Skl: " << Monsters[i].skl << " Spd: " << Monsters[i].sta << "\n\n";
+std::cout << "blunt"  << Monsters[i].aBlunt << " sharp"  << Monsters[i].aSharp << " earth"  << Monsters[i].aEarth << " air"  << Monsters[i].aAir<< "\n\n";
+std::cout << "cold "  << Monsters[i].aCold << " evil"  << Monsters[i].aEvil << " magic"  << Monsters[i].aMagic << " air"  << Monsters[i].aAir<< "\n\n";
+
+std::cout << "w1="  << Monsters[i].w1 << " w2="  << Monsters[i].w2 << " w3="  << Monsters[i].w3 << "\n\n";
+std::cout << "c1="  << Monsters[i].c1 << " c2="  << Monsters[i].c2 << " c3="  << Monsters[i].c3 << "\n\n";
+
+std::cout << "weapon1 "  << weapon1 << " 2"  << weapon2 << " 3"  << weapon3 << "\n\n";
+}
+
     }
+
+
+     outdata.close();
+
 
 }
 
@@ -277,40 +529,123 @@ std::cout << "Monster " << Monsters[i].name << " anim " << animationNumber << " 
 void createMonsterWeapon(int currentWeapon, int weaponOffset)
 {
     int weaponNameOffset = weaponOffset + 6;
+    char nameLength =    (char) monstersBinary[weaponOffset+5];
     monsterWeapons[currentWeapon].name = readBinaryString(weaponNameOffset);
 
     // byte 2 is object length, byte 3 is unknown
+
     monsterWeapons[currentWeapon].type               = monstersBinary[weaponOffset+0];
     monsterWeapons[currentWeapon].alignment          = monstersBinary[weaponOffset+3];
     monsterWeapons[currentWeapon].weight             = monstersBinary[weaponOffset+4];
+    outdata <<  "name: " <<  monsterWeapons[currentWeapon].name  << endl;
+    outdata <<  "type: " <<  monsterWeapons[currentWeapon].type  << endl;
+    outdata <<  "alignment: " <<  monsterWeapons[currentWeapon].alignment  << endl;
+    outdata <<  "weight: " <<  monsterWeapons[currentWeapon].weight  << endl;
 
     //int wAttributes= weaponOffset+monstersBinary[weaponOffset+5];
     int wAttributes = (weaponOffset + monstersBinary[weaponOffset+1])-20; // Working out from the end of the weapon object
 
+	 int weaponLength = monsterWeapons[currentWeapon].name.length();
+	 int special = monstersBinary[weaponNameOffset+weaponLength+1];
+	 //84 spells.
+	 
+	 if (special == 0x83)		// Curses
+	 {
+	 	monsterWeapons[currentWeapon].special = special;
+	 	// Curses from items.
+	    outdata <<  "Special Abilit: x083" << " 0x" << std::hex << (weaponNameOffset+weaponLength+1) << std::dec;
+		 //16 bytes of data.  Need to figure it out.
+		 if (monstersBinary[weaponNameOffset+weaponLength+3+2] == 0x1e)		//Clumsiness
+		 {
+		 		 monsterWeapons[currentWeapon].specialType = CLUMSINESS;	 
+		 	 outdata << "type (Clumsiness):" << CLUMSINESS <<    endl;
+		 } else if (monstersBinary[weaponNameOffset+weaponLength+3+2] == 0x10)		//Thirst
+		 {
+		 		 monsterWeapons[currentWeapon].specialType = THIRST;	 
+		 	 outdata << "type (Thirst):" << THIRST <<    endl;
+		 } else if (monstersBinary[weaponNameOffset+weaponLength+3+2] == 0x1)		//Loki's Wrath
+		 {
+		 		 monsterWeapons[currentWeapon].specialType = LOKIS_WRATH;	 
+		  outdata << "type (Loki's Wrath):" << LOKIS_WRATH <<    endl;
+		 } else if (monstersBinary[weaponNameOffset+weaponLength+3+2] == 0x5)		//Slow Death
+		 {
+		 		 monsterWeapons[currentWeapon].specialType = SLOW_DEATH;	 
+		 	 outdata << "type (Slow Death):" << SLOW_DEATH <<    endl;
+		 } 
+		 for(int i=0;i<16;i++)
+		 {
+		 	int pos = weaponNameOffset+weaponLength+3+i;
+		  			outdata << " 0x" << std::hex << ((int)monstersBinary[pos]) <<std::dec ;
+		 }
+		 //String for the descriptiong of what happens with this weapon
+		 outdata		  << std::dec <<    endl;
+	    string description =  readBinaryString(weaponNameOffset+weaponLength+20);
+	     monsterWeapons[currentWeapon].specialName = description;
+	    outdata <<  "Spcl Descrip: " << monsterWeapons[currentWeapon].specialName  <<   endl;
+	 }
+	 else if (special == 0x88)
+	 {	
+	 	// Special Items
+	    outdata <<  "Special Abilit: 0x88" << " 0x" << std::hex << (weaponNameOffset+weaponLength+1) << std::dec;
+		 for(int i=0;i<33;i++)
+		 {
+		 	int pos = weaponNameOffset+weaponLength+3+i;
+		  			outdata << " 0x" << std::hex << ((int)monstersBinary[pos]) <<std::dec;
+		 }
+		 
+		 outdata		  << std::dec <<    endl;
+	    string description =  readBinaryString(weaponNameOffset+weaponLength+36);
+	    outdata <<  "Spcl Descrip: " <<description  <<   endl;
+	 }
+	 else
+	 	  if (special != 0)
+		  	    outdata <<  "Special Abilit: WARNING!  " << special << " 0x" <<std::hex <<(weaponNameOffset+weaponLength+1) << std::dec <<    endl;
+	      else
+	    	outdata <<  "Special Abilit: 0" << " 0x" <<std::hex <<(weaponNameOffset+weaponLength+1) << std::dec <<    endl;
+
     monsterWeapons[currentWeapon].melee              = monstersBinary[wAttributes+1];
+    outdata <<  "melee: " <<  monsterWeapons[currentWeapon].melee  << endl;
     monsterWeapons[currentWeapon].ammo               = monstersBinary[wAttributes+2];
+    outdata <<  "ammo: " <<  monsterWeapons[currentWeapon].ammo  << endl;
     monsterWeapons[currentWeapon].blunt              = monstersBinary[wAttributes+3];
+    outdata <<  "blunt: " <<  monsterWeapons[currentWeapon].blunt  << endl;
     monsterWeapons[currentWeapon].sharp              = monstersBinary[wAttributes+4];
+    outdata <<  "sharp: " <<  monsterWeapons[currentWeapon].sharp  << endl;
     monsterWeapons[currentWeapon].earth              = monstersBinary[wAttributes+5];
+    outdata <<  "earth: " <<  monsterWeapons[currentWeapon].earth  << endl;
     monsterWeapons[currentWeapon].air                = monstersBinary[wAttributes+6];
+    outdata <<  "air: " <<  monsterWeapons[currentWeapon].air  << endl;
     monsterWeapons[currentWeapon].fire               = monstersBinary[wAttributes+7];
+    outdata <<  "fire: " <<  monsterWeapons[currentWeapon].fire  << endl;
     monsterWeapons[currentWeapon].water              = monstersBinary[wAttributes+8];
+    outdata <<  "water: " <<  monsterWeapons[currentWeapon].water  << endl;
     monsterWeapons[currentWeapon].power              = monstersBinary[wAttributes+9];
+    outdata <<  "power: " <<  monsterWeapons[currentWeapon].power  << endl;
     monsterWeapons[currentWeapon].magic              = monstersBinary[wAttributes+10];
+    outdata <<  "magic: " <<  monsterWeapons[currentWeapon].magic  << endl;
     monsterWeapons[currentWeapon].good               = monstersBinary[wAttributes+11];
+    outdata <<  "good: " <<  monsterWeapons[currentWeapon].good  << endl;
     monsterWeapons[currentWeapon].evil               = monstersBinary[wAttributes+12];
+    outdata <<  "evil: " <<  monsterWeapons[currentWeapon].evil  << endl;
     monsterWeapons[currentWeapon].cold               = monstersBinary[wAttributes+13];
+    outdata <<  "cold: " <<  monsterWeapons[currentWeapon].cold  << endl;
     monsterWeapons[currentWeapon].minStrength        = monstersBinary[wAttributes+14];
+    outdata <<  "minStrength: " <<  monsterWeapons[currentWeapon].minStrength  << endl;
     monsterWeapons[currentWeapon].minDexterity       = monstersBinary[wAttributes+15];
+    outdata <<  "minDexterity: " <<  monsterWeapons[currentWeapon].minDexterity  << endl;
     monsterWeapons[currentWeapon].hp                 = monstersBinary[wAttributes+16];
+    outdata <<  "hp: " <<  monsterWeapons[currentWeapon].hp  << endl;
     monsterWeapons[currentWeapon].maxHP              = monstersBinary[wAttributes+17];
+    outdata <<  "maxHP: " <<  monsterWeapons[currentWeapon].maxHP  << endl;
     monsterWeapons[currentWeapon].flags              = monstersBinary[wAttributes+18];
+    outdata <<  "flags: " <<  monsterWeapons[currentWeapon].flags  << endl;
     monsterWeapons[currentWeapon].parry              = monstersBinary[wAttributes+19];
+    outdata <<  "parry: " <<  monsterWeapons[currentWeapon].parry  << endl;
 
     int weaponDescription = (monsterWeapons[currentWeapon].flags);
 
-    //cout << "Name:  " << currentWeapon << "," << monsterWeapons[currentWeapon].name << "\n";
-    /*
+cout << "Name:  " << currentWeapon << "," << monsterWeapons[currentWeapon].name << "\n";
+
     cout << "Name:  " << monsterWeapons[currentWeapon].name << ", " << weaponDescription << "\n";
     cout << "HP:    " << monsterWeapons[currentWeapon].hp << "\n";
     cout << "Align: " << monsterWeapons[currentWeapon].alignment << "\n\n";
@@ -320,7 +655,7 @@ void createMonsterWeapon(int currentWeapon, int weaponOffset)
         << monsterWeapons[currentWeapon].power << "\nMagic: " << monsterWeapons[currentWeapon].magic
         << "\nGood:  " << monsterWeapons[currentWeapon].good << "\nEvil:  " << monsterWeapons[currentWeapon].evil << "\nCold:  "
         << monsterWeapons[currentWeapon].cold << "\n\n";
-    */
+
 
 
 }
@@ -377,6 +712,8 @@ void readMonsterPluralNameText(int monsterNo, int pluralNameOffset)
 {
     // Special Case - "thief" class has value 0
     if (monsterNo==1) pluralNameOffset = 0x2CF;
+    if (monsterNo== CUTTHROAT) pluralNameOffset = 0x2CF;
+    if (monsterNo== BRIGAND) pluralNameOffset = 0x2d7;
     //if (monsterNo==2) nameOffset = 0x7E4;
 
     stringstream ss;
@@ -472,8 +809,9 @@ void loadEncounters()
 			getline(instream, line);
 			idx = line.find(':');
 			text = line.substr(idx+1);
-			//if (a==0) cout << text << " = " << i << ",\n";
-
+if (i == DEVOURER)
+			cout << "i:" << i <<" a:"<<a<<" " <<line << "  " ;
+if (a==47) cout << "\n"; 
 			if (a==0) { Monsters[i].name = text; }
 			if (a==1) { Monsters[i].pluName = text; }
 			if (a==2) { Monsters[i].armorText = text; }
@@ -527,7 +865,8 @@ void loadEncounters()
 			if (a==45) { Monsters[i].c4 = atoi(text.c_str());}
 			if (a==46) { Monsters[i].c5 = atoi(text.c_str());}
 			if (a==47) { Monsters[i].c6 = atoi(text.c_str());}
-
+if (i == DEVOURER)
+std::cout << "Name :" << Monsters[i].name << "c1 "<< Monsters[i].c1 << " c2 "<< Monsters[i].c2 << "\n";
 		}
 	}
 	instream.close();

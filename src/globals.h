@@ -144,7 +144,10 @@ enum encounters
 	HOBBIT = 80,
 	GIANT = 81,
 	SMALL_GREEN_DRAGON = 82,
-	NOBLEWOMAN = 83
+	NOBLEWOMAN = 83,
+	CUTTHROAT = 84,
+	BRIGAND = 85,
+	MASTER_THIEF = 86	
 };
 
 // Items from encounters, found on Dungeon floor or from Dungeon quests
@@ -291,4 +294,13 @@ enum items
     GAUSS_RIFLE = 138,
     SOLAR_SUIT = 139,
     BEAM_WEAPON = 140
+};
+
+
+enum weaponSpecialType
+{
+ 	  CLUMSINESS = 1,
+		THIRST = 2,
+		LOKIS_WRATH=3,
+		SLOW_DEATH=4	
 };

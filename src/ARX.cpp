@@ -142,7 +142,7 @@ void startGame()
 	loadDescriptions(plyr.map);
 	loadZoneData(plyr.map);
 	loadMessages(plyr.map);
-	loadEncounters();
+	//loadEncounters();
 
 	// Load monsters
 	loadMonstersBinary();
