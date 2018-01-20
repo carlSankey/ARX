@@ -30,13 +30,24 @@ Version 0.83 - 4th Jan 2018
 * Added - Put these encounters into possible city/dungeon encounters.
 * Added - capture the number of encounters variable from binary.  When in the dungeon you can 
           have multiple encounters now, up to the max defined in binary.  City still is only allowed 1 
-		  encounter at a time.
+		  encounter at a time.  The number of encounter is affected by your level, dungeon level. your alignment
+		  vs. encounters alignment  will increase or decrease your chances for more monsters at once.
 * Added - Started loading in attributes for weapons. Its loads in weapons that causes curses and dieseases.
           Not active in the code yet. Have not loaded the weapon attributes values into the system yet.  Like
           How long it last.
-		  
+* Adjust- Adjusted the Treasure finding stats.  Potion should only be in affect until you find treasure and
+          then it should go away.  In the code, the treasure just kept getting higher.
+          Adjust treasure.  You got a weapon on almost every encounter.  The original game was not like this.  It was much hard to get weapons.  The chances for finding a weapon is much higher now.
+* Adjust- Treasure Torch and Keys will not show up in the city anymore.  The city didn't have these items.
+          You end up with so many of these items you never have to want for this.		  
 
- 	  
+* Added - When you find a potion you get 120xp points like the city gave you.
+          You get 255xp for each Jewels,  128xp for each Gems
+* Fixed - Fixed Weapon damage.   It was calculating weapon damaged wrong.  Way to high.
+          It was doing abit check for number of dice and number of sides to the dice.
+          This was not correct. a Value of 36 would be 3 dice and 6 sides.  bit check would turn this into 
+		  a different value.
+          		  
 Notes:
 	Graphics Mode is now  
 		0 - 8bit, 

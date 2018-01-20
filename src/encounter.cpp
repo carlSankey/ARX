@@ -26,6 +26,8 @@ bool    waitingForSpaceKey;
 int     encounterTurns;
 int     encounterMenu;
 bool    playerStunned;
+int no_found = 0;
+bool foundTreasure = false;
 //int currentOpponent;
 //int currentOpponentQuantity;
 
@@ -124,7 +126,8 @@ encRecord wellLitEncTable[11]=
     {15,	ACOLYTE}
 };
 
-encRecord nightEncTable[51]=
+int maxNightEncTable = 51;
+encRecord nightEncTable[51] =
 {
 	{19,	GHOST},
 	{17,	MUGGER},
@@ -179,6 +182,7 @@ encRecord nightEncTable[51]=
 	{2,		CUTTHROAT}
 };
 
+int maxDayEncTable = 32;
 encRecord dayEncTable[32] =
 {
 	{41,	GUARD},
@@ -1468,29 +1472,44 @@ int calcOpponentWeaponDamage(int weaponNo, float attackFactor, int attacker)
 	// Need to add modifier for player armor values & armor body parts
 
 	int armors[11]; // holds results of rolling for armor protection
-	if (attacker==0) // Player attacking
-	{
-		armorValues[0] = Opponents[0].aBlunt;
-		armorValues[1] = Opponents[0].aSharp;
-		armorValues[2] = Opponents[0].aEarth;
-		armorValues[3] = Opponents[0].aAir;
-		armorValues[4] = Opponents[0].aFire;
-		armorValues[5] = Opponents[0].aWater;
-		armorValues[6] = Opponents[0].aPower;
-		armorValues[7] = Opponents[0].aMagic;
-		armorValues[8] = Opponents[0].aGood;
-		armorValues[9] = Opponents[0].aEvil;
-		armorValues[10] = Opponents[0].aCold;
+
+		//Check to see if the user is wearing the entire armor suit.
+		//If yes, they they get full protection,  otherwise no
+		float numArmorPieces = 0;
+		if (plyr.headArmour != 255)
+			numArmorPieces++;
+		if (plyr.bodyArmour != 255)
+			numArmorPieces++;
+		if (plyr.legsArmour != 255 )
+		   numArmorPieces++;
+		if (plyr.armsArmour != 255)
+		   numArmorPieces++;
+
+      numArmorPieces = numArmorPieces / 4;
+		armorValues[0] = itemBuffer[plyr.bodyArmour].blunt;
+		armorValues[1] = itemBuffer[plyr.bodyArmour].sharp;
+		armorValues[2] = itemBuffer[plyr.bodyArmour].earth;
+		armorValues[3] = itemBuffer[plyr.bodyArmour].air;
+		armorValues[4] = itemBuffer[plyr.bodyArmour].fire;
+		armorValues[5] = itemBuffer[plyr.bodyArmour].water;
+		armorValues[6] = itemBuffer[plyr.bodyArmour].power;
+		armorValues[7] = itemBuffer[plyr.bodyArmour].magic;
+		armorValues[8] = itemBuffer[plyr.bodyArmour].good;
+		armorValues[9] = itemBuffer[plyr.bodyArmour].evil;
+		armorValues[10] = itemBuffer[plyr.bodyArmour].cold;
+
 
 		int armorIndex = 0;
 		while (armorIndex < 11)
 		{
 			int noDice = (armorValues[armorIndex] & 0xf0) >> 4;
 			int noSides = (armorValues[armorIndex] & 0x0f);
+
+			noDice = ((int)noDice * numArmorPieces);
+			noSides = ((int)noDice * numArmorPieces);
 			armors[armorIndex] = rollDice(noDice, noSides);
 			armorIndex++;
 		}
-	}
 
 
 
@@ -1509,6 +1528,16 @@ int calcOpponentWeaponDamage(int weaponNo, float attackFactor, int attacker)
 		if (noDice > 0 )
 		{
             damages[damageIndex] = rollDice(noDice, noSides);
+            if (armorValues[damageIndex]==0xff) { damages[damageIndex] = 0; }
+            else if (armorValues[damageIndex]==0xf0) { damages[damageIndex] = damages[damageIndex]*-1; }
+            else if (armorValues[damageIndex]==0x0f) { damages[damageIndex] = damages[damageIndex]*2; }
+				else {
+				 damages[damageIndex] -= armors[damageIndex];
+				 if (damages[damageIndex] < 0 )
+				 	 damages[damageIndex] = 0;
+				}
+				 
+				 	 
 //            cout << damages[damageIndex] << " (" << noDice << " D" << noSides << "), ";
 		}
 		damageIndex++;
@@ -1521,24 +1550,26 @@ int calcOpponentWeaponDamage(int weaponNo, float attackFactor, int attacker)
 	// 0x0f = takes double damage from this damage type.
 
 /*
-	if (attacker==0) // Player attacking
+	if (attacker==1) // Opponent attacking
 	{
 		for(int i = 0; i < 11; ++i) // number of damages to compare against armors
 		{
+			if (armors[i] == 0x0f)	//Double Damages
+				damages[i] =  damages[i] * 2;
 			if (armors[i] == 0xff)	//Invulnerbale
-				damges[i] = 0;
+				damages[i] = 0;
 			else
 				 damages[i] -= armors[i];
 
 			if ( damages[i] < 0 ) { damages[i] = 0; }
 		}
-		totalDamage = damages[0] + damages[1] + damages[2] + damages[3] + damages[4] + damages[5] + damages[6] + damages[7] + damages[8] + damages[9] + damages[10];
+//		totalDamage = damages[0] + damages[1] + damages[2] + damages[3] + damages[4] + damages[5] + damages[6] + damages[7] + damages[8] + damages[9] + damages[10];
 		std::cout << "B:" << damages[0] << " S:" << damages[1] << " E:" << damages[2] << " A:" << damages[3] << " F:" << damages[4] << " W:" << damages[5] << " P:" << damages[6] << " M:" << damages[7] << " G:" << damages[8] << " E:" << damages[9] << " C:" << damages[10] << std::endl;
 		//if (totalDamage==0) { return 1000; }
 		//if (totalDamage >0) { return totalDamage; }
 	}
-*/
 
+*/
 	//std::cout << "B:" << damages[0] << " S:" << damages[1] << " E:" << damages[2] << " A:" << damages[3] << " F:" << damages[4] << " W:" << damages[5] << " P:" << damages[6] << " M:" << damages[7] << " G:" << damages[8] << " E:" << damages[9] << " C:" << damages[10] << std::endl;
 	int totalDamage = damages[0]+damages[1]+damages[2]+damages[3]+damages[4]+damages[5]+damages[6]+damages[7]+damages[8]+damages[9]+damages[10];
 	return totalDamage;
@@ -1600,20 +1631,29 @@ int calcPlayerWeaponDamage(int weaponNo, float attackFactor, int attacker)
 
 	int damageIndex = 0; // 0 is blunt, 1 is sharp, 11 is cold - 11 damage types in total
 
-//	cout << "Player Damage:";
+	cout << "Player Damage:";
+std::cout << "B:" << weaponDamageValues[0] << " S:" << weaponDamageValues[1] << " E:" << weaponDamageValues[2] << " A:" << weaponDamageValues[3] << " F:" << weaponDamageValues[4] << " W:" << weaponDamageValues[5] << " P:" << weaponDamageValues[6] << " M:" << weaponDamageValues[7] << " G:" << weaponDamageValues[8] << " E:" << weaponDamageValues[9] << " C:" << weaponDamageValues[10] << std::endl;
 	while (damageIndex < 11)
 	{
-		int noDice = (weaponDamageValues[damageIndex] & 0xf0) >> 4;
-		int noSides = (weaponDamageValues[damageIndex] & 0x0f);
+//		int noDice = (weaponDamageValues[damageIndex] & 0xf0) >> 4;
+//		int noSides = (weaponDamageValues[damageIndex] & 0x0f);
+		int noDice = ((int)weaponDamageValues[damageIndex] / 10);
+		int noSides = weaponDamageValues[damageIndex] - (noDice * 10);
 
 		//int currentDamage = round((weaponDamageValues[damageIndex])* attackFactor);
 		if (noDice > 0 )
         {
             damages[damageIndex] = rollDice(noDice, noSides);
             if (armorValues[damageIndex]==0xff) { damages[damageIndex] = 0; }
-            if (armorValues[damageIndex]==0xf0) { damages[damageIndex] = damages[damageIndex]*-1; }
-            if (armorValues[damageIndex]==0xff) { damages[damageIndex] = damages[damageIndex]*2; }
- //           cout << damages[damageIndex] << " (" << noDice << " D" << noSides << ") ";
+            else if (armorValues[damageIndex]==0xf0) { damages[damageIndex] = damages[damageIndex]*-1; }
+            else if (armorValues[damageIndex]==0x0f) { damages[damageIndex] = damages[damageIndex]*2; }
+            else {
+				 damages[damageIndex] -= armors[damageIndex];
+				 if (damages[damageIndex] < 0 )
+				 	 damages[damageIndex] = 0;
+				}
+
+           cout << damages[damageIndex] << " (" << noDice << " D" << noSides << ") \n";
         }
 		damageIndex++;
 	}
@@ -1623,6 +1663,7 @@ int calcPlayerWeaponDamage(int weaponNo, float attackFactor, int attacker)
 	// 0xff = invulnerable.
 	// 0xf0 = absorbs power from this damage type.
 	// 0x0f = takes double damage from this damage type.
+/*
 	if (attacker==0) // Player attacking
 	{
 		for(int i = 0; i < 11; ++i) // number of damage slots to compare against armour slots
@@ -1636,9 +1677,9 @@ int calcPlayerWeaponDamage(int weaponNo, float attackFactor, int attacker)
 			if ( damages[i] < 0 ) { damages[i] = 0; }
 		}
 	}
+*/
 
-
-	//std::cout << "B:" << damages[0] << " S:" << damages[1] << " E:" << damages[2] << " A:" << damages[3] << " F:" << damages[4] << " W:" << damages[5] << " P:" << damages[6] << " M:" << damages[7] << " G:" << damages[8] << " E:" << damages[9] << " C:" << damages[10] << std::endl;
+std::cout << "B:" << damages[0] << " S:" << damages[1] << " E:" << damages[2] << " A:" << damages[3] << " F:" << damages[4] << " W:" << damages[5] << " P:" << damages[6] << " M:" << damages[7] << " G:" << damages[8] << " E:" << damages[9] << " C:" << damages[10] << std::endl;
 	int totalDamage = damages[0]+damages[1]+damages[2]+damages[3]+damages[4]+damages[5]+damages[6]+damages[7]+damages[8]+damages[9]+damages[10];
 	return totalDamage;
 
@@ -2050,7 +2091,7 @@ void chooseEncounter()
 		int encCount = 0;
 		int monsterProb = randn(0, 255);
 		//int monsterProb = 253;
-		for(int i = 0; i < 29; ++i) // 28???
+		for(int i = 0; i < maxDayEncTable; ++i) // 28???
 		{
 			if ((monsterProb >= encCount) && (monsterProb < dayEncTable[i].encProb+encCount))
 			{ monsterNo = dayEncTable[i].encType; }
@@ -2063,7 +2104,7 @@ void chooseEncounter()
 	{
 		int encCount = 0;
 		int monsterProb = randn(0, 255);
-		for(int i = 0; i < 48; ++i)
+		for(int i = 0; i < maxNightEncTable; ++i)
 		{
 			if ((monsterProb >= encCount) && (monsterProb < nightEncTable[i].encProb+encCount))
 			{ monsterNo = nightEncTable[i].encType; }
@@ -2107,10 +2148,30 @@ void chooseEncounter()
     }
     plyr.fixedEncounter = false;
 
+	 //adjust the max encounter based on other player stats.
+	 if (plyr.scenario==DUNGEON)
+	 {
+	 	numMonsters = Monsters[monsterNo].maxencounters;
+	 	int adjustment =  (plyr.level+1) /2;	//increase the chances of more encounters for higher levels.
+	 	if (plyr.alignment < 128 && Monsters[monsterNo].alignment> 127)	//Good encounter vs. evil player.  Make it tougher
+	 	 adjustment ++;
+	 	if (plyr.alignment < 20 )	//Pure evil player
+	 	 adjustment ++;
+	 	 adjustment += plyr.map - 1;
 
-	 //Dungeons have a chance of multiple monsters.
-	if ((plyr.scenario==DUNGEON) &&	 Monsters[monsterNo].maxencounters > 1)
-		numMonsters = randn(1, Monsters[monsterNo].maxencounters);
+		 //Grab the lower of the two
+	 	 if (adjustment < numMonsters )
+	 	 {
+	 	 	 if (adjustment < 1)
+	 	 	 	 numMonsters = 1;
+	 	 	 else
+	 	 	 	  numMonsters = adjustment;
+		  }
+		  numMonsters = randn(1,numMonsters);	// Grab a random number of monsters for the dungeon		  
+	 	
+	 }
+
+std::cout << "Monsterno " << monsterNo;
 
     encounterLoop( monsterNo, numMonsters ); // Only one currently except for fixed encounters
 
@@ -2157,81 +2218,79 @@ void checkAlignmentEncounter(int opponentNo)
 }
 
 
+int checkForTreasureItem(int treasure,int itemno)
+{
+	int upperRange = 100;		// Reduced it down, since Treasure should be at 15 most of the time.
+   
+	int no_found = randn(0,treasure);
+	int found = randn(0,upperRange);
+	if ((no_found>0) && (found<=plyr.treasureFinding)) { createGenericItem(itemno,no_found); foundTreasure = true; }
+	else 
+		  no_found = 0;
+//cout << "\n" << found << " , " << no_found << "\n";
+
+    return no_found;
+}
+
+
 void checkTreasure()
 {
 	bool foundTreasure = false;
-	int no_found = 0;
 	int found = 0;
-
+   int tot_found =  0;
+   int max_treasure = 20;
+   
+   
 	// Check to see if the opponent was carrying a weapon (as opposed to claws or teeth)
 	// Only type 0x03 weapons can be dropped - type 0xFF refers to natural weapons such as bites, tails, claws, spells
 
     Opponents[0] = Monsters[opponentType];
 
 	int weapon = Opponents[0].w1; // Modify
-
-	if (monsterWeapons[weapon].type==0x03)
+	found = randn(0,100);
+	if (monsterWeapons[weapon].type==0x03 && found <= plyr.treasureFinding)
 	{
+		//Most of the time you don't get a weapon from creatures.  It should be hard to gain weapons.
+		//Original code was get weapon after each encounter.
 		createWeapon(weapon); // Create a new instance of this weapon type on the floor
 		foundTreasure = true; // need to ensure that only weapons get created!
 	}
 
-	int upperRange = 75;
+	tot_found += checkForTreasureItem(Opponents[0].tCopper,12);
+	tot_found += checkForTreasureItem(Opponents[0].tSilver,11);
+	tot_found += checkForTreasureItem(Opponents[0].tFood,1);
+	tot_found += checkForTreasureItem(Opponents[0].tWater,2);
+	
+	 // Keys are for Dungeon only area.  City never had keys.		 
+	if (tot_found < max_treasure)
+    if ((plyr.scenario==DUNGEON))
+	  	 tot_found += checkForTreasureItem(Opponents[0].tTorches,3);
+	if (tot_found < max_treasure)
+	   tot_found += checkForTreasureItem(Opponents[0].tTimepieces,4);
+	if (tot_found < max_treasure)
+	   tot_found += checkForTreasureItem(Opponents[0].tCompasses,5);
 
-	no_found = randn(0,Opponents[0].tFood);
-	found = randn(0,upperRange); // Adjusted from upperRange to reduce volume item drops
-	if ((no_found>0) && (found<=plyr.treasureFinding)) { createGenericItem(1,no_found); foundTreasure = true; }
+	 // Keys are for Dungeon only area.  City never had keys.		 
+	if (tot_found < max_treasure)
+    if ((plyr.scenario==DUNGEON))
+	  	 tot_found += checkForTreasureItem(Opponents[0].tKeys,6);
 
-	no_found = randn(0,Opponents[0].tWater);
-	found = randn(0,upperRange);
-	if ((no_found>0) && (found<=plyr.treasureFinding)) { createGenericItem(2,no_found); foundTreasure = true; }
-//cout << "\n" << found << " , " << no_found << "\n";
-
-	no_found = randn(0,Opponents[0].tTorches);
-	found = randn(0,upperRange);
-	if ((no_found>0) && (found<=plyr.treasureFinding)){ createGenericItem(3,no_found); foundTreasure = true; }
-//cout << "\n" << found << " , " << no_found << "\n";
-
-	no_found = randn(0,Opponents[0].tTimepieces);
-	found = randn(0,upperRange);
-	if ((no_found>0) && (found<=plyr.treasureFinding)) { createGenericItem(4,no_found); foundTreasure = true; }
-//cout << "\n" << found << " , " << no_found << "\n";
-
-	no_found = randn(0,Opponents[0].tCompasses);
-	found = randn(0,upperRange);
-	if ((no_found>0) && (found<=plyr.treasureFinding)) { createGenericItem(5,no_found); foundTreasure = true; }
-//cout << "\n" << found << " , " << no_found << "\n";
-
-	no_found = randn(0,Opponents[0].tKeys);
-	found = randn(0,upperRange);
-	if ((no_found>0) &&(found<=plyr.treasureFinding)) { createGenericItem(6,no_found); foundTreasure = true; }
-//cout << "\n" << found << " , " << no_found << "\n";
-
-	no_found = randn(0,Opponents[0].tCrystals);
-	found = randn(0,upperRange);
-	if ((no_found>0) && (found<=plyr.treasureFinding)) { createGenericItem(7,no_found); foundTreasure = true; }
-//cout << "\n" << found << " , " << no_found << "\n";
-
-	no_found = randn(0,Opponents[0].tGems);
-	found = randn(0,upperRange);
-	if ((no_found>0) && (found<=plyr.treasureFinding)) { createGenericItem(8,no_found); foundTreasure = true; }
-//cout << "\n" << found << " , " << no_found << "\n";
-	no_found = randn(0,Opponents[0].tJewels);
-	found = randn(0,upperRange);
-	if ((no_found>0) && (found<=plyr.treasureFinding)) { createGenericItem(9,no_found); foundTreasure = true; }
-//cout << "\n" << found << " , " << no_found << "\n";
-	no_found = randn(0,Opponents[0].tGold);
-	found = randn(0,upperRange);
-	if ((no_found>0) && (found<=plyr.treasureFinding)) { createGenericItem(10,no_found); foundTreasure = true; }
-//cout << "\n" << found << " , " << no_found << "\n";
-	no_found = randn(0,Opponents[0].tSilver);
-	found = randn(0,upperRange);
-	if ((no_found>0) && (found<=plyr.treasureFinding)) { createGenericItem(11,no_found); foundTreasure = true; }
-//cout << "\n" << found << " , " << no_found << "\n";
-	no_found = randn(0,Opponents[0].tCopper);
-	found = randn(0,upperRange);
-	if ((no_found>0) && (found<=plyr.treasureFinding)) { createGenericItem(12,no_found); foundTreasure = true; }
-//cout << "\n" << found << " , " << no_found << "\n";
+	if (tot_found < max_treasure)
+	   tot_found += checkForTreasureItem(Opponents[0].tCrystals,7);
+	if (tot_found < max_treasure)
+	   if(checkForTreasureItem(Opponents[0].tGems,8))
+		   {
+			tot_found += true;
+			increaseExperience(128*no_found);
+	   }
+	if (tot_found < max_treasure)
+   if(checkForTreasureItem(Opponents[0].tJewels,9))
+   {
+	   tot_found += true;
+	   increaseExperience(255*no_found);
+	}
+	if (tot_found < max_treasure)
+   tot_found += checkForTreasureItem(Opponents[0].tGold,10);
 
     found = randn(0,20);
 	if (found>17)
@@ -2242,12 +2301,10 @@ void checkTreasure()
         int potionKnown = randn(0,100);
         int potionRef = createPotion(potionType);
         if (potionKnown>90) itemBuffer[potionRef].hp = 1; // Potion identified or labelled
+      	increaseExperience(120);	// City gave 120 xp for a potions treasure.
+
     }
  //   cout << "Treasure finding: " << plyr.treasureFinding <<"\n\n";
-
-
-
-
 
 	    if (opponentType == UNDEAD_KNIGHT)
         {
@@ -2277,7 +2334,7 @@ void checkTreasure()
 			foundTreasure = false;
 		}
 
-    //if ((foundTreasure) && (plyr.treasureFinding>5)) { plyr.treasureFinding--; }
+   if ((foundTreasure) && (plyr.treasureFinding>15)) { plyr.treasureFinding = 15; }	//Once you find treasure then remove the potion affect.
 	if (foundTreasure) getItems();
 
 }

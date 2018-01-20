@@ -2129,10 +2129,11 @@ int returnCarriedWeight()
 	{
 		if (itemBuffer[i].location==10)
 		{
-            if (itemBuffer[i].type==177) { itemWeight = itemBuffer[i].weight; }
-            if (itemBuffer[i].type==178) { itemWeight = itemBuffer[i].weight; }
-            if (itemBuffer[i].type==180) { itemWeight = itemBuffer[i].weight; }
-//carriedWeight += itemWeight;
+//            if (itemBuffer[i].type==177) { itemWeight = itemBuffer[i].weight; }
+//            if (itemBuffer[i].type==178) { itemWeight = itemBuffer[i].weight; }
+//            if (itemBuffer[i].type==180) { itemWeight = itemBuffer[i].weight; }
+				  itemWeight = itemBuffer[i].weight;
+				carriedWeight += itemWeight;
 			itemWeight = 0;
 		}
 	}

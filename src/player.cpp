@@ -457,7 +457,7 @@ void initStats()
     plyr.oracleYear = 255;
     plyr.oracleQuestNo = 0; // First quest from Oracle is silver key & palace prison
 
-    plyr.treasureFinding = 15;
+    plyr.treasureFinding = 15;   
     plyr.invisibility = 0;
     plyr.diseases[0] = 0;
     plyr.diseases[1] = 0;

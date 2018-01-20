@@ -395,6 +395,7 @@ for(int z = 0; z < itemBufferSize; ++z)
 	itemBuffer[z].useStrength = atoi( character[loadGameIndex+12].c_str());
 	itemBuffer[z].blunt = atoi( character[loadGameIndex+13].c_str());
 	itemBuffer[z].sharp = atoi( character[loadGameIndex+14].c_str());
+
 	itemBuffer[z].earth = atoi( character[loadGameIndex+15].c_str());
 	itemBuffer[z].air = atoi( character[loadGameIndex+16].c_str());
 	itemBuffer[z].fire = atoi( character[loadGameIndex+17].c_str());
