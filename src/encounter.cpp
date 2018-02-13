@@ -2218,14 +2218,17 @@ void checkAlignmentEncounter(int opponentNo)
 }
 
 
-int checkForTreasureItem(int treasure,int itemno)
+int checkForTreasureItem(int treasure,int itemno, int randAdjustment)
 {
 	int upperRange = 100;		// Reduced it down, since Treasure should be at 15 most of the time.
    
 	int no_found = randn(0,treasure);
 	int found = randn(0,upperRange);
-	if ((no_found>0) && (found<=plyr.treasureFinding)) { createGenericItem(itemno,no_found); foundTreasure = true; }
-	else 
+	if ((no_found>0) && (found+randAdjustment <= plyr.treasureFinding)) 
+	{ 
+	  createGenericItem(itemno,no_found); 
+	  foundTreasure = true; 
+  } 	else 
 		  no_found = 0;
 //cout << "\n" << found << " , " << no_found << "\n";
 
@@ -2256,44 +2259,44 @@ void checkTreasure()
 		foundTreasure = true; // need to ensure that only weapons get created!
 	}
 
-	tot_found += checkForTreasureItem(Opponents[0].tCopper,12);
-	tot_found += checkForTreasureItem(Opponents[0].tSilver,11);
-	tot_found += checkForTreasureItem(Opponents[0].tFood,1);
-	tot_found += checkForTreasureItem(Opponents[0].tWater,2);
+	tot_found += checkForTreasureItem(Opponents[0].tCopper,12,15);
+	tot_found += checkForTreasureItem(Opponents[0].tSilver,11,10);
+	tot_found += checkForTreasureItem(Opponents[0].tFood,1,5);
+	tot_found += checkForTreasureItem(Opponents[0].tWater,2,8);
 	
 	 // Keys are for Dungeon only area.  City never had keys.		 
 	if (tot_found < max_treasure)
     if ((plyr.scenario==DUNGEON))
-	  	 tot_found += checkForTreasureItem(Opponents[0].tTorches,3);
+	  	 tot_found += checkForTreasureItem(Opponents[0].tTorches,3,4);
 	if (tot_found < max_treasure)
-	   tot_found += checkForTreasureItem(Opponents[0].tTimepieces,4);
+	   tot_found += checkForTreasureItem(Opponents[0].tTimepieces,4,15);
 	if (tot_found < max_treasure)
-	   tot_found += checkForTreasureItem(Opponents[0].tCompasses,5);
+	   tot_found += checkForTreasureItem(Opponents[0].tCompasses,5,5);
 
 	 // Keys are for Dungeon only area.  City never had keys.		 
 	if (tot_found < max_treasure)
     if ((plyr.scenario==DUNGEON))
-	  	 tot_found += checkForTreasureItem(Opponents[0].tKeys,6);
+	  	 tot_found += checkForTreasureItem(Opponents[0].tKeys,6,10);
 
 	if (tot_found < max_treasure)
-	   tot_found += checkForTreasureItem(Opponents[0].tCrystals,7);
+	   tot_found += checkForTreasureItem(Opponents[0].tCrystals,7,2);
 	if (tot_found < max_treasure)
-	   if(checkForTreasureItem(Opponents[0].tGems,8))
+	   if(checkForTreasureItem(Opponents[0].tGems,8,0))
 		   {
 			tot_found += true;
 			increaseExperience(128*no_found);
 	   }
 	if (tot_found < max_treasure)
-   if(checkForTreasureItem(Opponents[0].tJewels,9))
+   if(checkForTreasureItem(Opponents[0].tJewels,9,0))
    {
 	   tot_found += true;
 	   increaseExperience(255*no_found);
 	}
 	if (tot_found < max_treasure)
-   tot_found += checkForTreasureItem(Opponents[0].tGold,10);
+   tot_found += checkForTreasureItem(Opponents[0].tGold,10,0);
 
-    found = randn(0,20);
-	if (found>17)
+    found = randn(0,100);
+	if (found < 22)
     {
         // No checking for suitability of encounter to be carrying potions yet
         foundTreasure = true;
