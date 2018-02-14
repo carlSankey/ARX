@@ -462,6 +462,9 @@ int createClothing(int clothing_no)
      new_item.y = plyr.y;
      new_item.level = plyr.map;
      new_item.hp = 12; // temp value to act as breakable value
+	 new_item.weight = clothingItems[clothing_no].weight;
+
+
 	 itemBuffer[plyr.buffer_index] = new_item;
      int new_item_ref = plyr.buffer_index;
 	 plyr.buffer_index++;
