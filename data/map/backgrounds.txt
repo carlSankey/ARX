@@ -47,4 +47,3 @@
 46 taurean maze = blackSky
 47 Fountain 1 = fountainSky
 48 KJ Dangerous Area = purpleSky
-

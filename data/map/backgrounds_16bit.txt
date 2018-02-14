@@ -59,4 +59,3 @@
 58 mountain = cityMount4E_16bit
 59 mountain = cityMount5E_16bit
 60 mountain = cityMount6E_16bit
-

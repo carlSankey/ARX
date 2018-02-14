@@ -282,7 +282,7 @@ void draw3DBackground()
 		}
 
 	}
-	if (drawMounain == true)
+	if (drawMounain == true && graphicMode == A16BIT_SMALL )
 	{
 		Mountain.setScale(scaleX, scaleY);
 		Mountain.setPosition(viewPortX, viewPortY);
@@ -316,12 +316,14 @@ std::cout << "Loading background Texture" << std::endl;
 	{
       cerr << "Error: background file " << filename << " file could not be loaded" << endl;
 	}
+std::cout << "num " << numberOfBackgrounds << std::endl;	
 	for (int i=0 ; i<numberOfBackgrounds ; i++)
 	{
 		getline(instream, line);
 		idx = line.find('=');
 		text = line.substr(idx+2);
 		backgroundNames[i]= text;
+std::cout << "num " << i << backgroundNames[i] << std::endl;	
 		background[i].loadFromFile("data/images/backgrounds/"+text+".png");
 	}
 	instream.close();

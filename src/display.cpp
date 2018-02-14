@@ -26,7 +26,7 @@ using namespace sf;
 
 sf::Sprite encImage;
 
-string version = "0.83";
+string version = "0.83.1";
 
 int windowMode, graphicMode, windowWidth, windowHeight, viewWidth, viewHeight;
 int viewPortX;
@@ -523,6 +523,7 @@ void displayMainMenu()
 	if (graphicMode == A16BIT_SMALL) { drawText(x+7,z+5,    "Texture       Amiga 16bit"); }
 	if (graphicMode == ALTERNATE_SMALL) { drawText(x+7,z+5, "Texture       Small 3D"); }
 	if (graphicMode == ALTERNATE_LARGE) { drawText(x+7,z+5, "Texture       Large 3D"); }
+
 
 	if (plyr.musicStyle == 0) { drawText(x+21,z+6,"Atari 8bit"); } else { drawText(x+21,z+6,"Alternate"); }
 	if (plyr.fontStyle == 0) { drawText(x+21,z+7,"Smooth"); } else { drawText(x+21,z+7,"Atari 8bit"); }
