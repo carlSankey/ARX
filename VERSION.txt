@@ -1,6 +1,12 @@
 Alternate Reality X
 -------------------
 
+Version 0.83.1 and .2 - 13th Feb 2018
+----------------------------
+* Fixed - Game crashed when entering the city 
+* Fixed - New Character Immobilized, clothing caused this when inserted into inventory.
+
+
 Version 0.83 - 4th Jan 2018
 ----------------------------
 * Fixed - Hours in certain Inns wrapped over to the next day and you where not able 
