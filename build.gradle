@@ -1,0 +1,22 @@
+task helloWorld << {
+println 'hello, world'}
+
+
+def version = "AR_X_0.83.3"
+
+task release(type: Copy) {
+    copy {
+        from 'VERSION.txt'
+		from 'README.txt'
+        from 'libsndfile-1.dll'
+		from 'openal32.dll'
+        into "release/${version}"
+    }
+
+    copy {
+        from 'data/.'
+		exclude { saves }
+        into "release/${version}/data"
+    }
+	
+}
