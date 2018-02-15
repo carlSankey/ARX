@@ -1,22 +1,40 @@
-task helloWorld << {
-println 'hello, world'}
+apply plugin : 'cpp'
+ext.configFile = file "build.properties"
+configFile.withReader {
+    def prop = new Properties()
+    prop.load(it)
+    ext.config = new ConfigSlurper().parse prop
+}
 
+def name = "AR_X_"
 
-def version = "AR_X_0.83.3"
-
-task release(type: Copy) {
+task copyFiles(type: Copy) {
+	println "Copying files for zip"
     copy {
         from 'VERSION.txt'
 		from 'README.txt'
         from 'libsndfile-1.dll'
 		from 'openal32.dll'
-        into "release/${version}"
+		from "bin/ARx.exe"
+        into "release/${name}${config.version}"
     }
 
     copy {
         from 'data/.'
-		exclude { saves }
-        into "release/${version}/data"
+		exclude 'saves'
+        into "release/${name}${config.version}/data"
     }
+}	
 	
-}
+task zip(type:Zip, dependsOn: copyFiles) {
+	println "Zipping up files."
+		from "release/${name}${config.version}"
+		archiveName "release/${name}${config.version}.zip"
+	}
+
+task release(type: Delete, dependsOn:zip) {
+	delete "/release/${name}${config.version}"
+}	
+	
+	println zip.archiveName
+	
