@@ -316,14 +316,14 @@ std::cout << "Loading background Texture" << std::endl;
 	{
       cerr << "Error: background file " << filename << " file could not be loaded" << endl;
 	}
-std::cout << "num " << numberOfBackgrounds << std::endl;	
+//std::cout << "num " << numberOfBackgrounds << std::endl;	
 	for (int i=0 ; i<numberOfBackgrounds ; i++)
 	{
 		getline(instream, line);
 		idx = line.find('=');
 		text = line.substr(idx+2);
 		backgroundNames[i]= text;
-std::cout << "num " << i << backgroundNames[i] << std::endl;	
+//std::cout << "num " << i << backgroundNames[i] << std::endl;	
 		background[i].loadFromFile("data/images/backgrounds/"+text+".png");
 	}
 	instream.close();
@@ -382,6 +382,11 @@ void initTextures()
 		if (graphicMode == ATARI_SMALL)
   		{
 		 sprintf(tempfilename,"%s%s.png","data/images/textures_original/",filename.c_str());
+		 Image.loadFromFile(tempfilename);
+		 }
+		 else if (graphicMode == ALTERNATE_SMALL || graphicMode == ALTERNATE_LARGE)
+  		{
+		 sprintf(tempfilename,"%s%s.png","data/images/textures_alternate/",filename.c_str());
 		 Image.loadFromFile(tempfilename);
 		 }
 		 else

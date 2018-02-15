@@ -1,6 +1,10 @@
 Alternate Reality X
 -------------------
 
+Version 0.83.3 - 14th Feb 2018
+----------------------------
+* Fixed - Graphics mode Alternate would cause a crash on start.
+
 Version 0.83.1 and .2 - 13th Feb 2018
 ----------------------------
 * Fixed - Game crashed when entering the city 

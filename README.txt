@@ -1,6 +1,6 @@
 
 
-Alternate Reality X - Release 0.82
+Alternate Reality X - Release 0.83.3
 ----------------------------------
 
 Alternate Reality X (ARX for short) is a computer role playing game based on the classic 1980s game series by Philip Price. Whilst many features of the original City and Dungeon games are faithfully reproduced ARX is not intended to be an identical copy and contains some new features and differences in gameplay.
@@ -15,7 +15,7 @@ I hope you enjoy the game.
 
 All the best,
 acrin1@gmail.com
-
+kevin@freemailclient.com
 
 
 Configuration File
@@ -29,7 +29,14 @@ Width & Height	( Window or screen size - 672x512, 800x600, 1024x768 and 1280x102
 
 
 
-Follow ARX Online
+Follow ARX Online- This is to the original guy who started this wonderful reproduction.  Not calling it an emulation, but it is a great close attempt.   Acrin1 hasn't touched the code since 2017.  I took it up and started
+trying to continue where he left out.
+
+Arx Program online and source code - current as of Dec 1st. 2017
+----------------------------------
+http://github.com/bob0bob/ARX
+
+Follow ARX Online - Old
 -----------------
 
 Facebook: https://www.facebook.com/crpgdev/

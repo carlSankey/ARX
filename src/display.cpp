@@ -26,7 +26,7 @@ using namespace sf;
 
 sf::Sprite encImage;
 
-string version = "0.83.2";
+string version = "0.83.3";
 
 int windowMode, graphicMode, windowWidth, windowHeight, viewWidth, viewHeight;
 int viewPortX;
