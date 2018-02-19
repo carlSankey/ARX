@@ -13,6 +13,7 @@ task copyFiles(type: Copy) {
     copy {
         from 'VERSION.txt'
 		from 'README.txt'
+		from 'arx.ini'
         from 'libsndfile-1.dll'
 		from 'openal32.dll'
 		from "bin/ARx.exe"
