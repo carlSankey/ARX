@@ -1,7 +1,7 @@
 Alternate Reality X
 --------------------
 
-Please check out Landbeyond.net/arx  for the lastest blog update and up to date information.  I've converted the code into Java using JLWGL 3.0.  This way the code will work on multiple platforms.   I'm not planning on updating the 'C' code any further than it is now.
+Please check out http://www.Landbeyond.net/arx  for the lastest blog update and up to date information.  I've converted the code into Java using JLWGL 3.0.  This way the code will work on multiple platforms.   I'm not planning on updating the 'C' code any further than it is now.
 
 The java Edition is almost complete and is very close to being released. About 90% of the original code has been implement but not tested yet and has tons of testing left to be completed.
 
