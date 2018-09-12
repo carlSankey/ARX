@@ -24,7 +24,6 @@ Currently you can explore the City and Dungeon levels, visit many of the special
 
 I'm also planning to add in the originally planned, unfinished scenarios. These include the Arena, the Palace, The Wilderness, Revelation and Destiny. These are a longer term development goal.
 
-If you like the game and wish to support its further development you can make a donation to cover website costs and my time over at www.crpgdev.com, either through Paypal or Patreon. Any feedback including bug reports, questions or suggestions can be sent to the address below.
 
 I hope you enjoy the game.
 
