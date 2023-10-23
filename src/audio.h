@@ -1,3 +1,6 @@
+#ifndef _audioh 
+#define _audioh 
+
 void initEncounterThemes();
 void playEncounterTheme(int number);
 bool encounterThemeNotPlaying();
@@ -20,3 +23,9 @@ void playDungeonGateSound1();
 void stopDungeonGateSound1();
 void playDungeonGateSound2();
 void stopDungeonGateSound2();
+
+ 
+// Your existing header content goes here 
+ 
+#endif // _audioh 
+

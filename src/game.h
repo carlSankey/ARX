@@ -1,3 +1,8 @@
+
+#ifndef GAME_H
+#define GAME_H
+
+
 #include <string>
 
 using namespace std;
@@ -40,3 +45,13 @@ void doorTimedMessage(string str);
 void updateDoorDetails();
 void moveThroughBarredDoor();
 bool checkBarredDoor();
+
+
+
+
+
+#endif // GAME_H
+// Your existing header content goes here 
+ 
+
+

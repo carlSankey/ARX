@@ -1,15 +1,23 @@
 #define GLUT_DISABLE_ATEXIT_HACK
 #include <GL/glew.h>
+#include <GL/glu.h>
+#include <GL/gl.h>
 #include <string>
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <cstdio>
 
 #include "3Dview.h"
 #include "display.h"
 #include "player.h"
 #include "level.h"
 #include "globals.h"
+
+#include <SFML\Graphics.hpp> // Include SFML graphics headers
+#include <SFML\Window.hpp>   // Include SFML window headers
+
+
 
 // Storage for textures
 const int numberOfTextures = 68;
@@ -381,21 +389,21 @@ void initTextures()
 		filename = textureNames[i];
 		if (graphicMode == ATARI_SMALL)
   		{
-		 sprintf(tempfilename,"%s%s.png","data/images/textures_original/",filename.c_str());
+		 sprintf_s(tempfilename,"%s%s.png","data/images/textures_original/",filename.c_str());
 		 Image.loadFromFile(tempfilename);
 		 }
 		 else if (graphicMode == ALTERNATE_SMALL || graphicMode == ALTERNATE_LARGE)
   		{
-		 sprintf(tempfilename,"%s%s.png","data/images/textures_alternate/",filename.c_str());
+		 sprintf_s(tempfilename,"%s%s.png","data/images/textures_alternate/",filename.c_str());
 		 Image.loadFromFile(tempfilename);
 		 }
 		 else
 		 {
-		 sprintf(tempfilename,"%s%s.png","data/images/texture_16bit/",filename.c_str());
+		 sprintf_s(tempfilename,"%s%s.png","data/images/texture_16bit/",filename.c_str());
 		 if (!Image.loadFromFile(tempfilename))
 		 {
 			//Couldn't locate new alternate texture, try loading old version.
-			sprintf(tempfilename,"%s%s.png","data/images/textures_original/",filename.c_str());
+			sprintf_s(tempfilename,"%s%s.png","data/images/textures_original/",filename.c_str());
 			if (!Image.loadFromFile(tempfilename))
 				std::cout << "Couldn't load original " << tempfilename << std::endl;
 		}
@@ -422,9 +430,18 @@ void buildLevelView()
 
 	glFogi(GL_FOG_MODE, fogMode[fogfilter]);    // Fog Mode
 	glFogfv(GL_FOG_COLOR, fogColor);			// Set Fog Color
-	glFogf(GL_FOG_DENSITY, 0.2f);				// How Dense Will The Fog Be
+	if (plyr.darkness == 1 && plyr.light == 0) 
+	{ 
+		glFogf(GL_FOG_DENSITY, 5.0f); 
+	} 
+	else 
+	{
+		glFogf(GL_FOG_DENSITY, 0.0f); 
+	};
+
+				// How Dense Will The Fog Be
 	glHint(GL_FOG_HINT, GL_DONT_CARE);          // Fog Hint Value
-	glFogf(GL_FOG_START, 1.0f);					// Fog Start Depth
+	glFogf(GL_FOG_START, 0.1f);					// Fog Start Depth
 	glFogf(GL_FOG_END, 5.0f);					// Fog End Depth
 
 
@@ -432,7 +449,7 @@ void buildLevelView()
 	// Enable and disable fog based on area and could adjust fog properties here for zones
 	if ((plyr.scenario==1) && (graphicMode == ALTERNATE_LARGE)) glEnable(GL_FOG);  // Enables GL_FOG for the Dungeon
 	if ((plyr.scenario==1) && (graphicMode == ALTERNATE_SMALL)) glEnable(GL_FOG);  // Enables GL_FOG for the Dungeon
-	if ((plyr.scenario==1) && (graphicMode == ATARI_SMALL)) glDisable(GL_FOG);  // Disables GL_FOG for the Dungeon
+	if ((plyr.scenario==1) && (graphicMode == ATARI_SMALL)) glEnable(GL_FOG);  // Disables GL_FOG for the Dungeon
 	if ((plyr.scenario==1) && (graphicMode == A16BIT_SMALL)) glDisable(GL_FOG);  // Disables GL_FOG for the Dungeon
 	if (plyr.scenario==0)  glDisable(GL_FOG); // Disable GL_FOG for City
 
@@ -585,7 +602,14 @@ int getTextureIndex(int x)
 
 		case 5:
 		case 6:
-			texture_index = zones[plyr.zoneSet].wall; // secret door1 5
+			if(plyr.supervision == 1)
+			{
+				texture_index = zones[plyr.zoneSet].door;
+			}
+			else
+			{
+				texture_index = zones[plyr.zoneSet].wall; // secret door1 5
+			}
 			break;
 		case 13:
 		case 14:

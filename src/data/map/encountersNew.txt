@@ -103,33 +103,33 @@ aMagic:0
 aGood:0
 aEvil:0
 aCold:0
-wpn1 offset: 0x2ea
-name: Stilletto
-type: 0
+wpn1 offset: 0x2eb
+name: Stilletto
+type: 3
 alignment: 0
-weight: 0
+weight: 1
 Special Abilit: x083 0x2fbtype (Clumsiness):1
  0xc1 0x63 0x1e 0x0 0x1e 0x0 0x0 0x91 0x78 0x0 0x1 0x0 0x1 0x0 0xeb 0x0
 Spcl Descrip: Clumsiness
-melee: 104
-ammo: 114
-blunt: 111
-sharp: 97
-earth: 116
-air: 115
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 21
+earth: 0
+air: 0
 fire: 0
-water: 98
-power: 114
-magic: 105
-good: 103
-evil: 97
-cold: 110
-minStrength: 100
-minDexterity: 115
-hp: 0
-maxHP: 0
-flags: 3
-parry: 68
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 8
+hp: 16
+maxHP: 16
+flags: 169
+parry: 1
 wpn2 offset: 0x32f
 name: Skean
 type: 3
@@ -7638,33 +7638,33 @@ aMagic:0
 aGood:0
 aEvil:0
 aCold:0
-wpn1 offset: 0x2ea
-name: Stilletto
-type: 0
+wpn1 offset: 0x2eb
+name: Stilletto
+type: 3
 alignment: 0
-weight: 0
+weight: 1
 Special Abilit: x083 0x2fbtype (Clumsiness):1
  0xc1 0x63 0x1e 0x0 0x1e 0x0 0x0 0x91 0x78 0x0 0x1 0x0 0x1 0x0 0xeb 0x0
 Spcl Descrip: Clumsiness
-melee: 104
-ammo: 114
-blunt: 111
-sharp: 97
-earth: 116
-air: 115
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 21
+earth: 0
+air: 0
 fire: 0
-water: 98
-power: 114
-magic: 105
-good: 103
-evil: 97
-cold: 110
-minStrength: 100
-minDexterity: 115
-hp: 0
-maxHP: 0
-flags: 3
-parry: 68
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 8
+hp: 16
+maxHP: 16
+flags: 169
+parry: 1
 wpn2 offset: 0x32f
 name: Skean
 type: 3
@@ -7838,33 +7838,33 @@ aMagic:0
 aGood:0
 aEvil:0
 aCold:0
-wpn1 offset: 0x2ea
-name: Stilletto
-type: 0
+wpn1 offset: 0x2eb
+name: Stilletto
+type: 3
 alignment: 0
-weight: 0
+weight: 1
 Special Abilit: x083 0x2fbtype (Clumsiness):1
  0xc1 0x63 0x1e 0x0 0x1e 0x0 0x0 0x91 0x78 0x0 0x1 0x0 0x1 0x0 0xeb 0x0
 Spcl Descrip: Clumsiness
-melee: 104
-ammo: 114
-blunt: 111
-sharp: 97
-earth: 116
-air: 115
+melee: 255
+ammo: 0
+blunt: 0
+sharp: 21
+earth: 0
+air: 0
 fire: 0
-water: 98
-power: 114
-magic: 105
-good: 103
-evil: 97
-cold: 110
-minStrength: 100
-minDexterity: 115
-hp: 0
-maxHP: 0
-flags: 3
-parry: 68
+water: 0
+power: 0
+magic: 0
+good: 0
+evil: 0
+cold: 0
+minStrength: 4
+minDexterity: 8
+hp: 16
+maxHP: 16
+flags: 169
+parry: 1
 wpn2 offset: 0x32f
 name: Skean
 type: 3

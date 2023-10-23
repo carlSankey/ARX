@@ -10,7 +10,7 @@
 #include "font.h"
 #include "misc.h"
 
-int MAX_MENU_ITEMS = 6; // Max 6 items per menu page. Should be usable for building any type of general shop menus with a maximum of 20 multi page items
+const int MAX_MENU_ITEMS = 6; // Max 6 items per menu page. Should be usable for building any type of general shop menus with a maximum of 20 multi page items
 menuItem menuItems[20]; // Should be usable for building any type of general shop menus with a maximum of 20 multi page items
 
 void updateModule(int module)

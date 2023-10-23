@@ -3,6 +3,10 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <bitset>
+#include <map>
+#include <chrono>
+#include <thread>
 
 #include "globals.h"
 #include "actor.h"
@@ -16,6 +20,7 @@
 #include "items.h"
 #include "automap.h"
 #include "audio.h"
+#include "spells.h"
 
 bool    checkForTreasure;
 bool    encounterRunning;
@@ -26,22 +31,49 @@ bool    waitingForSpaceKey;
 int     encounterTurns;
 int     encounterMenu;
 bool    playerStunned;
-int no_found = 0;
-bool foundTreasure = false;
+bool	opponentStunned;
+int		no_found = 0;
+bool	foundTreasure = false; 
 //int currentOpponent;
 //int currentOpponentQuantity;
 
-
+extern int elementMap[];
 
 
 const int MAX_OPPONENTS = 8;
-const int MAX_CONSOLE_MESSAGES = 10;
+const int MAX_CONSOLE_MESSAGES = 20;
 string  consoleMessages[MAX_CONSOLE_MESSAGES];
 
 void awardExperience(int opponentNo);
 void text(string str);
 
 const int DUNGEON_TABLE_ENCOUNTERS = 64;
+
+int spellDamageValues[13];
+
+
+
+
+ bonusDamage weaponBonusMap;
+
+
+std::map<int, int*> damageMap = {
+	{0, &spellDamageValues[0]},  // Blunt
+	{1, &spellDamageValues[1]},  // Sharp
+	{2, &spellDamageValues[2]},  // Earth
+	{3, &spellDamageValues[3]},  // Air
+	{4, &spellDamageValues[4]},  // Fire
+	{5, &spellDamageValues[5]},  // Water
+	{6, &spellDamageValues[6]},  // Power
+	{7, &spellDamageValues[7]},  // Magic
+	{8, &spellDamageValues[8]},  // Good
+	{9, &spellDamageValues[9]},  // Evit
+	{10, &spellDamageValues[10]}, // Cold
+	{11, &spellDamageValues[11]}, // Nature
+	{12, &spellDamageValues[12]}  // Acid
+};
+
+
 
 encRecord dungeonTable[DUNGEON_TABLE_ENCOUNTERS]=
 {
@@ -228,6 +260,7 @@ monster Opponents[8]; // max 8 monsters against you
 
 monster opponent;
 
+bonusDamage weaponBonus;
 int weaponProbabilities[6] = { 0,0,0,0,0,0 };
 int weaponReferences[6] = { 0,0,0,0,0,0 };
 
@@ -243,7 +276,9 @@ bool encounterNotHostile;
 bool opponentSurprised;
 bool playerOnGround;
 int groundTurnsRemaining;
+int stunnedTurnsRemaining;
 bool playerRunsAway = false;
+int whoStartedIt = 0;
 
 int encounterQuantity;
 int curOpponent; // 0-7
@@ -251,8 +286,26 @@ int curOpponent; // 0-7
 sf::Time attackCheckTime;
 sf::Time attackTimer;
 sf::Clock attackClock;
+sf::Clock actionClock;
 sf::Clock  OpponentLeftTimer;
+sf::Time lastActionTimer = actionClock.restart();
+
 bool opponentLeft;
+
+std::string prefixes[] = { "The", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th" };
+
+void updateAttack(std::bitset<13> binaryElems, int negativeValue) {
+	for (int i = 0; i < 13; i++) {
+		if (binaryElems.test(i)) {
+			*(damageMap[i]) = negativeValue;
+		}
+		else
+		{
+			*(damageMap[i]) = 0;
+		}
+	}
+}
+
 
 void encounterLoop(int encounterType, int opponentQuantity)
 {
@@ -273,10 +326,10 @@ void encounterLoop(int encounterType, int opponentQuantity)
   	opponentLeft = false;
     encounterMenu = 1;
     groundTurnsRemaining = 0;
+	stunnedTurnsRemaining = 0;
     plyr.status_text = "                                        ";
     playerRunsAway = false;
-    //currentOpponent = 0;
-//    currentOpponentQuantity = opponentQuantity;
+
 
     // Move to display!
 	if (graphicMode==ALTERNATE_LARGE) plyr.z_offset = 0.3;
@@ -291,20 +344,22 @@ void encounterLoop(int encounterType, int opponentQuantity)
 
     selectEncounterTheme();
   	attackCheckTime = sf::Time::Zero;
-	 
+	
+
     while ( (encounterRunning) || (waitingForSpaceKey) )
 	{
-		    attackTimer = attackClock.restart();
- 
+		
+		attackTimer = attackClock.restart();
+		lastActionTimer += attackTimer;
 		drawEncounterView();
-		if (!waitingForSpaceKey)
+		if (!waitingForSpaceKey )
         {
-		  		  //Opponent will choice to do something after 2.0 no matter what the player does        
+		  		  //Opponent will choice to do something after 4.0 no matter what the player does        
 			     attackCheckTime += attackTimer;
-				  if (attackCheckTime >= sf::seconds(2.0f))
+				  if (attackCheckTime >= sf::seconds(4.0f) || playerStunned == true)
 				  {
 			  		  	processOpponentAction();
-			  		  	attackCheckTime = sf::Time::Zero;
+			  		  	attackCheckTime = attackClock.restart();
 				  }
 
             if (playerTurn) processPlayerAction();
@@ -313,20 +368,21 @@ void encounterLoop(int encounterType, int opponentQuantity)
 
 
 		updateDisplay();
+		//std::this_thread::sleep_for(0.4s);
         key = getSingleKey();
 
         // Check if player died this turn
         if (plyr.hp < 0) { encounterRunning = false; }
 
-
-
-
         // Handle dismissed encounter messages
-        if (key == "SPACE")
-        {
-            updateConsoleMessages(); // Checks for further messages to be printed.
-            if (consoleMessages[0] == "NO MESSAGE") waitingForSpaceKey = false; // player pressed space to acknowledge last message read
-        }
+		
+
+		if (key == "SPACE" || lastActionTimer >= sf::seconds(20.0f))
+		{
+ 			updateConsoleMessages(); // Checks for further messages to be printed.
+			if (consoleMessages[0] == "NO MESSAGE") waitingForSpaceKey = false; // player pressed space to acknowledge last message read
+			lastActionTimer = actionClock.restart();
+		}
 
 		// ...and see if any opponents still active
 		updateOpponents();
@@ -374,10 +430,9 @@ void encounterLoop(int encounterType, int opponentQuantity)
 }
 
 
-
-
 void initialiseOpponents(int opponentType, int opponentQuantity)
 {
+	
     // Clean out all 8 opponent slots with an empty monster object (using the unused FBI Agent for this)
     for(int i = 0; i < MAX_OPPONENTS; ++i)
 	{
@@ -386,6 +441,7 @@ void initialiseOpponents(int opponentType, int opponentQuantity)
     for(int i = 0; i < opponentQuantity; ++i)
 	{
 		Opponents[i] = Monsters[opponentType];
+	//	Opponents[i].w1 = opponentChooseWeapon();
 		if (opponentType==DOPPLEGANGER)
         {
             // Doppleganger
@@ -397,6 +453,7 @@ void initialiseOpponents(int opponentType, int opponentQuantity)
             Opponents[i].spd = plyr.speed;
             Opponents[i].w1 = plyr.priWeapon;
             Opponents[i].c1 = 100;
+			
         }
 	}
 
@@ -441,7 +498,7 @@ void removeOpponent()
 {
     // Removes Opponents[0], shuffles the other 7 and adds an Empty
 
-    for(int i = 0; i < (MAX_OPPONENTS); ++i)
+    for(int i = 0; i < (MAX_OPPONENTS)-1; ++i)
 	{
 		Opponents[i] = Opponents[i+1];
 	}
@@ -450,13 +507,11 @@ void removeOpponent()
 }
 
 
-
 void checkForActiveOpponents()
 {
 	// Check first encounter slot
-	if (Opponents[0].hp == 0) encounterRunning = false;
+	if (Opponents[0].hp <= 0) encounterRunning = false;
 }
-
 
 
 void updateOpponents()
@@ -472,8 +527,12 @@ void updateOpponents()
 }
 
 
-
-
+/**
+* @brief Only attack if the encounterNotHostile is true
+* @brief leaves after 3 turns
+* @brief reset the action timer so we are not waiting for player to do an action
+* 
+*/
 void processOpponentAction()
 {
 
@@ -490,21 +549,24 @@ void processOpponentAction()
   	attackCheckTime = sf::Time::Zero;
 
     // If last opponent then switch to player turn
-    if (curOpponent==(encounterQuantity-1)) 
+    if (curOpponent>=(encounterQuantity-1)) 
 	 { 
 	    playerTurn = true; 
 		 curOpponent = 0; 
 	 } else { 
 	    curOpponent++; 
 	    std::cout << "next opponent active";
+		playerTurn = false;
 	 }
+	lastActionTimer = actionClock.restart();
 }
 
-
-
-
+/**
+ * @brief this is player interaction with the encounter
+ */
 void processPlayerAction()
 {
+
     if (opponentSurprised)          encounterMenu = 3;
     if (playerSurprised)            encounterMenu = 10;
     if (playerStunned)              encounterMenu = 11;
@@ -521,30 +583,40 @@ void processPlayerAction()
         bText (12,8, "(0) Turn and run!");
 
         if ( key == "0" ) 
-		  {
+		{
 		  	  // "You didn't escape."  
-		  	  int escapeperc = 4 - ((int)(plyr.stealth * 0.05));
-		  	  if (escapeperc < 1)
-		  	  	  escapeperc = 1;
+			 // City logic
+			if (whoStartedIt == 0) { whoStartedIt = 1; }
+			int playerescape = randn(0, plyr.speed) / whoStartedIt;
+			int opponentalignment;
+			if (Opponents[0].alignment == 0) { opponentalignment = 1; }
+			else { opponentalignment = Opponents[0].alignment; }
+			int opponentescape = randn(0, Opponents[0].spd) / opponentalignment;
+
+		  	 // int escapeperc = 4 - ((int)(plyr.stealth * 0.05));
+		  	//  if (escapeperc < 1)
+		  	//  	  escapeperc = 1;
 		  	  	  
-		  	  int value = randn(1,10);
-		  	  if (value < 4)
-		  	  {
-			     consoleMessage( "You didn't escape.");
-		 		  if ( key=="SPACE" )
-		 		  {
-						 encounterMenu = 1; 
-						 playerStunned = true;
-							if ((Opponents[0].alignment<128) || (!encounterNotHostile))
+		  	 // int value = randn(1,10);
+
+			if (playerescape < opponentescape)
+		  	{
+			      consoleMessage( "You didn't escape.");
+				if ( key=="SPACE" )
+		 			{
+					encounterMenu = 1; 
+					playerStunned = true;
+					if ((Opponents[0].alignment<128) || (!encounterNotHostile))
 			         	opponentAttack();
 					}
 
 		  	  	
-				 } else  {
-				 	playerRunsAway = true; 
-					encounterRunning = false; 
-				 }
-		  }
+			} else  
+			{
+				playerRunsAway = true; 
+				encounterRunning = false; 
+			}
+		}
         if ( key == "P" ) pauseEncounter();
         if ( key == "1" ) playerAttack(1,0.00);               // Attack (No attack bonus)
         if ( key == "2" ) playerAttack(2,0.50);               // Charge
@@ -553,6 +625,7 @@ void processPlayerAction()
         if ( key == "5" ) playerSwitchWeapons();
         if ( key == "U" ) { updateDisplay(); selectItem(USE); }
         if ( key == "D" ) { updateDisplay(); selectItem(DROP); }
+		if ( key == "C") {  updateDisplay(); castSpells(); }
     }
 
     else if (encounterMenu == 2)
@@ -604,7 +677,12 @@ void processPlayerAction()
     else if (encounterMenu == 11)
     {
         cyText (2, "STUNNED@@No options");
-        if ( key=="SPACE" ) { encounterMenu = 1; playerStunned = false; /* playerTurn = false; */  }
+		if (key == "SPACE") {
+			
+			if (curOpponent = encounterQuantity) { stunnedTurnsRemaining--; } /* only reduce the stuuned time on last attacker */
+			if (stunnedTurnsRemaining == 0) { encounterMenu = 1; playerStunned = false; /* playerTurn = false; */ }
+		
+		}
     }
 
     else if (encounterMenu == 4) // thief grouping
@@ -660,8 +738,10 @@ void processPlayerAction()
         if ( key=="N" ) { encounterNotHostile = false; encounterMenu = 1; playerTurn = false; }
     }
 
-
+	if(key != "") { lastActionTimer = actionClock.restart(); }
+	
 }   // <- End of process player
+
 
 void surrenderToGuard()
 {
@@ -678,7 +758,7 @@ void surrenderToGuard()
         consoleMessage("You receive a swift trial,@and a slow execution.");
         plyr.hp = -1;
     }
-
+	whoStartedIt = 0;
 }
 
 
@@ -722,7 +802,7 @@ void consoleMessage(string messageText)
             cout << "ERROR: Console messages maximum exceeded!\n";
             messageNotAddedToQueue = false; // To break out of loop after reporting error
         }
-    }
+  }
 }
 
 
@@ -739,15 +819,15 @@ void drawEncounterView()
 }
 
 
-
-
 void playerWaylay()
 {
-
+	if (whoStartedIt == 0) { whoStartedIt = 2; }
 }
+
+
 void playerSnatch()
 {
-
+	if (whoStartedIt == 0) { whoStartedIt = 2; }
 }
 
 
@@ -774,7 +854,6 @@ void determineOpponentOpeningMessage()
 }
 
 
-
 void checkHostility()
 {
     encounterNotHostile = true;
@@ -793,13 +872,12 @@ void checkHostility()
 }
 
 
-
 void checkSurprise()
 {
 	// Determines whether the player or opponent have element of surprise
 	// If player then go to encounterMenu 3
 
-	int playerStealth = randn(1,plyr.stealth);
+	int playerStealth = randn(1,plyr.stealth+plyr.alcohol);
 //cout <<  "player:" << playerStealth << "\n";
 //cout << "opponent:" << Opponents[0].stealth;
     int opponentStealth = randn(0,Opponents[0].stealth);
@@ -807,8 +885,8 @@ void checkSurprise()
 //	cout << "opp stealth:" << opponentStealth << "\n";
 	int surpriseValue = -opponentStealth + playerStealth;
 //	cout << "value:" << surpriseValue << "\n";
-	if (surpriseValue < -5) { playerSurprised = true; }
-	if (surpriseValue > 5) { opponentSurprised = true; }
+	if (surpriseValue < -21) { playerSurprised = true; }
+	if (surpriseValue > 20) { opponentSurprised = true; }
 
 }
 
@@ -823,8 +901,6 @@ void playerSwitchWeapons()
 }
 
 
-
-
 void playerTransact()
 {
 	if ((Opponents[0].alignment>127) && (encounterNotHostile)) { encounterMenu = 2; }
@@ -837,7 +913,6 @@ void playerTransact()
 			//checkSurprise
     }
 }
-
 
 
 void playerHail()
@@ -902,7 +977,6 @@ void playerHail()
 }
 
 
-
 void opponentLeaves()
 {
     str = "The " + Opponents[0].name + " leaves.";
@@ -910,10 +984,8 @@ void opponentLeaves()
     encounterRunning = false;
     opponentLeft = true;
     OpponentLeftTimer.restart();
-
+	 whoStartedIt = 0;
 }
-
-
 
 
 void playerOffer()
@@ -963,13 +1035,11 @@ void playerOffer()
 }
 
 
-
-
 void playerCharm()
 {
     updateDisplay(); // sloppy!
 	opponent = Opponents[0];
-
+	if (whoStartedIt == 0) { whoStartedIt = 2; }
 	checkAlignmentEncounter(curOpponent);
 
 	encounterNotHostile = false;
@@ -1015,14 +1085,12 @@ void playerCharm()
 }
 
 
-
-
 void playerTrick()
 {
     updateDisplay();
 	encounterNotHostile = false;
 	opponent = Opponents[0];
-
+	if (whoStartedIt == 0) { whoStartedIt = 2; }
 	checkAlignmentEncounter(curOpponent);
 	bool trickSuccess = false;
 	if ( (opponent.inte > 3) && (plyr.inte != 0) )
@@ -1055,17 +1123,16 @@ void playerTrick()
 }
 
 
-
-
 void playerAttack(int attackType, float attackFactorBonus)
 {
+	
 	bool missileWeapon = false;
 	bool missileAmmoAvailable = false;
 	bool hitSuccess;
 	float attackFactor = 1.00;
 	int weapon = plyr.priWeapon;
 	bool hitAttempt = true;
-
+	if (whoStartedIt == 0) { whoStartedIt = 2; }
 
 	string weaponDesc = "ERROR";
 	weaponDesc = itemBuffer[plyr.priWeapon].name;
@@ -1166,35 +1233,156 @@ void playerAttack(int attackType, float attackFactorBonus)
   	attackCheckTime = sf::Time::Zero;
 
 //    cout << Opponents[0].name << " health:" << Opponents[0].hp << ".\n";
-	if ( Opponents[0].hp<1) {opponentDeath(); }
+	if ( Opponents[0].hp<1) {opponentDeath(0); }
 
 	playerTurn = false;
 }
 
-
-
-
-
-void opponentDeath()
+/**
+* @brief combat spell 
+* @brief will only do something if the spell was a combat spell
+* 
+* 
+*/
+void playerCast(int spellNo)
 {
-    str = "The " + Opponents[0].name + " " + Opponents[0].armorText + ".";
+	if (whoStartedIt == 0) { whoStartedIt = 2; }
+	opponent = Opponents[0];
+
+	if (spells[spellNo].spelltype != 2 || encounterQuantity == 0)
+	{
+
+		//Do Nothing
+	}
+	else 
+	{
+		checkAlignmentEncounter(curOpponent);
+		encounterNotHostile = false; // Opponent now hostile as they have been attacked
+		
+		int damage = calcPlayerSpellDamage(spellNo, curOpponent);
+		string attackDesc = "ERROR";
+		
+		if (damage != 1000)
+		{
+			//single opponent effected
+			if (spells[spellNo].effect == 1)  //single opponent effected
+			{
+				// Damaging spell
+				if (spells[spellNo].stattype == 0)  //Damaging spells
+				{
+					Opponents[0].hp -= damage; increaseExperience(damage / 2);
+					if (damage == 0) { str = prefixes[0] + " " + Opponents[0].name + " resists your " + "@" + spells[spellNo].name; }
+					else if (encounterQuantity > 1) { str = "The " + Opponents[0].name + " is hit for " + "@" + itos(damage) + " points of damage"; }  //AOE damage
+					else { str = prefix + " " + Opponents[0].name + " is hit for " + "@" + itos(damage) + " points of damage"; }
+					consoleMessage(str);
+				}
+				// non damaging spell
+				else // if the the spell is a non damaging spell for example bewilder
+				{
+					switch(spells[spellNo].stattype)
+					{
+
+						case 1:
+						encounterNotHostile = true;
+						break;
+						case 2:
+						Opponents[0].stunnedTurnsRemaining = 2;
+						break;
+					}
+				}
+			}
+			//multiple opponents effected but based on Level
+			else if (spells[spellNo].effect > 8)  //multiple opponents effected but based on Level
+			{
+				// Damaging spell
+				if (spells[spellNo].stattype == 0)
+				{
+					int smallerValue = (plyr.level < encounterQuantity) ? plyr.level : encounterQuantity;  //finds the smaller either player level or no of opponents
+					if (damage == 0) { str = "The " + Opponents[0].name + " resists your " + "@" + spells[spellNo].name; }
+					else { str = "The " + Opponents[0].pluName + " are hit for " + "@" + itos(damage) + " points of damage" + "@"; }
+					consoleMessage(str);
+					for (int i = 0; i < smallerValue; i++) {
+						if (randn(0, Opponents[i].skl) < Opponents[i].skl / 10)
+						{
+							consoleMessage(prefixes[i] + " " + Opponents[i].name + " resists your " + "@" + spells[spellNo].name);
+							Opponents[i].hp -= damage / 2; increaseExperience((damage / 2) / plyr.level);
+						}
+						else
+						{
+							consoleMessage(prefixes[i] + " " + Opponents[i].name + " takes full effect " + "@" + "from your " + spells[spellNo].name);
+							Opponents[i].hp -= damage; increaseExperience((damage / 2) / plyr.level);
+						}
+					}
+				}
+				// non damaging spell
+				else
+				{
+					switch (spells[spellNo].stattype)
+					{
+
+						case 1:
+						encounterNotHostile = true;
+						break;
+					}
+				}
+			}
+			//All opponents effected
+			else 
+			{
+				// Damaging spell
+				if (spells[spellNo].stattype == 0)
+				{
+					if (damage == 0) { str = "The " + Opponents[0].name + " resists your " + "@" + spells[spellNo].name; }
+					else { str = "The " + Opponents[0].pluName + " are hit for " + "@" + itos(damage) + " points of damage" + "@"; }
+					consoleMessage(str);
+					for (int i = 0; i < encounterQuantity; i++) {
+						if (randn(0, Opponents[i].skl) < Opponents[i].skl / 10)
+						{
+							consoleMessage(prefixes[i] + " " + Opponents[i].name + " resists your " + "@" + spells[spellNo].name);
+							Opponents[i].hp -= damage / 2; increaseExperience((damage / 2) / plyr.level);
+						}
+						else
+						{
+							consoleMessage(prefixes[i] + " " + Opponents[i].name + " takes full effect " + "@" + "from your " + spells[spellNo].name);
+							Opponents[i].hp -= damage; increaseExperience((damage / 2) / plyr.level);
+						}
+					}
+				}
+				// non damaging spell
+				else
+				{
+
+				}
+
+			}
+		}
+		//consoleMessage(str);
+		attackCheckTime = sf::Time::Zero;
+		for (int i = 0; i < encounterQuantity - 1; i++) {
+			if (Opponents[0].hp < 1) { opponentDeath(0); }
+		}
+	}
+	playerTurn = false;
+}
+
+
+void opponentDeath(int opponent)
+{
+    str = "The "  + Opponents[opponent].name + " " + Opponents[opponent].armorText + ".";
     consoleMessage(str);
 	awardExperience(opponentType);
 	removeOpponent();
     checkForTreasure = true;
+	 whoStartedIt = 0;
 }
-
-
-
-
-
-
 
 
 void opponentAttack()
 {
 	bool opponentIsAttacking;
 	bool hitSuccess;
+	
+	if (whoStartedIt == 0) { whoStartedIt = 1; }
 
 	int bPart = randn(0,5);
 	string bPartText = "you";
@@ -1220,10 +1408,17 @@ std::cout << "opponent #: " << curOpponent << "\n";
     if (opponentNoAttacking==6) prefix="7th ";
     if (opponentNoAttacking==7) prefix="8th ";
 
-    int chosenWeapon = opponentChooseWeapon();
+
+
+	if (Opponents[0].chosenWeapon == 0 || Opponents[0].type == 0x03) {
+ 		Opponents[0].chosenWeapon = opponentChooseWeapon();
+	}
+	// Opponents[0].
     //int chosenWeapon = Opponents[0].w1;
 
+	// need to add Spells to this for magic users etc
 
+	// need to add 
 
     // Hit probability
     int skillDifference = Opponents[0].skl - plyr.skl;
@@ -1245,6 +1440,8 @@ std::cout << "opponent #: " << curOpponent << "\n";
     {
         str = prefix + Opponents[0].name + " misses.";
         // Add additional player dodges type messages here
+
+
     }
 
     if (hitSuccess)
@@ -1254,7 +1451,7 @@ std::cout << "opponent #: " << curOpponent << "\n";
         if (opponentType== MOLD) { if (plyr.diseases[1] == 0) plyr.diseases[1] = 1;} // Mold
         if (opponentType== SLIME) { if (plyr.diseases[2] == 0) plyr.diseases[2] = 1;} // Fungus
         float attackFactor = 1.0; //
-        int damage = calcOpponentWeaponDamage(chosenWeapon,attackFactor, 1);
+        int damage = calcOpponentWeaponDamage(Opponents[0].chosenWeapon,attackFactor, 1);
 
         if (opponentType==DOPPLEGANGER)
         {
@@ -1269,10 +1466,10 @@ std::cout << "opponent #: " << curOpponent << "\n";
    	 		attackDesc = "touches";
    	 		weaponName = "Bone-Chilling Touch";
         } else  {
-            weaponName = monsterWeapons[chosenWeapon].name;
+            weaponName = monsterWeapons[Opponents[0].chosenWeapon].name;
             //int weaponIndex = Opponents[0].w1;
-std::cout << " weapon desc " << chosenWeapon << "\n";
-            attackDesc = getAttackDesc(chosenWeapon, damage);
+std::cout << " weapon desc " << Opponents[0].chosenWeapon << "\n";
+            attackDesc = getAttackDesc(Opponents[0].chosenWeapon, damage);
         }
 
         if (damage!=1000) { plyr.hp-=damage; }
@@ -1303,7 +1500,42 @@ std::cout << " weapon desc " << chosenWeapon << "\n";
         playerOnGround = false;
     }
     else groundTurnsRemaining--;
+
+
+	//Check if player Stunned
+	if ((hitSuccess) && (bPart==3) && (plyr.hp >= 0))
+	{
+ 		int stunned = randn(0, 12);
+		if (stunned < 1)
+		{
+			playerStunned = true;
+			stunnedTurnsRemaining = 1;
+			consoleMessage("You have been stunned.");
+		}
+		
+	}
 }
+
+
+void opponentCast(int spellNo)
+{
+	//This is where the opponent spells go
+
+	//Healing  (could also be use a potion of healing)
+
+	// Spell list
+
+	// 	* Spelltype 0 = stat increase
+	//  * Spelltype 1 = Buff
+	//    Blink   = single onetime boosts damage done
+	// 
+	//	* Spelltype 2 = Combat spell
+	//	* Spelltype 3 = hidden stat increase
+	//	* Spelltype 4 = Weapon enchant
+	//	* Spelltype 5 = Misc
+	
+}
+
 
 string getAttackDesc(int chosenWeapon, int damage)
 {
@@ -1433,8 +1665,6 @@ string getPlayerAttackDesc(int damage)
 }
 
 
-
-
 int calcOpponentWeaponDamage(int weaponNo, float attackFactor, int attacker)
 {
     // CALCULATE MONSTER WEAPON / ATTACK DAMAGE
@@ -1507,7 +1737,14 @@ int calcOpponentWeaponDamage(int weaponNo, float attackFactor, int attacker)
 
 			noDice = ((int)noDice * numArmorPieces);
 			noSides = ((int)noDice * numArmorPieces);
-			armors[armorIndex] = rollDice(noDice, noSides);
+			if (noDice > 0 && noSides > 0)
+			{
+				armors[armorIndex] = rollDice(noDice, noSides);
+			}
+			else
+			{
+				armors[armorIndex] = 0;
+			}
 			armorIndex++;
 		}
 
@@ -1525,7 +1762,7 @@ int calcOpponentWeaponDamage(int weaponNo, float attackFactor, int attacker)
 		int noSides = (weaponDamageValues[damageIndex] & 0x0f);
 
 		//int currentDamage = round((weaponDamageValues[damageIndex])* attackFactor);
-		if (noDice > 0 )
+		if (noDice > 0 && noSides >0)
 		{
             damages[damageIndex] = rollDice(noDice, noSides);
             if (armorValues[damageIndex]==0xff) { damages[damageIndex] = 0; }
@@ -1539,6 +1776,10 @@ int calcOpponentWeaponDamage(int weaponNo, float attackFactor, int attacker)
 				 
 				 	 
 //            cout << damages[damageIndex] << " (" << noDice << " D" << noSides << "), ";
+		}
+		else
+		{
+			damages[damageIndex] = 0;
 		}
 		damageIndex++;
 	}
@@ -1577,28 +1818,19 @@ int calcOpponentWeaponDamage(int weaponNo, float attackFactor, int attacker)
 }
 
 
-
-
-int calcPlayerWeaponDamage(int weaponNo, float attackFactor, int attacker)
+int calcPlayerSpellDamage(int spellNo, int attacker)
 {
     // CALCULATE PLAYER WEAPON / ATTACK DAMAGE
 
 	// attacker - 0 = player
-	int weaponDamageValues[11];
-	weaponDamageValues[0] = itemBuffer[weaponNo].blunt;
-	weaponDamageValues[1] = itemBuffer[weaponNo].sharp;
-	weaponDamageValues[2] = itemBuffer[weaponNo].earth;
-	weaponDamageValues[3] = itemBuffer[weaponNo].air;
-	weaponDamageValues[4] = itemBuffer[weaponNo].fire;
-	weaponDamageValues[5] = itemBuffer[weaponNo].water;
-	weaponDamageValues[6] = itemBuffer[weaponNo].power;
-	weaponDamageValues[7] = itemBuffer[weaponNo].magic;
-	weaponDamageValues[8] = itemBuffer[weaponNo].good;
-	weaponDamageValues[9] = itemBuffer[weaponNo].evil;
-	weaponDamageValues[10] = itemBuffer[weaponNo].cold;
 
-	int armorValues[11] = { 0,0,0,0,0,0,0,0,0,0,0 };
-    int armors[11] = { 0,0,0,0,0,0,0,0,0,0,0 };
+
+	std::bitset<13> binarySpells(spells[spellNo].elementtype);
+
+	updateAttack(binarySpells, spells[spellNo].negativeValue);
+
+	int armorValues[13] = { 0,0,0,0,0,0,0,0,0,0,0,0,0 };
+    int armors[13] = { 0,0,0,0,0,0,0,0,0,0,0,0 };
 
 	if (attacker==0) // Player attacking
 	{
@@ -1613,9 +1845,12 @@ int calcPlayerWeaponDamage(int weaponNo, float attackFactor, int attacker)
 		armorValues[8] = Opponents[0].aGood;
 		armorValues[9] = Opponents[0].aEvil;
 		armorValues[10] = Opponents[0].aCold;
+		armorValues[11] = Opponents[0].aNature;
+		armorValues[12] = Opponents[0].aAcid;
+
 
 		int armorIndex = 0;
-		while (armorIndex < 11)
+		while (armorIndex < 12)
 		{
 			int noDice = (armorValues[armorIndex] & 0xf0) >> 4;
 			int noSides = (armorValues[armorIndex] & 0x0f);
@@ -1627,21 +1862,21 @@ int calcPlayerWeaponDamage(int weaponNo, float attackFactor, int attacker)
 
 
 
-	int damages[11] = { 0,0,0,0,0,0,0,0,0,0,0 }; // holds results of rolling for damage
+	int damages[13] = { 0,0,0,0,0,0,0,0,0,0,0,0,0 }; // holds results of rolling for damage
 
 	int damageIndex = 0; // 0 is blunt, 1 is sharp, 11 is cold - 11 damage types in total
 
 	cout << "Player Damage:";
-std::cout << "B:" << weaponDamageValues[0] << " S:" << weaponDamageValues[1] << " E:" << weaponDamageValues[2] << " A:" << weaponDamageValues[3] << " F:" << weaponDamageValues[4] << " W:" << weaponDamageValues[5] << " P:" << weaponDamageValues[6] << " M:" << weaponDamageValues[7] << " G:" << weaponDamageValues[8] << " E:" << weaponDamageValues[9] << " C:" << weaponDamageValues[10] << std::endl;
-	while (damageIndex < 11)
+std::cout << "B:" << spellDamageValues[0] << " S:" << spellDamageValues[1] << " E:" << spellDamageValues[2] << " A:" << spellDamageValues[3] << " F:" << spellDamageValues[4] << " W:" << spellDamageValues[5] << " P:" << spellDamageValues[6] << " M:" << spellDamageValues[7] << " G:" << spellDamageValues[8] << " E:" << spellDamageValues[9] << " C:" << spellDamageValues[10] << std::endl;
+	while (damageIndex < 13)
 	{
 //		int noDice = (weaponDamageValues[damageIndex] & 0xf0) >> 4;
 //		int noSides = (weaponDamageValues[damageIndex] & 0x0f);
-		int noDice = ((int)weaponDamageValues[damageIndex] / 10);
-		int noSides = weaponDamageValues[damageIndex] - (noDice * 10);
+		int noDice = ((int)spellDamageValues[damageIndex] / 10);
+		int noSides = spellDamageValues[damageIndex] - (noDice * 10);
 
 		//int currentDamage = round((weaponDamageValues[damageIndex])* attackFactor);
-		if (noDice > 0 )
+		if (noDice > 0 || noSides > 0)
         {
             damages[damageIndex] = rollDice(noDice, noSides);
             if (armorValues[damageIndex]==0xff) { damages[damageIndex] = 0; }
@@ -1663,7 +1898,7 @@ std::cout << "B:" << weaponDamageValues[0] << " S:" << weaponDamageValues[1] << 
 	// 0xff = invulnerable.
 	// 0xf0 = absorbs power from this damage type.
 	// 0x0f = takes double damage from this damage type.
-/*
+
 	if (attacker==0) // Player attacking
 	{
 		for(int i = 0; i < 11; ++i) // number of damage slots to compare against armour slots
@@ -1677,10 +1912,125 @@ std::cout << "B:" << weaponDamageValues[0] << " S:" << weaponDamageValues[1] << 
 			if ( damages[i] < 0 ) { damages[i] = 0; }
 		}
 	}
-*/
+
 
 std::cout << "B:" << damages[0] << " S:" << damages[1] << " E:" << damages[2] << " A:" << damages[3] << " F:" << damages[4] << " W:" << damages[5] << " P:" << damages[6] << " M:" << damages[7] << " G:" << damages[8] << " E:" << damages[9] << " C:" << damages[10] << std::endl;
 	int totalDamage = damages[0]+damages[1]+damages[2]+damages[3]+damages[4]+damages[5]+damages[6]+damages[7]+damages[8]+damages[9]+damages[10];
+	return totalDamage;
+
+}
+
+
+int calcPlayerWeaponDamage(int weaponNo, float attackFactor, int attacker)
+{
+	// CALCULATE PLAYER WEAPON / ATTACK DAMAGE
+
+	// attacker - 0 = player
+	int weaponDamageValues[13];
+	
+
+	
+		weaponDamageValues[0] = itemBuffer[weaponNo].blunt + weaponBonus.blunt;
+		weaponDamageValues[1] = itemBuffer[weaponNo].sharp + weaponBonus.sharp;
+		weaponDamageValues[2] = itemBuffer[weaponNo].earth + weaponBonus.earth;
+		weaponDamageValues[3] = itemBuffer[weaponNo].air + weaponBonus.air;
+		weaponDamageValues[4] = itemBuffer[weaponNo].fire + weaponBonus.fire;
+		weaponDamageValues[5] = itemBuffer[weaponNo].water + weaponBonus.water;
+		weaponDamageValues[6] = itemBuffer[weaponNo].power + weaponBonus.power;
+		weaponDamageValues[7] = itemBuffer[weaponNo].magic + weaponBonus.magic;
+		weaponDamageValues[8] = itemBuffer[weaponNo].good + weaponBonus.good;
+		weaponDamageValues[9] = itemBuffer[weaponNo].evil + weaponBonus.evil;
+		weaponDamageValues[10] = itemBuffer[weaponNo].cold + weaponBonus.cold;
+		weaponDamageValues[11] = itemBuffer[weaponNo].nature + weaponBonus.nature;
+		weaponDamageValues[12] = itemBuffer[weaponNo].acid + weaponBonus.acid;
+
+
+	int armorValues[13] = { 0,0,0,0,0,0,0,0,0,0,0,0,0 };
+	int armors[13] = { 0,0,0,0,0,0,0,0,0,0,0,0,0 };
+
+	if (attacker == 0) // Player attacking
+	{
+		armorValues[0] = Opponents[0].aBlunt;
+		armorValues[1] = Opponents[0].aSharp;
+		armorValues[2] = Opponents[0].aEarth;
+		armorValues[3] = Opponents[0].aAir;
+		armorValues[4] = Opponents[0].aFire;
+		armorValues[5] = Opponents[0].aWater;
+		armorValues[6] = Opponents[0].aPower;
+		armorValues[7] = Opponents[0].aMagic;
+		armorValues[8] = Opponents[0].aGood;
+		armorValues[9] = Opponents[0].aEvil;
+		armorValues[10] = Opponents[0].aCold;
+		armorValues[11] = Opponents[0].aNature;
+		armorValues[12] = Opponents[0].aAcid;
+
+		int armorIndex = 0;
+		while (armorIndex < 13)
+		{
+			int noDice = (armorValues[armorIndex] & 0xf0) >> 4;
+			int noSides = (armorValues[armorIndex] & 0x0f);
+			if (noDice > 0) armors[armorIndex] = rollDice(noDice, noSides);
+
+			armorIndex++;
+		}
+	}
+
+
+
+	int damages[13] = { 0,0,0,0,0,0,0,0,0,0,0,0,0 }; // holds results of rolling for damage
+
+	int damageIndex = 0; // 0 is blunt, 1 is sharp, 11 is cold - 13 damage types in total
+
+	cout << "Player Damage:";
+	std::cout << "B:" << weaponDamageValues[0] << " S:" << weaponDamageValues[1] << " E:" << weaponDamageValues[2] << " A:" << weaponDamageValues[3] << " F:" << weaponDamageValues[4] << " W:" << weaponDamageValues[5] << " P:" << weaponDamageValues[6] << " M:" << weaponDamageValues[7] << " G:" << weaponDamageValues[8] << " E:" << weaponDamageValues[9] << " C:" << weaponDamageValues[10] << std::endl;
+	while (damageIndex < 11)
+	{
+		//		int noDice = (weaponDamageValues[damageIndex] & 0xf0) >> 4;
+		//		int noSides = (weaponDamageValues[damageIndex] & 0x0f);
+		int noDice = ((int)weaponDamageValues[damageIndex] / 10);
+		int noSides = weaponDamageValues[damageIndex] - (noDice * 10);
+
+		//int currentDamage = round((weaponDamageValues[damageIndex])* attackFactor);
+		if (noDice > 0 || noSides > 0)
+		{
+			damages[damageIndex] = rollDice(noDice, noSides);
+			if (armorValues[damageIndex] == 0xff) { damages[damageIndex] = 0; }
+			else if (armorValues[damageIndex] == 0xf0) { damages[damageIndex] = damages[damageIndex] * -1; }
+			else if (armorValues[damageIndex] == 0x0f) { damages[damageIndex] = damages[damageIndex] * 2; }
+			else {
+				damages[damageIndex] -= armors[damageIndex];
+				if (damages[damageIndex] < 0)
+					damages[damageIndex] = 0;
+			}
+
+			cout << damages[damageIndex] << " (" << noDice << " D" << noSides << ") \n";
+		}
+		damageIndex++;
+	}
+	//	cout << "\n";
+
+		// Compare weapon damages against encounter armour values inc. vulnerabilities and invulnerabilities
+		// 0xff = invulnerable.
+		// 0xf0 = absorbs power from this damage type.
+		// 0x0f = takes double damage from this damage type.
+
+	if (attacker == 0) // Player attacking
+	{
+		for (int i = 0; i < 11; ++i) // number of damage slots to compare against armour slots
+		{
+			if (armors[i] == 0xf0)	// Double damage
+				damages[i] *= 2;
+			else if (armors[i] == 0xff)	// Invulnerable to this weapon
+				damages[i] = 0;
+			else
+				damages[i] -= armors[i];
+			if (damages[i] < 0) { damages[i] = 0; }
+		}
+	}
+
+
+	std::cout << "B:" << damages[0] << " S:" << damages[1] << " E:" << damages[2] << " A:" << damages[3] << " F:" << damages[4] << " W:" << damages[5] << " P:" << damages[6] << " M:" << damages[7] << " G:" << damages[8] << " E:" << damages[9] << " C:" << damages[10] << std::endl;
+	int totalDamage = damages[0] + damages[1] + damages[2] + damages[3] + damages[4] + damages[5] + damages[6] + damages[7] + damages[8] + damages[9] + damages[10];
 	return totalDamage;
 
 }
@@ -1724,7 +2074,6 @@ std::cout <<" Weapon chose " << chosenWeaponNo << " name " << monsterWeapons[cho
 }
 
 
-
 void initMonster(int monsterNo)
 {
     // Initialise a SINGLE monster - legacy City logic
@@ -1754,8 +2103,6 @@ void initMonster(int monsterNo)
     */
 
 }
-
-
 
 
 void thiefYield()
@@ -1822,8 +2169,6 @@ void healerCurePoisons()
 }
 
 
-
-
 int inputNumber()
 {
 	updateDisplay(); // Messy visual fix before the display loop below - probably break animation later
@@ -1860,8 +2205,6 @@ int inputNumber()
 }
 
 
-
-
 void healerHealWounds()
 {
 	int hpToHeal = inputNumber();
@@ -1890,10 +2233,6 @@ void healerHealWounds()
 }
 
 
-
-
-
-
 void pauseEncounter()
 {
    consoleMessage("(Paused)@@@@@(Press SPACE to continue)");
@@ -1912,6 +2251,7 @@ void awardExperience(int opponentNo)
 	int opponentXP = Opponents[0].maxHP*experienceMultiplier;
 	increaseExperience(opponentXP);
 }
+
 
 void text(string str)
 {
@@ -2068,15 +2408,17 @@ void checkEncounter()
 {
     if (encounterThemeNotPlaying())
     {
-        int encounter_check = randn(0, plyr.stealth);
-        if (encounter_check == 0)
-        {
-            chooseEncounter();
-        }
+        int encounter_check = randn(0, (plyr.stealth - plyr.noticeability) + plyr.alcohol);  //a little different from the City
+
+		if (encounter_check == 0)  //character is suprised
+		{
+			chooseEncounter();  //
+		}
+	
+
+
     }
 }
-
-
 
 
 void chooseEncounter()
@@ -2180,6 +2522,7 @@ std::cout << "Monsterno " << monsterNo;
     // FBI Agent and Basilisk images missing
 }
 
+
 void checkAlignmentEncounter(int opponentNo)
 {
 	// Attacking, trick or charming  certain opponents is an evil act.
@@ -2246,12 +2589,12 @@ void checkTreasure()
    
 	// Check to see if the opponent was carrying a weapon (as opposed to claws or teeth)
 	// Only type 0x03 weapons can be dropped - type 0xFF refers to natural weapons such as bites, tails, claws, spells
-
+   int weapon = opponent.chosenWeapon; // Modify
     Opponents[0] = Monsters[opponentType];
 
-	int weapon = Opponents[0].w1; // Modify
+	
 	found = randn(0,100);
-	if (monsterWeapons[weapon].type==0x03 && found <= plyr.treasureFinding)
+  	if (monsterWeapons[weapon].type==0x03 && found <= plyr.treasureFinding)
 	{
 		//Most of the time you don't get a weapon from creatures.  It should be hard to gain weapons.
 		//Original code was get weapon after each encounter.
@@ -2336,7 +2679,7 @@ void checkTreasure()
 			else { plyr.goblinsDefeated = true; createQuestItem(2); }
 			foundTreasure = false;
 		}
-
+		//need to write another check if buffed with treasurefinding
    if ((foundTreasure) && (plyr.treasureFinding>15)) { plyr.treasureFinding = 15; }	//Once you find treasure then remove the potion affect.
 	if (foundTreasure) getItems();
 

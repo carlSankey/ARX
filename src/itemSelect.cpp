@@ -7,7 +7,7 @@
 #include "font.h"
 #include "misc.h"
 
-int MAX_MENU_ENTRIES = 4; // Max 4 entries per menu page.
+const int MAX_MENU_ENTRIES = 4; // Max 4 entries per menu page.
 itemMenuEntry itemSelectEntries[255]; // Should be usable for building item menus with a maximum of 255 multi page items
 
 // Returns an item reference based on a multi page menu e.g. food item, weapon item
@@ -36,7 +36,7 @@ int inputItemRef(std::string message)
             if (currentItem >= totalItems)
             {
                 // Menu slot without an item
-                currentItemRefs[i] = 256; // No item to select
+                currentItemRefs[i] = -1; // No item to select
                 str = "(" + itos(i+1) + ")";
                 bText(1,(2+i), str);
             }

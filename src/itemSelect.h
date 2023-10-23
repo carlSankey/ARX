@@ -1,3 +1,8 @@
+
+#ifndef _itemSelecth 
+#define _itemSelecth 
+
+
 struct itemMenuEntry
 {
 	int                objRef;
@@ -16,4 +21,8 @@ int calculateLastMenuPage(int numberOfItems);
 //void runModule(int module);
 //void displayModuleImage(int module);
 //void leaveModule();
+
+// Your existing header content goes here 
+ 
+#endif // _itemSelecth 
 

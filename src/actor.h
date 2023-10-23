@@ -1,3 +1,6 @@
+#ifndef _actorh 
+#define _actorh 
+
 #include <string>
 
 const int noOfEncounters = 86;
@@ -65,6 +68,8 @@ struct monster
 	int aGood;
 	int aEvil;
 	int aCold;
+	int aNature;
+	int aAcid;
 
 	int tPotions;
 	int tEquipment;
@@ -81,6 +86,7 @@ struct monster
 	int tGems;
 	int tJewels;
 
+	int chosenWeapon;
 	int w1;
 	int w2;
 	int w3;
@@ -93,6 +99,7 @@ struct monster
 	int c4;
 	int c5;
 	int c6;
+	int stunnedTurnsRemaining;
 };
 
 
@@ -137,3 +144,5 @@ extern monster Monsters[noOfEncounters];
 extern weapon monsterWeapons[noOfMonsterWeapons];
 extern unsigned char monstersBinary[monstersFileSize];
 
+ 
+#endif // _actorh 

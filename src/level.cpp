@@ -719,31 +719,40 @@ void transMapIndex (int idx)
 
 }
 
-void loadBinaryLevel()
-{
-    // Define an array of mapcells used to hold map data converted from binary data
-    sprintf(tempString,"%s%s","data/map/","dun4.bin"); //dungeon1
-    fp = fopen(tempString, "rb");
-    if( fp != NULL )
-    {
-         for(int i=0;i<4096;i++)
-         {
-          int tmp = fgetc(fp);
-		  if ( tmp==2) { cout << tmp <<" , " << i << "\n"; }
-          levelmap[i].east = (tmp&240)>>4;
-          levelmap[i].north = tmp&15;
-          tmp = fgetc(fp);
-          levelmap[i].west = (tmp&240)>>4;
-          levelmap[i].south = tmp&15;
-          tmp = fgetc(fp);
-          levelmap[i].location = tmp;
-          tmp = fgetc(fp);
-          levelmap[i].special = tmp;
-         }
-    }
-    fclose(fp);
+#include <iostream> // Include the necessary header for cout
+#include <cstdio>   // Include the necessary header for FILE
 
+void loadBinaryLevel() {
+	FILE* fp;
+	char tempString[100]; // Declare tempString with an appropriate size
+	sprintf_s(tempString, sizeof(tempString), "%s%s", "data/map/", "dun4.bin");
+
+	// Use fopen_s for improved error handling
+	if (fopen_s(&fp, tempString, "rb") == 0 && fp != NULL) {
+		for (int i = 0; i < 4096; i++) {
+			int tmp = fgetc(fp);
+			if (tmp == 2) {
+				std::cout << tmp << " , " << i << "\n";
+			}
+			levelmap[i].east = (tmp & 240) >> 4;
+			levelmap[i].north = tmp & 15;
+			tmp = fgetc(fp);
+			levelmap[i].west = (tmp & 240) >> 4;
+			levelmap[i].south = tmp & 15;
+			tmp = fgetc(fp);
+			levelmap[i].location = tmp;
+			tmp = fgetc(fp);
+			levelmap[i].special = tmp;
+		}
+		fclose(fp); // Close the file when done
+	}
+	else {
+		// Handle file open error
+		std::cerr << "Error: Failed to open the file.\n";
+	}
 }
+
+
 
 void printSpecial()
 {

@@ -1,3 +1,5 @@
+
+
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
@@ -41,6 +43,7 @@
 #include "arena.h"
 #include "actor.h"
 #include "saveGame.h"
+#include "input.h"
 
 sf::Time dt;
 sf::Time encounterCheckTime;
@@ -112,6 +115,14 @@ void gameLoop()
 		plyr.special = levelmap[ind].special;
 		plyr.location = levelmap[ind].location;
 		setCurrentZone();
+		if ((plyr.scenario == DUNGEON) && ((plyr.zone == 17) || (plyr.zone == 16)))  // in the well lit area
+		{
+			plyr.darkness = 0;
+		}
+		else 
+		{
+			plyr.darkness = 1;
+		}
 
 	    if (plyr.scenario==1) checkFixedEncounters();
 		if (plyr.scenario==1) checkFixedTreasures();
@@ -163,7 +174,7 @@ void gameLoop()
 		if ( key=="F6" ) plyr.infoPanel = 6;
 		if ( key=="F7" ) plyr.infoPanel = 7;
 		if ( key=="F8" ) plyr.infoPanel = 8;
-
+		if ( key=="SPACE") plyr.infoPanel = 1;
 		if ( key=="F" ) { if (plyr.fpsOn) {plyr.fpsOn = false;} else {plyr.fpsOn = true;} }
 		if ( key=="A" ) { if (plyr.miniMapOn) {plyr.miniMapOn = false;} else {plyr.miniMapOn = true;} }
 		if ( key=="M" ) { automap(); }
@@ -223,6 +234,7 @@ void quitMenu()
 
 }
 
+
 void playerDies()
 {
 	bool deathLooping = true;
@@ -263,10 +275,116 @@ void togglePanelsForward()
      if (plyr.infoPanel == 9) { plyr.infoPanel = 1; }
 }
 
+
 void togglePanelsBackward()
 {
      plyr.infoPanel--;
      if (plyr.infoPanel == 0) { plyr.infoPanel = 8; }
+}
+
+
+void barredDoor()
+{
+	//bool keynotpressed = true;
+	string str, key;
+	str = "";
+	int doorType;
+	if (plyr.movingForward) doorType = plyr.front;
+	else doorType = plyr.back;
+	int doorMenu = 0;
+	bool doorNotExamined = true;
+	while (doorMenu < 255) // closed
+	{
+		while (doorMenu == 0)
+		{
+			int useRef;
+			doorNotExamined = true;
+			dispMain();
+			drawConsoleBackground();
+			cyText(1, "The door won't open. You may:");
+			bText(9, 3, "(1) Examine the door");
+			bText(9, 4, "(2) Force the door");
+			bText(9, 5, "(3) Use a key");
+			bText(9, 6, "(4) Break an enchantment");
+			bText(9, 8, "(0) Leave it");
+			updateDisplay();
+			key = getSingleKey();
+			if (key == "0") { doorMenu = 255; }
+			if (key == "1") { doorMenu = 1; }
+			if (key == "2") { doorMenu = 2; }
+			if (key == "3") { doorMenu = 3; }
+			if (key == "4") { doorMenu = 4; }
+			if (key == "U")
+			{
+				useRef = selectItem(1);
+				if (useRef == 666) { doorMessage("@@@The door opens!@@@@<<< Press any key to continue >>>"); updateDoorDetails(); doorMenu = 255; moveThroughBarredDoor(); }
+			}
+		}
+		while (doorMenu == 1)
+		{
+			if (doorNotExamined)
+			{
+				doorNotExamined = false;
+				int doorIdentificationSuccess = rollDice(4, 6); // roll 3D6
+				doorTimedMessage("@@@Examining...");
+				str = "@You can't discern what bars the door.";
+				if (doorIdentificationSuccess < plyr.wis)
+				{
+					if (doorType == 8) str = "@The door appears to need a key.";
+					if (doorType == 9) str = "@The door appears to be bolted.";
+					if (doorType == 10) str = "@The door appears to be enchanted.";
+				}
+			}
+			dispMain();
+			drawConsoleBackground();
+			cText(str);
+			updateDisplay();
+			key = getSingleKey();
+			if (key == "SPACE") { doorMenu = 0; }
+		}
+
+		while (doorMenu == 2)
+		{
+			doorMessage("@@@Wham!");
+			int playerDamage = rollDice(1, 4);
+			plyr.hp -= playerDamage;
+			int doorRoll = rollDice(7, 6);
+			bool doorOpenSuccess = false;
+			if ((doorRoll <= plyr.str) && (doorType == 9)) doorOpenSuccess = true;
+			if ((doorOpenSuccess) && (plyr.hp > -1)) { doorMessage("@@@The door opens!@@@@<<< Press any key to continue >>>"); updateDoorDetails(); doorMenu = 255; moveThroughBarredDoor(); }
+			if ((!doorOpenSuccess) && (plyr.hp > -1)) { doorMessage("@@@The door remains shut.");  doorMenu = 0; }
+			if (plyr.hp < 0) { doorMenu = 255; } // player dead
+		}
+
+
+		while (doorMenu == 3)
+		{
+			if (plyr.keys == 0) { doorMessage("@@@You have none."); doorMenu = 0; }
+			else
+			{
+				if (doorType == 9) { doorMessage("@@@The door remains shut."); plyr.keys--; doorMenu = 0; }
+				if (doorType == 10) { doorMessage("@@@The door remains shut."); plyr.keys--; doorMenu = 0; }
+				if (doorType == 8) { doorMessage("@@@The door opens!@@@@<<< Press any key to continue >>>"); plyr.keys--; updateDoorDetails(); doorMenu = 255; moveThroughBarredDoor(); }
+			}
+
+		}
+
+		while (doorMenu == 4)
+		{
+			doorTimedMessage("@@@Concentrating...");
+
+			int doorRoll = rollDice(7, 6);
+			// Add to fatigue?
+			bool doorOpenSuccess = false;
+			if ((doorRoll <= plyr.inte) && (doorType == 10)) doorOpenSuccess = true;
+			if (doorOpenSuccess) { doorMessage("@@@The door opens!@@@@<<< Press any key to continue >>>"); updateDoorDetails(); doorMenu = 255; moveThroughBarredDoor(); }
+			if (!doorOpenSuccess) { doorMessage("@@@The door remains shut.");  doorMenu = 0; }
+		}
+
+
+
+
+	}
 }
 
 
@@ -304,6 +422,7 @@ void moveWest()
 
 }
 
+
 void moveEast()
 {
 	if (plyr.facing==EAST) // east (forward)
@@ -337,6 +456,7 @@ void moveEast()
 
 }
 
+
 void moveNorth()
 {
 	if (plyr.facing==NORTH) // north (forward)
@@ -368,6 +488,7 @@ void moveNorth()
 	}
 
 }
+
 
 void moveSouth()
 {
@@ -497,6 +618,7 @@ void moveForward()
 					plyr.y++; // s
 					break;
 			}
+			plyr.noticeability = plyr.noticeability + 0.1;
 			if (plyr.scenario==0) { cityDoorSound.play(); } else { dungeonDoorSound.play(); }
 		}
 
@@ -541,8 +663,6 @@ void moveForward()
 
 
 }
-
-
 
 
 void moveBack()
@@ -682,7 +802,6 @@ void moveBack()
 }
 
 
-
 void turnLeft()
 {
 	switch(plyr.facing)
@@ -804,7 +923,6 @@ void checkTeleport()
 }
 
 
-
 void checkFixedTreasures()
 {
 	int treasureRef;
@@ -872,7 +990,6 @@ void checkFixedTreasures()
 	}
 
 }
-
 
 
 void checkShop()
@@ -972,6 +1089,7 @@ void checkShop()
      }
 }
 
+
 void leaveShop()
 {
 	//lyricstexture.clear(sf::Color::Black); // wipe the lyric strip
@@ -1003,6 +1121,7 @@ void shopClosed()
 	}
 	leaveShop();
 }
+
 
 void scenarioEntrance(int scenarioNumber)
 {
@@ -1049,6 +1168,7 @@ void treasureMessage(string str)
 	}
 }
 
+
 void pauseGame()
 {
 	string txt;
@@ -1060,110 +1180,6 @@ void pauseGame()
 			cText (txt);
 			updateDisplay();
 			key = getSingleKey();
-	}
-}
-
-void barredDoor()
-{
-	//bool keynotpressed = true;
-	string str, key;
-	str="";
-	int doorType;
-	if (plyr.movingForward) doorType = plyr.front;
-	else doorType = plyr.back;
-	int doorMenu = 0;
-	bool doorNotExamined = true;
-	while (doorMenu<255) // closed
-	{
-		while (doorMenu==0)
-		{
-			int useRef;
-			doorNotExamined = true;
-			dispMain();
-			drawConsoleBackground();
-			cyText (1, "The door won't open. You may:");
-			bText (9,3, "(1) Examine the door");
-			bText (9,4, "(2) Force the door");
-			bText (9,5, "(3) Use a key");
-			bText (9,6, "(4) Break an enchantment");
-			bText (9,8, "(0) Leave it");
-			updateDisplay();
-			key = getSingleKey();
-			if ( key == "0" ) { doorMenu=255; }
-			if ( key == "1" ) { doorMenu=1; }
-			if ( key == "2" ) { doorMenu=2; }
-			if ( key == "3" ) { doorMenu=3; }
-			if ( key == "4" ) { doorMenu=4; }
-			if ( key == "U" )
-			{
-				useRef = selectItem(1);
-				if (useRef==666) { doorMessage("@@@The door opens!@@@@<<< Press any key to continue >>>"); updateDoorDetails(); doorMenu=255; moveThroughBarredDoor(); }
-			}
-		}
-		while (doorMenu==1)
-		{
-			if (doorNotExamined)
-			{
-				doorNotExamined = false;
-				int doorIdentificationSuccess = rollDice(4,6); // roll 3D6
-				doorTimedMessage("@@@Examining...");
-				str = "@You can't discern what bars the door.";
-				if (doorIdentificationSuccess < plyr.wis)
-				{
-					if (doorType==8) str="@The door appears to need a key.";
-					if (doorType==9) str="@The door appears to be bolted.";
-					if (doorType==10) str="@The door appears to be enchanted.";
-				}
-			}
-			dispMain();
-			drawConsoleBackground();
-			cText (str);
-			updateDisplay();
-			key = getSingleKey();
-			if ( key == "SPACE" ) { doorMenu=0; }
-		}
-
-		while (doorMenu==2)
-		{
-			doorMessage("@@@Wham!");
-			int playerDamage = rollDice(1,4);
-			plyr.hp-=playerDamage;
-			int doorRoll = rollDice(7,6);
-			bool doorOpenSuccess = false;
-			if ((doorRoll <= plyr.str) && (doorType==9)) doorOpenSuccess=true;
-			if ((doorOpenSuccess) && (plyr.hp>-1)) { doorMessage("@@@The door opens!@@@@<<< Press any key to continue >>>"); updateDoorDetails(); doorMenu=255; moveThroughBarredDoor(); }
-			if ((!doorOpenSuccess) && (plyr.hp>-1)) { doorMessage("@@@The door remains shut.");  doorMenu=0; }
-			if (plyr.hp<0) {doorMenu=255; } // player dead
-		}
-
-
-		while (doorMenu==3)
-		{
-			if (plyr.keys==0) { doorMessage("@@@You have none."); doorMenu=0; }
-			else
-			{
-				if (doorType==9) { doorMessage("@@@The door remains shut."); plyr.keys--; doorMenu=0; }
-				if (doorType==10) { doorMessage("@@@The door remains shut."); plyr.keys--; doorMenu=0; }
-				if (doorType==8) { doorMessage("@@@The door opens!@@@@<<< Press any key to continue >>>"); plyr.keys--; updateDoorDetails(); doorMenu=255; moveThroughBarredDoor(); }
-			}
-
-		}
-
-		while (doorMenu==4)
-		{
-			doorTimedMessage("@@@Concentrating...");
-
-			int doorRoll = rollDice(7,6);
-			// Add to fatigue?
-			bool doorOpenSuccess = false;
-			if ((doorRoll <= plyr.inte) && (doorType==10)) doorOpenSuccess=true;
-			if (doorOpenSuccess)  { doorMessage("@@@The door opens!@@@@<<< Press any key to continue >>>"); updateDoorDetails(); doorMenu=255; moveThroughBarredDoor(); }
-			if (!doorOpenSuccess) { doorMessage("@@@The door remains shut.");  doorMenu=0; }
-		}
-
-
-
-
 	}
 }
 
@@ -1188,6 +1204,7 @@ bool checkBarredDoor()
 	return doorAlreadyOpened;
 }
 
+
 void updateDoorDetails()
 {
 	// Adds an entry about a door that has been successfully opened. The 1st entry is overwritten after 20 door openings.
@@ -1211,6 +1228,7 @@ void updateDoorDetails()
 	plyr.doorDetailIndex++;
 }
 
+
 void moveThroughBarredDoor()
 {
 	if (plyr.movingForward) plyr.z_offset = 2.0;
@@ -1224,7 +1242,6 @@ void moveThroughBarredDoor()
 	if ((plyr.facing==EAST) && (!plyr.movingForward)) moveWest();
 	if ((plyr.facing==SOUTH) && (!plyr.movingForward)) moveNorth();
 }
-
 
 
 void doorMessage(string str)
@@ -1242,6 +1259,7 @@ void doorMessage(string str)
 		if ( key == "SPACE" ) { keyNotPressed = false; }
 	}
 }
+
 
 void doorTimedMessage(string str)
 {
@@ -1341,4 +1359,38 @@ void initialiseNewGame()
 	InitMap();
 
 	//loadMonstersBinary(); duplicate
+}
+
+
+void readKeys()
+{
+
+	// Process events
+
+	sf::RenderWindow App(sf::VideoMode(800, 600), "SFML Window");
+
+	sf::Event Event;
+
+	while (App.isOpen()) {
+		while (App.pollEvent(Event)) {
+			{
+				if ((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Left)) turnLeft();
+				if ((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Right)) turnRight();
+				if ((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Up)) moveForward();
+				//if ((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::Down)) moveBack();
+
+				// Close window : exit
+				if (Event.type == sf::Event::Closed)
+					Running = false;
+
+				// Escape key : exit
+				if ((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Escape))
+					Running = false;
+
+				//if (Event.Type == sf::Event::Resized)
+			//glViewport(0, 0, Event.Size.Width, Event.Size.Height);
+
+			}
+		}
+	}
 }

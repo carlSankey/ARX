@@ -232,7 +232,16 @@ int randn(int low,int high)
 	//if (high == 0) result = 0;
 	//else
    //result = (rand()%(high-low))+low;
-   result = rand() % ((high-low)+1) + low;
+
+   if (high >= low) {
+	   result = rand() % ((high - low) + 1) + low;
+   }
+   else {
+	   // Handle the case where high is less than low.
+	   // You can return an error code or take appropriate action.
+	   result = rand() % ((high) + 1) + low;
+   }
+  
    return result;
 
 }
@@ -269,14 +278,21 @@ int oldRollDice(int x, int y)
 
 int rollDice(int rolls, int dice)
 {
-    int result = 0;
+	int result = 0;
 
-    for( int r=0 ; r<rolls ; r++ )
-    {
-        result = result + randn( 1 , dice );
-    }
-    if (result==0) cout << "\nDice roll 0 error!\n";
-    return result;
+	if (dice <= 0)
+	{
+		// Handle the error case where dice has 0 or negative sides
+		std::cout << "\nInvalid dice with " << dice << " sides!\n";
+		return 0; // Return 0 or an appropriate error value
+	}
+
+	for (int r = 0; r < rolls; r++)
+	{
+		result = result + rand() % dice + 1; // Roll the dice
+	}
+
+	return result;
 }
 
 

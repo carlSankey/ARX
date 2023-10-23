@@ -320,7 +320,7 @@ void createCustomWeapon()
 {
     // Routine to create weapon after 4 days have elapsed
 
-    int index,alignment,weight,wAttributes,melee,ammo,blunt,sharp,earth,air,fire,water,power,magic,good,evil,cold,
+    int index,alignment,weight,wAttributes,melee,ammo,blunt,sharp,earth,air,fire,water,power,magic,good,evil,cold,nature,acid,
         minStrength,minDexterity,hp,maxHP,flags,parry,useStrength;
 
     int offset = 0x00;
@@ -367,15 +367,17 @@ void createCustomWeapon()
     good               = dwarvenBinary[wAttributes+11];
     evil               = dwarvenBinary[wAttributes+12];
     cold               = dwarvenBinary[wAttributes+13];
-    minStrength        = dwarvenBinary[wAttributes+14];
-    minDexterity       = dwarvenBinary[wAttributes+15];
+    nature             = dwarvenBinary[wAttributes+14];
+    acid               = dwarvenBinary[wAttributes+15];
+    minStrength        = dwarvenBinary[wAttributes+16];
+    minDexterity       = dwarvenBinary[wAttributes+17];
     hp                 = 0xFF;
     maxHP              = 0xFF;
     flags              = 90;
-    parry              = (dwarvenBinary[wAttributes+19]) * 2;
+    parry              = (dwarvenBinary[wAttributes+21]) * 2;
 
     int newItemRef = createItem(itemType,index,itemName,hp,maxHP,flags,minStrength,minDexterity,useStrength,blunt,
-                                sharp,earth,air,fire,water,power,magic,good,evil,cold,weight,alignment,melee,ammo,parry);
+                                sharp,earth,air,fire,water,power,magic,good,evil,cold,nature,acid,weight,alignment,melee,ammo,parry);
     itemBuffer[newItemRef].location = 10; // Add to player inventory - 10
 
     // Reset related variables once custom weapon ready
@@ -513,22 +515,45 @@ void buildSmithyMenuOptions()
 
 
 
-void loadDwarvenBinary()
-{
-    // Loads armour and weapons binary data into the "dwarvenBinary" array
-    FILE *fp;               // file pointer - used when reading files
+#include <cstdio> // Include the necessary header for fopen_s
+
+#include <cstdio> // Include the necessary header for fopen_s
+
+#include <cstdio> // Include the necessary header for fopen
+
+void loadDwarvenBinary() {
+    FILE* fp;               // file pointer - used when reading files
     char tempString[100];   // temporary string
-    sprintf(tempString,"%s%s","data/map/","DwarvenItems.bin");
-    fp = fopen(tempString, "rb");
-    if( fp != NULL )
-    {
-        for(int i=0;i<dwarvenFileSize;i++)
-        {
-            dwarvenBinary[i] = fgetc(fp);
+    sprintf_s(tempString, sizeof(tempString), "%s%s", "data/map/", "DwarvenItems.bin");
+
+    // Use fopen for opening the file
+    if (fopen_s(&fp, tempString, "rb") == 0 && fp != NULL) {
+        // File opened successfully
+        // Check if the file size matches the expected size
+        fseek(fp, 0, SEEK_END); // Move to the end of the file
+        long fileSize = ftell(fp); // Get the file size
+        fseek(fp, 0, SEEK_SET); // Move back to the beginning
+
+        if (fileSize == dwarvenFileSize) {
+            // File size matches the expected size
+            for (int i = 0; i < dwarvenFileSize; i++) {
+                dwarvenBinary[i] = fgetc(fp);
+            }
+            fclose(fp); // Close the file when done
+        }
+        else {
+            // Handle incorrect file size (e.g., print an error message)
+            printf("Error: File size does not match the expected size.\n");
         }
     }
-    fclose(fp);
+    else {
+        // Handle file open error (e.g., print an error message)
+        printf("Error: Failed to open the file.\n");
+    }
 }
+
+
+
 
 
 string readDwarvenNameString(int stringOffset)
@@ -554,7 +579,7 @@ string readDwarvenNameString(int stringOffset)
 
 int createDwarvenInventoryItem(int startByte)
 {
-    int index,alignment,weight,wAttributes,melee,ammo,blunt,sharp,earth,air,fire,water,power,magic,good,evil,cold,
+    int index,alignment,weight,wAttributes,melee,ammo,blunt,sharp,earth,air,fire,water,power,magic,good,evil,cold,nature,acid,
         minStrength,minDexterity,hp,maxHP,flags,parry,useStrength;
 
     int offset = startByte;
@@ -584,12 +609,14 @@ int createDwarvenInventoryItem(int startByte)
         good               = dwarvenBinary[wAttributes+11];
         evil               = dwarvenBinary[wAttributes+12];
         cold               = dwarvenBinary[wAttributes+13];
-        minStrength        = dwarvenBinary[wAttributes+14];
-        minDexterity       = dwarvenBinary[wAttributes+15];
-        hp                 = dwarvenBinary[wAttributes+16];
-        maxHP              = dwarvenBinary[wAttributes+17];
-        flags              = dwarvenBinary[wAttributes+18];
-        parry              = dwarvenBinary[wAttributes+19];
+        nature             = dwarvenBinary[wAttributes+14];
+        acid               = dwarvenBinary[wAttributes+15];
+        minStrength        = dwarvenBinary[wAttributes+16];
+        minDexterity       = dwarvenBinary[wAttributes+17];
+        hp                 = dwarvenBinary[wAttributes+18];
+        maxHP              = dwarvenBinary[wAttributes+19];
+        flags              = dwarvenBinary[wAttributes+20];
+        parry              = dwarvenBinary[wAttributes+21];
     }
 
     if (itemType == 4)
@@ -615,10 +642,12 @@ int createDwarvenInventoryItem(int startByte)
         good               = dwarvenBinary[wAttributes+10];
         evil               = dwarvenBinary[wAttributes+11];
         cold               = dwarvenBinary[wAttributes+12];
+        nature = dwarvenBinary[wAttributes + 13];
+        acid = dwarvenBinary[wAttributes + 14];
         minStrength        = 0;
         minDexterity       = 0;
-        hp                 = dwarvenBinary[wAttributes+13];
-        maxHP              = dwarvenBinary[wAttributes+14];
+        hp                 = dwarvenBinary[wAttributes+15];
+        maxHP              = dwarvenBinary[wAttributes+16];
         flags              = 0;
         parry              = 0;
     }
@@ -646,6 +675,9 @@ int createDwarvenInventoryItem(int startByte)
         good               = 0;
         evil               = 0;
         cold               = 0;
+        nature             = 0;
+        acid               = 0;
+
         minStrength        = 0;
         minDexterity       = 0;
         hp                 = 0;
@@ -655,8 +687,9 @@ int createDwarvenInventoryItem(int startByte)
     }
 
     int newItemRef = createItem(itemType,index,itemName,hp,maxHP,flags,minStrength,minDexterity,useStrength,blunt,
-                                sharp,earth,air,fire,water,power,magic,good,evil,cold,weight,alignment,melee,ammo,parry);
+                                sharp,earth,air,fire,water,power,magic,good,evil,cold,nature,acid,weight,alignment,melee,ammo,parry);
     itemBuffer[newItemRef].location = 10; // Add to player inventory - 10
+    return 1;
 }
 
 

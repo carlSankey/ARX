@@ -19,6 +19,8 @@
 #include "automap.h"
 #include "lyrics.h"
 #include "actor.h" // For weapons
+#include "spells.h"
+#include "effects.h"
 
 using namespace std;
 using namespace sf;
@@ -51,7 +53,7 @@ extern string roomMessages[255];
 extern string descriptions[255];
 
 //extern buffer_item itemBuffer[100];
-extern effectItem effectBuffer[50]; // active time limited effects from spells, scrolls, eyes
+
 
 // Main window
 sf::RenderWindow App;
@@ -80,8 +82,11 @@ struct animFrame
 	int duration;
 };
 
+
+
 // If image2 == 255 then just display image1 rather than use animations below
 //Dungeon Monster Animation Scripts
+
 
 animFrame encounterAnim[123] =
 {
@@ -346,8 +351,6 @@ void drawAtariAnimation()
 }
 
 
-
-
 void createGameWindow()
 {
     string title = "Alternate Reality X " + version;
@@ -442,6 +445,7 @@ void setScreenValues()
 
 }
 
+
 void dispInit()
 {
     setScreenValues();
@@ -487,11 +491,13 @@ void clearDisplay()
 	App.pushGLStates();
 }
 
+
 void updateDisplay()
 {
 	App.popGLStates();
 	App.display();
 }
+
 
 void displayLoading()
 {
@@ -499,6 +505,7 @@ void displayLoading()
     drawText(loadingX,loadingY,"Loading...");
     updateDisplay();
 }
+
 
 void displayMainMenu()
 {
@@ -530,9 +537,6 @@ void displayMainMenu()
 }
 
 
-
-
-
 void dispMain()
 {
 	// All non OpenGL drawing should be performed between the pushGLStates and popGLStates commands
@@ -550,7 +554,6 @@ void dispMain()
 
     // App.popGLStates will follow other SFML 2D drawing
 }
-
 
 
 void drawImage(string imagename, int x, int y)
@@ -634,6 +637,7 @@ void drawCompass()
 	}
 }
 
+
 void loadResources()
 {
 	loadBackgroundNames();
@@ -674,10 +678,6 @@ std::cout << "Loading encounters Texture" << std::endl;
     else
 		encImageSheet.loadFromFile("data/images/encounters/encounters_alternate.png"); // Alternate
 }
-
-
-
-
 
 
 void loadCounterImages()
@@ -731,12 +731,10 @@ void displayCityGateImage()
 }
 
 
-
 int checkCityDoors() // currently only forward!!!
 {
 	return 0;
 }
-
 
 
 void drawInfoPanels()
@@ -882,17 +880,21 @@ if (plyr.status!=3)
     {
         cyText(1, "Active Magic");
         int y = 3; // starting value for displaying items
-        if (plyr.protection1 != 0) { cyText(y,"Protection +1"); y++; }
-        if (plyr.protection2 != 0) { cyText(y,"Protection +2"); y++; }
-        if (plyr.invulnerability[0] != 0)  { cyText(y,"Invulnerability Blunt"); y++; }
-        if (plyr.invulnerability[1] != 0)  { cyText(y,"Invulnerability Sharp"); y++; }
-        if (plyr.invulnerability[2] != 0)  { cyText(y,"Invulnerability Earth"); y++; }
-        if (plyr.invulnerability[3] != 0)  { cyText(y,"Invulnerability Air"); y++; }
-        if (plyr.invulnerability[4] != 0)  { cyText(y,"Invulnerability Fire"); y++; }
-        if (plyr.invulnerability[5] != 0)  { cyText(y,"Invulnerability Water"); y++; }
-        if (plyr.invulnerability[6] != 0)  { cyText(y,"Invulnerability Power"); y++; }
-        if (plyr.invulnerability[7] != 0)  { cyText(y,"Invulnerability Mental"); y++; }
-        if (plyr.invulnerability[8] != 0)  { cyText(y,"Invulnerability Cleric"); y++; }
+        //if (plyr.protection1 != 0) { cyText(y,"Protection +1"); y++; }
+        //if (plyr.protection2 != 0) { cyText(y,"Protection +2"); y++; }
+        //if (plyr.invulnerability[0] != 0)  { cyText(y,"Invulnerability Blunt"); y++; }
+        //if (plyr.invulnerability[1] != 0)  { cyText(y,"Invulnerability Sharp"); y++; }
+        //if (plyr.invulnerability[2] != 0)  { cyText(y,"Invulnerability Earth"); y++; }
+        //if (plyr.invulnerability[3] != 0)  { cyText(y,"Invulnerability Air"); y++; }
+        //if (plyr.invulnerability[4] != 0)  { cyText(y,"Invulnerability Fire"); y++; }
+        //if (plyr.invulnerability[5] != 0)  { cyText(y,"Invulnerability Water"); y++; }
+        //if (plyr.invulnerability[6] != 0)  { cyText(y,"Invulnerability Power"); y++; }
+        //if (plyr.invulnerability[7] != 0)  { cyText(y,"Invulnerability Mental"); y++; }
+        //if (plyr.invulnerability[8] != 0)  { cyText(y,"Invulnerability Cleric"); y++; }
+		if (plyr.ActiveSpell[0] != 0) { cyText(y, spells[plyr.ActiveSpell[0]].name); y++; }
+		if (plyr.ActiveSpell[1] != 0) { cyText(y, spells[plyr.ActiveSpell[1]].name); y++; }
+		if (plyr.ActiveSpell[2] != 0) { cyText(y, spells[plyr.ActiveSpell[2]].name); y++; }
+		if (plyr.ActiveSpell[3] != 0) { cyText(y, spells[plyr.ActiveSpell[3]].name); y++; }
     }
 
 	if (plyr.infoPanel == 6)
@@ -917,7 +919,6 @@ if (plyr.status!=3)
 	//if (plyr.status==3) App.clear(sf::Color(0,0,0,192)); // if in combat wipe the panel
 }
 }
-
 
 
 void clearShopDisplay()
@@ -999,7 +1000,6 @@ void loadShopImage(int imageno)
 	ShopSprite.setPosition(((windowWidth-640)/2),shopPictureY);
 
 }
-
 
 
 void drawStatsPanel()
@@ -1123,8 +1123,6 @@ void drawStatsPanel()
 }
 
 
-
-
 void displayOptionsMenu()
 {
 	//string str;
@@ -1166,6 +1164,7 @@ void displayOptionsMenu()
 	//SetFontColour(215, 215, 215, 255);
 }
 
+
 void displayQuitMenu()
 {
 	drawText(6,11," Are you sure you want to quit?");
@@ -1174,7 +1173,6 @@ void displayQuitMenu()
 	drawText(15,13,"  Y      N");
 	SetFontColour(215, 215, 215, 255);
 }
-
 
 
 void displayAcknowledgements()
@@ -1264,10 +1262,6 @@ void displayAcknowledgements()
 }
 
 
-
-
-
-
 void SetTileImage(int tile_no)
 {
 
@@ -1300,6 +1294,7 @@ void SetTileImage(int tile_no)
 
 }
 
+
 void loadLogoImage()
 {
     int x,y;
@@ -1310,6 +1305,7 @@ void loadLogoImage()
     LogoSprite.setPosition(x,y);
 
 }
+
 
 void drawLogo()
 {

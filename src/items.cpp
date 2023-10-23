@@ -17,6 +17,10 @@
 #include "actor.h" // for weapons
 #include "globals.h"
 #include "itemSelect.h"
+#include "effects.h"
+
+
+extern struct SearchResult;
 
 buffer_item itemBuffer[itemBufferSize]; // Items on floor,carried and in void - now 250
 
@@ -168,28 +172,37 @@ int itemOffsets[141] =
 }; // Dungeon items only
 
 
-void loadDungeonItems()
-{
-    // Load items into binary char array
+#include <cstdio>
 
-    FILE *fp;               // file pointer - used when reading files
-    char tempString[100];   // temporary string
-    sprintf(tempString,"%s%s","data/map/","items.bin");
-    fp = fopen(tempString, "rb");
-    if( fp != NULL )
-    {
-        for(int i=0;i<dungeonItemsSize;i++)
-        {
-            dungeonItems[i] = fgetc(fp);
-        }
-    }
-    fclose(fp);
+#include <cstdio> // Include the necessary header
+
+void loadDungeonItems() {
+	FILE* fp;               // file pointer - used when reading files
+	char tempString[100];   // temporary string
+	sprintf_s(tempString, sizeof(tempString), "%s%s", "data/map/", "items.bin");
+
+	// Use fopen_s for improved error handling
+	if (fopen_s(&fp, tempString, "rb") == 0 && fp != NULL) {
+		// File opened successfully
+		for (int i = 0; i < dungeonItemsSize; i++) {
+			dungeonItems[i] = fgetc(fp);
+		}
+		fclose(fp); // Close the file when done
+	}
+	else {
+		// Handle file open error
+		// You can print an error message or take appropriate action
+		perror("Error opening file");
+	}
 }
+
+
+
 
 
 buffer_item tempBuffer[itemBufferSize]; // Temp buffer for rebuilding new object buffer when bufferIndex reaches 99
 
-extern effectItem effectBuffer[50]; // active time limited effects from spells, scrolls, eyes
+
 
 
 
@@ -314,6 +327,8 @@ int createItem(
         int good,
         int evil,
         int cold,
+		int nature,
+		int acid,
         int weight,
         int alignment,
         int melee,
@@ -352,6 +367,8 @@ int createItem(
 	new_item.good           = good;
 	new_item.evil           = evil;
 	new_item.cold           = cold;
+	new_item.nature			= nature;
+	new_item.acid			= acid;
 	new_item.weight         = weight;
 	new_item.alignment      = alignment;
 	new_item.melee          = melee;
@@ -373,16 +390,21 @@ int createItem(
 
 void createBareHands()
 {
-    int itemRef = createItem(178,0,"bare hand",255,255,6,0,0,1,0x15,0,0,0,0,0,0,0,0,0,0,0,0,255,0,0);
+    int itemRef = createItem(178,0,"bare hand",255,255,6,0,0,1,0x15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255,0,0);
     itemBuffer[itemRef].location = 99; // body part of player - 99 so it doesn't show up in the inventory
     //plyr.priWeapon = itemRef;
     //plyr.secWeapon = itemRef;
 }
 
+
 void moveItem(int itemRef,int newLocation)
 {
 	itemBuffer[itemRef].location = newLocation;
-	if (plyr.priWeapon==itemRef) plyr.priWeapon = 255;
+	if (plyr.priWeapon == itemRef)
+	{
+		plyr.priWeapon = 255;
+		removeItemBuff(itemRef);
+	}
 	if (plyr.secWeapon==itemRef) plyr.secWeapon = 255;
 	if (plyr.armsArmour==itemRef) plyr.armsArmour = 255;
 	if (plyr.legsArmour==itemRef) plyr.legsArmour = 255;
@@ -407,6 +429,7 @@ string getItemDesc(int itemRef)
 	if (itemBuffer[itemRef].type==201) itemDesc = questItems[(itemBuffer[itemRef].index)].name;
 	return itemDesc;
 }
+
 
 int createPotion(int potion_no)
 {
@@ -470,6 +493,7 @@ int createClothing(int clothing_no)
 	 plyr.buffer_index++;
      return new_item_ref; // what was the new items index in the object buffer
 }
+
 
 int createQuestItem(int questItemNo)
 {
@@ -586,8 +610,6 @@ void getItems()
         cur_idx++;
   }
 }
-
-
 
 
 void displayObjectBuffer()
@@ -1037,10 +1059,6 @@ void determineItemAction(int selectItemMode, int itemRef)
 }
 
 
-
-
-
-
 void withdrawalObject(int itemRef)
 {
 	int itemQuantity = inputWithdrawalQuantity(itemRef);
@@ -1122,9 +1140,6 @@ void withdrawalObject(int itemRef)
 }
 
 
-
-
-
 int inputWithdrawalQuantity(int itemRef)
 {
 	int itemQuantity = 0;
@@ -1188,6 +1203,7 @@ int inputWithdrawalQuantity(int itemRef)
 
 	return itemQuantity;
 }
+
 
 void depositObject(int itemRef)
 {
@@ -1269,6 +1285,7 @@ void depositObject(int itemRef)
 
 	}
 }
+
 
 int inputDepositQuantity(int itemRef)
 {
@@ -1386,24 +1403,40 @@ int inputItemQuantity(int selectItemMode)
 	return itemQuantity;
 }
 
+
 void dropObject(int object_ref)
 {
 	// Turn lit torch to stick when dropped
+
+	if (itemBuffer[object_ref].name == "Lit Torch")
+	{
+		itemBuffer[object_ref].name = "stick";
+		checkplayerLight();
+	}
 	itemBuffer[object_ref].location = 1;
 	itemBuffer[object_ref].x = plyr.x;
 	itemBuffer[object_ref].y = plyr.y;
 	itemBuffer[object_ref].level = plyr.map;
-	if (plyr.headArmour==object_ref) plyr.headArmour = 255;
-	if (plyr.bodyArmour==object_ref) plyr.bodyArmour = 255;
-	if (plyr.armsArmour==object_ref) plyr.armsArmour = 255;
-	if (plyr.legsArmour==object_ref) plyr.legsArmour = 255;
-	if (plyr.priWeapon==object_ref) plyr.priWeapon = 0;         // Set bufferItem[0] - bare hand
-	if (plyr.secWeapon==object_ref) plyr.secWeapon = 0;         // Set bufferItem[0] - bare hand
+	if (plyr.headArmour == object_ref) plyr.headArmour = 255;
+	if (plyr.bodyArmour == object_ref) plyr.bodyArmour = 255;
+	if (plyr.armsArmour == object_ref) plyr.armsArmour = 255;
+	if (plyr.legsArmour == object_ref) plyr.legsArmour = 255;
+	if (plyr.priWeapon == object_ref)
+	{
+	plyr.priWeapon = 0;
+	}// Set bufferItem[0] - bare hand
+	if (plyr.secWeapon == object_ref)
+	{
+		plyr.secWeapon = 0;         // Set bufferItem[0] - bare hand
+	}
 	if (plyr.clothing[0]==object_ref) plyr.clothing[0] = 255;
 	if (plyr.clothing[1]==object_ref) plyr.clothing[1] = 255;
 	if (plyr.clothing[2]==object_ref) plyr.clothing[2] = 255;
 	if (plyr.clothing[3]==object_ref) plyr.clothing[3] = 255;
+
+	//Check item buffs
 }
+
 
 void dropVolumeObject(int selectItemMode,int object_ref)
 {
@@ -1498,7 +1531,6 @@ void dropVolumeObject(int selectItemMode,int object_ref)
 }
 
 
-
 void useObject(int object_ref)
 {
 	// Determine object type and pass object_ref to appropriate function
@@ -1520,6 +1552,7 @@ void use_questItem(int object_ref)
 {
 	if (itemBuffer[object_ref].index == 4) { displayLocation(); } // map stone
 }
+
 
 void use_ammoItem(int object_ref)
 {
@@ -1543,13 +1576,17 @@ void use_armor(int object_ref)
 	if (itemBuffer[object_ref].melee == 2) {plyr.armsArmour = object_ref;}
 	if (itemBuffer[object_ref].melee == 3) {plyr.legsArmour = object_ref;}
 	cout << itemBuffer[object_ref].melee << "\n";
+
+	//Add armour buff 
+
 	//int armorRef = itemBuffer[object_ref].index;
-//	if (Armor[armorRef].bodyLocation==1) {plyr.headArmour = object_ref;}
-//	if (Armor[armorRef].bodyLocation==2) {plyr.bodyArmour = object_ref;}
-//	if (Armor[armorRef].bodyLocation==3) {plyr.armsArmour = object_ref;}
-//	if (Armor[armorRef].bodyLocation==4) {plyr.legsArmour = object_ref;}
+	//	if (Armor[armorRef].bodyLocation==1) {plyr.headArmour = object_ref;}
+	//	if (Armor[armorRef].bodyLocation==2) {plyr.bodyArmour = object_ref;}
+	//	if (Armor[armorRef].bodyLocation==3) {plyr.armsArmour = object_ref;}
+	//	if (Armor[armorRef].bodyLocation==4) {plyr.legsArmour = object_ref;}
 
 }
+
 
 void use_potion(int object_ref)
 {
@@ -1595,6 +1632,7 @@ void use_potion(int object_ref)
 			if (key_value == "ESC") {keypressed=true; }
     }
 }
+
 
 void quaffPotion(int object_ref)
 {
@@ -1656,6 +1694,7 @@ void quaffPotion(int object_ref)
     tidyObjectBuffer();
 }
 
+
 void use_clothing(int object_ref)
 {
 	//int clothingRef = itemBuffer[object_ref].index;
@@ -1665,16 +1704,20 @@ void use_clothing(int object_ref)
 	if ((plyr.clothing[2]==255) && (!allocated)) { plyr.clothing[2] = object_ref; allocated = true; }
 	if ((plyr.clothing[3]==255) && (!allocated)) { plyr.clothing[3] = object_ref; allocated = true; }
 
-					//	  clothing = itemBuffer[object_ref].index;
-					//	  str = clothingItems[clothing].name;
+	//Update clothing buff
+
+	//	  clothing = itemBuffer[object_ref].index;
+	//	  str = clothingItems[clothing].name;
 
 	if ((plyr.clothing[3]!=255) && (!allocated))
 	{
 		swapClothing(object_ref);
 	}
 
+	checkItemBuff();
 	//if (object_ref == plyr.secWeapon) { plyr.secWeapon = 255; }    // can't have same pri and sec weapon
 }
+
 
 void swapClothing(int object_ref)
 {
@@ -1713,7 +1756,9 @@ void swapClothing(int object_ref)
 		if (key == "4") { plyr.clothing[3] = object_ref; keypressed=true; }
 		if (key == "ESC") keypressed=true;
 	}
+	checkItemBuff();
 }
+
 
 void use_weapon(int object_ref)
 {
@@ -1746,22 +1791,19 @@ void use_weapon(int object_ref)
 				plyr.secWeapon = object_ref;
 				if (object_ref == plyr.priWeapon) { plyr.priWeapon = 255; } // can't have same pri and sec weapon
 				itemBuffer[plyr.secWeapon].location = 10; // secondary was 12
-				plyr.torches--; // ??????
+				if (plyr.secWeapon)
+				{
+					plyr.torches--; // ??????
+				}
 				keypressed=true;
 				// remove old secondary ref if exists
 			}
 			if (key_value == "ESC") {keypressed=true; }
         }
         // use_weapon();
-
-
+		checkplayerLight();
+		checkItemBuff();
 }
-
-
-
-
-
-
 
 
 void use_torch()
@@ -1796,19 +1838,21 @@ void use_torch()
 
 		if (key_value == "1")
         {
-            plyr.priWeapon = createItem(178,0x0,"Lit Torch",0x16,0x16, 0x82, 0x04, 0x01, 0x0, 0x13,0,0,0,0x13,0,0,0,0,0,0,0x02,0,0xFF,0,0x03);
+            plyr.priWeapon = createItem(178,0x0,"Lit Torch",0x16,0x16, 0x82, 0x04, 0x01, 0x0, 0x13,0,0,0,0x13,0,0,0,0,0,0,0,0,0x02,0,0xFF,0,0x03);
             //createWeapon(71); // create a new lit torch was 11
             itemBuffer[plyr.priWeapon].location = 10; // primary was 11
             plyr.torches--;
             // remove old primary ref if exists
 			keypressed=true;
+			checkplayerLight();
         }
         if (key_value == "2")
         {
-            plyr.secWeapon = createItem(178,0x0,"Lit Torch",0x16,0x16, 0x82, 0x04, 0x01, 0x0, 0x13,0,0,0,0x13,0,0,0,0,0,0,0x02,0,0xFF,0,0x03);
+            plyr.secWeapon = createItem(178,0x0,"Lit Torch",0x16,0x16, 0x82, 0x04, 0x01, 0x0, 0x13,0,0,0,0x13,0,0,0,0,0,0,0,0,0x02,0,0xFF,0,0x03);
             itemBuffer[plyr.secWeapon].location = 10; // secondary was 12
             plyr.torches--;
 			keypressed=true;
+			checkplayerLight();
             // remove old secondary ref if exists
         }
         if (key_value == "ESC") {keypressed=true; }
@@ -1829,7 +1873,6 @@ void use_torch()
      }
 
 }
-
 
 
 int createWeapon(int weapon_no)
@@ -1911,10 +1954,6 @@ int createGenericItem(int type, int value)
 }
 
 
-
-
-
-
 void use_food()
 {
      if (plyr.food > 0)
@@ -1937,7 +1976,6 @@ void use_water()
      }
 
 }
-
 
 
 void use_timepiece()
@@ -1980,7 +2018,6 @@ void use_timepiece()
 }
 
 
-
 void checkForItemsHere()
 {
   // counts number of objects on a map square - equal to 1
@@ -1999,6 +2036,7 @@ void checkForItemsHere()
 
 }
 
+
 int checkForGenericItemsHere(int type)
 {
   // counts number of objects on a map square - equal to 1
@@ -2015,6 +2053,7 @@ int checkForGenericItemsHere(int type)
   return value;
 }
 
+
 bool checkForQuestItem(int itemNo)
 {
   // checks through item buffer for carried quest items of type 200
@@ -2029,6 +2068,7 @@ bool checkForQuestItem(int itemNo)
   return response;
 }
 
+
 int getQuestItemRef(int itemNo)
 {
   // checks through item buffer for carried quest items of type 200
@@ -2042,7 +2082,6 @@ int getQuestItemRef(int itemNo)
   }
   return response;
 }
-
 
 
 void displayLocation()
@@ -2069,7 +2108,6 @@ void displayLocation()
 		if (key!="") { keynotpressed = false; }
 	}
 }
-
 
 
 void tidyObjectBuffer()
@@ -2109,6 +2147,7 @@ void tidyObjectBuffer()
 	}
 }
 
+
 int returnCarriedWeight()
 {
 	int carriedWeight = 0;
@@ -2135,13 +2174,17 @@ int returnCarriedWeight()
 //            if (itemBuffer[i].type==177) { itemWeight = itemBuffer[i].weight; }
 //            if (itemBuffer[i].type==178) { itemWeight = itemBuffer[i].weight; }
 //            if (itemBuffer[i].type==180) { itemWeight = itemBuffer[i].weight; }
-				  itemWeight = itemBuffer[i].weight;
+			if (itemBuffer[i].weight > 0)
+			{
+				itemWeight = itemBuffer[i].weight;
 				carriedWeight += itemWeight;
+			}
 			itemWeight = 0;
 		}
 	}
 	return carriedWeight;
 }
+
 
 void cannotCarryMessage()
 {
@@ -2154,6 +2197,7 @@ void cannotCarryMessage()
 		key = getSingleKey();
 	}
 }
+
 
 void itemMessage(string message)
 {
@@ -2170,4 +2214,32 @@ void itemMessage(string message)
 		key = getSingleKey();
 		if (key!="") { keynotpressed = false; }
 	}
+}
+
+
+void checkItemBuff()
+{
+
+	if (itemBuffer[plyr.priWeapon].buffType > 0) { applyEffect(INT_MAX, itemBuffer[plyr.priWeapon].effect); }else { applyEffect(0, itemBuffer[plyr.priWeapon].effect); }
+	if (itemBuffer[plyr.secWeapon].buffType > 0) { applyEffect(INT_MAX, itemBuffer[plyr.secWeapon].effect); }else {applyEffect(0, itemBuffer[plyr.secWeapon].effect);}
+	if (itemBuffer[plyr.headArmour].buffType > 0) { applyEffect(INT_MAX, itemBuffer[plyr.headArmour].effect); }else{ applyEffect(0, itemBuffer[plyr.headArmour].effect); }
+	if (itemBuffer[plyr.bodyArmour].buffType > 0) { applyEffect(INT_MAX, itemBuffer[plyr.bodyArmour].effect); }else{ applyEffect(0, itemBuffer[plyr.bodyArmour].effect); }
+	if (itemBuffer[plyr.armsArmour].buffType > 0) { applyEffect(INT_MAX, itemBuffer[plyr.armsArmour].effect); }else{ applyEffect(0, itemBuffer[plyr.armsArmour].effect); }
+	if (itemBuffer[plyr.legsArmour].buffType > 0) { applyEffect(INT_MAX, itemBuffer[plyr.legsArmour].effect); }else{ applyEffect(0, itemBuffer[plyr.legsArmour].effect); }
+	if (itemBuffer[plyr.clothing[0]].buffType > 0) { applyEffect(INT_MAX, itemBuffer[plyr.clothing[0]].effect); }else{ applyEffect(0, itemBuffer[plyr.clothing[0]].effect); }
+	if (itemBuffer[plyr.clothing[1]].buffType > 0) { applyEffect(INT_MAX, itemBuffer[plyr.clothing[1]].effect); }else{ applyEffect(0, itemBuffer[plyr.clothing[1]].effect); }
+	if (itemBuffer[plyr.clothing[2]].buffType > 0) { applyEffect(INT_MAX, itemBuffer[plyr.clothing[2]].effect); }else{ applyEffect(0, itemBuffer[plyr.clothing[2]].effect); }
+	if (itemBuffer[plyr.clothing[3]].buffType > 0) { applyEffect(INT_MAX, itemBuffer[plyr.clothing[3]].effect); }else{ applyEffect(0, itemBuffer[plyr.clothing[3]].effect); }
+
+}
+
+
+void removeItemBuff(int itemId)
+{
+	updateWeaponBuff(16383, 0);
+
+	SearchResult WeaponBuffNo = findEffectBySpellTypeOrLastFree(4, 50);
+
+	effectBuffer[WeaponBuffNo.index].effectNo = 0;
+	effectBuffer[WeaponBuffNo.index].effectNo = 0;
 }

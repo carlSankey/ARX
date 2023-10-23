@@ -99,7 +99,7 @@ int main()
 
 		if ( key=="4" ) { displayAcknowledgements(); }
 
-/*
+
 		if ( key=="5" )
 		{
 			if (graphicMode==0) { graphicMode=1; dispInit();}
@@ -109,7 +109,7 @@ int main()
 			if (graphicMode==2) { graphicMode=0; createGameWindow();dispInit();}
 
 		}
-*/
+
 		if ( key=="6" )
 		{
 			if (plyr.musicStyle==0) { plyr.musicStyle=1;}

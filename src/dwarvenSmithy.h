@@ -25,3 +25,15 @@ void addDwarvenSmithyToMap();
 void makeCustomWeaponOffer();
 void createCustomWeapon();
 void calculateForgeBonus(int additionalGemsOffered);
+#ifndef _dwarvenSmithyh 
+#define _dwarvenSmithyh 
+ 
+// Your existing header content goes here 
+ 
+#endif // _dwarvenSmithyh 
+#ifndef _dwarvenSmithyh 
+#define _dwarvenSmithyh 
+ 
+// Your existing header content goes here 
+ 
+#endif // _dwarvenSmithyh 

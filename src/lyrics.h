@@ -1,3 +1,8 @@
+
+#ifndef _lyricsh 
+#define _lyricsh 
+
+
 #include <string>
 
 void initLyricFont();
@@ -7,4 +12,8 @@ void lyric(int x, std::string text); // draw string at x,y
 void loadLyrics(string filename);
 void updateLyrics();
 
+
+// Your existing header content goes here 
+ 
+#endif // _lyricsh 
 

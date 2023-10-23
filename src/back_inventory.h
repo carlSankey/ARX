@@ -1,3 +1,7 @@
+
+#ifndef _back_inventoryh 
+#define _back_inventoryh 
+
 // Inventory.h
 //
 // Handles the binary object block that holds all information for active, in game:
@@ -42,3 +46,7 @@ void deleteItem(int itemNo);
 
 
 
+ 
+// Your existing header content goes here 
+ 
+#endif // _back_inventoryh 

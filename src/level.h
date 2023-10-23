@@ -1,3 +1,7 @@
+
+#ifndef _levelh 
+#define _levelh 
+
 #include <string>
 
 void loadBinaryLevel();
@@ -83,3 +87,8 @@ struct zoneRecord
 };
 
 extern zoneRecord zones[28];
+
+ 
+// Your existing header content goes here 
+ 
+#endif // _levelh 

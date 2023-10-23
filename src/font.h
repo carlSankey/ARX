@@ -1,3 +1,6 @@
+#ifndef _fonth 
+#define _fonth 
+
 #include <string>
 
 void InitFont();
@@ -13,3 +16,9 @@ void SetFontColour(int r,int g, int b, int a);
 
 void text(int x, int y, std::string text); // draw text at x,y onto App window
 void text(int x, int y, int number); // draw number at x,y onto App window
+
+ 
+// Your existing header content goes here 
+ 
+#endif // _fonth 
+

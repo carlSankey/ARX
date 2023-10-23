@@ -9,6 +9,8 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <windows.h>
+
 
 extern int windowMode, graphicMode, windowWidth, windowHeight;
 
@@ -21,13 +23,20 @@ using std::endl;
 
 bool loadConfig()
 {
+
+	char buffer[MAX_PATH];
+	GetCurrentDirectoryA(MAX_PATH, buffer);
+
+	std::cout << "Current Working Directory: " << buffer << std::endl;
+
+
 	std::ifstream instream;
 	string filename = "arx.ini";
 	instream.open(filename.c_str());
-	if( !instream )
-	{
-		cerr << "Error: arx.ini could not be loaded" << endl;
-		return 0;
+
+	if (!instream) {
+		std::cerr << "Failed to open file: " << filename << std::endl;
+		return 1;
 	}
 	string junk, line, text;
 	int iniSettings = 4; // number of settings in the ini file

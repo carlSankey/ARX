@@ -1,3 +1,7 @@
+
+#ifndef _encounterh 
+#define _encounterh 
+
 #include <string>
 
 
@@ -56,15 +60,17 @@ void initMonster(int monsterNo);
 void playerAttack(int attackType,float attackFactorBonus);
 //void displayMonsterDiag();
 void opponentAttack();
-void opponentDeath();
+void opponentDeath(int opponent);
 void playerCharm();
 void playerTrick();
 void playerTransact();
 void playerHail();
 void playerOffer();
 void playerSwitchWeapons();
+void playerCast(int spellNo);
 int opponentChooseWeapon();
 int calcPlayerWeaponDamage(int weaponNo, float attackFactor, int attacker);
+int calcPlayerSpellDamage(int spellNo, int attacker);
 int calcOpponentWeaponDamage(int weaponNo,float attackFactor, int attacker);
 void checkAlignmentEncounter(int opponentNo);
 
@@ -79,9 +85,15 @@ struct encRecord
 };
 
 
+
 double round(double d);
 
 
 
 
+
+ 
+// Your existing header content goes here 
+ 
+#endif // _encounterh 
 

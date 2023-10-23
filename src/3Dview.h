@@ -1,3 +1,6 @@
+#ifndef _3Dviewh 
+#define _3Dviewh 
+
 void draw3DView();
 void draw3DBackground();
 void calculateWallPositions(int c,int d);
@@ -7,3 +10,5 @@ int getTextureIndex(int x);
 void loadTextureNames();
 void initTextures();
 void loadBackgroundNames();
+
+#endif // _3Dviewh 

@@ -884,22 +884,34 @@ void stockDamon()
 }
 
 
-void loadDamonBinary()
-{
-    // Loads armour,weapons and clothing binary data into the "damonBinary" array
-    FILE *fp;               // file pointer - used when reading files
-    char tempString[100];   // temporary string
-    sprintf(tempString,"%s%s","data/map/","DamonItems.bin");
-    fp = fopen(tempString, "rb");
-    if( fp != NULL )
-    {
-        for(int i=0;i<damonFileSize;i++)
-        {
-            damonBinary[i] = fgetc(fp);
-        }
-    }
-    fclose(fp);
+void loadDamonBinary() {
+	FILE* fp = nullptr;       // Initialize fp to nullptr
+
+	char tempString[100];     // temporary string
+	int err = sprintf_s(tempString, sizeof(tempString), "%s%s", "data/map/", "DamonItems.bin");
+
+	if (err > 0) {
+		// Attempt to open the file for reading in binary mode
+		err = fopen_s(&fp, tempString, "rb");
+	}
+
+	if (err == 0 && fp != nullptr) {
+		// File opened successfully
+		for (int i = 0; i < damonFileSize; i++) {
+			damonBinary[i] = fgetc(fp);
+		}
+		fclose(fp);
+	}
+	else {
+		// Handle file open error
+		perror("Error opening file");
+	}
 }
+
+
+
+
+
 
 
 string readNameString(int stringOffset)
@@ -926,7 +938,7 @@ string readNameString(int stringOffset)
 
 int createInventoryItem(int startByte)
 {
-    int index,alignment,weight,wAttributes,melee,ammo,blunt,sharp,earth,air,fire,water,power,magic,good,evil,cold,
+    int index,alignment,weight,wAttributes,melee,ammo,blunt,sharp,earth,air,fire,water,power,magic,good,evil,cold,nature,acid,
         minStrength,minDexterity,hp,maxHP,flags,parry,useStrength;
 
     int offset = startByte;
@@ -956,12 +968,14 @@ int createInventoryItem(int startByte)
         good               = damonBinary[wAttributes+11];
         evil               = damonBinary[wAttributes+12];
         cold               = damonBinary[wAttributes+13];
-        minStrength        = damonBinary[wAttributes+14];
-        minDexterity       = damonBinary[wAttributes+15];
-        hp                 = damonBinary[wAttributes+16];
-        maxHP              = damonBinary[wAttributes+17];
-        flags              = damonBinary[wAttributes+18];
-        parry              = damonBinary[wAttributes+19];
+		nature             = damonBinary[wAttributes+14];
+		acid               = damonBinary[wAttributes+15];
+        minStrength        = damonBinary[wAttributes+16];
+        minDexterity       = damonBinary[wAttributes+17];
+        hp                 = damonBinary[wAttributes+18];
+        maxHP              = damonBinary[wAttributes+19];
+        flags              = damonBinary[wAttributes+20];
+        parry              = damonBinary[wAttributes+21];
     }
 
     if (itemType == 4)
@@ -987,6 +1001,8 @@ int createInventoryItem(int startByte)
         good               = damonBinary[wAttributes+10];
         evil               = damonBinary[wAttributes+11];
         cold               = damonBinary[wAttributes+12];
+		nature             = damonBinary[wAttributes+13];
+		acid               = damonBinary[wAttributes+14];
         minStrength        = 0;
         minDexterity       = 0;
         hp                 = damonBinary[wAttributes+13];
@@ -1018,6 +1034,8 @@ int createInventoryItem(int startByte)
         good               = 0;
         evil               = 0;
         cold               = 0;
+		nature             = 0;
+		acid               = 0;
         minStrength        = 0;
         minDexterity       = 0;
         hp                 = 0;
@@ -1027,8 +1045,9 @@ int createInventoryItem(int startByte)
     }
 
     int newItemRef = createItem(itemType,index,itemName,hp,maxHP,flags,minStrength,minDexterity,useStrength,blunt,
-                                sharp,earth,air,fire,water,power,magic,good,evil,cold,weight,alignment,melee,ammo,parry);
+                                sharp,earth,air,fire,water,power,magic,good,evil,cold,nature,acid,weight,alignment,melee,ammo,parry);
     itemBuffer[newItemRef].location = 10; // Add to player inventory - 10
+	return 1;
 }
 
 

@@ -1,3 +1,6 @@
+#ifndef _misch 
+#define _misch 
+
 #include <string>
 
 using namespace std;
@@ -23,3 +26,8 @@ void deductCoins(int gold,int silver, int copper);
 
 int inputValue(string message,int shopNo);
 void moduleMessage(string txt);
+
+// Your existing header content goes here 
+ 
+#endif // _misch 
+

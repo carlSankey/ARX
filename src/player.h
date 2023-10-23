@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include <string>
+#include <bitset>
 
 using namespace std;
 
@@ -20,6 +21,7 @@ void addDay();
 void addMonth();
 void addYear();
 
+
 string checkAlcohol();
 string checkHunger();
 string checkThirst();
@@ -28,19 +30,13 @@ string checkPoison();
 string checkDisease();
 void updateDisease(int hour);
 void updatePoison();
+void updateSpell(int hour);
+void applyEffect(int hour, int effectid);
+void updateNoticability();
+void checkplayerLight();
+// player.h
+void updateWeaponBuff(std::bitset<13> binaryWeaponBuff, int positiveValue);
 
-
-
-
-
-struct effectItem
-{
-	//string name;
-	int effect;
-	int negativeValue;
-	int positiveValue;
-	int duration;
-};
 
 
 struct doorDetail
@@ -171,7 +167,7 @@ struct Player
   int lsilver;
   int lcopper;
   int spellIndex;
-  int effectIndex;
+  int effectIndex;  
 
   int shopFriendships[15];
   int tavernFriendships[14];
@@ -208,7 +204,7 @@ struct Player
   int diseases[4];
   int poison[4]; // Four strengths of poison
   int delusion;
-  int invulnerability[9];
+  int invulnerability[13];
   int noticeability;
   int protection1;
   int protection2;
@@ -250,12 +246,20 @@ struct Player
   string forgeName;
 
   int stolenFromVault;
+
+  // New 0.90 variables
+  int stamina;
+  int ActiveSpell[4];
+  int darkness;
+  int light;
+  int supervision;
 };
+
 
 
 extern Player plyr;
 
-extern effectItem effectBuffer[50]; // active time limited effects from spells, scrolls, eyes
+
 
 extern bool autoMapExplored[5][4096]; // 5 levels of 4096 on/off values
 
@@ -267,3 +271,7 @@ extern int tavernDailyDrinks[14][6]; // 14 taverns with 6 drink items each day f
 
 
  #endif
+
+ 
+
+

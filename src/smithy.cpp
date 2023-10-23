@@ -584,22 +584,30 @@ string readSmithyItemString(int stringOffset)
     return result;
 }
 
-void loadCitySmithyBinary()
-{
-    // Loads armour and weapons binary data into the "citySmithyBinary" array
-    FILE *fp;               // file pointer - used when reading files
-    char tempString[100];   // temporary string
-    sprintf(tempString,"%s%s","data/map/","smithyItems.bin");
-    fp = fopen(tempString, "rb");
-    if( fp != NULL )
-    {
-        for(int i=0;i<citySmithyFileSize;i++)
-        {
-            citySmithyBinary[i] = fgetc(fp);
-        }
-    }
-    fclose(fp);
+#include <cstdio> // Include the necessary header for fopen
+
+void loadCitySmithyBinary() {
+	FILE* fp;               // file pointer - used when reading files
+	char tempString[100];   // temporary string
+	sprintf_s(tempString, sizeof(tempString), "%s%s", "data/map/", "smithyItems.bin");
+
+	// Use fopen_s for improved error handling
+	if (fopen_s(&fp, tempString, "rb") == 0 && fp != NULL) {
+		// File opened successfully
+		for (int i = 0; i < citySmithyFileSize; i++) {
+			citySmithyBinary[i] = fgetc(fp);
+		}
+		fclose(fp); // Close the file when done
+	}
+	else {
+		// Handle file open error
+		// You can print an error message or take appropriate action
+		perror("Error opening file");
+	}
 }
+
+
+
 
 
 
@@ -608,7 +616,7 @@ void loadCitySmithyBinary()
 
 int createCitySmithyInventoryItem(int startByte)
 {
-    int index,alignment,weight,wAttributes,melee,ammo,blunt,sharp,earth,air,fire,water,power,magic,good,evil,cold,
+    int index,alignment,weight,wAttributes,melee,ammo,blunt,sharp,earth,air,fire,water,power,magic,good,evil,cold,nature,acid,
         minStrength,minDexterity,hp,maxHP,flags,parry,useStrength;
 
     int offset = startByte;
@@ -638,6 +646,8 @@ int createCitySmithyInventoryItem(int startByte)
         good               = citySmithyBinary[wAttributes+11];
         evil               = citySmithyBinary[wAttributes+12];
         cold               = 0; // No cold damage for City items
+		nature = 0;// No cold damage for City items
+		acid = 0; // No cold damage for City items
         citySmithyBinary[wAttributes+13];
         minStrength        = citySmithyBinary[wAttributes+13];
         minDexterity       = citySmithyBinary[wAttributes+14];
@@ -677,6 +687,8 @@ int createCitySmithyInventoryItem(int startByte)
         good               = citySmithyBinary[wAttributes+10];
         evil               = citySmithyBinary[wAttributes+11];
         cold               = 0;
+		nature = 0;
+
         minStrength        = 0;
         minDexterity       = 0;
         hp                 = 56; //citySmithyBinary[wAttributes+12];
@@ -686,6 +698,7 @@ int createCitySmithyInventoryItem(int startByte)
     }
 //cout << itemName << " " << std::hex << "HP:" << hp << " Bl:" << blunt << " " << "Sh:" << sharp << "\n";
     int newItemRef = createItem(itemType,index,itemName,hp,maxHP,flags,minStrength,minDexterity,useStrength,blunt,
-                                sharp,earth,air,fire,water,power,magic,good,evil,cold,weight,alignment,melee,ammo,parry);
+                                sharp,earth,air,fire,water,power,magic,good,evil,cold,nature,acid,weight,alignment,melee,ammo,parry);
     itemBuffer[newItemRef].location = 10; // Add to player inventory - 10
+	return 1;
 }

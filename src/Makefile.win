@@ -4,15 +4,15 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-RES      = ../obj/ARx_private.res
-OBJ      = ../obj/3Dview.o ../obj/actor.o ../obj/arena.o ../obj/ARX.o ../obj/audio.o ../obj/automap.o ../obj/bank.o ../obj/chapel.o ../obj/config.o ../obj/createCharacter.o ../obj/damon.o ../obj/dev.o ../obj/display.o ../obj/dwarvenSmithy.o ../obj/encounter.o ../obj/ferry.o ../obj/font.o ../obj/fountain.o ../obj/game.o ../obj/goblins.o ../obj/guild.o ../obj/healer.o ../obj/inn.o ../obj/items.o ../obj/itemSelect.o ../obj/level.o ../obj/lift.o ../obj/lyrics.o ../obj/misc.o ../obj/module.o ../obj/oracle.o ../obj/player.o ../obj/rathskeller.o ../obj/retreat.o ../obj/saveGame.o ../obj/screen.o ../obj/shop.o ../obj/smithy.o ../obj/spells.o ../obj/staircase.o ../obj/tavern.o ../obj/trolls.o ../obj/undeadKing.o ../obj/vaults.o $(RES)
-LINKOBJ  = ../obj/3Dview.o ../obj/actor.o ../obj/arena.o ../obj/ARX.o ../obj/audio.o ../obj/automap.o ../obj/bank.o ../obj/chapel.o ../obj/config.o ../obj/createCharacter.o ../obj/damon.o ../obj/dev.o ../obj/display.o ../obj/dwarvenSmithy.o ../obj/encounter.o ../obj/ferry.o ../obj/font.o ../obj/fountain.o ../obj/game.o ../obj/goblins.o ../obj/guild.o ../obj/healer.o ../obj/inn.o ../obj/items.o ../obj/itemSelect.o ../obj/level.o ../obj/lift.o ../obj/lyrics.o ../obj/misc.o ../obj/module.o ../obj/oracle.o ../obj/player.o ../obj/rathskeller.o ../obj/retreat.o ../obj/saveGame.o ../obj/screen.o ../obj/shop.o ../obj/smithy.o ../obj/spells.o ../obj/staircase.o ../obj/tavern.o ../obj/trolls.o ../obj/undeadKing.o ../obj/vaults.o $(RES)
-LIBS     = -L"D:/mingw/lib" -L"D:/mingw/mingw32/lib" -static-libstdc++ -static-libgcc -L"D:/Alternate Reality/libs" ../../libs/libsfml-audio-s-d.a ../../libs/libopenal32.a ../../libs/libFLAC.a ../../libs/libvorbisenc.a ../../libs/libvorbisfile.a ../../libs/libvorbis.a ../../libs/libogg.a  ../../../mingw/lib/libdinput8.a ../../libs/libsfml-graphics-s-d.a ../../libs/libsfml-window-s-d.a ../../libs/libsfml-system-s-d.a ../../libs/libopengl32.a ../../libs/libfreetype.a ../../libs/libjpeg.a  ../../libs/libwinmm.a ../../libs/libgdi32.a  ../../libs/libglu32.a
-INCS     = -I"D:/mingw/include" -I"D:/mingw/mingw32/include" -I"D:/mingw/lib/gcc/mingw32/6.3.0/include" -I"D:/Alternate Reality/include"
-CXXINCS  = -I"D:/mingw/include" -I"D:/mingw/mingw32/include" -I"D:/mingw/lib/gcc/mingw32/6.3.0/include" -I"D:/mingw/lib/gcc/mingw32/6.3.0/include/c++" -I"D:/Alternate Reality/include"
-BIN      = ../bin/ARx.exe
-CXXFLAGS = $(CXXINCS) -DSFML_STATIC -g
-CFLAGS   = $(INCS) -DSFML_STATIC -g
+RES      = obj/ARx_private.res
+OBJ      = obj/3Dview.o obj/actor.o obj/arena.o obj/ARX.o obj/audio.o obj/automap.o obj/bank.o obj/chapel.o obj/config.o obj/createCharacter.o obj/damon.o obj/dev.o obj/display.o obj/dwarvenSmithy.o obj/encounter.o obj/ferry.o obj/font.o obj/fountain.o obj/game.o obj/goblins.o obj/guild.o obj/healer.o obj/inn.o obj/items.o obj/itemSelect.o obj/level.o obj/lift.o obj/lyrics.o obj/misc.o obj/module.o obj/oracle.o obj/player.o obj/rathskeller.o obj/retreat.o obj/saveGame.o obj/screen.o obj/shop.o obj/smithy.o obj/spells.o obj/staircase.o obj/tavern.o obj/trolls.o obj/undeadKing.o obj/vaults.o $(RES)
+LINKOBJ  = obj/3Dview.o obj/actor.o obj/arena.o obj/ARX.o obj/audio.o obj/automap.o obj/bank.o obj/chapel.o obj/config.o obj/createCharacter.o obj/damon.o obj/dev.o obj/display.o obj/dwarvenSmithy.o obj/encounter.o obj/ferry.o obj/font.o obj/fountain.o obj/game.o obj/goblins.o obj/guild.o obj/healer.o obj/inn.o obj/items.o obj/itemSelect.o obj/level.o obj/lift.o obj/lyrics.o obj/misc.o obj/module.o obj/oracle.o obj/player.o obj/rathskeller.o obj/retreat.o obj/saveGame.o obj/screen.o obj/shop.o obj/smithy.o obj/spells.o obj/staircase.o obj/tavern.o obj/trolls.o obj/undeadKing.o obj/vaults.o $(RES)
+LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc -L"F:/Alternate Reality/libs" ../libs/libsfml-audio-s-d.a ../libs/libopenal32.a ../libs/libFLAC.a ../libs/libvorbisenc.a ../libs/libvorbisfile.a ../libs/libvorbis.a ../libs/libogg.a  ../libs/libdinput8.a ../libs/libsfml-graphics-s-d.a ../libs/libsfml-window-s-d.a ../libs/libsfml-system-s-d.a ../libs/libopengl32.a ../libs/libfreetype.a ../libs/libjpeg.a  ../libs/libwinmm.a ../libs/libgdi32.a  ../libs/libglu32.a  -L../libs -lglu32 -lopengl32 -lsfml-graphics -lsfml-window -lsfml-system
+INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"F:/Alternate Reality/include"
+CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++" -I"F:/Alternate Reality/include"
+BIN      = bin/ARx.exe
+CXXFLAGS = $(CXXINCS) -w -DSFML_STATIC -g
+CFLAGS   = $(INCS) -w -DSFML_STATIC -g
 RM       = rm.exe -f
 
 .PHONY: all all-before all-after clean clean-custom
@@ -25,138 +25,138 @@ clean: clean-custom
 $(BIN): $(OBJ)
 	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
 
-../obj/3Dview.o: 3Dview.cpp
-	$(CPP) -c 3Dview.cpp -o ../obj/3Dview.o $(CXXFLAGS)
+obj/3Dview.o: 3Dview.cpp
+	$(CPP) -c 3Dview.cpp -o obj/3Dview.o $(CXXFLAGS)
 
-../obj/actor.o: actor.cpp
-	$(CPP) -c actor.cpp -o ../obj/actor.o $(CXXFLAGS)
+obj/actor.o: actor.cpp
+	$(CPP) -c actor.cpp -o obj/actor.o $(CXXFLAGS)
 
-../obj/arena.o: arena.cpp
-	$(CPP) -c arena.cpp -o ../obj/arena.o $(CXXFLAGS)
+obj/arena.o: arena.cpp
+	$(CPP) -c arena.cpp -o obj/arena.o $(CXXFLAGS)
 
-../obj/ARX.o: ARX.cpp
-	$(CPP) -c ARX.cpp -o ../obj/ARX.o $(CXXFLAGS)
+obj/ARX.o: ARX.cpp
+	$(CPP) -c ARX.cpp -o obj/ARX.o $(CXXFLAGS)
 
-../obj/audio.o: audio.cpp
-	$(CPP) -c audio.cpp -o ../obj/audio.o $(CXXFLAGS)
+obj/audio.o: audio.cpp
+	$(CPP) -c audio.cpp -o obj/audio.o $(CXXFLAGS)
 
-../obj/automap.o: automap.cpp
-	$(CPP) -c automap.cpp -o ../obj/automap.o $(CXXFLAGS)
+obj/automap.o: automap.cpp
+	$(CPP) -c automap.cpp -o obj/automap.o $(CXXFLAGS)
 
-../obj/bank.o: bank.cpp
-	$(CPP) -c bank.cpp -o ../obj/bank.o $(CXXFLAGS)
+obj/bank.o: bank.cpp
+	$(CPP) -c bank.cpp -o obj/bank.o $(CXXFLAGS)
 
-../obj/chapel.o: chapel.cpp
-	$(CPP) -c chapel.cpp -o ../obj/chapel.o $(CXXFLAGS)
+obj/chapel.o: chapel.cpp
+	$(CPP) -c chapel.cpp -o obj/chapel.o $(CXXFLAGS)
 
-../obj/config.o: config.cpp
-	$(CPP) -c config.cpp -o ../obj/config.o $(CXXFLAGS)
+obj/config.o: config.cpp
+	$(CPP) -c config.cpp -o obj/config.o $(CXXFLAGS)
 
-../obj/createCharacter.o: createCharacter.cpp
-	$(CPP) -c createCharacter.cpp -o ../obj/createCharacter.o $(CXXFLAGS)
+obj/createCharacter.o: createCharacter.cpp
+	$(CPP) -c createCharacter.cpp -o obj/createCharacter.o $(CXXFLAGS)
 
-../obj/damon.o: damon.cpp
-	$(CPP) -c damon.cpp -o ../obj/damon.o $(CXXFLAGS)
+obj/damon.o: damon.cpp
+	$(CPP) -c damon.cpp -o obj/damon.o $(CXXFLAGS)
 
-../obj/dev.o: dev.cpp
-	$(CPP) -c dev.cpp -o ../obj/dev.o $(CXXFLAGS)
+obj/dev.o: dev.cpp
+	$(CPP) -c dev.cpp -o obj/dev.o $(CXXFLAGS)
 
-../obj/display.o: display.cpp
-	$(CPP) -c display.cpp -o ../obj/display.o $(CXXFLAGS)
+obj/display.o: display.cpp
+	$(CPP) -c display.cpp -o obj/display.o $(CXXFLAGS)
 
-../obj/dwarvenSmithy.o: dwarvenSmithy.cpp
-	$(CPP) -c dwarvenSmithy.cpp -o ../obj/dwarvenSmithy.o $(CXXFLAGS)
+obj/dwarvenSmithy.o: dwarvenSmithy.cpp
+	$(CPP) -c dwarvenSmithy.cpp -o obj/dwarvenSmithy.o $(CXXFLAGS)
 
-../obj/encounter.o: encounter.cpp
-	$(CPP) -c encounter.cpp -o ../obj/encounter.o $(CXXFLAGS)
+obj/encounter.o: encounter.cpp
+	$(CPP) -c encounter.cpp -o obj/encounter.o $(CXXFLAGS)
 
-../obj/ferry.o: ferry.cpp
-	$(CPP) -c ferry.cpp -o ../obj/ferry.o $(CXXFLAGS)
+obj/ferry.o: ferry.cpp
+	$(CPP) -c ferry.cpp -o obj/ferry.o $(CXXFLAGS)
 
-../obj/font.o: font.cpp
-	$(CPP) -c font.cpp -o ../obj/font.o $(CXXFLAGS)
+obj/font.o: font.cpp
+	$(CPP) -c font.cpp -o obj/font.o $(CXXFLAGS)
 
-../obj/fountain.o: fountain.cpp
-	$(CPP) -c fountain.cpp -o ../obj/fountain.o $(CXXFLAGS)
+obj/fountain.o: fountain.cpp
+	$(CPP) -c fountain.cpp -o obj/fountain.o $(CXXFLAGS)
 
-../obj/game.o: game.cpp
-	$(CPP) -c game.cpp -o ../obj/game.o $(CXXFLAGS)
+obj/game.o: game.cpp
+	$(CPP) -c game.cpp -o obj/game.o $(CXXFLAGS)
 
-../obj/goblins.o: goblins.cpp
-	$(CPP) -c goblins.cpp -o ../obj/goblins.o $(CXXFLAGS)
+obj/goblins.o: goblins.cpp
+	$(CPP) -c goblins.cpp -o obj/goblins.o $(CXXFLAGS)
 
-../obj/guild.o: guild.cpp
-	$(CPP) -c guild.cpp -o ../obj/guild.o $(CXXFLAGS)
+obj/guild.o: guild.cpp
+	$(CPP) -c guild.cpp -o obj/guild.o $(CXXFLAGS)
 
-../obj/healer.o: healer.cpp
-	$(CPP) -c healer.cpp -o ../obj/healer.o $(CXXFLAGS)
+obj/healer.o: healer.cpp
+	$(CPP) -c healer.cpp -o obj/healer.o $(CXXFLAGS)
 
-../obj/inn.o: inn.cpp
-	$(CPP) -c inn.cpp -o ../obj/inn.o $(CXXFLAGS)
+obj/inn.o: inn.cpp
+	$(CPP) -c inn.cpp -o obj/inn.o $(CXXFLAGS)
 
-../obj/items.o: items.cpp
-	$(CPP) -c items.cpp -o ../obj/items.o $(CXXFLAGS)
+obj/items.o: items.cpp
+	$(CPP) -c items.cpp -o obj/items.o $(CXXFLAGS)
 
-../obj/itemSelect.o: itemSelect.cpp
-	$(CPP) -c itemSelect.cpp -o ../obj/itemSelect.o $(CXXFLAGS)
+obj/itemSelect.o: itemSelect.cpp
+	$(CPP) -c itemSelect.cpp -o obj/itemSelect.o $(CXXFLAGS)
 
-../obj/level.o: level.cpp
-	$(CPP) -c level.cpp -o ../obj/level.o $(CXXFLAGS)
+obj/level.o: level.cpp
+	$(CPP) -c level.cpp -o obj/level.o $(CXXFLAGS)
 
-../obj/lift.o: lift.cpp
-	$(CPP) -c lift.cpp -o ../obj/lift.o $(CXXFLAGS)
+obj/lift.o: lift.cpp
+	$(CPP) -c lift.cpp -o obj/lift.o $(CXXFLAGS)
 
-../obj/lyrics.o: lyrics.cpp
-	$(CPP) -c lyrics.cpp -o ../obj/lyrics.o $(CXXFLAGS)
+obj/lyrics.o: lyrics.cpp
+	$(CPP) -c lyrics.cpp -o obj/lyrics.o $(CXXFLAGS)
 
-../obj/misc.o: misc.cpp
-	$(CPP) -c misc.cpp -o ../obj/misc.o $(CXXFLAGS)
+obj/misc.o: misc.cpp
+	$(CPP) -c misc.cpp -o obj/misc.o $(CXXFLAGS)
 
-../obj/module.o: module.cpp
-	$(CPP) -c module.cpp -o ../obj/module.o $(CXXFLAGS)
+obj/module.o: module.cpp
+	$(CPP) -c module.cpp -o obj/module.o $(CXXFLAGS)
 
-../obj/oracle.o: oracle.cpp
-	$(CPP) -c oracle.cpp -o ../obj/oracle.o $(CXXFLAGS)
+obj/oracle.o: oracle.cpp
+	$(CPP) -c oracle.cpp -o obj/oracle.o $(CXXFLAGS)
 
-../obj/player.o: player.cpp
-	$(CPP) -c player.cpp -o ../obj/player.o $(CXXFLAGS)
+obj/player.o: player.cpp
+	$(CPP) -c player.cpp -o obj/player.o $(CXXFLAGS)
 
-../obj/rathskeller.o: rathskeller.cpp
-	$(CPP) -c rathskeller.cpp -o ../obj/rathskeller.o $(CXXFLAGS)
+obj/rathskeller.o: rathskeller.cpp
+	$(CPP) -c rathskeller.cpp -o obj/rathskeller.o $(CXXFLAGS)
 
-../obj/retreat.o: retreat.cpp
-	$(CPP) -c retreat.cpp -o ../obj/retreat.o $(CXXFLAGS)
+obj/retreat.o: retreat.cpp
+	$(CPP) -c retreat.cpp -o obj/retreat.o $(CXXFLAGS)
 
-../obj/saveGame.o: saveGame.cpp
-	$(CPP) -c saveGame.cpp -o ../obj/saveGame.o $(CXXFLAGS)
+obj/saveGame.o: saveGame.cpp
+	$(CPP) -c saveGame.cpp -o obj/saveGame.o $(CXXFLAGS)
 
-../obj/screen.o: screen.cpp
-	$(CPP) -c screen.cpp -o ../obj/screen.o $(CXXFLAGS)
+obj/screen.o: screen.cpp
+	$(CPP) -c screen.cpp -o obj/screen.o $(CXXFLAGS)
 
-../obj/shop.o: shop.cpp
-	$(CPP) -c shop.cpp -o ../obj/shop.o $(CXXFLAGS)
+obj/shop.o: shop.cpp
+	$(CPP) -c shop.cpp -o obj/shop.o $(CXXFLAGS)
 
-../obj/smithy.o: smithy.cpp
-	$(CPP) -c smithy.cpp -o ../obj/smithy.o $(CXXFLAGS)
+obj/smithy.o: smithy.cpp
+	$(CPP) -c smithy.cpp -o obj/smithy.o $(CXXFLAGS)
 
-../obj/spells.o: spells.cpp
-	$(CPP) -c spells.cpp -o ../obj/spells.o $(CXXFLAGS)
+obj/spells.o: spells.cpp
+	$(CPP) -c spells.cpp -o obj/spells.o $(CXXFLAGS)
 
-../obj/staircase.o: staircase.cpp
-	$(CPP) -c staircase.cpp -o ../obj/staircase.o $(CXXFLAGS)
+obj/staircase.o: staircase.cpp
+	$(CPP) -c staircase.cpp -o obj/staircase.o $(CXXFLAGS)
 
-../obj/tavern.o: tavern.cpp
-	$(CPP) -c tavern.cpp -o ../obj/tavern.o $(CXXFLAGS)
+obj/tavern.o: tavern.cpp
+	$(CPP) -c tavern.cpp -o obj/tavern.o $(CXXFLAGS)
 
-../obj/trolls.o: trolls.cpp
-	$(CPP) -c trolls.cpp -o ../obj/trolls.o $(CXXFLAGS)
+obj/trolls.o: trolls.cpp
+	$(CPP) -c trolls.cpp -o obj/trolls.o $(CXXFLAGS)
 
-../obj/undeadKing.o: undeadKing.cpp
-	$(CPP) -c undeadKing.cpp -o ../obj/undeadKing.o $(CXXFLAGS)
+obj/undeadKing.o: undeadKing.cpp
+	$(CPP) -c undeadKing.cpp -o obj/undeadKing.o $(CXXFLAGS)
 
-../obj/vaults.o: vaults.cpp
-	$(CPP) -c vaults.cpp -o ../obj/vaults.o $(CXXFLAGS)
+obj/vaults.o: vaults.cpp
+	$(CPP) -c vaults.cpp -o obj/vaults.o $(CXXFLAGS)
 
-../obj/ARx_private.res: ARx_private.rc 
-	$(WINDRES) -i ARx_private.rc --input-format=rc -o ../obj/ARx_private.res -O coff 
+obj/ARx_private.res: ARx_private.rc 
+	$(WINDRES) -i ARx_private.rc --input-format=rc -o obj/ARx_private.res -O coff 
 

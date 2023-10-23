@@ -1,4 +1,5 @@
-#include <SFML/Audio.hpp>
+#include <SFML\Audio.hpp>
+
 
 sf::SoundBuffer spellSoundBuffer;
 sf::Sound spellSound;

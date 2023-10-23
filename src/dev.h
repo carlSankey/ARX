@@ -1,3 +1,6 @@
+#ifndef _devh 
+#define _devh 
+
 /* dev.h
  * Developer Settings to speed up development and testing
  */
@@ -17,3 +20,9 @@ struct devSettings
 void setDeveloperFlags();
 
 extern devSettings AR_DEV;
+
+ 
+// Your existing header content goes here 
+ 
+#endif // _devh 
+

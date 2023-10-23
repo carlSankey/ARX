@@ -17,6 +17,8 @@
 #include "lyrics.h"
 
 #include "spells.h"
+#include <bitset>
+
 
 extern sf::Clock        clock1;
 extern int              iCounter;
@@ -62,7 +64,7 @@ struct guildSpell
 	int cost;
 };
 
-guildSpell guildSpells[35];
+guildSpell guildSpells[76];
 
 
 guild guilds[numberOfGuilds] =
@@ -107,21 +109,22 @@ std::cout << guildNo <<"\n";
 	//for (int i=0 ; i<=35 ; i++) { guildSpells[i].name = " "; }
 
 	// Stock guild spells each visit - crash with name?
-
-	for (int i=0 ; i<35 ; i++)
+	
+	for (int i=0 ; i<75 ; i++)
 	{
-		if (spells[i].guilds[guildNo]==1)
-		{
-			guildSpellsNo++;
-			guildSpells[guildSpellIndex].cost = spells[i].cost;
-			guildSpells[guildSpellIndex].name = spells[i].name;
-			guildSpells[guildSpellIndex].index = i;
-			guildSpellIndex++;
-		}
+		std::bitset<numberOfGuilds> binaryFlags(spells[i].guild);
+			if (binaryFlags.test(guildNo))
+			{
+				guildSpellsNo++;
+				guildSpells[guildSpellIndex].cost = spells[i].cost;
+				guildSpells[guildSpellIndex].name = spells[i].name;
+				guildSpells[guildSpellIndex].index = i;
+				guildSpellIndex++;
+			}
 	}
 
 	guildSpellsNo -= 6; // adjustment for menu
-	if (guildNo==0) guildSpellsNo--; // DIRTY FIX FOR THIEVES GUILD!
+	if (guildNo==0) guildSpellsNo--; // DIRTY FIX FOR THIEVES GUILD!2
 
 	bool musicPlaying = false;
 
@@ -833,6 +836,16 @@ int getGuildNo()
 	return guild_no;
 }
 
+
+void checkGuildApplications() {
+	// Function implementation here
+	//has it been a full day since you asked for application
+	//check alignment
+
+}
+
+
+
 void clearGuildDisplay()
 {
     clock1.restart();
@@ -975,3 +988,5 @@ void practiceSpells()
 		spellBuffer[itemRef].percentage++; // Add 1% to spell percentage
 	}
 }
+
+

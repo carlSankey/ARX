@@ -20,6 +20,7 @@
 #include "items.h"
 #include "spells.h"
 #include "guild.h"
+#include "effects.h"
 
 
 //using namespace std;
@@ -32,7 +33,7 @@
 
 string character[saveGameSize];
 string saveGameDescriptions[10];
-
+int damageTypes = 13;
 
 void displayLoadGame()
 {
@@ -358,7 +359,7 @@ plyr.poison[1] = atoi( character[216].c_str());
 plyr.poison[2] = atoi( character[217].c_str());
 plyr.poison[3] = atoi( character[218].c_str());
 plyr.delusion = atoi( character[219].c_str());
-for(int y = 0; y < 9; ++y) { plyr.invulnerability[y] = atoi(character[220+y].c_str()); }
+for(int y = 0; y < damageTypes; ++y) { plyr.invulnerability[y] = atoi(character[220+y].c_str()); }
 plyr.noticeability = atoi(character[229].c_str());
 plyr.protection1 = atoi(character[230].c_str());
 plyr.protection2 = atoi(character[231].c_str());
@@ -369,7 +370,7 @@ plyr.forgeBonus = atoi(character[234].c_str());
 plyr.forgeName  = character[235];
 plyr.stolenFromVault = atoi(character[236].c_str());
 
-for(int y = 0; y < numberOfGuilds; ++y) 
+for(int y = 0; y < 14; ++y) 
 { 
 	plyr.guildAccepting[y] = atoi(character[237+y].c_str()); 
 }
@@ -428,7 +429,7 @@ for(int z = 0; z < 35; ++z)
 loadGameIndex = 7470; // start location for effect buffer items (200 bytes)
 for(int z = 0; z < 50; ++z)
 {
-	effectBuffer[z].effect = atoi(character[loadGameIndex].c_str());
+	effectBuffer[z].effectNo = atoi(character[loadGameIndex].c_str());
 	effectBuffer[z].negativeValue = atoi(character[loadGameIndex+1].c_str());
 	effectBuffer[z].positiveValue = atoi(character[loadGameIndex+2].c_str());
 	effectBuffer[z].duration = atoi(character[loadGameIndex+3].c_str());
@@ -691,7 +692,7 @@ bool saveCharacter(int saveSlot)
         character[218] = itos( plyr.poison[3]);
         character[219] = itos( plyr.delusion);
 
-        for(int y = 0; y < 9; ++y) { character[220+y] = itos(plyr.invulnerability[y]); }
+        for(int y = 0; y < damageTypes; ++y) { character[220+y] = itos(plyr.invulnerability[y]); }
         character[229] = itos(plyr.noticeability);
         character[230] = itos(plyr.protection1);
         character[231] = itos(plyr.protection2);
@@ -702,7 +703,7 @@ bool saveCharacter(int saveSlot)
         character[235] = plyr.forgeName;
         character[236] = itos(plyr.stolenFromVault);
 
-    for(int y = 0; y < numberOfGuilds; ++y) 
+    for(int y = 0; y < 14; ++y) 
 	 { 
 	 	character[237+y] = itos(plyr.guildAccepting[y]); 
 	 }
@@ -764,7 +765,7 @@ bool saveCharacter(int saveSlot)
     saveGameIndex = 7470; // start location for effect buffer items (200 bytes)
     for(int z = 0; z < 50; ++z)
     {
-        character[saveGameIndex] = itos(effectBuffer[z].effect);
+        character[saveGameIndex] = itos(effectBuffer[z].effectNo);
         character[saveGameIndex+1] = itos(effectBuffer[z].negativeValue);
         character[saveGameIndex+2] = itos(effectBuffer[z].positiveValue);
         character[saveGameIndex+3] = itos(effectBuffer[z].duration);

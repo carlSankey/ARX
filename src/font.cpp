@@ -5,6 +5,9 @@
 #include "player.h"
 #include "display.h"
 #include "font.h"
+#include <iostream>
+#include <windows.h>
+
 
 extern int consoleY; // y position for displaying the bottom screen info panel (in pixels???)
 extern int consoleX; // x starting position for displaying the panel for centering
@@ -19,8 +22,26 @@ int yBase = 0;
 
 void InitFont()
 {
+
+	wchar_t buffer[MAX_PATH];
+	if (GetCurrentDirectory(MAX_PATH, buffer) != 0) {
+		std::wcout << L"Current Working Directory: " << buffer << std::endl;
+	}
+	else {
+		DWORD error = GetLastError();
+		std::cerr << "Error code: " << error << std::endl;
+	}
+
+	std::wcout << L"Current Working Directory: " << buffer << "/data/images/arfont.png" << std::endl;
+
+
 	if (plyr.fontStyle==0) { FontImage.loadFromFile("data/images/arfontSmooth.png"); }
-	if (plyr.fontStyle==1) { FontImage.loadFromFile("data/images/arfont.png"); }
+	if (plyr.fontStyle == 1) { FontImage.loadFromFile("data/images/arfont.png"); }
+
+
+
+
+	//if (plyr.fontStyle==1) { FontImage.loadFromFile("data/images/arfont.png"); }
 	CharImage.setTexture(FontImage);
 }
 

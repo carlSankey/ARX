@@ -1,9 +1,11 @@
-#include "game.h"
+
 #include "player.h"
 #include "font.h"
 #include "display.h"
 #include "misc.h"
 #include "arena.h"
+
+void leaveShop();  //forward declaration
 
 void arenaSouthernEntrance()
 {

@@ -1,4 +1,9 @@
-#include <SFML/Graphics.hpp>
+
+#ifndef _displayh 
+#define _displayh 
+
+#include <SFML\Graphics.hpp>
+
 
 #include <string>
 
@@ -60,3 +65,9 @@ extern int viewWidth, viewHeight, viewPortX, viewPortY;
 extern bool animationNotStarted;
 extern int firstFrame;
 extern int lastFrame;
+
+ 
+// Your existing header content goes here 
+ 
+#endif // _displayh 
+

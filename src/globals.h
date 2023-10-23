@@ -1,3 +1,6 @@
+#ifndef _globalsh 
+#define _globalsh 
+
 /********************************************
  * globals.h                                *
  * Global enums to make code easier to read *
@@ -304,3 +307,8 @@ enum weaponSpecialType
 		LOKIS_WRATH=3,
 		SLOW_DEATH=4	
 };
+
+ 
+// Your existing header content goes here 
+ 
+#endif // _globalsh 

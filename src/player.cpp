@@ -6,6 +6,8 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <bitset>
+#include <map>
 
 #include "globals.h"
 #include "dev.h"
@@ -20,6 +22,7 @@
 #include "tavern.h"
 #include "shop.h"
 #include "items.h"
+#include "effects.h"
 #include "spells.h"
 #include "automap.h"
 #include "guild.h"
@@ -29,8 +32,8 @@ using namespace std;
 
 Player plyr;
 
+const int damageTypes = 13;
 
-effectItem effectBuffer[50]; // active time limited effects from spells, scrolls, eyes
 
 bool autoMapExplored[5][4096]; // 5 levels of 4096 on/off values
 
@@ -38,6 +41,47 @@ int shopDailyWares[15][12]; //15 shops with 12 items each a day for sale
 int smithyDailyWares[4][10]; // 4 smithies with 10 items each a day for sale
 int tavernDailyFoods[14][6]; // 14 taverns with 6 food items each day for sale
 int tavernDailyDrinks[14][6]; // 14 taverns with 6 drink items each day for sale
+
+extern std::map<int, int(*)> effectsMap;
+
+extern std::map<int, int(*)> weaponBonusMap;
+// Define a mapping between bit positions and player stats
+std::map<int, int*> statMap = {
+    {0, &plyr.sta},
+    {1, &plyr.chr},
+    {2, &plyr.str},
+    {3, &plyr.inte},
+    {4, &plyr.wis},
+    {5, &plyr.skl},
+    {6, &plyr.speed},
+
+};
+
+std::map<int, int*> resistanceMap = {
+    {0, &plyr.invulnerability[0]},  // Blunt
+    {1, &plyr.invulnerability[1]},  // Sharp
+    {2, &plyr.invulnerability[2]},  // Earth
+    {3, &plyr.invulnerability[3]},  // Air
+    {4, &plyr.invulnerability[4]},  // Fire
+    {5, &plyr.invulnerability[5]},  // Water
+    {6, &plyr.invulnerability[6]},  // Power
+    {7, &plyr.invulnerability[7]},  // Magic
+    {8, &plyr.invulnerability[8]},  // Good
+    {9, &plyr.invulnerability[9]},  // Evit
+    {10, &plyr.invulnerability[10]}, // Cold
+    {11, &plyr.invulnerability[11]}, // Nature
+    {12, &plyr.invulnerability[12]}  // Acid
+};
+
+
+
+//void updateWeaponBuff(std::bitset<13> binaryWeaponBuff, int positiveValue);
+
+
+extern struct bonusDamage;
+
+extern int weaponBonus;
+
 
 
 void increaseExperience(int xpIncrease)
@@ -50,7 +94,6 @@ void increaseExperience(int xpIncrease)
 	plyr.xp+=xpIncrease;
 	if ((plyr.xp > levelBottom) && (plyr.xp < levelTop)) increaseLevel();
 }
-
 
 
 void increaseLevel()
@@ -73,15 +116,14 @@ void increaseLevel()
 	}
 
 	// Add the bonuses (which might be 0)
-	plyr.sta	+= statBonuses[0];
-	plyr.chr	+= statBonuses[1];
-	plyr.str	+= statBonuses[2];
-	plyr.inte	+= statBonuses[3];
-	plyr.wis	+= statBonuses[4];
-	plyr.skl	+= statBonuses[5];
-	plyr.speed	+= statBonuses[6];
+	plyr.sta	+= statBonuses[0]; // 1
+	plyr.chr	+= statBonuses[1]; // 2
+	plyr.str	+= statBonuses[2]; // 4
+	plyr.inte	+= statBonuses[3]; // 8
+	plyr.wis	+= statBonuses[4]; // 16
+	plyr.skl	+= statBonuses[5]; // 32
+	plyr.speed	+= statBonuses[6]; // 64
 }
-
 
 
 void checkBackgroundTime()
@@ -127,8 +169,10 @@ void addMinute()
 	//update diseases every 15mins.  This will not increase incubation period.  Only once it is active.	
 	if (plyr.minutes == 0 || plyr.minutes == 15 || plyr.minutes == 30 || plyr.minutes == 45)
 		updateDisease(0);
+    updateNoticability();
 
 }
+
 
 void addHour()
 {
@@ -201,7 +245,6 @@ void addYear()
 }
 
 
-
 string checkThirst()
 {
 	string thirstDesc;
@@ -222,6 +265,7 @@ string checkHunger()
 	if (plyr.hunger > 96 ) { hungerDesc = "Starving"; }
 	return hungerDesc;
 }
+
 
 string checkAlcohol()
 {
@@ -245,6 +289,7 @@ string checkEncumbrance()
 	return weightDesc;
 }
 
+
 string checkPoison()
 {
     string poisonDesc ="";
@@ -252,12 +297,20 @@ string checkPoison()
     return poisonDesc;
 }
 
+
 string checkDisease()
 {
     string diseaseDesc ="";
     if ((plyr.diseases[0]>0) || (plyr.diseases[1]>0) || (plyr.diseases[1]>0) || (plyr.diseases[1]>0))  { diseaseDesc = "Diseased!"; }
     return diseaseDesc;
 }
+
+
+void updateNoticability()
+{
+    if (plyr.noticeability > 0.024) { plyr.noticeability -= 0.025; }  
+}
+
 
 void updateDisease(int hour)
 {
@@ -302,6 +355,188 @@ void updateDisease(int hour)
 
 }
 
+
+void updateWeaponBuff(std::bitset<13> binaryWeaponBuff, int positiveValue) {
+    for (int i = 0; i < 13; i++) {
+        if (binaryWeaponBuff.test(i)) {
+            *(weaponBonusMap[i]) += positiveValue;
+        }
+    }
+}
+
+
+void updateSpell(int hour )
+{
+    std::cout << "UpdateSpell\n";
+    //for now treat all of the spells the same.  Change in the future
+   
+
+    for (int i = 0; i < 4; i++)
+    {
+        int SpellDuraction = effectBuffer[i].duration;
+        
+        std::bitset<7> binaryStat(spells[effectBuffer[i].effectNo].stattype);
+        std::bitset<13> binaryElems(spells[effectBuffer[i].effectNo].elementtype);
+            if (spells[effectBuffer[i].effectNo].spelltype == 0)  //Stat adjustment
+            {
+                if (SpellDuraction > 0)
+                {
+                    
+                    updateStats(binaryStat, effectBuffer[i].positiveValue);
+                }
+                else if (hour == 0)
+                {
+                    //remove the effects
+                    updateStats(binaryStat, -effectBuffer[i].positiveValue);
+                    effectBuffer[plyr.effectIndex].effectNo = 0; // Dexterity
+                    effectBuffer[plyr.effectIndex].negativeValue = 0;
+                    effectBuffer[plyr.effectIndex].positiveValue = 0; // +30 to plyr.dex
+                    effectBuffer[plyr.effectIndex].duration = 0; // hours
+                }
+
+            }
+            else if (spells[effectBuffer[i].effectNo].spelltype == 1)  //Buff
+            {
+                if (SpellDuraction > 0)
+                {
+                   
+                    updateInvuls(binaryElems, effectBuffer[i].positiveValue);
+                }
+                else if (hour == 0)
+                {
+                //remove the effects
+                    updateInvuls(binaryElems, -effectBuffer[i].positiveValue);
+                    effectBuffer[plyr.effectIndex].effectNo = 0; // 
+                    effectBuffer[plyr.effectIndex].negativeValue = 0;
+                    effectBuffer[plyr.effectIndex].positiveValue = 0; // 
+                    effectBuffer[plyr.effectIndex].duration = 0; // hours
+                }
+            }
+            effectBuffer[i].duration -= hour;
+    }
+}
+
+
+/**
+* 
+* 
+* Spelltype 0 = stat increase
+* Spelltype 1 = Buff
+* Spelltype 2 = Combat spell  - these should use castspell
+* Spelltype 3 = hidden stat increase
+* Spelltype 4 = Weapon enchant
+* Spelltype 5 = Misc
+*/
+void updateSpell(int hour, int effectid)
+{
+    /*
+    std::cout << "UpdateSpell\n";
+    //for now treat all of the spells the same.  Change in the future
+    int SpellDuraction = effectBuffer[effectid].duration;
+
+    std::bitset<7> binaryStat(spells[effectBuffer[effectid].effectNo].stattype);
+    std::bitset<13> binaryElems(spells[effectBuffer[effectid].effectNo].elementtype);
+    if (spells[effectBuffer[effectid].effectNo].spelltype == 0)  //Stat adjustment
+    {
+        if (SpellDuraction > 0)
+        {
+
+            updateStats(binaryStat, effectBuffer[effectid].positiveValue);
+        }
+        else if (hour == 0)
+        {
+            //remove the effects
+            updateStats(binaryStat, -effectBuffer[effectid].positiveValue);
+            effectBuffer[plyr.effectIndex].effect = 0; // Dexterity
+            effectBuffer[plyr.effectIndex].negativeValue = 0;
+            effectBuffer[plyr.effectIndex].positiveValue = 0; // +30 to plyr.dex
+            effectBuffer[plyr.effectIndex].duration = 0; // hours
+        }
+
+    }
+    else if (spells[effectBuffer[effectid].effectNo].spelltype == 1)  //Buff
+    {
+        if (SpellDuraction > 0)
+        {
+
+            updateInvuls(binaryElems, effectBuffer[effectid].positiveValue);
+        }
+        else if (hour == 0)
+        {
+            //remove the effects
+            updateInvuls(binaryElems, -effectBuffer[effectid].positiveValue);
+            effectBuffer[plyr.effectIndex].effect = 0; // Dexterity
+            effectBuffer[plyr.effectIndex].negativeValue = 0;
+            effectBuffer[plyr.effectIndex].positiveValue = 0; // +30 to plyr.dex
+            effectBuffer[plyr.effectIndex].duration = 0; // hours
+        }
+    }
+    else if (spells[effectBuffer[effectid].effectNo].spelltype == 3)
+    {
+        if (SpellDuraction > 0)
+        {
+            if (spells[effectBuffer[effectid].effect].effect == 3)  //for any boolean spells like Light where its on or off
+            {
+                *effectsMap[spells[effectBuffer[effectid].effect].effect] = spells[effectBuffer[effectid].effect].positiveValue;
+
+                
+            }
+            else
+            {
+                *effectsMap[spells[effectBuffer[effectid].effect].effect] = spells[effectBuffer[effectid].effect].positiveValue;
+            }
+            checkplayerLight();
+           
+        }
+        else if (hour == 0)
+        {
+            //remove the effects
+            if (spells[effectBuffer[effectid].effect].effect == 3)
+            {
+                *effectsMap[effectBuffer[effectIndexloc.index].effect] = -spells[effectBuffer[effectid].effect].positiveValue;
+            }
+
+            *effectsMap[effectBuffer[effectIndexloc.index].effect] = -spells[effectBuffer[effectid].effect].positiveValue;
+            
+            effectBuffer[plyr.effectIndex].effect = 0; // Dexterity
+            effectBuffer[plyr.effectIndex].negativeValue = 0;
+            effectBuffer[plyr.effectIndex].positiveValue = 0; // +30 to plyr.dex
+            effectBuffer[plyr.effectIndex].duration = 0; // hours
+        }
+    }
+    else if (spells[effectBuffer[effectid].effectNo].spelltype == 4) //Not implemented yet
+    {
+        if (SpellDuraction > 0)
+        {
+            if (spells[effectBuffer[effectid].effect].effect == 3)  
+            {
+                *effectsMap[spells[effectBuffer[effectid].effect].effect] = spells[effectBuffer[effectid].effect].positiveValue;
+            }
+            else
+            {
+                *effectsMap[spells[effectBuffer[effectid].effect].effect] = spells[effectBuffer[effectid].effect].positiveValue;
+            }
+        }
+        else if (hour == 0)
+        {
+            //remove the effects
+            if (spells[effectBuffer[effectid].effect].effect == 3)
+            {
+                *effectsMap[effectBuffer[effectIndexloc.index].effect] = -spells[effectBuffer[effectid].effect].positiveValue;
+            }
+
+            *effectsMap[effectBuffer[effectIndexloc.index].effect] = -spells[effectBuffer[effectid].effect].positiveValue;
+
+            effectBuffer[plyr.effectIndex].effect = 0; // Dexterity
+            effectBuffer[plyr.effectIndex].negativeValue = 0;
+            effectBuffer[plyr.effectIndex].positiveValue = 0; // +30 to plyr.dex
+            effectBuffer[plyr.effectIndex].duration = 0; // hours
+        }
+    }
+    */
+}
+
+
 void updatePoison()
 {
     if (plyr.poison[0] > 0) { plyr.hp -= 2; }
@@ -310,20 +545,29 @@ void updatePoison()
     if (plyr.poison[3] > 0) { plyr.hp -= 10; }
 }
 
+
 void checkActiveMagic()
 {
-        if (plyr.protection1 > 0) { plyr.protection1--; }
-        if (plyr.protection2 > 0) { plyr.protection2--; }
-        if (plyr.invulnerability[0] > 0) { plyr.invulnerability[0]--; }
-        if (plyr.invulnerability[1] > 0) { plyr.invulnerability[1]--; }
-        if (plyr.invulnerability[2] > 0) { plyr.invulnerability[2]--; }
-        if (plyr.invulnerability[3] > 0) { plyr.invulnerability[3]--; }
-        if (plyr.invulnerability[4] > 0) { plyr.invulnerability[4]--; }
-        if (plyr.invulnerability[5] > 0) { plyr.invulnerability[5]--; }
-        if (plyr.invulnerability[6] > 0) { plyr.invulnerability[6]--; }
-        if (plyr.invulnerability[7] > 0) { plyr.invulnerability[7]--; }
-        if (plyr.invulnerability[8] > 0) { plyr.invulnerability[8]--; }
+    std::cout << "checkActiveMagic\n";
+
+    for (int i = 0; i < sizeof(effectBuffer) / sizeof(effectBuffer[0]); ++i)
+    {
+        if (effectBuffer[i].duration > 0) { effectBuffer[i].duration = effectBuffer[i].duration - 1; }
+        if (effectBuffer[i].effectNo != 0 && effectBuffer[i].duration == 0) 
+        { 
+            applyEffect(0, effectBuffer[i].effectNo); 
+            SearchResult ExpiredSpell = findActiveSpellNoLastFree(effectBuffer[i].effectNo, sizeof(plyr.ActiveSpell));
+            plyr.ActiveSpell[ExpiredSpell.index] = 0;
+            effectBuffer[i].name = "";
+            effectBuffer[i].effectNo = 0;
+            effectBuffer[i].positiveValue = 0;
+            effectBuffer[i].negativeValue = 0;
+        }
+    }
+    
+    
 }
+
 
 void initStats()
 {
@@ -468,7 +712,7 @@ void initStats()
     plyr.poison[2] = 0;
     plyr.poison[3] = 0;
     plyr.delusion = 0;
-    for (int i=0 ; i<9 ; i++) { plyr.invulnerability[i] = 0; }
+    for (int i=0 ; i< damageTypes; i++) { plyr.invulnerability[i] = 0; }
     plyr.noticeability = 0;
     plyr.protection1 = 0;
     plyr.protection2 = 0;
@@ -486,8 +730,10 @@ void initStats()
     plyr.forgeName = "";
 
     plyr.stolenFromVault = 0;
-
+    plyr.darkness = 1;   //Is it dark outside?
+    plyr.light = 0;     //Do i have light source?
 }
+
 
 void createNewCharacter(int scenario)
 {
@@ -543,4 +789,36 @@ void createNewCharacter(int scenario)
         }
 
     }
+}
+
+
+void checkplayerLight()
+{
+
+     if (itemBuffer[plyr.priWeapon].name == "Lit Torch" || itemBuffer[plyr.secWeapon].name == "Lit Torch")
+    {
+        plyr.light = 1;
+       
+        return;
+    }
+    else
+    {
+        plyr.light = 0;
+        
+    }
+    for  (int i = 0; i < sizeof(effectBuffer) / sizeof(effectBuffer[0]); i++)
+    {
+        if (effectBuffer[i].effectNo == 19)
+        {
+            plyr.light = 1;
+            
+            break;
+        }
+        else
+        {
+            plyr.light = 0;
+           
+        }
+    }
+   
 }

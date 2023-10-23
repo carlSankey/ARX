@@ -1,3 +1,6 @@
+#ifndef _itemsh 
+#define _itemsh 
+
 #include <string>
 
 const int itemBufferSize = 250;
@@ -11,31 +14,33 @@ void createBareHands();
 
 
 int createItem(
-        int type,
-        int index,
-        std::string name,
-        int hp,
-        int maxHP,
-        int flags,
-        int minStrength,
-        int minDexterity,
-        int useStrength,
-        int blunt,
-        int sharp,
-        int earth,
-        int air,
-        int fire,
-        int water,
-        int power,
-        int magic,
-        int good,
-        int evil,
-        int cold,
-        int weight,
-        int alignment,
-        int melee,
-        int ammo,
-        int parry)
+    int type,
+    int index,
+    std::string name,
+    int hp,
+    int maxHP,
+    int flags,
+    int minStrength,
+    int minDexterity,
+    int useStrength,
+    int blunt,
+    int sharp,
+    int earth,
+    int air,
+    int fire,
+    int water,
+    int power,
+    int magic,
+    int good,
+    int evil,
+    int cold,
+    int nature,
+    int acid,
+    int weight,
+    int alignment,
+    int melee,
+    int ammo,
+    int parry)
 ;
 
 struct clothingItem
@@ -119,6 +124,8 @@ void displayObjectBuffer();
 
 void tidyObjectBuffer();
 
+void checkItemBuff();
+
 int returnCarriedWeight();
 
 struct buffer_item
@@ -150,11 +157,21 @@ struct buffer_item
 	int good; // cleric
 	int evil;
 	int cold;
+    int nature;
+    int acid;
 	int weight;
 	int alignment;
 	int melee;
 	int ammo;
 	int parry;
+    int buffType; //0 is not buffed
+    int effect;  //same as spell effect
+    int statType; //same as spell stattype
 };
 
 extern buffer_item itemBuffer[itemBufferSize];
+
+// Your existing header content goes here 
+ void removeItemBuff( int itemId);
+#endif // _itemsh 
+
