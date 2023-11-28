@@ -19,3 +19,4 @@ src/ARX.layout
 /src/Debug
 /src/x64/Debug
 /src/Release
+release/.gitattributes
