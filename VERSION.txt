@@ -1,5 +1,13 @@
 Alternate Reality X
 -------------------
+Version 0.84.0 - 28th Nov 2023
+* Fixed - Issue with being immobilized if you pick anything up
+* Added - Light effect (Green Cap are illuminating)
+* Added - some spells
+* Added - fatigue
+* Fixed - Some combat issues where you could attack after each opponent 
+* Added - Stunned effect if you get hit on the head there is a small chance to get stunned
+* Added - opponent will not wait forever and will attack you (if in combat) after 4 seconds
 
 Version 0.83.3 - 14th Feb 2018
 ----------------------------
