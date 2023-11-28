@@ -303,7 +303,7 @@ while (shopMenu == 24) // Agree to buy item and have funds
         //plyr.silver-=itemCost;
         deductCoins(0,0,shopOffer);
         int objectNumber = shopClothingWares[itemNo].itemRef; // ref within Weapons array
-        int itemHandle = createClothing(objectNumber); // create a new weapon or armour item(s)
+        int itemHandle = createClothing(objectNumber,10); // create a new weapon or armour item(s)
         itemBuffer[itemHandle].location = 10; // Add to player inventory - 10
         shopMenu = 3; // back to purchases
     }

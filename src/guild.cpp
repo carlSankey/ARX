@@ -28,7 +28,7 @@ extern int              iCounter;
 int guildNo;
 
 //extern spellItem spellBuffer[35];
-extern questItem questItems[4];
+extern questItem questItems[8];
 
 sf::Music Music1;
 string guildLyricsFilename;

@@ -123,7 +123,10 @@ void gameLoop()
 		{
 			plyr.darkness = 1;
 		}
-
+		if (plyr.special > 0 && plyr.special < 190)
+		{
+			checkFixedTreasures();
+		}
 	    if (plyr.scenario==1) checkFixedEncounters();
 		if (plyr.scenario==1) checkFixedTreasures();
 		checkForItemsHere();
@@ -555,7 +558,7 @@ void moveForward()
         // Barred door
 		if ( (( plyr.front == 8 ) || ( plyr.front == 9 ) || ( plyr.front == 10 )) && (plyr.z_offset > 1.7)) // barred door
 		{
-			plyr.z_offset-=0.1;
+			plyr.z_offset-=0.1f;
 			bool doorAlreadyOpened = false;
 			doorAlreadyOpened = checkBarredDoor();
 			if (doorAlreadyOpened) {   doorMessage("@@@The door opens!@@@@<<< Press any key to continue >>>"); moveThroughBarredDoor(); }
@@ -950,6 +953,17 @@ void checkFixedTreasures()
 			}
 			break;
 
+		case 0xA4: // Razor Ice
+			treasureRef = plyr.special - 128;
+			if (plyr.fixedTreasures[treasureRef] == false)
+			{
+				treasureMessage("A helm glowing with runes floats@in midair before you.");
+				createQuestItem(7);
+				plyr.fixedTreasures[treasureRef] = true;
+				getItems();
+			}
+			break;
+
 		case 0xB7: // Map Stone
 			treasureRef = plyr.special-128;
             if (plyr.fixedTreasures[treasureRef] == false)
@@ -977,16 +991,28 @@ void checkFixedTreasures()
 			}
 			break;
 
-		case 0xB6: // Amethyst Rod
-			treasureRef = plyr.special-128;
-            if (plyr.fixedTreasures[treasureRef] == false)
+//		case 0xB6: // Amethyst Rod
+//			treasureRef = plyr.special-128;
+ //           if (plyr.fixedTreasures[treasureRef] == false)
+//			{
+//				treasureMessage("@A blue-violet quartz rod lies@on a purple dias.@@@");
+//				createQuestItem(5);
+//				plyr.fixedTreasures[treasureRef] = true;
+//				getItems();
+//			}
+//			break;
+
+		case 0xB6: // dont know
+			treasureRef = plyr.special - 128;
+			if (plyr.fixedTreasures[treasureRef] == false)
 			{
-				treasureMessage("@A blue-violet quartz rod lies@on a purple dias.@@@");
-				createQuestItem(5);
+				treasureMessage("@a strange object.@@@");
+				createQuestItem(4);
 				plyr.fixedTreasures[treasureRef] = true;
 				getItems();
 			}
 			break;
+
 	}
 
 }

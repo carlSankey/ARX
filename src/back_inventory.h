@@ -38,15 +38,14 @@ void clearInventory();
 
 
 void addNewItem(int itemRef);        // E.g addNewItem(EBON_BLADE)
+
+
 void deleteItem(int itemNo);
+
+
 //std::string getItemDesc(int itemOffset);
 
 
-
-
-
-
- 
 // Your existing header content goes here 
  
 #endif // _back_inventoryh 

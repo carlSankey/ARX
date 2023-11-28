@@ -10,6 +10,11 @@ struct SearchResult {
 };
 
 
+
+struct SearchArray {
+    SearchResult* resultArray;
+    int arrSize;
+};
 void Effect(int spellNo);
 
 
@@ -22,7 +27,7 @@ SearchResult findEffectByNoOrLastFree(int targetNo, int size);
 SearchResult findEffectByNameOrLastFree(const std::string& targetName, int size);
 SearchResult findEffectBySpellTypeOrLastFree(int targetType, int size);
 SearchResult findActiveSpellNoLastFree(int targetNo, int size);
-
+SearchArray findAllEffectByNameOrLastFree(int targetNo, int size);
 
 
 struct effectItem {
@@ -45,7 +50,7 @@ struct spellSlot {
 };
 
 
-extern effectItem effectBuffer[50]; // 
+extern effectItem effectBuffer[1000]; // 
 
 extern effectIndex effectIndexloc;
 

@@ -9,8 +9,10 @@
 #include <bitset>
 #include <map>
 
+
 #include "globals.h"
 #include "dev.h"
+
 
 #include "createCharacter.h"
 #include "player.h"
@@ -56,6 +58,7 @@ std::map<int, int*> statMap = {
     {6, &plyr.speed},
 
 };
+
 
 std::map<int, int*> resistanceMap = {
     {0, &plyr.invulnerability[0]},  // Blunt
@@ -167,10 +170,12 @@ void addMinute()
 	
 
 	//update diseases every 15mins.  This will not increase incubation period.  Only once it is active.	
-	if (plyr.minutes == 0 || plyr.minutes == 15 || plyr.minutes == 30 || plyr.minutes == 45)
-		updateDisease(0);
-    updateNoticability();
-
+    if (plyr.minutes == 0 || plyr.minutes == 15 || plyr.minutes == 30 || plyr.minutes == 45)
+    {
+        updateDisease(0);
+        updateNoticability();
+        updateFatigue();
+    }
 }
 
 
@@ -179,8 +184,9 @@ void addHour()
 	if (plyr.hours == 23)
 	{
 		plyr.hours = 0; // 12 midnight important for Ferry crossing
-		plyr.hunger += 2;
-		plyr.thirst += 2;
+        updateHunger();
+        updateThirst();
+    
 		if (plyr.alcohol > 0) { plyr.alcohol--; }
 		addDay();
 	}
@@ -188,15 +194,15 @@ void addHour()
 	{
 		plyr.hours++;
 		// perform hourly actions / checks
-		plyr.hunger += 2;
-		plyr.thirst += 2;
+        updateHunger();
+        updateThirst();
 		if (plyr.alcohol > 0) { plyr.alcohol--; }
 	}
 	checkActiveMagic();
 	updateDisease(1);
 	updatePoison();
 	checkBackgroundTime();
-
+    updateWeapon();
 }
 
 
@@ -260,10 +266,41 @@ string checkHunger()
 {
 	string hungerDesc;
 	hungerDesc = ""; // alcohol level is 0
+    if ((plyr.hunger > -100) && (plyr.hunger < -49)) { hungerDesc = "Bloated!"; }
+    if ((plyr.hunger > -48) && (plyr.hunger < -17)) { hungerDesc = "Stuffed"; }
+    if ((plyr.hunger > -16) && (plyr.hunger < -6)) { hungerDesc = "Full"; }
+    if ((plyr.hunger > -5) && (plyr.hunger < 15)) { hungerDesc = "       "; }
 	if ((plyr.hunger > 16) && (plyr.hunger < 49)) { hungerDesc = "Hungry"; }
 	if ((plyr.hunger > 48) && (plyr.hunger < 97)) { hungerDesc = "Famished"; }
 	if (plyr.hunger > 96 ) { hungerDesc = "Starving"; }
+
 	return hungerDesc;
+}
+
+
+string checkFatigue()
+{
+    string fatigueDesc;
+    fatigueDesc = ""; // alcohol level is 0
+    if ((plyr.fatigue > 16) && (plyr.fatigue < 49)) { fatigueDesc = "Weary"; }
+    if ((plyr.fatigue > 48) && (plyr.fatigue < 95)) { fatigueDesc = "Tired"; }
+    if (plyr.fatigue > 95) { fatigueDesc = "Exhausted!"; }
+    return fatigueDesc;
+}
+
+
+string checkTemprature()
+{
+    string tempDesc;
+    tempDesc = ""; // 
+    if ((plyr.temperature >= -255) && (plyr.temperature < -156)) { tempDesc = "Freezing!"; }
+    if ((plyr.temperature >= -155) && (plyr.temperature < -51)) { tempDesc = "Cold"; }
+    if ((plyr.temperature > -50) && (plyr.temperature < 0)) { tempDesc = "Chilly"; }
+    if ((plyr.temperature > 0 ) && (plyr.temperature < 25)) { tempDesc = "    "; }
+    if ((plyr.temperature > 25) && (plyr.temperature < 50)) { tempDesc = "Warm";  }
+    if ((plyr.temperature > 51) && (plyr.temperature < 154)) { tempDesc = "Hot"; plyr.thirstRate += 0.08; }
+    if (plyr.temperature > 155) { tempDesc = "Roasting!"; plyr.thirstRate += 0.16; }
+    return tempDesc;
 }
 
 
@@ -309,6 +346,65 @@ string checkDisease()
 void updateNoticability()
 {
     if (plyr.noticeability > 0.024) { plyr.noticeability -= 0.025; }  
+}
+
+
+void updateDigestion()
+{
+
+    plyr.digestion -= 3;
+    if (plyr.digestion < 0) { plyr.digestion = 0; }
+
+}
+
+
+void updateThirst()
+{
+    plyr.thirst += plyr.thirstRate;
+}
+
+void updateHunger()
+{
+    plyr.hunger += plyr.hungerRate;
+
+}
+
+void updateFatigue()
+{
+    std::cout << "UpdateFatigue\n";
+    plyr.fatigue += plyr.fatigueRate;
+   
+    if (plyr.fatigue > 96 && plyr.fatigueRate>0)
+    {
+     // create a random number
+        int tempFatigue = randn(0, 100);
+     
+         if (tempFatigue < 50)
+         {
+             castSpellAction(randn(101, 107));  //Add a negative buff to the effectbuff
+         }
+    }
+    else if (plyr.fatigueRate > 0)
+    {
+        int initialIndex = 10;
+        
+        int bufferSize = sizeof(effectBuffer) / sizeof(effectBuffer[0]);
+        SearchArray result = findAllEffectByNameOrLastFree(initialIndex, bufferSize );
+
+        // Determine the number of elements in the dynamic array
+       
+
+        // Use std::sort to sort the dynamic array
+        SearchResult* arrayResult = result.resultArray;
+        int arrSize = result.arrSize;
+
+        for (int i = 0; i < arrSize; ++i) {
+            applyEffect(0, result.resultArray->index);
+        }
+    }
+    
+    if (plyr.fatigue > 255) { plyr.fatigue = 255; }
+  
 }
 
 
@@ -546,6 +642,22 @@ void updatePoison()
 }
 
 
+void updateWeapon()
+{
+    
+        if(itemBuffer[plyr.priWeapon].alignment >128 and plyr.alignment < 128)
+        {
+            int evilWeaponDamage = randn(0, 100);
+            if (randn(0, 100) < 5)
+            {
+                string str = "You are to good for this ";
+                itemMessage(str);
+                plyr.hp -= evilWeaponDamage;
+            }    
+    }
+ 
+}
+
 void checkActiveMagic()
 {
     std::cout << "checkActiveMagic\n";
@@ -678,7 +790,7 @@ void initStats()
     plyr.legsArmour = 255;          // none
     plyr.armsArmour = 255;          // none
 
-    plyr.clothing[0] = createClothing(0);              // Put "Cheap Robe" into itemBuffer[1]
+    plyr.clothing[0] = createClothing(0,10);              // Put "Cheap Robe" into itemBuffer[1]
     plyr.clothing[1] = 255;         // Slot 2 empty
     plyr.clothing[2] = 255;         // Slot 3 empty
     plyr.clothing[3] = 255;         // Slot 4 empty
@@ -732,6 +844,14 @@ void initStats()
     plyr.stolenFromVault = 0;
     plyr.darkness = 1;   //Is it dark outside?
     plyr.light = 0;     //Do i have light source?
+
+    plyr.hungerRate = 0.5;
+    plyr.thirstRate = 0.5;
+    plyr.fatigueRate = 0.5;
+    plyr.supervision = 0;
+    plyr.temperature = 13;
+    plyr.fatigue = 0;
+
 }
 
 
@@ -808,7 +928,7 @@ void checkplayerLight()
     }
     for  (int i = 0; i < sizeof(effectBuffer) / sizeof(effectBuffer[0]); i++)
     {
-        if (effectBuffer[i].effectNo == 19)
+        if (spells[effectBuffer[i].effectNo].spelltype == 3 && spells[effectBuffer[i].effectNo].effect == 3)
         {
             plyr.light = 1;
             

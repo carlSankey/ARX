@@ -8,7 +8,7 @@
 #include <string>
 #include <iostream>
 #include <sstream>
-#include <algorithm>
+//#include <algorithm>
 
 #include "player.h"
 #include "font.h"
@@ -617,7 +617,7 @@ void loadCitySmithyBinary() {
 int createCitySmithyInventoryItem(int startByte)
 {
     int index,alignment,weight,wAttributes,melee,ammo,blunt,sharp,earth,air,fire,water,power,magic,good,evil,cold,nature,acid,
-        minStrength,minDexterity,hp,maxHP,flags,parry,useStrength;
+        minStrength,minDexterity,hp,maxHP,flags,parry,useStrength, effect;
 
     int offset = startByte;
     int itemType = citySmithyBinary[offset];
@@ -695,10 +695,11 @@ int createCitySmithyInventoryItem(int startByte)
         maxHP              = 56; //255;
         flags              = 0;
         parry              = 0;
+		effect             = 0;
     }
 //cout << itemName << " " << std::hex << "HP:" << hp << " Bl:" << blunt << " " << "Sh:" << sharp << "\n";
     int newItemRef = createItem(itemType,index,itemName,hp,maxHP,flags,minStrength,minDexterity,useStrength,blunt,
-                                sharp,earth,air,fire,water,power,magic,good,evil,cold,nature,acid,weight,alignment,melee,ammo,parry);
+                                sharp,earth,air,fire,water,power,magic,good,evil,cold,nature,acid,weight,alignment,melee,ammo,parry, effect);
     itemBuffer[newItemRef].location = 10; // Add to player inventory - 10
 	return 1;
 }

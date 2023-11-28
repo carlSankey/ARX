@@ -52,7 +52,7 @@ void castSpellAction(int spellRef);
 
 
 
-extern spellRecord spells[77];
+extern spellRecord spells[150];
 extern spellItem spellBuffer[76]; // learnt spells that can be cast
 
 struct bonusDamage

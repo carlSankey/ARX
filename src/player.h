@@ -28,15 +28,23 @@ string checkThirst();
 string checkEncumbrance();
 string checkPoison();
 string checkDisease();
+string checkFatigue();
+
 void updateDisease(int hour);
 void updatePoison();
 void updateSpell(int hour);
 void applyEffect(int hour, int effectid);
 void updateNoticability();
 void checkplayerLight();
+
+void updateFatigue();
+
+void updateHunger();
+void updateThirst();
+
 // player.h
 void updateWeaponBuff(std::bitset<13> binaryWeaponBuff, int positiveValue);
-
+void updateWeapon();
 
 
 struct doorDetail
@@ -87,12 +95,15 @@ struct Player
   int location;
   int special;
 
+  //Stat types
   int sta;
   int chr;
   int str;
   int inte;
   int wis;
   int skl;
+
+
   int maxhp;
   int hp;
   int xp;
@@ -253,6 +264,11 @@ struct Player
   int darkness;
   int light;
   int supervision;
+  float fatigueRate; //the rate at which the player gets tired 0 - 1
+  int temperature;  // -255 Freezing  -155  Cold  - 50 Chilly 0-25 normal 26-50 Warm 155 Hot +255 Roasting
+  float fatigue; //base 
+  float hungerRate;  //the rate at which the player gets hungry 0 - 1
+  float thirstRate;  //The rate at which the player gets thirsty 0 - 1
 };
 
 

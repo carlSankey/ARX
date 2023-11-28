@@ -117,7 +117,11 @@ void shopRetreat()
 		while (retreatMenu == 5) // Sleeping
 		{
 			key="";
-			while ((key=="") && (hoursSlept<8))
+			
+			plyr.hungerRate *= 0.5; //hungerrate is halved
+			plyr.thirstRate *= 0.5; //thirstrate is halved
+			plyr.fatigueRate = 0;
+			while ((key=="") && (hoursSlept<12)) //Can sleep up to 12 hours
 			{
 				clearShopDisplay();
 				cyText (3, "Thou sleepest.");
@@ -135,12 +139,19 @@ void shopRetreat()
 				{
 					plyr.hp = plyr.hp+randn(1,5);
 					if (plyr.hp > plyr.maxhp) { plyr.hp = plyr.maxhp; }
+
 				}
 				addHour();
+				plyr.fatigue -= 1;
+				if (plyr.fatigue < 0) { plyr.fatigue = 0; }
+				updateFatigue();
+				
 				hoursSlept++;
 				sf::sleep(sf::seconds(1));
 			}
+			
 			retreatMenu = 6;
+
 		}
 
 		while (retreatMenu == 6) // Dreams troubled...
@@ -152,6 +163,9 @@ void shopRetreat()
 			updateDisplay();
 			key = getSingleKey();
 			if ( key!="" ) { retreatMenu = 7; }
+			plyr.fatigueRate = 0.5;  //Set fatigue rate back to normal
+			plyr.hungerRate *= 2;    //set hunger rate back to normal
+			plyr.thirstRate *= 2;    //set thirst rate back to normal
 		}
 
 		while (retreatMenu == 7) // You slept for...

@@ -40,7 +40,8 @@ int createItem(
     int alignment,
     int melee,
     int ammo,
-    int parry)
+    int parry,
+    int effect)
 ;
 
 struct clothingItem
@@ -54,6 +55,7 @@ struct clothingItem
 	int fabric;
 	int type;
 	int weight;
+    int effect = 0;
 };
 
 
@@ -79,7 +81,7 @@ void displayLocation();
 
 int createQuestItem(int questItemNo);
 int createWeapon(int weapon_no);
-int createClothing(int clothing_no);
+int createClothing(int clothing_no, int itemlocation);
 int createArmor(int armor_no);
 int createPotion(int potion_no);
 
@@ -164,9 +166,9 @@ struct buffer_item
 	int melee;
 	int ammo;
 	int parry;
-    int buffType; //0 is not buffed
-    int effect;  //same as spell effect
-    int statType; //same as spell stattype
+    int buffType = 0; //0 is not buffed
+    int effect = 0  ;  //same as spell effect
+    int statType = 0; //same as spell stattype
 };
 
 extern buffer_item itemBuffer[itemBufferSize];

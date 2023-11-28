@@ -1,5 +1,5 @@
 
-#include <fstream>
+ #include <fstream>
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -354,12 +354,16 @@ void encounterLoop(int encounterType, int opponentQuantity)
 		drawEncounterView();
 		if (!waitingForSpaceKey )
         {
+
 		  		  //Opponent will choice to do something after 4.0 no matter what the player does        
 			     attackCheckTime += attackTimer;
 				  if (attackCheckTime >= sf::seconds(4.0f) || playerStunned == true)
 				  {
 			  		  	processOpponentAction();
 			  		  	attackCheckTime = attackClock.restart();
+						
+						if (stunnedTurnsRemaining > 0 ){ stunnedTurnsRemaining--; }
+						if (stunnedTurnsRemaining == 0) { playerStunned = false; }
 				  }
 
             if (playerTurn) processPlayerAction();
@@ -549,7 +553,7 @@ void processOpponentAction()
   	attackCheckTime = sf::Time::Zero;
 
     // If last opponent then switch to player turn
-    if (curOpponent>=(encounterQuantity-1)) 
+    if (curOpponent==(encounterQuantity-1)) 
 	 { 
 	    playerTurn = true; 
 		 curOpponent = 0; 
@@ -605,7 +609,7 @@ void processPlayerAction()
 				if ( key=="SPACE" )
 		 			{
 					encounterMenu = 1; 
-					playerStunned = true;
+					playerStunned == true;
 					if ((Opponents[0].alignment<128) || (!encounterNotHostile))
 			         	opponentAttack();
 					}
@@ -1670,7 +1674,7 @@ int calcOpponentWeaponDamage(int weaponNo, float attackFactor, int attacker)
     // CALCULATE MONSTER WEAPON / ATTACK DAMAGE
 
 	// attacker - 1 = monster
-	int weaponDamageValues[11];
+	int weaponDamageValues[13];
 	weaponDamageValues[0] = monsterWeapons[weaponNo].blunt;
 	weaponDamageValues[1] = monsterWeapons[weaponNo].sharp;
 	weaponDamageValues[2] = monsterWeapons[weaponNo].earth;
@@ -1682,7 +1686,8 @@ int calcOpponentWeaponDamage(int weaponNo, float attackFactor, int attacker)
 	weaponDamageValues[8] = monsterWeapons[weaponNo].good;
 	weaponDamageValues[9] = monsterWeapons[weaponNo].evil;
 	weaponDamageValues[10] = monsterWeapons[weaponNo].cold;
-
+	weaponDamageValues[10] = monsterWeapons[weaponNo].nature;
+	weaponDamageValues[10] = monsterWeapons[weaponNo].acid;
 	if (opponentType==DOPPLEGANGER)
     {
         weaponDamageValues[0] = itemBuffer[weaponNo].blunt;
@@ -1696,12 +1701,14 @@ int calcOpponentWeaponDamage(int weaponNo, float attackFactor, int attacker)
         weaponDamageValues[8] = itemBuffer[weaponNo].good;
         weaponDamageValues[9] = itemBuffer[weaponNo].evil;
         weaponDamageValues[10] = itemBuffer[weaponNo].cold;
+		weaponDamageValues[11] = itemBuffer[weaponNo].nature;
+		weaponDamageValues[12] = itemBuffer[weaponNo].acid;
     }
 
-	int armorValues[11] = { 0,0,0,0,0,0,0,0,0,0,0 };
+	int armorValues[13] = { 0,0,0,0,0,0,0,0,0,0,0,0,0 };
 	// Need to add modifier for player armor values & armor body parts
 
-	int armors[11]; // holds results of rolling for armor protection
+	int armors[13]; // holds results of rolling for armor protection
 
 		//Check to see if the user is wearing the entire armor suit.
 		//If yes, they they get full protection,  otherwise no
@@ -1727,7 +1734,8 @@ int calcOpponentWeaponDamage(int weaponNo, float attackFactor, int attacker)
 		armorValues[8] = itemBuffer[plyr.bodyArmour].good;
 		armorValues[9] = itemBuffer[plyr.bodyArmour].evil;
 		armorValues[10] = itemBuffer[plyr.bodyArmour].cold;
-
+		armorValues[11] = itemBuffer[plyr.bodyArmour].nature;
+		armorValues[12] = itemBuffer[plyr.bodyArmour].acid;
 
 		int armorIndex = 0;
 		while (armorIndex < 11)
@@ -1750,7 +1758,7 @@ int calcOpponentWeaponDamage(int weaponNo, float attackFactor, int attacker)
 
 
 
-	int damages[11] = { 0,0,0,0,0,0,0,0,0,0,0 }; // holds results of rolling for damage
+	int damages[13] = { 0,0,0,0,0,0,0,0,0,0,0,0,0 }; // holds results of rolling for damage
 
 	int damageIndex = 0; // 0 is blunt, 1 is sharp, 11 is cold - 11 damage types in total
 

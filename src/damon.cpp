@@ -41,6 +41,7 @@ struct damonBattleGearItem
 	int itemRef;
 };
 
+
 damonBattleGearItem damonBattleGearWares[12] =
 {
 	{177,	127,	0x00},  // leather breastplate
@@ -57,6 +58,7 @@ damonBattleGearItem damonBattleGearWares[12] =
 	{178,	102,	0x1FE}  // large shield
 };
 
+
 struct damonClothingItem
 {
 
@@ -65,6 +67,7 @@ struct damonClothingItem
 	int price;
 	int itemRef;
 };
+
 
 damonClothingItem damonClothingWares[12] =
 {
@@ -860,7 +863,6 @@ while (damonMenu == 22) // buy item?
 }
 
 
-
 void message(string txt)
 {
 	string key = "";
@@ -872,7 +874,6 @@ void message(string txt)
 			key = getSingleKey();
 	}
 }
-
 
 
 void stockDamon()
@@ -909,11 +910,6 @@ void loadDamonBinary() {
 }
 
 
-
-
-
-
-
 string readNameString(int stringOffset)
 {
     stringstream ss;
@@ -933,13 +929,13 @@ string readNameString(int stringOffset)
 
 
 
-// Take a binary offset within damonBinary and create a new inventory item from the binary data (weapon, armour or clothing)
-// Item types:  03 - weapon, 04 - armour, 05 - clothing
-
+/** @brief Take a binary offset within damonBinary and create a new inventory item from the binary data (weapon, armour or clothing)
+/ @brief Item types:  03 - weapon, 04 - armour, 05 - clothing
+*/
 int createInventoryItem(int startByte)
 {
     int index,alignment,weight,wAttributes,melee,ammo,blunt,sharp,earth,air,fire,water,power,magic,good,evil,cold,nature,acid,
-        minStrength,minDexterity,hp,maxHP,flags,parry,useStrength;
+        minStrength,minDexterity,hp,maxHP,flags,parry,useStrength, effect;
 
     int offset = startByte;
     int itemType = damonBinary[offset];
@@ -976,6 +972,7 @@ int createInventoryItem(int startByte)
         maxHP              = damonBinary[wAttributes+19];
         flags              = damonBinary[wAttributes+20];
         parry              = damonBinary[wAttributes+21];
+		effect             = 0;
     }
 
     if (itemType == 4)
@@ -1009,6 +1006,7 @@ int createInventoryItem(int startByte)
         maxHP              = damonBinary[wAttributes+14];
         flags              = 0;
         parry              = 0;
+		effect			   = 0;
     }
 
     if (itemType == 5)
@@ -1042,13 +1040,62 @@ int createInventoryItem(int startByte)
         maxHP              = 0;
         flags              = 0;
         parry              = 0;
+		effect             = 0;
     }
 
     int newItemRef = createItem(itemType,index,itemName,hp,maxHP,flags,minStrength,minDexterity,useStrength,blunt,
-                                sharp,earth,air,fire,water,power,magic,good,evil,cold,nature,acid,weight,alignment,melee,ammo,parry);
+                                sharp,earth,air,fire,water,power,magic,good,evil,cold,nature,acid,weight,alignment,melee,ammo,parry, effect);
     itemBuffer[newItemRef].location = 10; // Add to player inventory - 10
 	return 1;
 }
 
 
 
+void ImportItems()
+{
+	//int index, alignment, weight, wattributes, melee, ammo, blunt, sharp, earth, air, fire, water, power, magic, good, evil, cold, nature, acid,
+	//	minstrength, mindexterity, hp, maxhp, flags, parry, usestrength, effect;
+
+
+
+	//if (itemtype == 4)
+	//{
+	//	itemtype = 177;       // arx value for armour
+	//	index = 0;         // no longer required
+	//	usestrength = 0;
+	//	alignment = damonbinary[offset + 3];
+	//	weight = damonbinary[offset + 4];
+
+	//	wattributes = (offset + damonbinary[offset + 1]) - 15; // working out from the end of the weapon object
+
+	//	melee = damonbinary[wattributes + 1];    // body part
+	//	ammo = 0;                             // not used
+	//	blunt = damonbinary[wattributes + 2];    // error onwards
+	//	sharp = damonbinary[wattributes + 3];
+	//	earth = damonbinary[wattributes + 4];
+	//	air = damonbinary[wattributes + 5];
+	//	fire = damonbinary[wattributes + 6];
+	//	water = damonbinary[wattributes + 7];
+	//	power = damonbinary[wattributes + 8];
+	//	magic = damonbinary[wattributes + 9];
+	//	good = damonbinary[wattributes + 10];
+	//	evil = damonbinary[wattributes + 11];
+	//	cold = damonbinary[wattributes + 12];
+	//	nature = damonbinary[wattributes + 13];
+	//	acid = damonbinary[wattributes + 14];
+	//	minstrength = 0;
+	//	mindexterity = 0;
+	//	hp = damonbinary[wattributes + 13];
+	//	maxhp = damonbinary[wattributes + 14];
+	//	flags = 0;
+	//	parry = 0;
+	//	effect = 0;
+	//}
+
+	//
+
+	//int newitemref = createitem(itemtype, index, itemname, hp, maxhp, flags, minstrength, mindexterity, usestrength, blunt,
+	//	sharp, earth, air, fire, water, power, magic, good, evil, cold, nature, acid, weight, alignment, melee, ammo, parry, effect);
+	//itembuffer[newitemref].location = 10; // add to player inventory - 10
+	//return 1;
+}

@@ -167,7 +167,7 @@ void startGame()
     //clearInventory();           // Set the inventory char array to zeros
 
     // Not in use yet - dungeonItems()
-    loadDungeonItems();         // Sets up the Dungeon items char array
+    //loadDungeonItems();         // Sets up the Dungeon items char array
 
     gameLoop(); // Enter the main game loop
 }

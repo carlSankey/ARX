@@ -14,13 +14,15 @@
 
 using namespace std;
 
-extern effectItem effectBuffer[50]; // Actual definition with memory allocation
+extern effectItem effectBuffer[1000]; // Actual definition with memory allocation
 
 extern std::map<int, int*> statMap;
 
 extern std::map<int, int*> resistanceMap;
 
 struct effectIndex effectIndexloc;
+
+
 
 std::map<int, int(*)> effectsMap = {
 	{0, &plyr.food},
@@ -57,7 +59,12 @@ struct spellSlot spellSlotloc;
 
 
 
-// Pass the array size as a parameter
+/**
+* @brief find the effect by name
+* @brief or returns the found = false if not found
+* @param targetname is the name of the effect
+*
+*/
 SearchResult  findEffectByNameOrLastFree(const std::string& targetName, int size) {
 	SearchResult effectIndex = { -1, false }; // Initialize result
 
@@ -82,30 +89,71 @@ SearchResult  findEffectByNameOrLastFree(const std::string& targetName, int size
 
 }
 
+/**
+* @brief find all the effect by type and retunr an array
+* @brief or returns the found = false if not found
+* @param targetname is the name of the effect
+*
+*/
+SearchArray findAllEffectByNameOrLastFree(int targetNo, int size) {
+	SearchResult* resultArray = new SearchResult[size];
+	int arrSize = 0;
+	for (int i = 0; i < size; ++i) {
+				
+		if (spells[effectBuffer[i].effectNo].spelltype == targetNo) {
+			resultArray[arrSize].index = i;
+			resultArray[arrSize].found = true;
+			arrSize++;
+		}
+		else {
+			resultArray[i].index = -1;  // or any other default value
+			resultArray[i].found = false;
+			}
+	}
+	SearchArray result;
+	result.resultArray = resultArray;
+	result.arrSize = arrSize;
 
+	return result;
+	// No match found, return the result indicating it's the last free index
+
+}
+
+
+
+/**
+* @brief find the Effect by spell No  
+* @brief or returns the found = false if not found
+* @param targetname is the no of the effect
+*/
 SearchResult findEffectByNoOrLastFree(int targetNo, int size) {
-	SearchResult spellSlot = { -1, false }; // Initialize result
+	SearchResult EffectIndex = { -1, false }; // Initialize result
 	for (int i = 0; i < size; i++) {
-		if (plyr.ActiveSpell[i] == targetNo) {
+		if (effectBuffer[i].effectNo == targetNo) {
 			// Match found, set the result and return
-			spellSlot.index = i;
-			spellSlot.found = true;
+			EffectIndex.index = i;
+			EffectIndex.found = true;
 			
 			break;
 		}
 
-		if (plyr.ActiveSpell[i] == 0) {
+		if (effectBuffer[i].effectNo == 0) {
 			// Empty name indicates a free slot, store the index
-			spellSlot.index = i;
+			EffectIndex.index = i;
 			break;
 		}
 		
 	}
-	return spellSlot;
+	return EffectIndex;
 	// No match found, return the result indicating it's the last free index
 	
 }
 
+/**
+* @brief find the spell type
+* @brief or returns the found = false if not found
+* @param targetname is the type of the effect
+*/
 SearchResult  findEffectBySpellTypeOrLastFree(int targetType, int size) {
 	SearchResult effectIndex = { -1, false }; // Initialize result
 
@@ -130,6 +178,11 @@ SearchResult  findEffectBySpellTypeOrLastFree(int targetType, int size) {
 
 }
 
+/**
+* @brief find the active spell
+* @ or returns the found = false if not found
+* @param targetname is the no of the active spell
+*/
 SearchResult  findActiveSpellNoLastFree(int targetNo, int size) {
 	SearchResult effectIndex = { -1, false }; // Initialize result
 
@@ -172,7 +225,13 @@ void updateInvuls(std::bitset<13> binaryElems, int positiveValue) {
 	}
 }
 
-
+/**
+* @brief applys buffs to the player  
+* @brief to add more buffs for example Morganas Tiara use spell 77+  think i should up that to 100+  
+* @brief and leave room for expansion
+* @param hour = 0 then remove affect only (not active spell) as this could be a buff by clothing/armour etc
+* @param effectid  = The spell affect (some spells are not castable but hold the same effect types/etc
+*/
 void applyEffect(int hour, int effectid)
 {
 	int spellActivated = 1;
@@ -180,7 +239,7 @@ void applyEffect(int hour, int effectid)
 
 
 	std::cout << "UpdateSpell\n";
-	//for now treat all of the spells the same.  Change in the future
+	
 	int SpellDuraction = effectBuffer[effectid].duration;
 
 	std::bitset<7> binaryStat(spells[effectBuffer[effectid].effectNo].stattype);
@@ -189,31 +248,43 @@ void applyEffect(int hour, int effectid)
 
 	switch (spells[effectBuffer[effectid].effectNo].spelltype)
 	{
-	case 0:
+	case 0: //Update stats
 
-		updateStats(binaryStat, spells[effectBuffer[effectid].effectNo].positiveValue * spellActivated);
+		updateStats(binaryStat, (spells[effectBuffer[effectid].effectNo].positiveValue - spells[effectBuffer[effectid].effectNo].negativeValue) * spellActivated);
 		break;
-	case 1:
-		updateInvuls(binaryElems, spells[effectBuffer[effectid].effectNo].positiveValue * spellActivated);
+	case 1: //Update vulnarabilities
+		updateInvuls(binaryElems, (spells[effectBuffer[effectid].effectNo].positiveValue - spells[effectBuffer[effectid].effectNo].negativeValue) * spellActivated);
 		break;
-	case 2:
+	case 2:  //combat spell
 		//There is no effect for a combat spell
 		break;
-	case 3:
-		*effectsMap[spells[effectBuffer[effectid].effectNo].effect] = spells[effectBuffer[effectid].effectNo].positiveValue * spellActivated;
+	case 3:  //
+		*effectsMap[spells[effectBuffer[effectid].effectNo].effect] = (spells[effectBuffer[effectid].effectNo].positiveValue - spells[effectBuffer[effectid].effectNo].negativeValue) * spellActivated;
 		break;
 	case 4:  //Weapon Buff
-		updateWeaponBuff(binaryWeaponBuff, spells[effectBuffer[effectid].effectNo].positiveValue * spellActivated);
+		updateWeaponBuff(binaryWeaponBuff, (spells[effectBuffer[effectid].effectNo].positiveValue - spells[effectBuffer[effectid].effectNo].negativeValue) * spellActivated);
 
 		break;
 	case 5:
 		//Not implemented yet
 		break;
+	case 10: //Update stats
+
+		updateStats(binaryStat, (spells[effectBuffer[effectid].effectNo].positiveValue - spells[effectBuffer[effectid].effectNo].negativeValue) * spellActivated);
+		break;
 	}
 
-
+	//If removing effect then remove it from Effectbuffer
+	if (spellActivated == -1) { 
+		effectBuffer[effectid].name = "";
+	effectBuffer[effectid].effectNo = 0;
+	effectBuffer[effectid].negativeValue = 0;
+	effectBuffer[effectid].positiveValue = 0;
+	effectBuffer[effectid].duration = 0;
+	}
 
 }
+
 
 void spellEffect(int spellId)
 {

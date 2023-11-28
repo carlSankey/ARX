@@ -84,6 +84,7 @@ void clearAutoMaps()
 	}
 }
 
+
 void InitMap()
 {
 	mapImage.loadFromFile("data/images/maptiles.png");
@@ -93,7 +94,6 @@ void InitMap()
 	if (plyr.scenario==1) legendImage.loadFromFile("data/images/dungeonLegend.png");
 	mapLegend.setTexture(legendImage);
 }
-
 
 
 // Draw an individual image to the display at pixel x,y
@@ -126,7 +126,6 @@ void DrawImage(int x,int y, int tileNo)
 	//else { App.draw(cellImage); }
 	App.draw(cellImage);
 }
-
 
 
 // Draw all the images required for a single cell on the automap
@@ -379,7 +378,6 @@ void drawFullAutomap()
 
 	plyr.drawingBigAutomap = false;
 }
-
 
 
 void setAutoMapFlag(int mapno, int x, int y)

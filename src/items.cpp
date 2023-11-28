@@ -18,6 +18,7 @@
 #include "globals.h"
 #include "itemSelect.h"
 #include "effects.h"
+#include "spells.h"
 
 
 extern struct SearchResult;
@@ -199,51 +200,47 @@ void loadDungeonItems() {
 
 
 
-
 buffer_item tempBuffer[itemBufferSize]; // Temp buffer for rebuilding new object buffer when bufferIndex reaches 99
 
 
-
-
-
-clothingItem clothingItems[29] =
+clothingItem clothingItems[30] =
 {
-	//							Qual	Col		Fab		Type	Weight
-	{"Cheap Robe",				0,		0,		0,		0,		4},
-	{"Green Cap with Feather",	0,		0,		0,		0,		4},
-	{"Floppy Leather Hat",		0,		0,		0,		0,		4},
-	{"Leather Sandals",			0,		0,		0,		0,		4},
-	{"High Leather Boots",		0,		0,		0,		0,		4},
-	{"Showshoes",				0,		0,		0,		0,		4},
-	{"White Cotton Robe",		0,		0,		0,		0,		4},
-	{"White Cotton Tunic",		0,		0,		0,		0,		4},
-	{"Brown Cotton Breeches",	0,		0,		0,		0,		4},
-	{"Green Cotton Skirt",		0,		0,		0,		0,		4},
-	{"Purple Flowing Cape",		0,		0,		0,		0,		4},
-	{"Blue Woolen Sweater",		0,		0,		0,		0,		4},
-	{"Heavy Leather Jacket",	0,		0,		0,		0,		6},
+	//							Qual	Col		Fab		Type	Weight  Effect
+	{"Cheap Robe",				0,		0,		0,		0,		4,		0},
+	{"Green Cap with Feather",	0,		0,		0,		1,		4,		100},
+	{"Floppy Leather Hat",		0,		0,		0,		0,		4,		0},
+	{"Leather Sandals",			0,		0,		0,		0,		4,		0},
+	{"High Leather Boots",		0,		0,		0,		0,		4,		0},
+	{"Showshoes",				0,		0,		0,		0,		4,		0},
+	{"White Cotton Robe",		0,		0,		0,		0,		4,		0},
+	{"White Cotton Tunic",		0,		0,		0,		0,		4,		0},
+	{"Brown Cotton Breeches",	0,		0,		0,		0,		4,		0},
+	{"Green Cotton Skirt",		0,		0,		0,		0,		4,		0},
+	{"Purple Flowing Cape",		0,		0,		0,		0,		4,		0},
+	{"Blue Woolen Sweater",		0,		0,		0,		0,		4,		0},
+	{"Heavy Leather Jacket",	0,		0,		0,		0,		6,		0},
 
-	{"Fine Yellow Wool Pants",	        283,		0,		0,		0,		4},
-	{"Simple Violet Jerkin",	        196,		0,		0,		0,		4},
-	{"Simple White Wool Robe",	        872,		0,		0,		0,		4},
-	{"Simple Red Jerkin",		        161,		0,		0,		0,		4},
-	{"Simple Purple Fur-Lined Toga",    457,		0,		0,		0,		4},
-	{"Simple Gold Jerkin",		        327,		0,		0,		0,		4},
-	{"Cheap Gray Silk Hat",		        248,		0,		0,		0,		4},
-	{"Cheap Gold Wool Toga",	        139,		0,		0,		0,		4},
-	{"Fine Silver Jerkin",	            357,		0,		0,		0,		4},
-	{"Simple Gray Cloak",		        170,		0,		0,		0,		4},
-	{"Simple White Fur-Lined Robe",	    4260,		0,		0,		0,		4},
-	{"Cheap Black Jerkin",		        221,		0,		0,		0,		4},
-	{"Fine Purple Fur-Lined Shirt",	    979,		0,		0,		0,		6},
-    {"Simple Purple Dragonskin Blouse",	2364,		0,		0,		0,		4},
-	{"Simple Orange Silk Vest",		    1107,		0,		0,		0,		4},
-	{"Cheap Gold Silk Skirt",	        924,		0,		0,		0,		6}
+	{"Fine Yellow Wool Pants",	        283,		0,		0,		0,		4,		0},
+	{"Simple Violet Jerkin",	        196,		0,		0,		0,		4,		0},
+	{"Simple White Wool Robe",	        872,		0,		0,		0,		4,		0},
+	{"Simple Red Jerkin",		        161,		0,		0,		0,		4,		0},
+	{"Simple Purple Fur-Lined Toga",    457,		0,		0,		0,		4,		0},
+	{"Simple Gold Jerkin",		        327,		0,		0,		0,		4,		0},
+	{"Cheap Gray Silk Hat",		        248,		0,		0,		0,		4,		0},
+	{"Cheap Gold Wool Toga",	        139,		0,		0,		0,		4,		0},
+	{"Fine Silver Jerkin",	            357,		0,		0,		0,		4,		0},
+	{"Simple Gray Cloak",		        170,		0,		0,		0,		4,		0},
+	{"Simple White Fur-Lined Robe",	    4260,		0,		0,		0,		4,		0},
+	{"Cheap Black Jerkin",		        221,		0,		0,		0,		4,		0},
+	{"Fine Purple Fur-Lined Shirt",	    979,		0,		0,		0,		6,		0},
+    {"Simple Purple Dragonskin Blouse",	2364,		0,		0,		0,		4,		0},
+	{"Simple Orange Silk Vest",		    1107,		0,		0,		0,		4,		0},
+	{"Cheap Gold Silk Skirt",	        924,		0,		0,		0,		6,		0},
+	{"Morganans Tiara",					0,			0,		0,		0,		1,		100}
 };
 
 
-
-questItem questItems[7] =
+questItem questItems[8] =
 {
 	{"Troll Ring Half",			2 },
 	{"Goblin Ring Half",		2 },
@@ -251,9 +248,9 @@ questItem questItems[7] =
 	{"Guild Ring",				2 },
 	{"Map Stone",				2 },
 	{"Amethyst Rod",			2 },
-	{"Staff Piece",             2 }
+	{"Staff Piece",             2 },
+	{"Helm of Light",			2 }
 };
-
 
 
 potionItem Potions[44] =
@@ -305,7 +302,6 @@ potionItem Potions[44] =
 };
 
 
-
 int createItem(
         int type,
         int index,
@@ -333,7 +329,8 @@ int createItem(
         int alignment,
         int melee,
         int ammo,
-        int parry)
+        int parry,
+		int effect)
 {
     // Create a new item in itemBuffer[]
 
@@ -374,7 +371,7 @@ int createItem(
 	new_item.melee          = melee;
 	new_item.ammo           = ammo;
 	new_item.parry          = parry;
-
+	new_item.effect         = effect;
     // Set location attributes
     new_item.location       = 1;                          // the floor
     new_item.x              = plyr.x;
@@ -390,7 +387,7 @@ int createItem(
 
 void createBareHands()
 {
-    int itemRef = createItem(178,0,"bare hand",255,255,6,0,0,1,0x15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255,0,0);
+    int itemRef = createItem(178,0,"bare hand",255,255,6,0,0,1,0x15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255,0,0,0);
     itemBuffer[itemRef].location = 99; // body part of player - 99 so it doesn't show up in the inventory
     //plyr.priWeapon = itemRef;
     //plyr.secWeapon = itemRef;
@@ -473,20 +470,20 @@ int createArmor(int armor_no)
 }
 
 
-int createClothing(int clothing_no)
+int createClothing(int clothing_no, int itemlocation)
 {
 	 tidyObjectBuffer();
 	 buffer_item new_item;
 	 new_item.name = clothingItems[clothing_no].name;
      new_item.type = 180; // clothing type
      new_item.index = clothing_no;
-     new_item.location = 10; // carried in inventory but not in use
+     new_item.location = itemlocation; // carried in inventory but not in use
      new_item.x = plyr.x;
      new_item.y = plyr.y;
      new_item.level = plyr.map;
      new_item.hp = 12; // temp value to act as breakable value
 	 new_item.weight = clothingItems[clothing_no].weight;
-
+	 new_item.effect = clothingItems[clothing_no].effect;
 
 	 itemBuffer[plyr.buffer_index] = new_item;
      int new_item_ref = plyr.buffer_index;
@@ -1411,7 +1408,7 @@ void dropObject(int object_ref)
 	if (itemBuffer[object_ref].name == "Lit Torch")
 	{
 		itemBuffer[object_ref].name = "stick";
-		checkplayerLight();
+		
 	}
 	itemBuffer[object_ref].location = 1;
 	itemBuffer[object_ref].x = plyr.x;
@@ -1429,12 +1426,13 @@ void dropObject(int object_ref)
 	{
 		plyr.secWeapon = 0;         // Set bufferItem[0] - bare hand
 	}
-	if (plyr.clothing[0]==object_ref) plyr.clothing[0] = 255;
-	if (plyr.clothing[1]==object_ref) plyr.clothing[1] = 255;
-	if (plyr.clothing[2]==object_ref) plyr.clothing[2] = 255;
-	if (plyr.clothing[3]==object_ref) plyr.clothing[3] = 255;
+	if (plyr.clothing[0]==object_ref) plyr.clothing[0] = 255; applyEffect(0, clothingItems[itemBuffer[object_ref].index].effect);
+	if (plyr.clothing[1]==object_ref) plyr.clothing[1] = 255; applyEffect(0, clothingItems[itemBuffer[object_ref].index].effect);
+	if (plyr.clothing[2]==object_ref) plyr.clothing[2] = 255; applyEffect(0, clothingItems[itemBuffer[object_ref].index].effect);
+	if (plyr.clothing[3]==object_ref) plyr.clothing[3] = 255; applyEffect(0, clothingItems[itemBuffer[object_ref].index].effect);
 
 	//Check item buffs
+	checkplayerLight();
 }
 
 
@@ -1545,6 +1543,7 @@ void useObject(int object_ref)
 	if (itemBuffer[object_ref].type==199) { use_ammoItem(object_ref); } // ammo item
 	if (itemBuffer[object_ref].type==200) { use_questItem(object_ref); } // quest item
 	if (itemBuffer[object_ref].type==201) { use_questItem(object_ref); } // guild ring
+	checkplayerLight();
 }
 
 
@@ -1578,6 +1577,7 @@ void use_armor(int object_ref)
 	cout << itemBuffer[object_ref].melee << "\n";
 
 	//Add armour buff 
+
 
 	//int armorRef = itemBuffer[object_ref].index;
 	//	if (Armor[armorRef].bodyLocation==1) {plyr.headArmour = object_ref;}
@@ -1838,7 +1838,7 @@ void use_torch()
 
 		if (key_value == "1")
         {
-            plyr.priWeapon = createItem(178,0x0,"Lit Torch",0x16,0x16, 0x82, 0x04, 0x01, 0x0, 0x13,0,0,0,0x13,0,0,0,0,0,0,0,0,0x02,0,0xFF,0,0x03);
+            plyr.priWeapon = createItem(178,0x0,"Lit Torch",0x16,0x16, 0x82, 0x04, 0x01, 0x0, 0x13,0,0,0,0x13,0,0,0,0,0,0,0,0,0x02,0,0xFF,0,0x03,0);
             //createWeapon(71); // create a new lit torch was 11
             itemBuffer[plyr.priWeapon].location = 10; // primary was 11
             plyr.torches--;
@@ -1848,7 +1848,7 @@ void use_torch()
         }
         if (key_value == "2")
         {
-            plyr.secWeapon = createItem(178,0x0,"Lit Torch",0x16,0x16, 0x82, 0x04, 0x01, 0x0, 0x13,0,0,0,0x13,0,0,0,0,0,0,0,0,0x02,0,0xFF,0,0x03);
+            plyr.secWeapon = createItem(178,0x0,"Lit Torch",0x16,0x16, 0x82, 0x04, 0x01, 0x0, 0x13,0,0,0,0x13,0,0,0,0,0,0,0,0,0x02,0,0xFF,0,0x03,0);
             itemBuffer[plyr.secWeapon].location = 10; // secondary was 12
             plyr.torches--;
 			keypressed=true;
@@ -2220,17 +2220,17 @@ void itemMessage(string message)
 void checkItemBuff()
 {
 
-	if (itemBuffer[plyr.priWeapon].buffType > 0) { applyEffect(INT_MAX, itemBuffer[plyr.priWeapon].effect); }else { applyEffect(0, itemBuffer[plyr.priWeapon].effect); }
-	if (itemBuffer[plyr.secWeapon].buffType > 0) { applyEffect(INT_MAX, itemBuffer[plyr.secWeapon].effect); }else {applyEffect(0, itemBuffer[plyr.secWeapon].effect);}
-	if (itemBuffer[plyr.headArmour].buffType > 0) { applyEffect(INT_MAX, itemBuffer[plyr.headArmour].effect); }else{ applyEffect(0, itemBuffer[plyr.headArmour].effect); }
-	if (itemBuffer[plyr.bodyArmour].buffType > 0) { applyEffect(INT_MAX, itemBuffer[plyr.bodyArmour].effect); }else{ applyEffect(0, itemBuffer[plyr.bodyArmour].effect); }
-	if (itemBuffer[plyr.armsArmour].buffType > 0) { applyEffect(INT_MAX, itemBuffer[plyr.armsArmour].effect); }else{ applyEffect(0, itemBuffer[plyr.armsArmour].effect); }
-	if (itemBuffer[plyr.legsArmour].buffType > 0) { applyEffect(INT_MAX, itemBuffer[plyr.legsArmour].effect); }else{ applyEffect(0, itemBuffer[plyr.legsArmour].effect); }
-	if (itemBuffer[plyr.clothing[0]].buffType > 0) { applyEffect(INT_MAX, itemBuffer[plyr.clothing[0]].effect); }else{ applyEffect(0, itemBuffer[plyr.clothing[0]].effect); }
-	if (itemBuffer[plyr.clothing[1]].buffType > 0) { applyEffect(INT_MAX, itemBuffer[plyr.clothing[1]].effect); }else{ applyEffect(0, itemBuffer[plyr.clothing[1]].effect); }
-	if (itemBuffer[plyr.clothing[2]].buffType > 0) { applyEffect(INT_MAX, itemBuffer[plyr.clothing[2]].effect); }else{ applyEffect(0, itemBuffer[plyr.clothing[2]].effect); }
-	if (itemBuffer[plyr.clothing[3]].buffType > 0) { applyEffect(INT_MAX, itemBuffer[plyr.clothing[3]].effect); }else{ applyEffect(0, itemBuffer[plyr.clothing[3]].effect); }
-
+	if (itemBuffer[plyr.priWeapon].buffType > 99) { castSpellAction( itemBuffer[plyr.priWeapon].effect); }
+	if (itemBuffer[plyr.secWeapon].buffType > 99) { castSpellAction( itemBuffer[plyr.secWeapon].effect); }
+	if (itemBuffer[plyr.headArmour].buffType > 99) { castSpellAction( itemBuffer[plyr.headArmour].effect); }
+	if (itemBuffer[plyr.bodyArmour].buffType > 99) { castSpellAction( itemBuffer[plyr.bodyArmour].effect); }
+	if (itemBuffer[plyr.armsArmour].buffType > 99) { castSpellAction( itemBuffer[plyr.armsArmour].effect); }
+	if (itemBuffer[plyr.legsArmour].buffType > 99) { castSpellAction( itemBuffer[plyr.legsArmour].effect); }
+	if (clothingItems[plyr.clothing[0]].effect > 99) { castSpellAction( clothingItems[plyr.clothing[0]].effect); }
+	if (clothingItems[plyr.clothing[1]].effect > 99) { castSpellAction( clothingItems[plyr.clothing[1]].effect); }
+	if (clothingItems[plyr.clothing[2]].effect > 99) { castSpellAction( clothingItems[plyr.clothing[2]].effect); }
+	if (clothingItems[plyr.clothing[3]].effect > 99) { castSpellAction( clothingItems[plyr.clothing[3]].effect); }
+	
 }
 
 
@@ -2243,3 +2243,37 @@ void removeItemBuff(int itemId)
 	effectBuffer[WeaponBuffNo.index].effectNo = 0;
 	effectBuffer[WeaponBuffNo.index].effectNo = 0;
 }
+
+
+int findlastmonsterWeapon()
+{
+	std::string targetValue = "";
+	int lastIndex = -1;
+
+	for (int i = sizeof(monsterWeapons) / sizeof(monsterWeapons[0]) - 1; i >= 0; i--)
+	{
+		if (monsterWeapons[i].name != targetValue)
+		{
+			lastIndex = i;
+			
+			break;
+		}
+
+	}
+	return lastIndex;
+}
+
+
+void addNewMonsterItem()
+{
+	/* need to either write a file reader to get more weapons in the system
+	* there are missing weapons, for example the sword of adept
+	* also i want to add new weapons when wilderness is added
+	* 
+	* or modify the exising Bin file to add more weapons.
+	* might be easier to make a new Weapon reading system based upon the scenario
+	* 
+	*/
+}
+
+

@@ -28,7 +28,7 @@ using namespace sf;
 
 sf::Sprite encImage;
 
-string version = "0.83.3";
+string version = "0.84.0";
 
 int windowMode, graphicMode, windowWidth, windowHeight, viewWidth, viewHeight;
 int viewPortX;
@@ -516,14 +516,14 @@ void displayMainMenu()
 	//int z = 12;
 	int x = 2;
 	//drawText(1,0,"x");
-	drawText(x+3,z, "(1) Create a new City character");
+	drawText(x+3,z,   "(1) Create a new City character");
 	drawText(x+3,z+1, "(2) Create a new Dungeon character");
 	drawText(x+3,z+2, "(3) Resume a character");
 	drawText(x+3,z+3, "(4) Acknowledgements");
-	//drawText(x+3,z+5,"(5) Modify view:");
-	drawText(x+3,z+6,"(6) Modify audio:");
-	drawText(x+3,z+7,"(7) Modify font:");
-	drawText(x+3,z+9,"(0) Leave the game");
+	drawText(x+3,z+4, "(5) Modify view:");
+	drawText(x+3,z+6, "(6) Modify audio:");
+	drawText(x+3,z+7, "(7) Modify font:");
+	drawText(x+3,z+9, "(0) Leave the game");
 
 
 	if (graphicMode == ATARI_SMALL) { drawText(x+7,z+5,     "Texture       Atari 8bit"); }
@@ -791,6 +791,8 @@ if (plyr.status!=3)
 			bText (31,8,poisonDesc);
 			string diseaseDesc = checkDisease();
 			bText (31,9,diseaseDesc);
+			string fatigueDesc = checkFatigue();
+		    bText (1, 6, fatigueDesc);
 
         }
 
@@ -1314,7 +1316,7 @@ void drawLogo()
 
 
 // Disabled large and small_alternate options for release 0.75
-/*
+
 void drawEncounterAnimation()
 {
 	sf::Texture encImageSheet;
@@ -1437,4 +1439,4 @@ void drawEncounterAnimation()
 	if (graphicMode == ATARI_SMALL ) App.draw(encImage);
 }
 
-*/
+

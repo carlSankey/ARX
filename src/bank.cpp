@@ -53,7 +53,6 @@ bank banks[3] =
 };
 
 
-
 struct bankJobOpening
 {
 	int jobNumber;
@@ -82,10 +81,6 @@ bankJob bankJobs[3] =
 	{"File Clerk",	50,	56,	"Intelligence",	20,		0.5625,		2.29,	0.05},
 	{"Coin Roller",	22,	28,	"Alignment",	144,	0.59375,	2.29,	0.05 }
 };
-
-
-
-
 
 
 inline std::string concat( int n, const char* str )
@@ -710,7 +705,6 @@ void shopBank()
 }
 
 
-
 void checkDailybankInterest()
 {
 	// Run at the start of each new day
@@ -735,7 +729,6 @@ void checkDailybankInterest()
 		}
 	}
 }
-
 
 
 void checkDailybankJobOpenings()
@@ -763,7 +756,6 @@ void checkDailybankJobOpenings()
 }
 
 
-
 void withdrawCoppers(int coppersToWithdraw)
 {
 	// Adds an amount of coppers to plyr in gold, silver and copper coins
@@ -787,9 +779,6 @@ void withdrawCoppers(int coppersToWithdraw)
 	plyr.gold += goldFromWithdrawal;
 	plyr.silver += silverFromWithdrawal;
 }
-
-
-
 
 
 int getBankNo()

@@ -126,6 +126,8 @@ struct weapon
 	int good; // cleric
 	int evil;
 	int cold;
+	int nature;
+	int acid;
 	int weight;
 	int hp;
 	int maxHP;

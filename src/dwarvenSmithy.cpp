@@ -321,7 +321,7 @@ void createCustomWeapon()
     // Routine to create weapon after 4 days have elapsed
 
     int index,alignment,weight,wAttributes,melee,ammo,blunt,sharp,earth,air,fire,water,power,magic,good,evil,cold,nature,acid,
-        minStrength,minDexterity,hp,maxHP,flags,parry,useStrength;
+        minStrength,minDexterity,hp,maxHP,flags,parry,useStrength, effect;
 
     int offset = 0x00;
     switch (plyr.forgeType)
@@ -375,9 +375,9 @@ void createCustomWeapon()
     maxHP              = 0xFF;
     flags              = 90;
     parry              = (dwarvenBinary[wAttributes+21]) * 2;
-
+    effect             = 0;
     int newItemRef = createItem(itemType,index,itemName,hp,maxHP,flags,minStrength,minDexterity,useStrength,blunt,
-                                sharp,earth,air,fire,water,power,magic,good,evil,cold,nature,acid,weight,alignment,melee,ammo,parry);
+                                sharp,earth,air,fire,water,power,magic,good,evil,cold,nature,acid,weight,alignment,melee,ammo,parry,effect);
     itemBuffer[newItemRef].location = 10; // Add to player inventory - 10
 
     // Reset related variables once custom weapon ready
@@ -580,7 +580,7 @@ string readDwarvenNameString(int stringOffset)
 int createDwarvenInventoryItem(int startByte)
 {
     int index,alignment,weight,wAttributes,melee,ammo,blunt,sharp,earth,air,fire,water,power,magic,good,evil,cold,nature,acid,
-        minStrength,minDexterity,hp,maxHP,flags,parry,useStrength;
+        minStrength,minDexterity,hp,maxHP,flags,parry,useStrength, effect;
 
     int offset = startByte;
     int itemType = dwarvenBinary[offset];
@@ -617,6 +617,7 @@ int createDwarvenInventoryItem(int startByte)
         maxHP              = dwarvenBinary[wAttributes+19];
         flags              = dwarvenBinary[wAttributes+20];
         parry              = dwarvenBinary[wAttributes+21];
+        effect             = 0;
     }
 
     if (itemType == 4)
@@ -650,6 +651,7 @@ int createDwarvenInventoryItem(int startByte)
         maxHP              = dwarvenBinary[wAttributes+16];
         flags              = 0;
         parry              = 0;
+        effect             = 0;
     }
 
     if (itemType == 2)
@@ -684,10 +686,11 @@ int createDwarvenInventoryItem(int startByte)
         maxHP              = 0;
         flags              = 0;
         parry              = 0;
+        effect             = 0;
     }
 
     int newItemRef = createItem(itemType,index,itemName,hp,maxHP,flags,minStrength,minDexterity,useStrength,blunt,
-                                sharp,earth,air,fire,water,power,magic,good,evil,cold,nature,acid,weight,alignment,melee,ammo,parry);
+                                sharp,earth,air,fire,water,power,magic,good,evil,cold,nature,acid,weight,alignment,melee,ammo,parry, effect);
     itemBuffer[newItemRef].location = 10; // Add to player inventory - 10
     return 1;
 }

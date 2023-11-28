@@ -375,6 +375,11 @@ for(int y = 0; y < 14; ++y)
 	plyr.guildAccepting[y] = atoi(character[237+y].c_str()); 
 }
 
+ plyr.light = atoi(character[251].c_str()) ;
+ plyr.supervision = atoi(character[252].c_str());
+ plyr.fatigue = atoi(character[253].c_str());
+ plyr.fatigueRate = atoi(character[254].c_str());
+
 
 int loadGameIndex = 400; // start location for object buffer items
 for(int z = 0; z < itemBufferSize; ++z)
@@ -708,8 +713,14 @@ bool saveCharacter(int saveSlot)
 	 	character[237+y] = itos(plyr.guildAccepting[y]); 
 	 }
 
+    // Version 0.90
+    character[251] = itos(plyr.light);
+    character[252] = itos(plyr.supervision);
+    character[253] = itos(plyr.fatigue);
+    character[253] = itos(plyr.fatigueRate);
 
-		character[399] = "Line 400: Item Buffer follows";
+
+	character[399] = "Line 400: Item Buffer follows";
 
  // Copy item buffer
 

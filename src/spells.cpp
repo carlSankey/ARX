@@ -26,11 +26,11 @@ extern  monster Opponents[];
 
 spellItem spellBuffer[76]; // learnt spells that can be cast
 
-effectItem effectBuffer[50]; // Actual definition with memory allocation
+effectItem effectBuffer[1000]; // Actual definition with memory allocation
 
 //extern std::map<int, int*> weaponBonusMap;
 
-spellRecord spells[77] =
+spellRecord spells[150] =
 {
 {"Bewilder",0,2,10,10,0,0,0,0,0,0,6,1,0.16,255,99,16383},  //0
 {"Blinding",1,2,10,10,0,0,0,0,0,0,3,1,0.15,255,99,16383},  //1
@@ -92,7 +92,7 @@ spellRecord spells[77] =
 {"Inflicting Serious Wounds",57,2,0,13,1,2048,0,60,0,0,13,13,0.0625,17,81,2080}, //Inflicts 12 'evil' damage to the encounter.
 {"Fear",58,2,0,7,1,0,0,0,0,0,7,10,0.0859,117,86,32}, //Frightens the encounter.
 {"Luck",59,3,0,5,6,0,0,0,75,12,5,8,0.1211,13,97,64}, //Increases treasure finding by 20 (removes 15 when ended! bug?).
-{"Glamour",60,0,0,3,1,0,2,0,25,1.5,3,12,0.0742,10,89,64}, //Increases the charisma bonus by 10.
+{"Glamour",60,0,0,3,1,0,0,0,25,1.5,3,12,0.0742,10,89,64}, //Increases the charisma bonus by 10.
 {"Deflecting Weapons",61,1,0,9,1,3,0,0,255,0.75,9,13,0.0547,44,71,64}, //Immunizes to sharp and blunt damage.
 {"Confusion",62,2,0,5,1,0,0,50,0,0,5,10,0.0781,73,78,384}, //Decreases encounter intelligence by 10.
 {"Poisoning",63,2,0,7,1,0,0,10,0,0.33,7,11,0.0625,45,69,2176}, //Removes 2 hit points to the encounter every minutes (probability of 0.3% each minute to naturally cure).
@@ -107,8 +107,39 @@ spellRecord spells[77] =
 {"Removing Poison",72,3,0,3,11,0,0,0,0,0,3,9,0.1016,6,91,1024}, //Cures poisons (in incubation or not).
 {"Removing Alcohol",73,3,0,7,5,0,0,0,0,0,7,9,0.1016,12,91,1024}, //Cures inebriation. Clears alcohol blood and intestine concentration, digestion rate and blackouts.
 {"Stamina",74,0,0,3,1,0,0,0,25,1.5,3,10,0.0898,10,90,1024}, //Increases the stamina bonus by 5.
-{"The Force Field",75,1,0,9,1,3,0,0,255,1.5,9,14,0.0547,36,77,1024}, //Immunizes to sharp a
-{"Permananent Light",76,3,10,10,3,0,0,0,1,65365,0,0,0,255,99,0}, //Item effect only not castable
+{"The Force Field",75,1,0,9,1,1,0,0,255,1.5,9,14,0.0547,36,77,1024}, //Immunizes to sharp a
+{"RFE",76,0,0,0,0,0,0,0,0,0,0,0,0,255,99,0}, //RFE
+{"RFE",77,0,0,0,0,0,0,0,0,0,0,0,0,255,99,0}, //RFE
+{"RFE",78,0,0,0,0,0,0,0,0,0,0,0,0,255,99,0}, //RFE
+{"RFE",79,0,0,0,0,0,0,0,0,0,0,0,0,255,99,0}, //RFE
+{"RFE",80,0,0,0,0,0,0,0,0,0,0,0,0,255,99,0}, //RFE
+{"RFE",81,0,0,0,0,0,0,0,0,0,0,0,0,255,99,0}, //RFE
+{"RFE",82,0,0,0,0,0,0,0,0,0,0,0,0,255,99,0}, //RFE
+{"RFE",83,0,0,0,0,0,0,0,0,0,0,0,0,255,99,0}, //RFE
+{"RFE",84,0,0,0,0,0,0,0,0,0,0,0,0,255,99,0}, //RFE
+{"RFE",85,0,0,0,0,0,0,0,0,0,0,0,0,255,99,0}, //RFE
+{"RFE",86,0,0,0,0,0,0,0,0,0,0,0,0,255,99,0}, //RFE
+{"RFE",87,0,0,0,0,0,0,0,0,0,0,0,0,255,99,0}, //RFE
+{"RFE",88,0,0,0,0,0,0,0,0,0,0,0,0,255,99,0}, //RFE
+{"RFE",89,0,0,0,0,0,0,0,0,0,0,0,0,255,99,0}, //RFE
+{"RFE",90,0,0,0,0,0,0,0,0,0,0,0,0,255,99,0}, //RFE
+{"RFE",91,0,0,0,0,0,0,0,0,0,0,0,0,255,99,0}, //RFE
+{"RFE",92,0,0,0,0,0,0,0,0,0,0,0,0,255,99,0}, //RFE
+{"RFE",93,0,0,0,0,0,0,0,0,0,0,0,0,255,99,0}, //RFE
+{"RFE",94,0,0,0,0,0,0,0,0,0,0,0,0,255,99,0}, //RFE
+{"RFE",95,0,0,0,0,0,0,0,0,0,0,0,0,255,99,0}, //RFE
+{"RFE",96,0,0,0,0,0,0,0,0,0,0,0,0,255,99,0}, //RFE
+{"RFE",97,0,0,0,0,0,0,0,0,0,0,0,0,255,99,0}, //RFE
+{"RFE",98,0,0,0,0,0,0,0,0,0,0,0,0,255,99,0}, //RFE
+{"RFE",99,0,0,0,0,0,0,0,0,0,0,0,0,255,99,0}, //RFE
+{"Permananent Light",100,3,10,10,3,0,0,0,1,62365,11,1,0.17,255,99,0}, //Item effect only not castable
+{"Speed",101,10,0,0,1,0,64,1,0,62365,0,0,0,255,99,0}, //Item effect only not castable
+{"Dexterity",102,10,0,0,1,0,32,1,0,62365,0,0,0,255,99,0}, //Item effect only not castable
+{"Wisdom",103,10,0,0,1,0,16,1,0,62365,0,0,0,255,99,0}, //Item effect only not castable
+{"Intelligence",104,10,0,0,1,0,8,1,0,62365,0,0,0,255,99,0}, //Item effect only not castable
+{"Strength",105,10,0,0,1,0,4,1,0,62365,0,0,0,255,99,0}, //Item effect only not castable
+{"Charisma",106,10,0,0,1,0,2,1,0,62365,0,0,0,255,99,0}, //Item effect only not castable
+{"Stamina",107,10,0,0,1,0,1,1,0,62365,0,0,0,255,99,0}, //Item effect only not castable
     
 };
 
@@ -293,7 +324,7 @@ void attemptSpell(int spellRef)
 		plyr.ringCharges -= spellPoints;
 		if ( plyr.ringCharges < 0 ) { 
 			plyr.ringCharges = 0; 
-			plyr.stamina = plyr.stamina - spells[spellNo].cost;
+			plyr.fatigue = plyr.fatigue + spells[spellNo].cost;
 			}
 		int spellincrease = randn(0, 100);
 		if (spellincrease <= (spells[spellNo].lessonboost * 100))
@@ -357,27 +388,27 @@ void spellBackfiredMessage(int spellPoints)
 	// update ring charges and hp
 }
 
-
+/** @brief the purpose of this function is to split out which type of spells do what
+* @brief If the spell has a duration then add it to the effectBuffer[].name and to the active spell list
+* @brief effectbuufer includes all buffs positive and negative including potions,spells, clothing curses etc. upto 50
+* @brief after adding it to the effectBuffer the call the updateSpell to action the effect passing the index to the effectBuffer
+* @brief to tell the updateSpell which spell it is being actioned. using 0 as the hour means new spell
+* @brief udapteSpell(hour) is the same but used when time passes to reduce all effects
+* @brief call cast
+* @param spellNo as supplied in the spells[] array
+*
+* Spelltype 0 = stat increase
+* Spelltype 1 = Buff
+* Spelltype 2 = Combat spell
+* Spelltype 3 = hidden stat increase
+* Spelltype 4 = Weapon enchant
+* Spelltype 5 = Misc
+*
+*/
 void castSpellAction(int spellNo)
 {
 
-	/** @brief the purpose of this function is to split out which type of spells do what
-	* @brief If the spell has a duration then add it to the effectBuffer[].name and to the active spell list 
-	* @brief effectbuufer includes all buffs positive and negative including potions,spells, clothing curses etc. upto 50
-	* @brief after adding it to the effectBuffer the call the updateSpell to action the effect passing the index to the effectBuffer
-	* @brief to tell the updateSpell which spell it is being actioned. using 0 as the hour means new spell
-	* @brief udapteSpell(hour) is the same but used when time passes to reduce all effects
-	* @brief call cast
-	* @param spellNo as supplied in the spells[] array
-	*
-	* Spelltype 0 = stat increase
-	* Spelltype 1 = Buff
-	* Spelltype 2 = Combat spell
-	* Spelltype 3 = hidden stat increase
-	* Spelltype 4 = Weapon enchant
-	* Spelltype 5 = Misc
-	*
-	*/
+
 
 
 #include <iostream>
@@ -389,11 +420,11 @@ void castSpellAction(int spellNo)
 	if (spells[spellNo].spelltype != 2)  //If the spell that was cast is not a combat spell
 	{
 		//search for the spell if it already active
- 		effectIndexloc = findEffectByNameOrLastFree(spells[spellNo].name, sizeof(effectBuffer));
-		spellSlotloc = findEffectByNoOrLastFree(spells[spellNo].no, sizeof(plyr.ActiveSpell));
+ 		effectIndexloc = findEffectByNoOrLastFree(spells[spellNo].no, sizeof(effectBuffer));
+		spellSlotloc = findActiveSpellNoLastFree(spells[spellNo].no, sizeof(plyr.ActiveSpell));
 	}
 
-	if (spells[spellNo].duration > 0)
+	if (spells[spellNo].duration > 0 && spellNo < 100)
 	{
 		plyr.ActiveSpell[spellSlotloc.index] = spells[spellNo].no;
 	}
@@ -402,22 +433,24 @@ void castSpellAction(int spellNo)
 	{
 
 	case 0:  //stat increase
-		if (spells[spellNo].duration > 0)
+		if (spells[spellNo].duration > 0 && spellNo<100)
 		{
 			plyr.ActiveSpell[spellSlotloc.index] = spells[spellNo].no;
 		}
-		effectBuffer[effectIndexloc.index].name = spells[spellNo].name;
-		effectBuffer[effectIndexloc.index].effectNo = spells[spellNo].no; //don't forget its 1 based
-		effectBuffer[effectIndexloc.index].duration = spells[spellNo].duration; // hours
+		
+			effectBuffer[effectIndexloc.index].name = spells[spellNo].name;
+			effectBuffer[effectIndexloc.index].effectNo = spells[spellNo].no; //don't forget its 1 based
+			effectBuffer[effectIndexloc.index].duration = spells[spellNo].duration; // hours
+		
 		if (!effectIndexloc.found)
 		{
-			applyEffect(0, effectIndexloc.index);
+			applyEffect(spells[spellNo].duration, effectIndexloc.index);
 		}
 		break;
 
 	case 1:  //Buff
 		//Not implemented yet
-		if (spells[spellNo].duration > 0)
+		if (spells[spellNo].duration > 0 && spellNo < 100)
 		{
 			plyr.ActiveSpell[spellSlotloc.index] = spells[spellNo].no;
 		}
@@ -435,7 +468,7 @@ void castSpellAction(int spellNo)
 		break;
 
 	case 3: //hidden stat increase
-		if (spells[spellNo].duration > 0)
+		if (spells[spellNo].duration > 0 && spellNo < 100)
 		{
 			plyr.ActiveSpell[spellSlotloc.index] = spells[spellNo].no;
 		}
@@ -449,7 +482,7 @@ void castSpellAction(int spellNo)
 		break;
 	
 	case 4: // Weapon enchant
-		if (spells[spellNo].duration > 0)
+		if (spells[spellNo].duration > 0 && spellNo < 100)
 		{
 			plyr.ActiveSpell[spellSlotloc.index] = spells[spellNo].no;
 		}
@@ -467,7 +500,21 @@ void castSpellAction(int spellNo)
 		//Not implmented yet
 
 		break;
+	case 10:  //stat increase
+		if (spells[spellNo].duration > 0 && spellNo < 100)
+		{
+			plyr.ActiveSpell[spellSlotloc.index] = spells[spellNo].no;
+		}
 
+		effectBuffer[effectIndexloc.index].name = spells[spellNo].name;
+		effectBuffer[effectIndexloc.index].effectNo = spells[spellNo].no; //don't forget its 1 based
+		effectBuffer[effectIndexloc.index].duration = spells[spellNo].duration; // hours
+
+		if (!effectIndexloc.found)
+		{
+			applyEffect(spells[spellNo].duration, effectIndexloc.index);
+		}
+		break;
 	}
 
 }

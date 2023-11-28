@@ -460,7 +460,6 @@ void initMaps()
 }
 
 
-
 void setCurrentZone()
 {
 	// x >= entry 3 x2
@@ -512,7 +511,6 @@ void setCurrentZone()
 }
 
 
-
 void saveHumanReadableMap()
 {
 	 ofstream outdata; // outdata is like cin
@@ -556,8 +554,6 @@ for(int y = 0; y < 32; ++y)
 }
    outdata.close();
 }
-
-
 
 
 void loadZoneData(int map)
@@ -653,13 +649,11 @@ void loadMapData(int map)
 }
 
 
-
 int getMapIndex(int x,int y)
 {
     int tmpIndex = (y*plyr.mapWidth)+x;
     return tmpIndex;
 }
-
 
 
 void transMapIndex (int idx)
@@ -719,6 +713,7 @@ void transMapIndex (int idx)
 
 }
 
+
 #include <iostream> // Include the necessary header for cout
 #include <cstdio>   // Include the necessary header for FILE
 
@@ -751,7 +746,6 @@ void loadBinaryLevel() {
 		std::cerr << "Error: Failed to open the file.\n";
 	}
 }
-
 
 
 void printSpecial()

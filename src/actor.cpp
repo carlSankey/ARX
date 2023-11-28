@@ -72,7 +72,7 @@ int pluralNameOffset;
 int maxNumberEncountered;
 int currentWeapon;
 
-	ofstream outdata; // outdata is like cin
+ofstream outdata; // outdata is like cin
 
 void initialiseMonsterOffsets()
 {
@@ -170,6 +170,7 @@ void initialiseMonsterOffsets()
     monsterOffsets[85] = 0x246;    // BRIGAND
     monsterOffsets[86] = 0x246;    // Master Thief
 }
+
 
 void convertMonstersBinary()
 {
@@ -661,7 +662,6 @@ cout << "Name:  " << currentWeapon << "," << monsterWeapons[currentWeapon].name 
 }
 
 
-
 string readBinaryString(int stringOffset)
 {
     stringstream ss;
@@ -734,6 +734,7 @@ void readMonsterPluralNameText(int monsterNo, int pluralNameOffset)
     //cout << "Name " << monsterNo << ", Offset " << nameOffset << " : " << Monsters[monsterNo].name << "\n";
 }
 
+
 void readMonsterDeathText(int monsterNo, int deathOffset)
 {
     // Change variable name
@@ -765,10 +766,6 @@ void readMonsterDeathText(int monsterNo, int deathOffset)
 }
 
 
-
-
-
-
 void loadMonstersBinary() {
     FILE* fp;               // file pointer - used when reading files
     char tempString[100];   // temporary string
@@ -793,7 +790,6 @@ void loadMonstersBinary() {
     }
     fclose(fp);
 }
-
 
 
 void loadEncounters()

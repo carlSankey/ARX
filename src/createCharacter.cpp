@@ -180,9 +180,6 @@ struct counter
 }
 
 
-
-
-
 void getPlayerName()
 {
  bool details_confirmed = false;
@@ -310,7 +307,6 @@ void drawPlayerDetails(string typed_name)
 }
 
 
-
 void dungeonGate()
 {
 	//int healerNo = gethealerNo();
@@ -420,10 +416,6 @@ void dungeonGate()
 	plyr.silver = counters[7].value1;
 
 }
-
-
-
-
 
 
 void displayCounters()
