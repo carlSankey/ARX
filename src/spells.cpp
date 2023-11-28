@@ -139,7 +139,7 @@ spellRecord spells[150] =
 {"Intelligence",104,10,0,0,1,0,8,1,0,62365,0,0,0,255,99,0}, //Item effect only not castable
 {"Strength",105,10,0,0,1,0,4,1,0,62365,0,0,0,255,99,0}, //Item effect only not castable
 {"Charisma",106,10,0,0,1,0,2,1,0,62365,0,0,0,255,99,0}, //Item effect only not castable
-{"Stamina",107,10,0,0,1,0,1,1,0,62365,0,0,0,255,99,0}, //Item effect only not castable
+{"Stamina",107,10,0,0,1,0,1,1,0,62365,0,0,0,255,99,0} //Item effect only not castable
     
 };
 
