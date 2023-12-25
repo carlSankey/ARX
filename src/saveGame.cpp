@@ -379,6 +379,14 @@ for(int y = 0; y < 14; ++y)
  plyr.supervision = atoi(character[252].c_str());
  plyr.fatigue = atoi(character[253].c_str());
  plyr.fatigueRate = atoi(character[254].c_str());
+ plyr.spell_index = atoi(character[255].c_str());
+ plyr.temperature = atoi(character[256].c_str());
+ plyr.hungerRate = atoi(character[257].c_str());
+ plyr.thirstRate = atoi(character[258].c_str());
+ plyr.items_index = atoi(character[259].c_str());
+ plyr.luck = atoi(character[260].c_str());
+
+
 
 
 int loadGameIndex = 400; // start location for object buffer items
@@ -717,8 +725,13 @@ bool saveCharacter(int saveSlot)
     character[251] = itos(plyr.light);
     character[252] = itos(plyr.supervision);
     character[253] = itos(plyr.fatigue);
-    character[253] = itos(plyr.fatigueRate);
-
+    character[254] = itos(plyr.fatigueRate);
+    character[255] = itos(plyr.spell_index);
+    character[256] = itos(plyr.temperature);
+    character[257] = itos(plyr.hungerRate);
+    character[258] = itos(plyr.thirstRate);
+    character[259] = itos(plyr.items_index);
+    character[260] = itos(plyr.luck);
 
 	character[399] = "Line 400: Item Buffer follows";
 

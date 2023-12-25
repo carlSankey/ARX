@@ -269,6 +269,9 @@ struct Player
   float fatigue; //base 
   float hungerRate;  //the rate at which the player gets hungry 0 - 1
   float thirstRate;  //The rate at which the player gets thirsty 0 - 1
+  int spell_index;  //The number of spells in the sytem including item based effects
+  int items_index;
+  int luck;
 };
 
 

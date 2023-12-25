@@ -66,7 +66,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>F:\Source\ARX2023\Librarys\SFML-2.6.0\include;F:\Source\ARX2023\Librarys;$(IncludePath)</IncludePath>
+    <IncludePath>F:\Source\ARX2023\Librarys\SFML-2.6.0\include;F:\Source\ARX2023\Librarys;F:\Source\ARX2023\Librarys\glfw\glfw-3.3.8.bin.WIN64\lib-vc2022;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -89,8 +89,8 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>F:\Source\ARX2023\Librarys\include;F:\Source\ARX2023\Librarys\SFML;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;sfml-system-d.lib;sfml-audio-d.lib;sfml-window-d.lib;sfml-graphics-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>F:\Source\ARX2023\Librarys\glfw;F:\Source\ARX2023\Librarys\include;F:\Source\ARX2023\Librarys\SFML;F:\Source\ARX2023\Librarys\glew32\glew-2.1.0\include\GL;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;sfml-system-d.lib;sfml-audio-d.lib;sfml-window-d.lib;sfml-graphics-d.lib;glfw3dll.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -135,6 +135,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="3Dview.cpp" />
+    <ClCompile Include="3dviewnew.cpp" />
     <ClCompile Include="actor.cpp" />
     <ClCompile Include="arena.cpp" />
     <ClCompile Include="ARX.cpp" />
@@ -183,6 +184,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3Dview.h" />
+    <ClInclude Include="3dviewNew.h" />
     <ClInclude Include="actor.h" />
     <ClInclude Include="arena.h" />
     <ClInclude Include="ARX.h" />
@@ -207,6 +209,7 @@
     <ClInclude Include="globals.h" />
     <ClInclude Include="goblins.h" />
     <ClInclude Include="guild.h" />
+    <ClInclude Include="Header.h" />
     <ClInclude Include="healer.h" />
     <ClInclude Include="inn.h" />
     <ClInclude Include="input.h" />

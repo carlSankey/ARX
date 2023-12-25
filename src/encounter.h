@@ -41,6 +41,8 @@ void checkFixedEncounters();
 void opponentLeaves();
 void updateOpponents();
 void chooseEncounter();
+void opponentCallsForHelp();
+void opponentFlees();
 //void SetTileImage(int tile_no);
 //void loadCityMonsters();
 //void loadWeapons();

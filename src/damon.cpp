@@ -4,6 +4,8 @@
 #include <string>
 #include <iostream>
 #include <sstream>
+#include <fstream>
+#include <vector>
 
 #include <stdio.h>
 
@@ -16,6 +18,7 @@
 #include "items.h"
 #include "automap.h"
 #include "module.h"
+#include "spells.h"
 
 unsigned char damonBinary[damonFileSize];
 int itemNameOffset;
@@ -32,6 +35,9 @@ string provisionDescription, provMessage;
 int quantity, total;
 int damonStock[5];
 
+extern bonusDamage itemBonus;
+
+
 struct damonBattleGearItem
 {
 
@@ -41,6 +47,10 @@ struct damonBattleGearItem
 	int itemRef;
 };
 
+struct newdamonBattleGearItem
+{
+	int itemRef;
+};
 
 damonBattleGearItem damonBattleGearWares[12] =
 {
@@ -58,6 +68,26 @@ damonBattleGearItem damonBattleGearWares[12] =
 	{178,	102,	0x1FE}  // large shield
 };
 
+const size_t daemonsize = 12;
+newdamonBattleGearItem newdamonBattleGearWares[daemonsize];
+
+/*
+newdamonBattleGearItem newdamonBattleGearWares[12] =
+{
+	{134},  // leather breastplate
+	{135},  // leather gauntlets
+	{136},  // leather leggings
+	{133},  // leather helm
+	{238},  // stiletto
+	{239},  // dagger
+	{241}, // whip
+	{244}, // battle axe
+	{49}, // short sword
+	{245}, // long sword
+	{246}, // small shield
+	{247}  // large shield
+};
+*/
 
 struct damonClothingItem
 {
@@ -68,22 +98,53 @@ struct damonClothingItem
 	int itemRef;
 };
 
-
-damonClothingItem damonClothingWares[12] =
+struct newdamonClothingItem
 {
-	{180,	12,		0x225}, // green cap with feather
-	{180,	17,		0x245}, // floppy leather hat
-	{180,	17,		0x261}, // leather sandals
-	{180,	52,		0x27A}, // boots
-	{180,	62,		0x296},  // snowshoes
-	{180,	12,		0x2C9},  // robe
-	{180,	17,		0x2E4},  // tunic
-	{180,	22,		0x300},  // breeches
-	{180,	22,		0x31F},  // skirt
-	{180,	62,		0x33B},  // cape
-	{180,	62,		0x358},  // sweater
-	{180,	82,		0x375}	// leather jacket
+	int itemRef;
 };
+
+
+
+const size_t daemonCsize = 12;
+newdamonClothingItem newdamonClothingWares[daemonCsize];
+
+/*
+int readDaemonItems()
+{
+	const std::string filename = "daemon.csv"; // Replace with your CSV file name
+
+	std::ifstream file("data/map/" + filename);
+	if (!file.is_open()) {
+		std::cerr << "Error opening file " << filename << std::endl;
+		return 1;
+	}
+
+	std::vector<newdamonBattleGearItem> items;
+	int id;
+	while (file >> id) {
+		newdamonBattleGearItem newItem;
+		newItem.itemRef = id;
+		items.push_back(newItem);
+	}
+
+	file.close();
+
+	// Assuming the size of newdamonBattleGearWares is fixed to 12
+	//const size_t size = daemonsize;
+	//newdamonBattleGearItem newdamonBattleGearWares[size];
+
+	// Copy data from the vector to the array
+	for (size_t i = 0; i < daemonsize && i < items.size(); ++i) {
+		newdamonBattleGearWares[i] = items[i];
+	}
+
+	// Accessing the data in the newdamonBattleGearWares array
+	
+
+	return 0;
+}
+
+*/
 
 
 void shopDamon()
@@ -95,6 +156,11 @@ void shopDamon()
 	int menuStartItem = 0;
 	int offerStatus = 0; // 0 is normal, 1 is demanding, 2 is bartering
 	int offerRounds = 0;
+	int maxClothingOnSale = 14;
+	int maxBattleGearOnSale = 12;
+	int maxMenuItems = 6;
+	
+	//readDaemonItems(); //read shop battlegear - needs to make this shop dependant at some point.
 
     stockDamon(); // Calculate provisions stock level - torches, food packets etc
 
@@ -106,6 +172,9 @@ void shopDamon()
 	setAutoMapFlag(plyr.map, 46, 5);
 
 	loadShopImage(3);
+
+	
+
 
 	while (damonMenu > 0)
 	{
@@ -226,13 +295,11 @@ while (damonMenu == 32)
 
 
 
-while (damonMenu == 21)
+while (damonMenu == 21)  //Clothing
 {
     offerStatus = 0;
     offerRounds = 0;
-    int maxMenuItems = 6;
-
-
+	
     clearShopDisplay();
 
     cyText (0, "What would you like? (  to go back)");
@@ -240,24 +307,29 @@ while (damonMenu == 21)
     cyText (0, "                      0            ");
     SetFontColour(215, 215, 215, 255);
 
-    for (int i=0 ; i<maxMenuItems ; i++)
-    {
+	//Populate newdamonClothing with random items
 
-        int itemNo = menuStartItem+i;
-        itemNameOffset = (damonClothingWares[itemNo].itemRef)+6;
-        str = "( ) "+ readNameString(itemNameOffset);
+	 
+
+
+	//Add items to the menu
+    for (int i=0 ; i< maxMenuItems; i++)
+    {
+		int itemNo = menuStartItem + i;
+		str = "( ) " + newItemArray[newdamonClothingWares[itemNo].itemRef].name;
         bText(1,(2+i), str); //was 4
         bText(1,(2+i), "                                 silvers");
     }
     displaySilverCoins();
 
+	//Add item prices to the menu
     int itemCost, x;
-    for (int i=0 ; i<maxMenuItems ; i++) // Max number of item prices in this menu display
+    for (int i=0 ; i< maxMenuItems; i++) // Max number of item prices in this menu display
     {
         string itemCostDesc;
 
         int itemNo = menuStartItem+i;
-        itemCost = damonClothingWares[itemNo].price;
+        itemCost = newItemArray[newdamonClothingWares[itemNo].itemRef].cost;
 
         if (itemCost<1000) { x = 30;}
         if (itemCost<100) { x = 31;}
@@ -287,7 +359,7 @@ while (damonMenu == 21)
     if ( key=="5" ) { itemChoice = 4; damonMenu = 22; }
     if ( key=="6" ) { itemChoice = 5; damonMenu = 22; }
     if ( (key=="up") && (menuStartItem>0) ) { menuStartItem--; }
-    if ( (key=="down") && (menuStartItem<6) ) { menuStartItem++; } // tweak when number of purchase items changes
+    if ( (key=="down") && (menuStartItem < maxClothingOnSale - maxMenuItems) ) { menuStartItem++; } // tweak when number of purchase items changes
     if ( key=="ESC" ) { damonMenu = 0; }
     if ( key=="0" ) { damonMenu = 1; }
 
@@ -296,8 +368,8 @@ while (damonMenu == 21)
 while (damonMenu == 22) // buy item?
 {
     itemNo = menuStartItem+itemChoice;
-    itemCost = damonClothingWares[itemNo].price;
-    float tempitemcost = damonClothingWares[itemNo].price;
+    itemCost = newItemArray[newdamonClothingWares[itemNo].itemRef].cost;
+    float tempitemcost = newItemArray[newdamonClothingWares[itemNo].itemRef].cost;
     float temp = (tempitemcost/100)*75;
     itemLowestCost = temp;
     damonOffer = itemCost;
@@ -310,8 +382,8 @@ while (damonMenu == 22) // buy item?
 			clearShopDisplay();
 			if (offerStatus==0)
 			{
-                itemNameOffset = (damonClothingWares[itemNo].itemRef)+6;
-                str = "The cost for "+ readNameString(itemNameOffset);
+               // itemNameOffset = (damonClothingWares[itemNo].itemRef)+6;
+                str = "The cost for "+ newItemArray[newdamonClothingWares[itemNo].itemRef].name;
 				cyText (0,str);
 				str = "is " + toCurrency(damonOffer) + " silvers. Agreed?";
 				cyText (1,str);
@@ -370,8 +442,8 @@ while (damonMenu == 22) // buy item?
 
 				//plyr.silver-=itemCost;
                 deductCoins(0,damonOffer,0);
-                int objectNumber = damonClothingWares[itemNo].itemRef; // ref within Weapons array
-                createInventoryItem(objectNumber);
+                int objectNumber = newItemArray[newdamonClothingWares[itemNo].itemRef].index; // ref within Weapons array
+                newcreateInventoryItem(objectNumber);
 				damonMenu = 21; // back to purchases
 			}
 
@@ -447,7 +519,7 @@ while (damonMenu == 22) // buy item?
 		{
 			offerStatus = 0;
 			offerRounds = 0;
-			int maxMenuItems = 6;
+			
 
 			clearShopDisplay();
 
@@ -456,24 +528,26 @@ while (damonMenu == 22) // buy item?
 			cyText (0, "                      0            ");
 			SetFontColour(215, 215, 215, 255);
 
-			for (int i=0 ; i<maxMenuItems ; i++)
+		
+			//Adding item menu
+			for (int i=0 ; i< maxMenuItems; i++)
 			{
 				int itemNo = menuStartItem+i;
 
-                itemNameOffset = (damonBattleGearWares[itemNo].itemRef)+6;
-                str = "( ) "+ readNameString(itemNameOffset);
+				str = "( ) " + newItemArray[newdamonBattleGearWares[itemNo].itemRef].name;
 				bText(1,(2+i), str); //was 4
 				bText(1,(2+i), "                                 silvers");
 			}
 			displaySilverCoins();
 
+			//Adding price
 			int itemCost, x;
-			for (int i=0 ; i<maxMenuItems ; i++) // Max number of item prices in this menu display
+			for (int i=0 ; i< maxMenuItems; i++) // Max number of item prices in this menu display
 			{
 				string itemCostDesc;
 
 				int itemNo = menuStartItem+i;
-				itemCost = damonBattleGearWares[itemNo].price;
+				itemCost = newItemArray[newdamonBattleGearWares[itemNo].itemRef].cost;
 
 				if (itemCost<1000) { x = 30;}
 				if (itemCost<100) { x = 31;}
@@ -503,10 +577,10 @@ while (damonMenu == 22) // buy item?
 			if ( key=="5" ) { itemChoice = 4; damonMenu = 4; }
 			if ( key=="6" ) { itemChoice = 5; damonMenu = 4; }
 			if ( (key=="up") && (menuStartItem>0) ) { menuStartItem--; }
-			if ( (key=="down") && (menuStartItem<6) ) { menuStartItem++; } // tweak when number of purchase items changes
+			if ( (key=="down") && (menuStartItem < maxBattleGearOnSale - maxMenuItems)){ menuStartItem++; } // tweak when number of purchase items changes
 			if ( key=="ESC" ) { damonMenu = 0; }
 			if ( key=="0" ) { damonMenu = 1; }
-
+			
 		}
 
 
@@ -515,8 +589,8 @@ while (damonMenu == 22) // buy item?
 		while (damonMenu == 4) // buy item?
 		{
 			itemNo = menuStartItem+itemChoice;
-			itemCost = damonBattleGearWares[itemNo].price;
-			float tempitemcost = damonBattleGearWares[itemNo].price;
+			itemCost = newItemArray[newdamonBattleGearWares[itemNo].itemRef].cost;
+			float tempitemcost = newItemArray[newdamonBattleGearWares[itemNo].itemRef].cost;
 			float temp = (tempitemcost/100)*75;
 			itemLowestCost = temp;
 			damonOffer = itemCost;
@@ -529,8 +603,8 @@ while (damonMenu == 22) // buy item?
 			clearShopDisplay();
 			if (offerStatus==0)
 			{
-                itemNameOffset = (damonBattleGearWares[itemNo].itemRef)+6;
-                str = "The cost for "+ readNameString(itemNameOffset);
+               
+                str = "The cost for "+ newItemArray[newdamonBattleGearWares[itemNo].itemRef].name;
 
 				cyText (0,str);
 				str = "is " + toCurrency(damonOffer) + " silvers. Agreed?";
@@ -656,22 +730,10 @@ while (damonMenu == 22) // buy item?
 			{
 				// Add a weight & inventory limit check prior to taking money
 
-                deductCoins(0,damonOffer,0);
-                int objectNumber = damonBattleGearWares[itemNo].itemRef; // ref within Weapons array
+                deductCoins(0,damonOffer,0); 
+                int objectNumber = newItemArray[newdamonBattleGearWares[itemNo].itemRef].index;; // ref within Weapons array
 
-				if (damonBattleGearWares[itemNo].type==178)
-				{
-					// Weapon item
-					int weaponOffset = damonBattleGearWares[itemNo].itemRef;
-                    createInventoryItem(weaponOffset);
-				}
-
-				if (damonBattleGearWares[itemNo].type==177)
-				{
-					// Armour item
-                    int armourOffset = damonBattleGearWares[itemNo].itemRef;
-                    createInventoryItem(armourOffset);
-				}
+				newcreateInventoryItem(objectNumber);
 
 				damonMenu = 3; // back to purchases
 			}
@@ -850,14 +912,6 @@ while (damonMenu == 22) // buy item?
 			}
 		}
 
-
-
-
-
-
-
-
-
 	}
 	leaveShop();
 }
@@ -937,7 +991,8 @@ int createInventoryItem(int startByte)
     int index,alignment,weight,wAttributes,melee,ammo,blunt,sharp,earth,air,fire,water,power,magic,good,evil,cold,nature,acid,
         minStrength,minDexterity,hp,maxHP,flags,parry,useStrength, effect;
 
-    int offset = startByte;
+
+	int offset = startByte;
     int itemType = damonBinary[offset];
     string itemName = readNameString((offset+6));
 
@@ -1049,7 +1104,62 @@ int createInventoryItem(int startByte)
 	return 1;
 }
 
+//just for now
+int newcreateInventoryItem(int itemNo)
+{
+	int index, alignment, weight, wAttributes, melee, ammo, blunt, sharp, earth, air, fire, water, power, magic, good, evil, cold, nature, acid,
+		minStrength, minDexterity, hp, maxHP, flags, parry, useStrength, effect;
 
+	int offset = 6;
+	
+	int itemType = newItemArray[itemNo].itemType;
+	string itemName = newItemArray[itemNo].name;
+
+	
+		
+		index = itemNo;         // 
+		useStrength = newItemArray[itemNo].useStrength;
+		alignment = newItemArray[itemNo].alignment;
+		weight = newItemArray[itemNo].weight;
+
+		//wAttributes = newItemArray[newdamonClothingWares[itemNo].itemRef].at; // Working out from the end of the weapon object
+
+		melee = newItemArray[itemNo].melee;
+		ammo = newItemArray[itemNo].ammo;
+
+		std::bitset<13> binaryItemBuff(newItemArray[itemNo].elementType);
+
+		updateItemBuff(binaryItemBuff, (newItemArray[itemNo].positiveValue - newItemArray[itemNo].negativeValue));
+		blunt = itemBonus.blunt;
+		sharp = itemBonus.sharp;
+		earth = itemBonus.earth;
+		air = itemBonus.air;
+		fire = itemBonus.fire;
+		water = itemBonus.water;
+		power = itemBonus.power;
+		magic = itemBonus.magic;
+		good = itemBonus.good;
+		evil = itemBonus.evil;
+		cold = itemBonus.cold;
+		nature = itemBonus.nature;
+		acid = itemBonus.acid;
+
+		minStrength = newItemArray[itemNo].minStrength;
+		minDexterity = newItemArray[itemNo].minDexterity;
+		hp = newItemArray[itemNo].hp;
+		maxHP = newItemArray[itemNo].maxHP;
+		flags = newItemArray[itemNo].flags;
+		parry = newItemArray[itemNo].parry;
+		effect = newItemArray[itemNo].effect;
+	
+
+	
+
+	int newItemRef = newcreateItem(itemType, index, itemName, hp, maxHP, flags, minStrength, minDexterity, useStrength, blunt,
+		sharp, earth, air, fire, water, power, magic, good, evil, cold, nature, acid, weight, alignment, melee, ammo, parry, effect);
+	itemBuffer[newItemRef].location = 10; // Add to player inventory - 10
+	return 1;
+}
 
 void ImportItems()
 {
@@ -1098,4 +1208,108 @@ void ImportItems()
 	//	sharp, earth, air, fire, water, power, magic, good, evil, cold, nature, acid, weight, alignment, melee, ammo, parry, effect);
 	//itembuffer[newitemref].location = 10; // add to player inventory - 10
 	//return 1;
+}
+
+
+
+
+// Function to check if an index already exists in the array
+bool doesIndexExistBattleGear(int indexToCheck, const newdamonBattleGearItem* array, int size) {
+	for (int i = 0; i < size; ++i) {
+		if (array[i].itemRef == indexToCheck) {
+			return true;
+		}
+	}
+	return false;
+}
+
+// Function to generate unique indices and populate the array
+int populateUniqueIndicesBG(newdamonBattleGearItem* newdamonBattleGearWares, int desiredNumberOfItems, int itemCatToMatch, int levelToMatch, int arraySize, int typeToMatch, bool clear) {
+	// ... (Same as before)
+	// Convert array of pointers to pointers to pointers
+	int i = 0;
+	if (!clear)
+	{
+	i = find_last_zero_index(0, newdamonBattleGearWares, arraySize);
+	}
+	desiredNumberOfItems = desiredNumberOfItems + i;
+
+	for ( int x = 0; i < desiredNumberOfItems && x < arraySize; x++) {
+		int newItemIndex = randomItemPicker(itemCatToMatch, levelToMatch, arraySize, typeToMatch);
+
+		// Check if the index already exists in the array
+		if (!doesIndexExistBattleGear(newItemIndex, newdamonBattleGearWares, arraySize)) {
+			// If the index doesn't exist, add it to the array
+			newdamonBattleGearItem newItem;
+			newItem.itemRef = newItemIndex;
+			// Assign other properties of newItem if needed
+			newdamonBattleGearWares[i] = newItem;
+			i++;
+		}
+		else {
+			// If the index already exists, generate a new index or handle it as needed
+			// Example: newItemIndex = randomItemPicker(0, 0, 12, someOtherParams);
+		}
+	}
+	return i;
+}
+
+int  find_last_zero_index(int indexToCheck, const newdamonBattleGearItem* array, int size) {
+	for (int i = 0; i < size; ++i) {
+		if (array[i].itemRef == indexToCheck) {
+			return i;
+		}
+	}
+	return size;
+}
+
+
+
+bool doesIndexExistClothing(int indexToCheck, const newdamonClothingItem* array, int size) {
+	for (int i = 0; i < size; ++i) {
+		if (array[i].itemRef == indexToCheck) {
+			return true;
+		}
+	}
+	return false;
+}
+
+// Function to generate unique indices and populate the array
+int  populateUniqueIndicesCL(newdamonClothingItem* newdamonClothingWares, int desiredNumberOfItems, int itemCatToMatch, int levelToMatch, int arraySize, int typeToMatch) {
+	int i = 0;
+	for (int x = 0; i < desiredNumberOfItems && x < arraySize; x++) {
+		int newItemIndex = randomItemPicker(itemCatToMatch, levelToMatch, arraySize, typeToMatch);
+
+		// Check if the index already exists in the array
+		if (!doesIndexExistClothing(newItemIndex, newdamonClothingWares, arraySize)) {
+			// If the index doesn't exist, add it to the array
+			newdamonClothingItem newItem;
+			newItem.itemRef = newItemIndex;
+			// Assign other properties of newItem if needed
+			newdamonClothingWares[i] = newItem;
+			i++;
+		}
+		else {
+			// If the index already exists, generate a new index or handle it as needed
+			// Example: newItemIndex = randomItemPicker(0, 0, 12, someOtherParams);
+		}
+	}
+	return i; //+1 to compensae 0 based index
+}
+
+void UpdateShopStock()
+{
+
+	int maxClothingOnSale = 14;
+	int maxBattleGearOnSale = 12;
+	std::map<std::pair<int, int>, int> itemCounts = countItemTypes(newItemArray, plyr.items_index);
+
+	int WeaponQty = randn(1, maxBattleGearOnSale - 1);
+	int ArmorQty = maxBattleGearOnSale - WeaponQty;
+
+	maxBattleGearOnSale = populateUniqueIndicesBG(newdamonBattleGearWares, WeaponQty, 0, 0, plyr.items_index, 177, true);
+
+	maxBattleGearOnSale = populateUniqueIndicesBG(newdamonBattleGearWares, ArmorQty, 0, 0, plyr.items_index, 178, false);
+
+	maxClothingOnSale = populateUniqueIndicesCL(newdamonClothingWares, maxClothingOnSale, 0, 0, plyr.items_index, 180);
 }

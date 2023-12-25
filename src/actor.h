@@ -85,6 +85,7 @@ struct monster
 	int tGold;
 	int tGems;
 	int tJewels;
+	int tCorpse;
 
 	int chosenWeapon;
 	int w1;
@@ -100,6 +101,10 @@ struct monster
 	int c5;
 	int c6;
 	int stunnedTurnsRemaining;
+	std::string stunnedtext;
+	int callForHelp;
+	int spellBuffer[4];
+	int braveness;
 };
 
 

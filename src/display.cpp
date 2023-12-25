@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <GL/glew.h>
 #include <SFML/OpenGL.hpp>
+//#include <GLFW/glfw3.h>
 #include <string>
 #include <fstream>
 #include <iostream>
@@ -351,11 +352,13 @@ void drawAtariAnimation()
 }
 
 
+
+
 void createGameWindow()
 {
-    string title = "Alternate Reality X " + version;
+	string title = "Alternate Reality X " + version;
 
-	if (windowMode == 0) { App.create(sf::VideoMode(windowWidth, windowHeight), title,sf::Style::Close); }
+	if (windowMode == 0) { App.create(sf::VideoMode(windowWidth, windowHeight), title, sf::Style::Close); }
 	else { App.create(sf::VideoMode(windowWidth, windowHeight), title, sf::Style::Fullscreen); }
 
 	// Print OpenGL settings to game console for information
@@ -371,6 +374,8 @@ void createGameWindow()
 	// Limit the framerate to 60 frames per second (this step is optional)
 	App.setFramerateLimit(60);
 }
+
+
 
 
 void drawConsoleBackground()
@@ -882,17 +887,7 @@ if (plyr.status!=3)
     {
         cyText(1, "Active Magic");
         int y = 3; // starting value for displaying items
-        //if (plyr.protection1 != 0) { cyText(y,"Protection +1"); y++; }
-        //if (plyr.protection2 != 0) { cyText(y,"Protection +2"); y++; }
-        //if (plyr.invulnerability[0] != 0)  { cyText(y,"Invulnerability Blunt"); y++; }
-        //if (plyr.invulnerability[1] != 0)  { cyText(y,"Invulnerability Sharp"); y++; }
-        //if (plyr.invulnerability[2] != 0)  { cyText(y,"Invulnerability Earth"); y++; }
-        //if (plyr.invulnerability[3] != 0)  { cyText(y,"Invulnerability Air"); y++; }
-        //if (plyr.invulnerability[4] != 0)  { cyText(y,"Invulnerability Fire"); y++; }
-        //if (plyr.invulnerability[5] != 0)  { cyText(y,"Invulnerability Water"); y++; }
-        //if (plyr.invulnerability[6] != 0)  { cyText(y,"Invulnerability Power"); y++; }
-        //if (plyr.invulnerability[7] != 0)  { cyText(y,"Invulnerability Mental"); y++; }
-        //if (plyr.invulnerability[8] != 0)  { cyText(y,"Invulnerability Cleric"); y++; }
+     
 		if (plyr.ActiveSpell[0] != 0) { cyText(y, spells[plyr.ActiveSpell[0]].name); y++; }
 		if (plyr.ActiveSpell[1] != 0) { cyText(y, spells[plyr.ActiveSpell[1]].name); y++; }
 		if (plyr.ActiveSpell[2] != 0) { cyText(y, spells[plyr.ActiveSpell[2]].name); y++; }

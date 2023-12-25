@@ -153,6 +153,9 @@
     <ClCompile Include="vaults.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="3dviewnew.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3Dview.h">
@@ -300,6 +303,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="vaults.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="3dviewNew.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -731,7 +731,7 @@ std::cout << guildNo <<"\n";
 			{
 				spellBuffer[plyr.spellIndex].no = guildSpells[spellNo].index; // Add new spell to spellBuffer
 				//spellBuffer[plyr.spellIndex].name = spells[guildSpells[spellNo].no].name; // Add new spell name to spellBuffer
-				spellBuffer[plyr.spellIndex].percentage = 40; // Starting percentage success for this spell
+				spellBuffer[plyr.spellIndex].percentage = spells[spellNo].percentage; // Starting percentage success for this spell
 				deductCoins(0,spellCost,0);
 				plyr.spellIndex++;
 

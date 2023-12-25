@@ -44,6 +44,7 @@
 #include "actor.h"
 #include "saveGame.h"
 #include "input.h"
+#include "spells.h"
 
 sf::Time dt;
 sf::Time encounterCheckTime;
@@ -1365,6 +1366,9 @@ void initialiseNewGame()
 {
     // COPY FROM ARX.CPP - Prepare shop stock etc...
 
+
+
+
     doorCityBuffer.loadFromFile("data/audio/cityDoor.wav");
     secretCityBuffer.loadFromFile("data/audio/citySecretDoor.wav");
     citySecretSound.setBuffer(secretCityBuffer);
@@ -1384,6 +1388,9 @@ void initialiseNewGame()
 
 	InitMap();
 
+
+	readItemData();
+	readSpellData();
 	//loadMonstersBinary(); duplicate
 }
 

@@ -28,6 +28,7 @@
 #include "spells.h"
 #include "automap.h"
 #include "guild.h"
+#include "damon.h"
 
 
 using namespace std;
@@ -56,7 +57,7 @@ std::map<int, int*> statMap = {
     {4, &plyr.wis},
     {5, &plyr.skl},
     {6, &plyr.speed},
-
+    {7, &plyr.hp}
 };
 
 
@@ -225,6 +226,10 @@ void addDay()
     stockTavernFoods();
     checkDailybankInterest();
     checkGuildApplications();
+    UpdateShopStock();
+
+
+
     if (plyr.forgeDays > 0) plyr.forgeDays--;
 }
 
@@ -363,11 +368,13 @@ void updateThirst()
     plyr.thirst += plyr.thirstRate;
 }
 
+
 void updateHunger()
 {
     plyr.hunger += plyr.hungerRate;
 
 }
+
 
 void updateFatigue()
 {
@@ -471,7 +478,7 @@ void updateSpell(int hour )
     {
         int SpellDuraction = effectBuffer[i].duration;
         
-        std::bitset<7> binaryStat(spells[effectBuffer[i].effectNo].stattype);
+        std::bitset<8> binaryStat(spells[effectBuffer[i].effectNo].stattype);
         std::bitset<13> binaryElems(spells[effectBuffer[i].effectNo].elementtype);
             if (spells[effectBuffer[i].effectNo].spelltype == 0)  //Stat adjustment
             {
@@ -657,6 +664,7 @@ void updateWeapon()
     }
  
 }
+
 
 void checkActiveMagic()
 {
@@ -928,7 +936,7 @@ void checkplayerLight()
     }
     for  (int i = 0; i < sizeof(effectBuffer) / sizeof(effectBuffer[0]); i++)
     {
-        if (spells[effectBuffer[i].effectNo].spelltype == 3 && spells[effectBuffer[i].effectNo].effect == 3)
+        if (spells[effectBuffer[i].effectNo].spelltype == 3 && spells[effectBuffer[i].effectNo].stattype == 8)
         {
             plyr.light = 1;
             

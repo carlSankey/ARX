@@ -17,8 +17,9 @@ struct spellItem
 
 struct spellRecord
 {
-    std::string name;
+    
 	int no;
+	std::string name;
 	int spelltype;		//Type 0 = Attribute Change, 1 = inventory change, 2 = Buff, 3 = Damage
 	int percentage;		//base
 	int cost;			// ring cost
@@ -34,25 +35,44 @@ struct spellRecord
 	int uses;
 	int maxpercent;
 	int guild;
+	std::string castText;
 };
 
-
+int createSpell(
+	int spelltype,
+	int no,
+	std::string name,
+	int percentage,
+	int cost,
+	int flags,
+	int elementtype,
+	int stattype,
+	int negativeValue,
+	int positiveValue,
+	float duration,
+	int damage,
+	int lessonsno,
+	float lessonboost,
+	int uses,
+	int maxpercent,
+	int effect,
+	int guild,
+	std::string castText);
 
 void castSpellMessage(std::string spellDesc);
 void spellBackfiredMessage(int spellPoints);
 void castSpells();
 void attemptSpell(int spellRef);
 void castSpellAction(int spellRef);
-
+void readSpellData();
 
 
 #include <string>
 
 
+extern spellRecord* spells; // Declaration of the array
 
-
-
-extern spellRecord spells[150];
+//extern spellRecord spells[150];
 extern spellItem spellBuffer[76]; // learnt spells that can be cast
 
 struct bonusDamage

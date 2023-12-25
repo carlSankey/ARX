@@ -11,6 +11,7 @@
 #include "player.h"
 #include "spells.h"
 #include "misc.h"
+#include "items.h"
 
 using namespace std;
 
@@ -37,7 +38,9 @@ std::map<int, int(*)> effectsMap = {
 	{9, &plyr.thirst},
 	{10,&plyr.diseases[0]},
 	{11,&plyr.poison[0]},
-	{12,&plyr.speed}
+	{12,&plyr.crystals},
+	{13,&plyr.luck}
+	
 };
 
 struct spellSlot spellSlotloc;
@@ -208,13 +211,47 @@ SearchResult  findActiveSpellNoLastFree(int targetNo, int size) {
 }
 
 
-void updateStats(std::bitset<7> binaryStats, int positiveValue) {
-	for (int i = 0; i < 7; i++) {
+SearchResult  findSpellByNameOrLastFree(const std::string& targetName, int size) {
+	SearchResult effectIndex = { -1, false }; // Initialize result
+
+	for (int i = 0; i < size; i++) {
+		if (spells[i].name == targetName) {
+			// Match found, set the result and return
+			effectIndex.index = i;
+			effectIndex.found = true;
+			//return effectIndex;
+			break;
+		}
+
+		if (spells[i].name.empty()) {
+			// Empty name indicates a free slot, store the index
+			effectIndex.index = i;
+			break;
+			//return effectIndex;
+		}
+	}
+	return effectIndex;
+	// No match found, return the result indicating it's the last free index
+
+}
+
+void updateStats(std::bitset<8> binaryStats, int positiveValue) {
+	for (int i = 0; i < 8; i++) {
 		if (binaryStats.test(i)) {
 			*(statMap[i]) += positiveValue;
 		}
 	}
 }
+
+
+void updateHStats(std::bitset<14> binaryEffects, int positiveValue) {
+	for (int i = 0; i < 8; i++) {
+		if (binaryEffects.test(i)) {
+			*(effectsMap[i]) += positiveValue;
+		}
+	}
+}
+
 
 
 void updateInvuls(std::bitset<13> binaryElems, int positiveValue) {
@@ -227,13 +264,13 @@ void updateInvuls(std::bitset<13> binaryElems, int positiveValue) {
 
 /**
 * @brief applys buffs to the player  
-* @brief to add more buffs for example Morganas Tiara use spell 77+  think i should up that to 100+  
 * @brief and leave room for expansion
 * @param hour = 0 then remove affect only (not active spell) as this could be a buff by clothing/armour etc
 * @param effectid  = The spell affect (some spells are not castable but hold the same effect types/etc
 */
 void applyEffect(int hour, int effectid)
 {
+
 	int spellActivated = 1;
 	if (hour == 0) { spellActivated = -1; }
 
@@ -242,15 +279,17 @@ void applyEffect(int hour, int effectid)
 	
 	int SpellDuraction = effectBuffer[effectid].duration;
 
-	std::bitset<7> binaryStat(spells[effectBuffer[effectid].effectNo].stattype);
+	std::bitset<8> binaryStat(spells[effectBuffer[effectid].effectNo].stattype);
 	std::bitset<13> binaryElems(spells[effectBuffer[effectid].effectNo].elementtype);
 	std::bitset<13> binaryWeaponBuff(spells[effectBuffer[effectid].effectNo].elementtype);
+	std::bitset<14> binaryEffects(spells[effectBuffer[effectid].effectNo].stattype);
 
 	switch (spells[effectBuffer[effectid].effectNo].spelltype)
 	{
 	case 0: //Update stats
-
+		if (spells[effectBuffer[effectid].effectNo].effect == 0) { spellActivated = 1; }  //bit of a frig for single use spells like Conjure Food
 		updateStats(binaryStat, (spells[effectBuffer[effectid].effectNo].positiveValue - spells[effectBuffer[effectid].effectNo].negativeValue) * spellActivated);
+		if (spells[effectBuffer[effectid].effectNo].effect == 0) { spellActivated = -1; }
 		break;
 	case 1: //Update vulnarabilities
 		updateInvuls(binaryElems, (spells[effectBuffer[effectid].effectNo].positiveValue - spells[effectBuffer[effectid].effectNo].negativeValue) * spellActivated);
@@ -259,7 +298,9 @@ void applyEffect(int hour, int effectid)
 		//There is no effect for a combat spell
 		break;
 	case 3:  //
-		*effectsMap[spells[effectBuffer[effectid].effectNo].effect] = (spells[effectBuffer[effectid].effectNo].positiveValue - spells[effectBuffer[effectid].effectNo].negativeValue) * spellActivated;
+		if (spells[effectBuffer[effectid].effectNo].effect == 0) { spellActivated = 1; }  //bit of a frig for single use spells like Conjure Food
+		updateHStats(binaryEffects, (spells[effectBuffer[effectid].effectNo].positiveValue - spells[effectBuffer[effectid].effectNo].negativeValue) * spellActivated);
+		if (spells[effectBuffer[effectid].effectNo].effect == 0) { spellActivated = -1; }
 		break;
 	case 4:  //Weapon Buff
 		updateWeaponBuff(binaryWeaponBuff, (spells[effectBuffer[effectid].effectNo].positiveValue - spells[effectBuffer[effectid].effectNo].negativeValue) * spellActivated);
@@ -329,3 +370,25 @@ void spellEffect(int spellId)
 
 }
 
+void repairAll()
+{
+
+	for (int i = 0; i < plyr.items_index - 1; ++i) {
+
+		if (itemBuffer[i].location == 10)
+		{
+			itemBuffer[i].hp = itemBuffer[i].maxHP;
+
+		}
+
+	}
+
+}
+
+void changeWeather(int WeatherType)
+{
+	//not implemented yet
+
+
+
+}

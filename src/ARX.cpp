@@ -1,6 +1,9 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <GL/glew.h>
+#include <glfw/glfw3.h>
+
 
 #include "globals.h"
 #include "dev.h"
@@ -164,6 +167,9 @@ void startGame()
     initialiseNewGame(); // Only sound and graphic resources
     plyr.status = EXPLORE;
 
+	int initialIndex = 10;
+
+	UpdateShopStock();
     //clearInventory();           // Set the inventory char array to zeros
 
     // Not in use yet - dungeonItems()
