@@ -1,15 +1,14 @@
 Alternate Reality X
 --------------------
+Hello and Welcome adventurer.
 
-Please check out http://www.Landbeyond.net/arx  for the lastest blog update and up to date information.  I've converted the code into Java using JLWGL 3.0.  This way the code will work on multiple platforms.   I'm not planning on updating the 'C' code any further than it is now.
+This project is now being updated by me.  I'm a hobby programmer (not a great one) and started writing my version of a remake of Alternate Reality back in 2003 using VB6. I never got very far as the graphics were always a challenge to me (and still are). I stopped working on my code for 20 years (am I really that old) and then one day I was reminded of Alternate Reality in conversation with a friend and decided to download some emulators and play it offline (on Android). I was googling around and found this project in GitHub and proceeded to download the release. It was great, but every time I picked something up I was immediately immobilized. I thought to myself that I might be able to fix that. So I downloaded the src code. After a few weeks of messing around with Dev-C++ and other compilers, I eventually made Visual Studio compile and run the src code. An amazing feat to me. At this point, I could step through the code and work out why I was getting immobilized. I found the bug and fixed it. I then started looking at other things and this started to reignite my curiosity about picking this up as a hobby. Yes, like all the great people who have worked on this project (Acrin, Bob, etc)  I have the same goal! What would the other scenarios look like? Would there be any quests like the Dungeon, or would there be different encounters? could I enter the House of Ill Repute and it be open? Lots of things that I still haven't had answers to from the 1980s. So here we are, I have started adding some of the missing things that I can find, Spells, Items, etc. I do this to relax and to give myself a goal when learning C++ and programming in general.
 
-The java Edition is almost complete and is very close to being released. About 90% of the original code has been implement but not tested yet and has tons of testing left to be completed.
-
-Since the original coder has not been able to update the code in about a year.  I've stepped in to see this completed.  There are many bug fixes that has needed to be done and enhancements.  That is what I'm trying to do here.
+Since the original coder and the last coder has not been able to update the code in about a year.  I've stepped in to see this completed.  There are many bug fixes that has needed to be done and enhancements.  That is what I'm trying to do here.
 
 The source code is under src folder.  You can look at it compile it.  
 
-I will be releasing new versions all the time.  I will post that here and on the origianl forum that CRPG created for Alternate Reality X.
+I will be releasing new versions all the time.  I will post that here.  (I don't have another website to update at present, maybe in future?)
 
 <B>All</b> releases will be under the folder "Releases". I will zip them up there for downloading.
 
