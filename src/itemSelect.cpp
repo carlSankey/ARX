@@ -1,5 +1,6 @@
 #include <string>
 
+#include "constants.h"
 #include "globals.h"
 #include "itemSelect.h"
 #include "display.h"
@@ -7,7 +8,7 @@
 #include "font.h"
 #include "misc.h"
 
-const int MAX_MENU_ENTRIES = 4; // Max 4 entries per menu page.
+
 itemMenuEntry itemSelectEntries[255]; // Should be usable for building item menus with a maximum of 255 multi page items
 
 // Returns an item reference based on a multi page menu e.g. food item, weapon item

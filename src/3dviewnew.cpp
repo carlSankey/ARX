@@ -1,7 +1,8 @@
 #define GLUT_DISABLE_ATEXIT_HACK
 #include <GL/glew.h>
 
-#include <glfw/glfw3.h>
+
+#include <gflw/glfw3.h>    //   glfw3.h>
 #include <GL/glu.h>
 #include <GL/gl.h>
 #include <string>
@@ -10,6 +11,7 @@
 #include <sstream>
 #include <cstdio>
 
+#include "constants.h"
 #include "3Dview.h"
 #include "display.h"
 #include "player.h"
@@ -27,7 +29,7 @@
 int new_depth = 33; // should be 13 was 33
 int new_columns = 25; // should be an odd number 25
 
-const int MAX_TEXTURES = 32;
+
 
 // Declaration and initialization of a texture array (assuming GLuint is used for texture IDs)
 //GLuint new_texture[MAX_TEXTURES]; // Assuming MAX_TEXTURES is defined somewhere

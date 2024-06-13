@@ -3,6 +3,7 @@
 #define _levelh 
 
 #include <string>
+#include <vector>
 
 void loadBinaryLevel();
 
@@ -22,6 +23,7 @@ void loadMessages(int map);
 void loadZoneData(int map);
 void moveMapLevel();
 void moveMapLevelTeleport();
+size_t readEncounterData(int map);
 
 
 struct Teleport
@@ -67,6 +69,7 @@ struct Map
  int height;
  std::string description;
  int background;
+ int encounterIndex;
 };
 
 struct zoneRecord
@@ -85,6 +88,18 @@ struct zoneRecord
  //bool hasLight;
  //bool hasAntiMagic;
 };
+
+
+struct MapEncounter
+{
+
+    int Zone;
+    int Encounter;
+    int Probability;
+    int TimeOfDay;
+
+};
+std::vector<MapEncounter> readMapEncounterCSV(const std::string& filename);
 
 extern zoneRecord zones[28];
 

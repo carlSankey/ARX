@@ -10,6 +10,7 @@
 #include <sstream>
 //#include <algorithm>
 
+#include "constants.h"
 #include "player.h"
 #include "font.h"
 #include "display.h"
@@ -23,7 +24,7 @@
 
 using namespace std;
 
-unsigned char citySmithyBinary[citySmithyFileSize];
+unsigned char citySmithyBinary[noOfCitySmithyFile];
 
 extern sf::Clock        clock1;
 extern int              iCounter;
@@ -594,7 +595,7 @@ void loadCitySmithyBinary() {
 	// Use fopen_s for improved error handling
 	if (fopen_s(&fp, tempString, "rb") == 0 && fp != NULL) {
 		// File opened successfully
-		for (int i = 0; i < citySmithyFileSize; i++) {
+		for (int i = 0; i < noOfCitySmithyFile; i++) {
 			citySmithyBinary[i] = fgetc(fp);
 		}
 		fclose(fp); // Close the file when done
@@ -656,6 +657,7 @@ int createCitySmithyInventoryItem(int startByte)
         flags              = citySmithyBinary[wAttributes+17];
         //flags = 1;
         parry              = citySmithyBinary[wAttributes+18];
+		effect = 0;
     }
 
     if (itemType == 0x84)

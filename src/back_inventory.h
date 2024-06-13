@@ -12,11 +12,10 @@
 //
 
 #include <string>
+#include "constants.h"
 
-
-
-const int inventorySize = 4096;
-extern unsigned char itemBlock[inventorySize];
+/*/
+extern unsigned char itemBlock[noOfInventory];
 
 struct bufferItem
 {
@@ -41,7 +40,7 @@ void addNewItem(int itemRef);        // E.g addNewItem(EBON_BLADE)
 
 
 void deleteItem(int itemNo);
-
+*/
 
 //std::string getItemDesc(int itemOffset);
 

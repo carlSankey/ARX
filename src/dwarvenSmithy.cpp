@@ -14,6 +14,7 @@
 
 #include <stdio.h>
 
+#include "constants.h"
 #include "module.h"
 #include "player.h"
 #include "font.h"
@@ -24,7 +25,7 @@
 #include "automap.h"
 #include "items.h"
 
-unsigned char dwarvenBinary[dwarvenFileSize];
+unsigned char dwarvenBinary[noOfDwarvenFile];
 int dwarvenItemOffset;
 
 int customWeaponType;
@@ -534,9 +535,9 @@ void loadDwarvenBinary() {
         long fileSize = ftell(fp); // Get the file size
         fseek(fp, 0, SEEK_SET); // Move back to the beginning
 
-        if (fileSize == dwarvenFileSize) {
+        if (fileSize == noOfDwarvenFile) {
             // File size matches the expected size
-            for (int i = 0; i < dwarvenFileSize; i++) {
+            for (int i = 0; i < noOfDwarvenFile; i++) {
                 dwarvenBinary[i] = fgetc(fp);
             }
             fclose(fp); // Close the file when done

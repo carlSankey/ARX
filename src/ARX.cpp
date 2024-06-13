@@ -2,7 +2,7 @@
 #include <iostream>
 #include <sstream>
 #include <GL/glew.h>
-#include <glfw/glfw3.h>
+#include <gflw/glfw3.h>
 
 
 #include "globals.h"
@@ -25,6 +25,7 @@
 #include "items.h"
 #include "audio.h"
 
+
 #include "damon.h"
 #include "dwarvenSmithy.h"
 
@@ -38,6 +39,9 @@ int loadgameMenu = 0;
 int main()
 {
     string key;
+
+	
+
 
     if (!loadConfig()) return 0; // load screen resolution from arx.ini
     //FreeConsole(); // Hides the console window - make ARX.ini option
@@ -83,16 +87,16 @@ int main()
 					updateDisplay();
 
 					key = getSingleKey();
-					if ( key=="0" ) { loadCharacter(0); startGame(); loadgameMenu = 256; }
-					if ( key=="1" ) { loadCharacter(1); startGame(); loadgameMenu = 256; }
-					if ( key=="2" ) { loadCharacter(2); startGame(); loadgameMenu = 256; }
-					if ( key=="3" ) { loadCharacter(3); startGame(); loadgameMenu = 256; }
-					if ( key=="4" ) { loadCharacter(4); startGame(); loadgameMenu = 256; }
-					if ( key=="5" ) { loadCharacter(5); startGame(); loadgameMenu = 256; }
-					if ( key=="6" ) { loadCharacter(6); startGame(); loadgameMenu = 256; }
-					if ( key=="7" ) { loadCharacter(7); startGame(); loadgameMenu = 256; }
-					if ( key=="8" ) { loadCharacter(8); startGame(); loadgameMenu = 256; }
-					if ( key=="9" ) { loadCharacter(9); startGame(); loadgameMenu = 256; }
+					if ( key=="0" ) { newloadCharacter(0, plyr); startGame(); loadgameMenu = 256; }
+					if ( key=="1" ) { newloadCharacter(1, plyr); startGame(); loadgameMenu = 256; }
+					if ( key=="2" ) { newloadCharacter(2, plyr); startGame(); loadgameMenu = 256; }
+					if ( key=="3" ) { newloadCharacter(3, plyr); startGame(); loadgameMenu = 256; }
+					if ( key=="4" ) { newloadCharacter(4, plyr); startGame(); loadgameMenu = 256; }
+					if ( key=="5" ) { newloadCharacter(5, plyr); startGame(); loadgameMenu = 256; }
+					if ( key=="6" ) { newloadCharacter(6, plyr); startGame(); loadgameMenu = 256; }
+					if ( key=="7" ) { newloadCharacter(7, plyr); startGame(); loadgameMenu = 256; }
+					if ( key=="8" ) { newloadCharacter(8, plyr); startGame(); loadgameMenu = 256; }
+					if ( key=="9" ) { newloadCharacter(9, plyr); startGame(); loadgameMenu = 256; }
 					if ( key=="ESC" ) { loadgameMenu = 256; }
 			}
 			key="";
@@ -171,6 +175,8 @@ void startGame()
 
 	UpdateShopStock();
     //clearInventory();           // Set the inventory char array to zeros
+
+	readFTData();
 
     // Not in use yet - dungeonItems()
     //loadDungeonItems();         // Sets up the Dungeon items char array

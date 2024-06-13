@@ -382,6 +382,7 @@ void drawFullAutomap()
 
 void setAutoMapFlag(int mapno, int x, int y)
 {
+	//adds the rest of the area to the automap if in a shop/area
 	int cellNo = getMapIndex(x,y);
 	autoMapExplored[mapno][cellNo] = true;
 }

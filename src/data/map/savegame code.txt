@@ -1,0 +1,266 @@
+   gender,
+hp,
+maxhp,
+scenario,
+map,
+mapWidth,
+mapHeight,
+x,
+oldx,
+y,
+1oldy,
+facing,
+front,
+back,
+left,
+right,
+frontheight,
+leftheight,
+rightheight,
+floorTexture,
+ceiling,
+location,
+special,
+alive,
+teleporting,
+buffer_index,
+infoPanel,
+priWeapon,
+secWeapon,
+headArmour,
+bodyArmour,
+legsArmour,
+armsArmour,
+timeOfDay,
+minutes,
+hours,
+days,
+months,
+years,
+sta,
+chr,
+str,
+inte,
+wis,
+skl,
+maxhp,
+hp,
+xp,
+level, // xp level
+chrPartials,
+intPartials,
+strPartials,
+speed,
+stealth,
+diagOn,
+mapOn,
+fpsOn,
+miniMapOn,
+silver,
+gold,
+copper,
+food,
+torches,
+water,
+timepieces,
+crystals,
+jewels,
+gems,
+compasses,
+keys,
+encounter_done,
+game_on,
+gender,
+zone,
+zoneSet,
+current_zone, // used by drawing function
+status,
+specialwall,
+windowSize,
+graphicStyle,
+fixedEncounter,
+fixedEncounterRef,
+thirst,
+hunger,
+digestion,
+alcohol,
+base_guildAwards, //Contains 12 elements
+base_fixedEncounters = base_guildAwards + noOfguildAwards,  //Contains 32 elements
+base_guildMemberships = base_fixedEncounters  + noOffixedEncounters, //Contains 14 elments
+ringCharges = base_guildMemberships + noOfGuilds,
+alignment,
+lfood,
+lwater,
+ltorches,
+ltimepieces,
+lcompasses,
+lkeys,
+lcrystals,
+lgems,
+ljewels,
+lgold,
+lsilver,
+lcopper,
+spellIndex,
+effectIndex,
+retreatFriendship,
+damonFriendship,
+base_smithyFriendships, //Contains 4 elements
+base_bankAccountStatuses = base_smithyFriendships+noOfsmithyFriendships, //Contains 9 elements
+base_bankAccountBalances = base_bankAccountStatuses + noOfbankAccountStatuses, //Contains 9 elements
+base_clothing = base_bankAccountBalances + noOfbankAccountBalances, //Contains 4 elements
+goblinsVisited = base_clothing + noOfclothing,
+goblinsVisited,
+goblinsChallenged,
+goblinsDefeated,
+goblinsCombat,
+goblinsReforged,
+trollsVisited,
+trollsChallenged,
+trollsDefeated,
+trollsCombat,
+trollsReforged,
+oracleReturnTomorrow,
+oracleDay,
+oracleMonth,
+oracleYear,
+oracleQuestNo,
+base_healerDays, //Contains 2 elements
+base_healerHours = base_healerDays+noOfhealerDays, //Contains 2 elements
+base_healerMinutes = base_healerHours + noOfhealerHours, //Contains 2 elements
+treasureFinding = base_healerMinutes + noOfhealerMinutes,
+invisibility,
+base_diseases, //Contains 4  elements
+base_poison = base_diseases + noOfdiseases, //Contains 4 elements
+delusion = base_poison +noOfpoison,
+base_damageTypes, //Contains 13 elements
+noticeability = base_damageTypes + noOfdamageTypes,
+protection1,
+protection2,
+forgeDays,
+forgeType,
+forgeBonus,
+plyr.forgeName;
+stolenFromVault,
+base_guildAccepting, //Contains 14 elements
+light = base_guildAccepting + noOfguildAccepting,
+supervision,
+fatigue,
+fatigueRate,
+spell_index,
+temperature,
+hungerRate,
+thirstRate,
+items_index,
+luck,
+TemporalAdjustment,
+base_fixedTreasures, //Contains 64 elements
+itemBufferStart = 400, // "Item Buffer follows";
+base_itemBufferhp,  //Contains 250 elements
+base_itemBufferindex = base_itemBufferhp + itemBufferSize, //Contains 250 elements
+base_itemBufferlevel = base_itemBufferindex + itemBufferSize, //Contains 250 elements
+base_itemBufferlocation = base_itemBufferlevel + itemBufferSize,
+base_itemBuffertype = base_itemBufferlocation  + itemBufferSize,
+base_itemBufferx = base_itemBuffertype + itemBufferSize,
+base_itemBuffery = base_itemBufferx  + itemBufferSize,
+base_itemBuffername = base_itemBuffery + itemBufferSize,
+base_itemBuffermaxHP = base_itemBuffername + itemBufferSize,
+base_itemBufferflags = base_itemBuffermaxHP + itemBufferSize, 
+base_itemBufferminStrength = base_itemBufferflags + itemBufferSize,
+base_itemBufferminDexterity = base_itemBufferminStrength  + itemBufferSize,
+base_itemBufferuseStrength = base_itemBufferminDexterity + itemBufferSize,
+base_itemBufferblunt = base_itemBufferuseStrength + itemBufferSize,
+base_itemBuffersharp = base_itemBufferblunt  + itemBufferSize,
+base_itemBufferearth = base_itemBuffersharp + itemBufferSize,
+base_itemBufferair = base_itemBufferearth + itemBufferSize,
+base_itemBufferfire = base_itemBufferair  + itemBufferSize,
+base_itemBufferwater = base_itemBufferfire  + itemBufferSize,
+base_itemBufferpower = base_itemBufferwater  + itemBufferSize,
+base_itemBuffermagic = base_itemBufferpower  + itemBufferSize // mental
+base_itemBuffergood = base_itemBuffermagic  + itemBufferSize, // cleric
+base_itemBufferevil = base_itemBuffergood  + itemBufferSize,
+base_itemBuffercold = base_itemBufferevil + itemBufferSize,
+base_itemBufferacid = base_itemBuffercold + itemBufferSize,
+base_itemBuffernature = base_itemBufferacid  + itemBufferSize,  
+base_itemBufferweight = base_itemBuffernature + itemBufferSize,
+base_itemBufferalignment = base_itemBufferweight + itemBufferSize,
+base_itemBuffermelee = base_itemBufferalignment + itemBufferSize,
+base_itemBufferammo = base_itemBuffermelee + itemBufferSize,
+base_itemBufferparry = base_itemBufferammo  + itemBufferSize,
+base_itemBuffercat = base_itemBufferparry + itemBufferSize,
+base_itemBufferiLevel = base_itemBuffercat + itemBufferSize,
+base_itemBufferbuffType = base_itemBufferiLevel + itemBufferSize,
+spellBufferStart = 7400,
+base_spellBufferno,  //Contains 35 elements
+base_spellBufferpercentage = base_spellBufferno + spellBufferSie, //Contains 35 elements
+effectBufferStart = 7500,
+base_effectBuffereffectNo, //Contains 50 elements
+base_effectBuffernegativeValue = base_effectBuffereffectNo + noOfEffects,
+base_effectBufferpositiveValue= base_effectBuffernegativeValue + noOfEffects,
+base_effectBuffer[z].duration= base_effectBufferpositiveValue + noOfEffects,
+
+
+    // Smithy daily wares - int smithyDailyWares[4][10];
+	
+smithyDailyWaresStart = 7700
+
+
+for (int z = 0; z < 4; ++z)
+{
+    for (int x = 0; x < 10; ++x)
+    {
+        saveGameIndex itos(smithyDailyWares[z][x],
+        saveGameIndex++;
+    }
+}
+//cout << saveGameIndex << "\n";
+    //int tavernDailyFoods[14][6];
+saveGameIndex = 7710; // start location for object buffer items
+for (int z = 0; z < 14; ++z)
+{
+    for (int x = 0; x < 6; ++x)
+    {
+        saveGameIndex itos(tavernDailyFoods[z][x],
+        saveGameIndex++;
+    }
+}
+//cout << saveGameIndex << "\n";
+    //int tavernDailyDrinks[14][6];
+saveGameIndex = 7794; // start location for object buffer items
+for (int z = 0; z < 14; ++z)
+{
+    for (int x = 0; x < 6; ++x)
+    {
+        saveGameIndex itos(tavernDailyDrinks[z][x],
+        saveGameIndex++;
+    }
+}
+//cout << saveGameIndex << "\n";
+    // int shopDailyWares[15][12];
+saveGameIndex = 7878; // start location for object buffer items
+for (int z = 0; z < 15; ++z)
+{
+    for (int x = 0; x < 12; ++x)
+    {
+        saveGameIndex itos(shopDailyWares[z][x],
+        saveGameIndex++;
+    }
+}
+
+// Currently inn and tavern job openings are not part of saved game
+//cout << saveGameIndex << "\n";
+    //bool autoMapExplored[5][4096];
+saveGameIndex = 8058; // start location for automapexplored
+for (int z = 0; z < 5; ++z)
+{
+    for (int x = 0; x < 4096; ++x)
+    {
+        saveGameIndex itos(autoMapExplored[z][x],
+        saveGameIndex++;
+    }
+}
+//cout << saveGameIndex << "\n";
+
+28538 plyr.name;
+28539 ftos(plyr.z_offset,
+28540 "Release 0.85";

@@ -1,6 +1,15 @@
-#include <SFML/Graphics.hpp>
-#include <SFML/OpenGL.hpp>
+#include <SFML\Graphics.hpp>
+
+#include <SFML\OpenGL.hpp>
+
 #include <string>
+
+
+#include <openssl/sha.h> // For MD5 hashing
+#include <openssl/evp.h>
+#include <openssl/md5.h> // For MD5 hashing
+#include <base64/base64.h> // Base64 encoding library
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,11 +17,18 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <vector>
+#include <iomanip>
+#include <cmath>
+
 
 #include "misc.h"
 #include "display.h"
 #include "font.h"
 #include "player.h"
+
+
+
 
 
 using std::ofstream;
@@ -275,6 +291,12 @@ int oldRollDice(int x, int y)
 }
 
 
+std::pair<int, int> getDigits(int number) {
+	std::string numStr = std::to_string(number);
+	int firstDigit = numStr.empty() ? 0 : (numStr[0] - '0');
+	int remainingDigits = numStr.size() > 1 ? std::stoi(numStr.substr(1)) : 0;
+	return std::make_pair(firstDigit, remainingDigits);
+}
 
 int rollDice(int rolls, int dice)
 {
@@ -396,3 +418,80 @@ void moduleMessage(string txt)
 	}
 }
 
+std::string sha256(const std::string& input) {
+	EVP_MD_CTX* mdctx;
+	const EVP_MD* md;
+	unsigned char hash[SHA256_DIGEST_LENGTH];
+	unsigned int hash_len; // Change int to unsigned int
+
+	OpenSSL_add_all_digests();
+
+	md = EVP_get_digestbyname("sha256");
+	if (md == NULL) {
+		std::cerr << "Error: SHA-256 not supported" << std::endl;
+		return "";
+	}
+
+	mdctx = EVP_MD_CTX_new();
+	if (mdctx == NULL) {
+		std::cerr << "Error: Unable to create hash context" << std::endl;
+		return "";
+	}
+
+	EVP_DigestInit_ex(mdctx, md, NULL);
+	EVP_DigestUpdate(mdctx, input.c_str(), input.length());
+	EVP_DigestFinal_ex(mdctx, hash, &hash_len); // Pass address of hash_len
+
+	EVP_MD_CTX_free(mdctx);
+
+	// Convert the hash to Base64
+	std::string base64_hash = base64_encode(hash, hash_len);
+
+	return base64_hash;
+}
+
+
+std::string trimString(float value, int maxDigits) {
+	std::stringstream ss;
+	ss << std::fixed << std::setprecision(maxDigits) << value; // Convert float to string with fixed precision
+	std::string trimmedStr = ss.str(); // Get the string representation
+
+	// Remove trailing zeros after the decimal point
+	size_t pos = trimmedStr.find('.');
+	if (pos != std::string::npos) {
+		size_t endPos = trimmedStr.find_last_not_of('0');
+		if (endPos != std::string::npos && endPos > pos) {
+			trimmedStr = trimmedStr.substr(0, endPos + 1);
+		}
+		else {
+			// If the decimal point is followed only by zeros, remove it
+			trimmedStr.erase(pos);
+		}
+	}
+
+	return trimmedStr;
+}
+
+// Function to copy elements from one array to another based on specified indexes
+void copyElements(int source[], int dest[], int indexes[], int numIndexes) {
+	for (int i = 0; i < numIndexes; ++i) {
+		dest[i] = source[indexes[i]];
+	}
+}
+
+// Function to convert string to boolean
+bool stringToBool(const std::string& str) {
+	// Convert the string to lowercase to make the check case-insensitive
+	std::string lowerStr = str;
+	std::transform(lowerStr.begin(), lowerStr.end(), lowerStr.begin(), ::tolower);
+
+	if (lowerStr == "true" || lowerStr == "1") {
+		return true;
+	}
+	else if (lowerStr == "false" || lowerStr == "0") {
+		return false;
+	}
+	else {
+		throw std::invalid_argument("Invalid input string for boolean conversion: " + str);
+	}
+}

@@ -8,8 +8,10 @@
 #include <iostream>
 #include <sstream>
 
-#include "saveGame.h"
 
+
+#include "constants.h"
+#include "saveGame.h"
 #include "globals.h"
 #include "dev.h"
 
@@ -28,12 +30,232 @@
 // Each character save game file is made up of a 28540 element string array.
 // Each array element can hold a number or text string (e.g. no. of torches carried or an item name)
 
+
+enum PlayerDataFields {
+    gender,
+    hp,
+    maxhp,
+    scenario,
+    map,
+    mapWidth,
+    mapHeight,
+    x,
+    oldx,
+    y,
+    oldy,
+    facing,
+    front,
+    back,
+    left,
+    right,
+    frontheight,
+    leftheight,
+    rightheight,
+    floorTexture,
+    ceiling,
+    location,
+    special,
+    alive,
+    teleporting,
+    buffer_index,
+    infoPanel,
+    priWeapon,
+    secWeapon,
+    headArmour,
+    bodyArmour,
+    legsArmour,
+    armsArmour,
+    timeOfDay,
+    minutes,
+    hours,
+    days,
+    months,
+    years,
+    sta,
+    chr,
+    str,
+    inte,
+    wis,
+    skl,
+    xp,
+    level, // xp level
+    chrPartials,
+    intPartials,
+    strPartials,
+    speed,
+    stealth,
+    diagOn,
+    mapOn,
+    fpsOn,
+    miniMapOn,
+    silver,
+    gold,
+    copper,
+    food,
+    torches,
+    water,
+    timepieces,
+    crystals,
+    jewels,
+    gems,
+    compasses,
+    keys,
+    encounter_done,
+    game_on,
+    zone,
+    zoneSet,
+    current_zone, // used by drawing function
+    status,
+    specialwall,
+    fixedEncounter,
+    fixedEncounterRef,
+    thirst,
+    hunger,
+    digestion,
+    alcohol,
+    base_guildAwards, //Contains 12 elements
+    base_fixedEncounters = base_guildAwards + noOfguildAwards,  //Contains 32 elements
+    base_guildMemberships = base_fixedEncounters + noOfFixedEncounters, //Contains 14 elments
+    ringCharges = base_guildMemberships + noOfGuilds,
+    alignment,
+    lfood,
+    lwater,
+    ltorches,
+    ltimepieces,
+    lcompasses,
+    lkeys,
+    lcrystals,
+    lgems,
+    ljewels,
+    lgold,
+    lsilver,
+    lcopper,
+    spellIndex,
+    effectIndex,
+    retreatFriendship,
+    damonFriendship,
+    base_smithyFriendships, //Contains 4 elements
+    base_bankAccountStatuses = base_smithyFriendships + noOfSmithyFriendships, //Contains 9 elements
+    base_bankAccountBalances = base_bankAccountStatuses + noOfBankAccountStatuses, //Contains 9 elements
+    base_clothing = base_bankAccountBalances + noOfBankAccountBalances, //Contains 4 elements
+    goblinsVisited = base_clothing + noOfClothing,
+    goblinsChallenged,
+    goblinsDefeated,
+    goblinsCombat,
+    goblinsReforged,
+    trollsVisited,
+    trollsChallenged,
+    trollsDefeated,
+    trollsCombat,
+    trollsReforged,
+    oracleReturnTomorrow,
+    oracleDay,
+    oracleMonth,
+    oracleYear,
+    oracleQuestNo,
+    base_healerDays, //Contains 2 elements
+    base_healerHours = base_healerDays + noOfHealerDays, //Contains 2 elements
+    base_healerMinutes = base_healerHours + noOfHealerHours, //Contains 2 elements
+    treasureFinding = base_healerMinutes + noOfHealerMinutes,
+    invisibility,
+    base_diseases, //Contains 4  elements
+    base_poison = base_diseases + noOfDiseases, //Contains 4 elements
+    delusion = base_poison + noOfPoison,
+    base_noOfElements, //Contains 13 elements
+    noticeability = base_noOfElements + noOfElements,
+    protection1,
+    protection2,
+    forgeDays,
+    forgeType,
+    forgeBonus,
+    forgeName,
+    stolenFromVault,
+    base_guildAccepting, //Contains 14 elements
+    light = base_guildAccepting + noOfGuilds,
+    supervision,
+    fatigue,
+    fatigueRate,
+    spell_index,
+    temperature,
+    hungerRate,
+    thirstRate,
+    items_index,
+    luck,
+    TemporalAdjustment,
+    base_fixedTreasures, //Contains 64 elements
+    itemBufferStart = 400, // "Item Buffer follows";
+    base_itemBufferhp,  //Contains 250 elements
+    base_itemBufferindex = base_itemBufferhp + noOfItemBuffer, //Contains 250 elements
+    base_itemBufferlevel = base_itemBufferindex + noOfItemBuffer, //Contains 250 elements
+    base_itemBufferlocation = base_itemBufferlevel + noOfItemBuffer,
+    base_itemBuffertype = base_itemBufferlocation + noOfItemBuffer,
+    base_itemBufferx = base_itemBuffertype + noOfItemBuffer,
+    base_itemBuffery = base_itemBufferx + noOfItemBuffer,
+    base_itemBuffername = base_itemBuffery + noOfItemBuffer,
+    base_itemBuffermaxHP = base_itemBuffername + noOfItemBuffer,
+    base_itemBufferflags = base_itemBuffermaxHP + noOfItemBuffer,
+    base_itemBufferminStrength = base_itemBufferflags + noOfItemBuffer,
+    base_itemBufferminDexterity = base_itemBufferminStrength + noOfItemBuffer,
+    base_itemBufferuseStrength = base_itemBufferminDexterity + noOfItemBuffer,
+    base_itemBufferblunt = base_itemBufferuseStrength + noOfItemBuffer,
+    base_itemBuffersharp = base_itemBufferblunt + noOfItemBuffer,
+    base_itemBufferearth = base_itemBuffersharp + noOfItemBuffer,
+    base_itemBufferair = base_itemBufferearth + noOfItemBuffer,
+    base_itemBufferfire = base_itemBufferair + noOfItemBuffer,
+    base_itemBufferwater = base_itemBufferfire + noOfItemBuffer,
+    base_itemBufferpower = base_itemBufferwater + noOfItemBuffer,
+    base_itemBuffermagic = base_itemBufferpower + noOfItemBuffer, // mental
+    base_itemBuffergood = base_itemBuffermagic + noOfItemBuffer, // cleric
+    base_itemBufferevil = base_itemBuffergood + noOfItemBuffer,
+    base_itemBuffercold = base_itemBufferevil + noOfItemBuffer,
+    base_itemBufferacid = base_itemBuffercold + noOfItemBuffer,
+    base_itemBuffernature = base_itemBufferacid + noOfItemBuffer,
+    base_itemBufferweight = base_itemBuffernature + noOfItemBuffer,
+    base_itemBufferalignment = base_itemBufferweight + noOfItemBuffer,
+    base_itemBuffermelee = base_itemBufferalignment + noOfItemBuffer,
+    base_itemBufferammo = base_itemBuffermelee + noOfItemBuffer,
+    base_itemBufferparry = base_itemBufferammo + noOfItemBuffer,
+    base_itemBuffercat = base_itemBufferparry + noOfItemBuffer,
+    base_itemBufferiLevel = base_itemBuffercat + noOfItemBuffer,
+    base_itemBufferbuffType = base_itemBufferiLevel + noOfItemBuffer,
+    spellBufferStart = 9000,
+    base_spellBufferno,  //Contains 35 elements
+    base_spellBufferpercentage = base_spellBufferno + noOfSpellBuffer, //Contains 35 elements
+    effectBufferStart = 9100,
+    base_effectBuffereffectNo, //Contains 50 elements
+    base_effectBuffernegativeValue = base_effectBuffereffectNo + noOfEffects,
+    base_effectBufferpositiveValue = base_effectBuffernegativeValue + noOfEffects,
+    base_effectBufferduration = base_effectBufferpositiveValue + noOfEffects,
+    smithyDailyWaresStart = 9300,
+    base_smithyDailyWares1,
+    base_smithyDailyWares2 = base_smithyDailyWares1 + noOfSmithDailyWares, //contains 10 elements
+    base_smithyDailyWares3 = base_smithyDailyWares2 + noOfSmithDailyWares,
+    base_smithyDailyWares4 = base_smithyDailyWares3 + noOfSmithDailyWares,
+    tavernDailyFoodsStart = 9400,
+    savetavernDailyFoods,  //Move to Random
+    savetavernDailyDrinks, //Move to Random
+    saveshopDailyWares, //Moved to Random
+    saveGameIndex = 9600, // start location for automapexplored
+    // Currently inn and tavern job openings are not part of saved game
+    base_autoMapExplored1,
+    base_autoMapExplored2 = base_autoMapExplored1 + noOfAutoMapExplored,
+    base_autoMapExplored3 = base_autoMapExplored2 + noOfAutoMapExplored,
+    base_autoMapExplored4 = base_autoMapExplored3 + noOfAutoMapExplored,
+    base_autoMapExplored5 = base_autoMapExplored4 + noOfAutoMapExplored,
+    name = base_autoMapExplored5 + noOfAutoMapExplored,
+    z_offset,
+    progrelease,
+    FIELD_COUNT // This should be the last element to automatically get the count of fields
+};
+
+
+
 // NOTES:
 // job openings not currently part of saved game
 
-string character[saveGameSize];
+string character[noOfSaveGame];
 string saveGameDescriptions[10];
-int damageTypes = 13;
+
 
 void displayLoadGame()
 {
@@ -91,7 +313,7 @@ void updateSaveGameDescriptions()
 
 void initcharacter()
 {
-	for (int i=0 ; i<saveGameSize ; i++)
+	for (int i=0 ; i<noOfSaveGame ; i++)
 	{
 		character[i] = "<BLANK>";
 	}
@@ -105,8 +327,6 @@ void displaySaveGame()
 	plyr.status = 0;
 	{
 			int savegameMenu = 255; // high level menu
-
-
 
 			while (savegameMenu < 256)
 			{
@@ -132,7 +352,7 @@ void displaySaveGame()
 				}
 				while (savegameMenu < 10) // attempt to save a character
 				{
-                    saveCharacter(savegameMenu);
+                    newsaveCharacter(savegameMenu,plyr);
 					plyr.status=1; // for display canvas
 					savegameMenu = 256;
 				}
@@ -160,7 +380,7 @@ bool loadCharacter(int saveSlot)
 	}
 	string text;
 
-	for (int a = 0; a < saveGameSize; ++a)
+	for (int a = 0; a < noOfSaveGame; ++a)
 	{
 		getline(instream, text);
 		character[a] = text;
@@ -354,12 +574,11 @@ plyr.diseases[1] = atoi( character[212].c_str());
 plyr.diseases[2] = atoi( character[213].c_str());
 plyr.diseases[3] = atoi( character[214].c_str());
 plyr.poison[0] = atoi( character[215].c_str());
-
 plyr.poison[1] = atoi( character[216].c_str());
 plyr.poison[2] = atoi( character[217].c_str());
 plyr.poison[3] = atoi( character[218].c_str());
 plyr.delusion = atoi( character[219].c_str());
-for(int y = 0; y < damageTypes; ++y) { plyr.invulnerability[y] = atoi(character[220+y].c_str()); }
+for(int y = 0; y < noOfElements; ++y) { plyr.invulnerability[y] = atoi(character[220+y].c_str()); }
 plyr.noticeability = atoi(character[229].c_str());
 plyr.protection1 = atoi(character[230].c_str());
 plyr.protection2 = atoi(character[231].c_str());
@@ -375,7 +594,13 @@ for(int y = 0; y < 14; ++y)
 	plyr.guildAccepting[y] = atoi(character[237+y].c_str()); 
 }
 
- plyr.light = atoi(character[251].c_str()) ;
+
+ for (int y = 0; y < 64; ++y)
+ {
+     plyr.fixedTreasures[y] = atoi(character[251 + y].c_str());
+ }
+
+ plyr.light = atoi(character[251].c_str());
  plyr.supervision = atoi(character[252].c_str());
  plyr.fatigue = atoi(character[253].c_str());
  plyr.fatigueRate = atoi(character[254].c_str());
@@ -385,12 +610,11 @@ for(int y = 0; y < 14; ++y)
  plyr.thirstRate = atoi(character[258].c_str());
  plyr.items_index = atoi(character[259].c_str());
  plyr.luck = atoi(character[260].c_str());
-
-
-
+ plyr.TemporalAdjustment = atoi(character[261].c_str());
+ bool PrisonRelease;
 
 int loadGameIndex = 400; // start location for object buffer items
-for(int z = 0; z < itemBufferSize; ++z)
+for(int z = 0; z < noOfItemBuffer; ++z)
 {
 	itemBuffer[z].hp = atoi(character[loadGameIndex].c_str());
 	itemBuffer[z].index = atoi(character[loadGameIndex+1].c_str());
@@ -399,8 +623,6 @@ for(int z = 0; z < itemBufferSize; ++z)
 	itemBuffer[z].type = atoi(character[loadGameIndex+4].c_str());
 	itemBuffer[z].x = atoi(character[loadGameIndex+5].c_str());
 	itemBuffer[z].y = atoi(character[loadGameIndex+6].c_str());
-
-
 	itemBuffer[z].name = character[loadGameIndex+7];
 	itemBuffer[z].maxHP = atoi( character[loadGameIndex+8].c_str());
 	itemBuffer[z].flags = atoi( character[loadGameIndex+9].c_str());
@@ -409,7 +631,6 @@ for(int z = 0; z < itemBufferSize; ++z)
 	itemBuffer[z].useStrength = atoi( character[loadGameIndex+12].c_str());
 	itemBuffer[z].blunt = atoi( character[loadGameIndex+13].c_str());
 	itemBuffer[z].sharp = atoi( character[loadGameIndex+14].c_str());
-
 	itemBuffer[z].earth = atoi( character[loadGameIndex+15].c_str());
 	itemBuffer[z].air = atoi( character[loadGameIndex+16].c_str());
 	itemBuffer[z].fire = atoi( character[loadGameIndex+17].c_str());
@@ -424,8 +645,11 @@ for(int z = 0; z < itemBufferSize; ++z)
 	itemBuffer[z].melee = atoi( character[loadGameIndex+26].c_str());
 	itemBuffer[z].ammo = atoi( character[loadGameIndex+27].c_str());
 	itemBuffer[z].parry = atoi( character[loadGameIndex+28].c_str());
+    itemBuffer[z].cat = atoi(character[loadGameIndex + 29].c_str());
+    itemBuffer[z].iLevel = atoi(character[loadGameIndex + 30].c_str());
+    itemBuffer[z].buffType = atoi(character[loadGameIndex + 31].c_str());
 
-	loadGameIndex = loadGameIndex + 28;
+	loadGameIndex = loadGameIndex + 32;
 }
 
 
@@ -514,7 +738,524 @@ string saveGameReleaseNo = character[28540];
 }
 
 
+bool newloadCharacter(int saveSlot, Player& plyr) {
+    string filename = "data/saves/save" + to_string(saveSlot) + ".txt";
+    ifstream instream(filename.c_str());
 
+    if (!instream) {
+        cerr << "No save game in this slot" << endl;
+        return false;
+    }
+
+    string text;
+    int linesRead = 0;
+
+    // Load player data
+    getline(instream, text); plyr.gender = stoi(text); linesRead++;
+    getline(instream, text); plyr.hp = stoi(text); linesRead++;
+    getline(instream, text); plyr.maxhp = stoi(text); linesRead++;
+    getline(instream, text); plyr.scenario = stoi(text); linesRead++;
+    getline(instream, text); plyr.map = stoi(text); linesRead++;
+    getline(instream, text); plyr.mapWidth = stoi(text); linesRead++;
+    getline(instream, text); plyr.mapHeight = stoi(text); linesRead++;
+    getline(instream, text); plyr.x = stoi(text); linesRead++;
+    getline(instream, text); plyr.oldx = stoi(text); linesRead++;
+    getline(instream, text); plyr.y = stoi(text); linesRead++;
+    getline(instream, text); plyr.oldy = stoi(text); linesRead++;
+    getline(instream, text); plyr.facing = stoi(text); linesRead++;
+    getline(instream, text); plyr.front = stoi(text); linesRead++;
+    getline(instream, text); plyr.back = stoi(text); linesRead++;
+    getline(instream, text); plyr.left = stoi(text); linesRead++;
+    getline(instream, text); plyr.right = stoi(text); linesRead++;
+    getline(instream, text); plyr.frontheight = stoi(text); linesRead++;
+    getline(instream, text); plyr.leftheight = stoi(text); linesRead++;
+    getline(instream, text); plyr.rightheight = stoi(text); linesRead++;
+    getline(instream, text); plyr.floorTexture = stoi(text); linesRead++;
+    getline(instream, text); plyr.ceiling = stoi(text); linesRead++;
+    getline(instream, text); plyr.location = stoi(text); linesRead++;
+    getline(instream, text); plyr.special = stoi(text); linesRead++;
+    getline(instream, text); plyr.alive = stringToBool( text); linesRead++;
+    getline(instream, text); plyr.teleporting = stoi(text); linesRead++;
+    getline(instream, text); plyr.buffer_index = stoi(text); linesRead++;
+    getline(instream, text); plyr.infoPanel = stoi(text); linesRead++;
+    getline(instream, text); plyr.priWeapon = stoi(text); linesRead++;
+    getline(instream, text); plyr.secWeapon = stoi(text); linesRead++;
+    getline(instream, text); plyr.headArmour = stoi(text); linesRead++;
+    getline(instream, text); plyr.bodyArmour = stoi(text); linesRead++;
+    getline(instream, text); plyr.legsArmour = stoi(text); linesRead++;
+    getline(instream, text); plyr.armsArmour = stoi(text); linesRead++;
+    getline(instream, text); plyr.timeOfDay = stoi(text); linesRead++;
+    getline(instream, text); plyr.minutes = stoi(text); linesRead++;
+    getline(instream, text); plyr.hours = stoi(text); linesRead++;
+    getline(instream, text); plyr.days = stoi(text); linesRead++;
+    getline(instream, text); plyr.months = stoi(text); linesRead++;
+    getline(instream, text); plyr.years = stoi(text); linesRead++;
+    getline(instream, text); plyr.sta = stoi(text); linesRead++;
+    getline(instream, text); plyr.chr = stoi(text); linesRead++;
+    getline(instream, text); plyr.str = stoi(text); linesRead++;
+    getline(instream, text); plyr.inte = stoi(text); linesRead++;
+    getline(instream, text); plyr.wis = stoi(text); linesRead++;
+    getline(instream, text); plyr.skl = stoi(text); linesRead++;
+    
+    getline(instream, text);
+    try {
+        plyr.xp = std::stoi(text);
+    }
+    catch (const std::invalid_argument& e) {
+        plyr.xp = 0; // or another default value
+    }
+    linesRead++;
+
+    getline(instream, text); plyr.level = stoi(text); linesRead++;// xp leve
+
+    getline(instream, text);
+    try {
+        plyr.chrPartials = std::stoi(text);
+    }
+    catch (const std::invalid_argument& e) {
+        plyr.chrPartials = 0; // or another default value
+    }
+    linesRead++;
+
+    getline(instream, text);
+    try {
+        plyr.intPartials = std::stoi(text);
+    }
+    catch (const std::invalid_argument& e) {
+        plyr.intPartials = 0; // or another default value
+    }
+    linesRead++;
+
+    getline(instream, text);
+    try {
+        plyr.strPartials = std::stoi(text);
+    }
+    catch (const std::invalid_argument& e) {
+        plyr.strPartials = 0; // or another default value
+    }
+    linesRead++;
+
+    getline(instream, text);
+    try {
+        plyr.speed = std::stoi(text);
+    }
+    catch (const std::invalid_argument& e) {
+        plyr.speed = 0; // or another default value
+    }
+    linesRead++;
+
+    getline(instream, text); plyr.stealth = stoi(text); linesRead++;
+    getline(instream, text); plyr.diagOn = stringToBool(text); linesRead++;  //52
+    getline(instream, text); plyr.mapOn = stringToBool(text); linesRead++;
+    getline(instream, text); plyr.fpsOn = stringToBool(text); linesRead++;
+    getline(instream, text); plyr.miniMapOn = stringToBool(text); linesRead++;
+    getline(instream, text); plyr.silver = stoi(text); linesRead++;
+    getline(instream, text); plyr.gold = stoi(text); linesRead++;
+    getline(instream, text); plyr.copper = stoi(text); linesRead++;
+    getline(instream, text); plyr.food = stoi(text); linesRead++;
+    getline(instream, text); plyr.torches = stoi(text); linesRead++;
+    getline(instream, text); plyr.water = stoi(text); linesRead++;
+    getline(instream, text); plyr.timepieces = stoi(text); linesRead++;
+    getline(instream, text); plyr.crystals = stoi(text); linesRead++;
+    getline(instream, text); plyr.jewels = stoi(text); linesRead++;
+    getline(instream, text); plyr.gems = stoi(text); linesRead++;
+    getline(instream, text); plyr.compasses = stoi(text); linesRead++;
+    getline(instream, text); plyr.keys = stoi(text); linesRead++;
+    getline(instream, text); plyr.encounter_done = stringToBool(text); linesRead++;
+    getline(instream, text); plyr.game_on = stringToBool(text); linesRead++;
+    getline(instream, text); plyr.zone = stoi(text); linesRead++;
+    getline(instream, text); plyr.zoneSet = stoi(text); linesRead++;
+    getline(instream, text); plyr.current_zone = stoi(text); linesRead++;// used by drawing function
+    getline(instream, text); plyr.status = stoi(text); linesRead++;
+    getline(instream, text); plyr.specialwall = stoi(text); linesRead++;
+    getline(instream, text); plyr.fixedEncounter = stringToBool(text); linesRead++;
+    getline(instream, text); plyr.fixedEncounterRef = stoi(text); linesRead++;
+    getline(instream, text); plyr.thirst = stoi(text); linesRead++;
+    getline(instream, text); plyr.hunger = stoi(text); linesRead++;
+    getline(instream, text); plyr.digestion = stoi(text); linesRead++;
+    getline(instream, text); plyr.alcohol = stoi(text); linesRead++;
+
+
+    for (size_t i = 0; i < noOfguildAwards; ++i) {
+        getline(instream, text); plyr.guildAwards[i] = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+
+    for (size_t i = 0; i < noOfFixedEncounters; ++i) {
+        getline(instream, text); plyr.fixedEncounters[i] = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+
+    for (size_t i = 0; i < noOfGuilds; ++i) {
+        getline(instream, text); plyr.guildMemberships[i] = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+
+
+    getline(instream, text); plyr.ringCharges = stoi(text); linesRead++;
+    getline(instream, text); plyr.lwater = stoi(text); linesRead++;
+    getline(instream, text); plyr.alignment = stoi(text); linesRead++;
+    getline(instream, text); plyr.lfood = stoi(text); linesRead++;
+    getline(instream, text); plyr.ltorches = stoi(text); linesRead++;
+    getline(instream, text); plyr.ltimepieces = stoi(text); linesRead++;
+    getline(instream, text); plyr.lcompasses = stoi(text); linesRead++;
+    getline(instream, text); plyr.lkeys = stoi(text); linesRead++;
+    getline(instream, text); plyr.lcrystals = stoi(text); linesRead++;
+    getline(instream, text); plyr.lgems = stoi(text); linesRead++;
+    getline(instream, text); plyr.ljewels = stoi(text); linesRead++;
+    getline(instream, text); plyr.lgold = stoi(text); linesRead++;
+    getline(instream, text); plyr.lsilver = stoi(text); linesRead++;
+    getline(instream, text); plyr.lcopper = stoi(text); linesRead++;
+    getline(instream, text); plyr.spellIndex = stoi(text); linesRead++;
+    getline(instream, text); plyr.effectIndex = stoi(text); linesRead++;
+    getline(instream, text); plyr.retreatFriendship = stoi(text); linesRead++;
+    getline(instream, text); plyr.damonFriendship = stoi(text); linesRead++;
+
+    for (size_t i = 0; i < noOfSmithyFriendships; ++i) {
+        getline(instream, text); plyr.smithyFriendships[i] = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+
+    for (size_t i = 0; i < noOfBankAccountStatuses; ++i) {
+        getline(instream, text); plyr.bankAccountStatuses[i] = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+
+    for (size_t i = 0; i < noOfBankAccountBalances; ++i) {
+        getline(instream, text); plyr.bankAccountBalances[i] = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+
+    for (size_t i = 0; i < noOfClothing; ++i) {
+        getline(instream, text); plyr.clothing[i] = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+
+
+
+    getline(instream, text); plyr.goblinsVisited = stoi(text); linesRead++;
+    getline(instream, text); plyr.goblinsChallenged = stoi(text); linesRead++;
+    getline(instream, text); plyr.goblinsDefeated = stoi(text); linesRead++;
+    getline(instream, text); plyr.goblinsCombat = stoi(text); linesRead++;
+    getline(instream, text); plyr.goblinsReforged = stoi(text); linesRead++;
+    getline(instream, text); plyr.trollsVisited = stoi(text); linesRead++;
+    getline(instream, text); plyr.trollsChallenged = stoi(text); linesRead++;
+    getline(instream, text); plyr.trollsDefeated = stoi(text); linesRead++;
+    getline(instream, text); plyr.trollsCombat = stoi(text); linesRead++;
+    getline(instream, text); plyr.trollsReforged = stoi(text); linesRead++;
+    getline(instream, text); plyr.oracleReturnTomorrow = stoi(text); linesRead++;
+    getline(instream, text); plyr.oracleDay = stoi(text); linesRead++;
+    getline(instream, text); plyr.oracleMonth = stoi(text); linesRead++;
+    getline(instream, text); plyr.oracleYear = stoi(text); linesRead++;
+    getline(instream, text); plyr.oracleQuestNo = stoi(text); linesRead++;
+
+    for (size_t i = 0; i < noOfHealerDays; ++i) {
+        getline(instream, text); plyr.healerDays[i] = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+
+    for (size_t i = 0; i < noOfHealerHours; ++i) {
+        getline(instream, text); plyr.healerHours[i] = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+
+    for (size_t i = 0; i < noOfHealerMinutes; ++i) {
+        getline(instream, text); plyr.healerMinutes[i] = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+
+
+
+
+    getline(instream, text); plyr.treasureFinding = stoi(text); linesRead++;
+    getline(instream, text); plyr.invisibility = stoi(text); linesRead++;
+
+    for (size_t i = 0; i < noOfDiseases; ++i) {
+        getline(instream, text); plyr.diseases[i] = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+
+    for (size_t i = 0; i < noOfPoison; ++i) {
+        getline(instream, text); plyr.poison[i] = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+
+
+
+    getline(instream, text); plyr.delusion = stoi(text); linesRead++;
+
+    for (size_t i = 0; i < noOfElements; ++i) {
+        getline(instream, text); plyr.invulnerability[i] = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+
+    getline(instream, text); plyr.noticeability = stoi(text); linesRead++;
+    getline(instream, text); plyr.protection1 = stoi(text); linesRead++;
+    getline(instream, text); plyr.protection2 = stoi(text); linesRead++;
+    getline(instream, text); plyr.forgeDays = stoi(text); linesRead++;
+    getline(instream, text); plyr.forgeType = stoi(text); linesRead++;
+    getline(instream, text); plyr.forgeBonus = stoi(text); linesRead++;
+    getline(instream, text); plyr.forgeName = text; linesRead++;
+    getline(instream, text); plyr.stolenFromVault = stoi(text); linesRead++;
+
+    for (size_t i = 0; i < noOfGuilds; ++i) {
+        getline(instream, text); plyr.guildAccepting[i] = stringToBool(text); linesRead++;
+        // Save other item fields...
+    }
+
+
+    getline(instream, text); plyr.light = stoi(text); linesRead++;
+    getline(instream, text); plyr.supervision = stoi(text); linesRead++;
+    getline(instream, text); plyr.fatigue = stoi(text); linesRead++;
+    getline(instream, text); plyr.fatigueRate = stoi(text); linesRead++;
+    getline(instream, text); plyr.spell_index = stoi(text); linesRead++;
+    getline(instream, text); plyr.temperature = stoi(text); linesRead++;
+    getline(instream, text); plyr.hungerRate = stoi(text); linesRead++;
+    getline(instream, text); plyr.thirstRate = stoi(text); linesRead++;
+    getline(instream, text); plyr.items_index = stoi(text); linesRead++;
+    getline(instream, text); plyr.luck = stoi(text); linesRead++;
+    getline(instream, text); plyr.TemporalAdjustment = stoi(text); linesRead++;
+
+    for (size_t i = 0; i < noOfFixedTreasures; ++i) {
+        getline(instream, text); plyr.fixedTreasures[i] = stringToBool(text); linesRead++;
+        // Save other item fields...
+    }
+
+    
+    for (int i = linesRead; i < itemBufferStart; ++i) {
+        getline(instream, text);
+    }
+    getline(instream, text);
+    if (text != "Item Buffer follows") {
+        cerr << "Error: Expected 'Item Buffer follows' at line 400" << endl;
+        return false;
+    }
+
+
+
+    for (size_t i = 0; i < noOfItemBuffer; ++i) {
+        getline(instream, text); itemBuffer[i].hp = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+    for (size_t i = 0; i < noOfItemBuffer; ++i) {
+        getline(instream, text); itemBuffer[i].index = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+    for (size_t i = 0; i < noOfItemBuffer; ++i) {
+        getline(instream, text); itemBuffer[i].level = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+    for (size_t i = 0; i < noOfItemBuffer; ++i) {
+        getline(instream, text); itemBuffer[i].location = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+    for (size_t i = 0; i < noOfItemBuffer; ++i) {
+        getline(instream, text); itemBuffer[i].type = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+    for (size_t i = 0; i < noOfItemBuffer; ++i) {
+        getline(instream, text); itemBuffer[i].x = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+    for (size_t i = 0; i < noOfItemBuffer; ++i) {
+        getline(instream, text); itemBuffer[i].y = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+    for (size_t i = 0; i < noOfItemBuffer; ++i) {
+        getline(instream, text); itemBuffer[i].name = text; linesRead++;
+        // Save other item fields...
+    }
+    for (size_t i = 0; i < noOfItemBuffer; ++i) {
+        getline(instream, text); itemBuffer[i].maxHP = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+    for (size_t i = 0; i < noOfItemBuffer; ++i) {
+        getline(instream, text); itemBuffer[i].flags = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+    for (size_t i = 0; i < noOfItemBuffer; ++i) {
+        getline(instream, text); itemBuffer[i].minStrength = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+    for (size_t i = 0; i < noOfItemBuffer; ++i) {
+        getline(instream, text); itemBuffer[i].minDexterity = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+    for (size_t i = 0; i < noOfItemBuffer; ++i) {
+        getline(instream, text); itemBuffer[i].useStrength = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+    for (size_t i = 0; i < noOfItemBuffer; ++i) {
+        getline(instream, text); itemBuffer[i].blunt = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+    for (size_t i = 0; i < noOfItemBuffer; ++i) {
+        getline(instream, text); itemBuffer[i].sharp = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+    for (size_t i = 0; i < noOfItemBuffer; ++i) {
+        getline(instream, text); itemBuffer[i].earth = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+    for (size_t i = 0; i < noOfItemBuffer; ++i) {
+        getline(instream, text); itemBuffer[i].air = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+    for (size_t i = 0; i < noOfItemBuffer; ++i) {
+        getline(instream, text); itemBuffer[i].fire = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+    for (size_t i = 0; i < noOfItemBuffer; ++i) {
+        getline(instream, text); itemBuffer[i].water = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+    for (size_t i = 0; i < noOfItemBuffer; ++i) {
+        getline(instream, text); itemBuffer[i].power = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+    for (size_t i = 0; i < noOfItemBuffer; ++i) {
+        getline(instream, text); itemBuffer[i].magic = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+    for (size_t i = 0; i < noOfItemBuffer; ++i) {
+        getline(instream, text); itemBuffer[i].good = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+    for (size_t i = 0; i < noOfItemBuffer; ++i) {
+        getline(instream, text); itemBuffer[i].evil = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+    for (size_t i = 0; i < noOfItemBuffer; ++i) {
+        getline(instream, text); itemBuffer[i].cold = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+    for (size_t i = 0; i < noOfItemBuffer; ++i) {
+        getline(instream, text); itemBuffer[i].acid = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+    for (size_t i = 0; i < noOfItemBuffer; ++i) {
+        getline(instream, text); itemBuffer[i].nature = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+    for (size_t i = 0; i < noOfItemBuffer; ++i) {
+        getline(instream, text); itemBuffer[i].weight = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+    for (size_t i = 0; i < noOfItemBuffer; ++i) {
+        getline(instream, text); itemBuffer[i].alignment = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+    for (size_t i = 0; i < noOfItemBuffer; ++i) {
+        getline(instream, text); itemBuffer[i].melee = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+    for (size_t i = 0; i < noOfItemBuffer; ++i) {
+        getline(instream, text); itemBuffer[i].ammo = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+    for (size_t i = 0; i < noOfItemBuffer; ++i) {
+        getline(instream, text); itemBuffer[i].parry = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+    for (size_t i = 0; i < noOfItemBuffer; ++i) {
+        getline(instream, text); itemBuffer[i].cat = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+    for (size_t i = 0; i < noOfItemBuffer; ++i) {
+        getline(instream, text); itemBuffer[i].iLevel = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+    for (size_t i = 0; i < noOfItemBuffer; ++i) {
+        getline(instream, text); itemBuffer[i].buffType = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+
+    for (int i = linesRead; i < spellBufferStart; ++i) {
+        getline(instream, text);
+    }
+    getline(instream, text);
+    if (text != "Spell Buffer follows") {
+        cerr << "Error: Expected 'Item Buffer follows' at line 400" << endl;
+        return false;
+    }
+    for (size_t i = 0; i < noOfSpellBuffer; ++i) {
+        getline(instream, text); spellBuffer[i].no = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+    for (size_t i = 0; i < noOfSpellBuffer; ++i) {
+        getline(instream, text); spellBuffer[i].percentage = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+
+    for (int i = linesRead; i < effectBufferStart; ++i) {
+        getline(instream, text);
+    }
+    getline(instream, text);
+    if (text != "Effect Buffer follows") {
+        cerr << "Error: Expected 'Item Buffer follows' at line 400" << endl;
+        return false;
+    }
+    
+    for (size_t i = 0; i < noOfSpellBuffer; ++i) {
+        getline(instream, text); effectBuffer[i].effectNo = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+    for (size_t i = 0; i < noOfSpellBuffer; ++i) {
+        getline(instream, text); effectBuffer[i].negativeValue = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+    for (size_t i = 0; i < noOfSpellBuffer; ++i) {
+        getline(instream, text); effectBuffer[i].positiveValue = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+    for (size_t i = 0; i < noOfSpellBuffer; ++i) {
+        getline(instream, text); effectBuffer[i].duration = stoi(text); linesRead++;
+        // Save other item fields...
+    }
+
+    for (int i = 10; i < smithyDailyWaresStart; ++i) {
+        getline(instream, text);
+    }
+    getline(instream, text);
+    if (text != "Smithy Daily Wares follows") {
+        cerr << "Error: Expected 'Item Buffer follows' at line 400" << endl;
+        return false;
+    }
+    for (int z = 0; z < noOfSmithyFriendships; ++z)
+    {
+        for (int x = 0; x < noOfSmithDailyWares; ++x)
+        {
+            getline(instream, text); itos(smithyDailyWares[z][x]) = stoi(text); linesRead++;
+        }
+    }
+
+    for (int i = 10; i < saveGameIndex; ++i) {
+        getline(instream, text);
+    }
+    getline(instream, text);
+    if (text != "Automap follows") {
+        cerr << "Error: Expected 'Item Buffer follows' at line 400" << endl;
+        return false;
+    }
+    for (int z = 0; z < noOfLevels; ++z)
+    {
+        for (int x = 0; x < noOfAutoMapExplored; ++x)
+        {
+            getline(instream, text); itos(autoMapExplored[z][x]) = stringToBool(text); linesRead++;
+        }
+    }
+    getline(instream, text); plyr.name = text; linesRead++;
+    getline(instream, text); plyr.z_offset = stof(text); linesRead++;
+    
+    // Load other player fields...
+
+
+
+ 
+    instream.close();
+    plyr.status = 1; // Assuming 1 corresponds to EXPLORE
+    return true;
+}
 
 
 
@@ -705,7 +1446,7 @@ bool saveCharacter(int saveSlot)
         character[218] = itos( plyr.poison[3]);
         character[219] = itos( plyr.delusion);
 
-        for(int y = 0; y < damageTypes; ++y) { character[220+y] = itos(plyr.invulnerability[y]); }
+        for(int y = 0; y < noOfElements; ++y) { character[220+y] = itos(plyr.invulnerability[y]); }
         character[229] = itos(plyr.noticeability);
         character[230] = itos(plyr.protection1);
         character[231] = itos(plyr.protection2);
@@ -732,13 +1473,19 @@ bool saveCharacter(int saveSlot)
     character[258] = itos(plyr.thirstRate);
     character[259] = itos(plyr.items_index);
     character[260] = itos(plyr.luck);
+    character[261] = itos(plyr.TemporalAdjustment);
 
+ 
+        for (int y = 0; y < 64; ++y)
+        {
+            character[300+y] = itos(plyr.fixedTreasures[y]);
+        }
 	character[399] = "Line 400: Item Buffer follows";
 
  // Copy item buffer
 
     int saveGameIndex = 400; // start location for object buffer items
-    for(int z = 0; z < itemBufferSize; ++z)
+    for(int z = 0; z < noOfItemBuffer; ++z)
     {
         character[saveGameIndex] = itos(itemBuffer[z].hp);
         character[saveGameIndex+1] = itos(itemBuffer[z].index);
@@ -770,8 +1517,14 @@ bool saveCharacter(int saveSlot)
 		character[saveGameIndex+26] = itos(itemBuffer[z].melee);
 		character[saveGameIndex+27] = itos(itemBuffer[z].ammo);
 		character[saveGameIndex+28] = itos(itemBuffer[z].parry);
+        character[saveGameIndex+29] = itos(itemBuffer[z].cat);
+        character[saveGameIndex+30] = itos(itemBuffer[z].iLevel);
+        character[saveGameIndex+31] = itos(itemBuffer[z].buffType);
 
-        saveGameIndex = saveGameIndex + 28;
+
+
+
+        saveGameIndex = saveGameIndex + 32;
     }
 //cout << saveGameIndex << "\n";
 
@@ -856,7 +1609,7 @@ bool saveCharacter(int saveSlot)
 
 character[28538] = plyr.name;
 character[28539] = ftos(plyr.z_offset);
-character[28540] = "Release 0.80";
+character[28540] = "Release 0.85";
 
     string filename = "data/saves/save"+itos(saveSlot)+".txt";
     outdata.open(filename.c_str()); // opens the file
@@ -866,7 +1619,7 @@ character[28540] = "Release 0.80";
     }
 
 
-    for(int y = 0; y < saveGameSize; ++y)
+    for(int y = 0; y < noOfSaveGame; ++y)
     {
         outdata << character[y] << endl;
     }
@@ -880,6 +1633,455 @@ character[28540] = "Release 0.80";
 }
 
 
+bool newsaveCharacter(int saveSlot, const Player& plyr) {
+
+
+    saveGameDescriptions[saveSlot] = plyr.name;
+    updateSaveGameDescriptions();
+
+    initcharacter(); // Clear out string array
+
+    string filename = "data/saves/save" + to_string(saveSlot) + ".txt";
+    ofstream outstream(filename.c_str());
+
+    if (!outstream) {
+        cerr << "Failed to open save file in this slot" << endl;
+        return false;
+    }
+
+    int linesWritten = 0;
+
+    // Save player data
+    outstream << plyr.gender << endl; linesWritten++;
+    outstream << plyr.hp << endl; linesWritten++;
+    outstream << plyr.maxhp << endl; linesWritten++;
+    outstream << plyr.scenario << endl; linesWritten++;
+    outstream << plyr.map << endl; linesWritten++;
+    outstream << plyr.mapWidth << endl; linesWritten++;
+    outstream << plyr.mapHeight << endl; linesWritten++;
+    outstream << plyr.x << endl; linesWritten++;
+    outstream << plyr.oldx << endl; linesWritten++;
+    outstream << plyr.y << endl; linesWritten++;
+    outstream << plyr.oldy << endl; linesWritten++;
+    outstream << plyr.facing << endl; linesWritten++;
+    outstream << plyr.front << endl; linesWritten++;
+    outstream << plyr.back << endl; linesWritten++;
+    outstream << plyr.left << endl; linesWritten++;
+    outstream << plyr.right << endl; linesWritten++;
+    outstream << plyr.frontheight << endl; linesWritten++;
+    outstream << plyr.leftheight << endl; linesWritten++;
+    outstream << plyr.rightheight << endl; linesWritten++;
+    outstream << plyr.floorTexture << endl; linesWritten++;
+    outstream << plyr.ceiling << endl; linesWritten++;
+    outstream << plyr.location << endl; linesWritten++;
+    outstream << plyr.special << endl; linesWritten++;
+    outstream << plyr.alive << endl; linesWritten++;
+    outstream << plyr.teleporting << endl; linesWritten++;
+    outstream << plyr.buffer_index << endl; linesWritten++;
+    outstream << plyr.infoPanel << endl; linesWritten++;
+    outstream << plyr.priWeapon << endl; linesWritten++;
+    outstream << plyr.secWeapon << endl; linesWritten++;
+    outstream << plyr.headArmour << endl; linesWritten++;
+    outstream << plyr.bodyArmour << endl; linesWritten++;
+    outstream << plyr.legsArmour << endl; linesWritten++;
+    outstream << plyr.armsArmour << endl; linesWritten++;
+    outstream << plyr.timeOfDay << endl; linesWritten++;
+    outstream << plyr.minutes << endl; linesWritten++;
+    outstream << plyr.hours << endl; linesWritten++;
+    outstream << plyr.days << endl; linesWritten++;
+    outstream << plyr.months << endl; linesWritten++;
+    outstream << plyr.years << endl; linesWritten++;
+    outstream << plyr.sta << endl; linesWritten++;
+    outstream << plyr.chr << endl; linesWritten++;
+    outstream << plyr.str << endl; linesWritten++;
+    outstream << plyr.inte << endl; linesWritten++;
+    outstream << plyr.wis << endl; linesWritten++;
+    outstream << plyr.skl << endl ; linesWritten++;
+    outstream << plyr.xp << endl ; linesWritten++;
+    outstream << plyr.level << endl; linesWritten++;// xp leve
+    outstream << plyr.chrPartials << endl; linesWritten++;
+    outstream << plyr.intPartials << endl; linesWritten++;
+    outstream << plyr.strPartials << endl; linesWritten++;
+    outstream << plyr.speed << endl; linesWritten++;
+    outstream << plyr.stealth << endl; linesWritten++;
+    outstream << plyr.diagOn << endl; linesWritten++;  //53
+    outstream << plyr.mapOn << endl; linesWritten++;
+    outstream << plyr.fpsOn << endl; linesWritten++;
+    outstream << plyr.miniMapOn << endl; linesWritten++;
+    outstream << plyr.silver << endl; linesWritten++;
+    outstream << plyr.gold << endl; linesWritten++;
+    outstream << plyr.copper << endl; linesWritten++;
+    outstream << plyr.food << endl; linesWritten++;
+    outstream << plyr.torches << endl; linesWritten++;
+    outstream << plyr.water << endl; linesWritten++;
+    outstream << plyr.timepieces << endl; linesWritten++;
+    outstream << plyr.crystals << endl; linesWritten++;
+    outstream << plyr.jewels << endl; linesWritten++;
+    outstream << plyr.gems << endl; linesWritten++;
+    outstream << plyr.compasses << endl; linesWritten++;
+    outstream << plyr.keys << endl; linesWritten++;
+    outstream << plyr.encounter_done << endl; linesWritten++;
+    outstream << plyr.game_on << endl; linesWritten++;
+    outstream << plyr.zone << endl; linesWritten++;
+    outstream << plyr.zoneSet << endl; linesWritten++;
+    outstream << plyr.current_zone << endl; linesWritten++;// used by drawing function
+    outstream << plyr.status << endl; linesWritten++;
+    outstream << plyr.specialwall << endl; linesWritten++;
+    outstream << plyr.fixedEncounter << endl; linesWritten++;
+    outstream << plyr.fixedEncounterRef << endl; linesWritten++;
+    outstream << plyr.thirst << endl; linesWritten++;
+    outstream << plyr.hunger << endl; linesWritten++;
+    outstream << plyr.digestion << endl; linesWritten++;
+    outstream << plyr.alcohol << endl; linesWritten++;
+
+        for (size_t i = 0; i < noOfguildAwards; ++i) {
+            outstream << plyr.guildAwards[i] << endl; linesWritten++;
+            // Save other item fields...
+        }
+
+        for (size_t i = 0; i < noOfFixedEncounters; ++i) {
+            outstream << plyr.fixedEncounters[i] << endl; linesWritten++;
+            // Save other item fields...
+        }
+
+        for (size_t i = 0; i < noOfGuilds; ++i) {
+            outstream << plyr.guildMemberships[i] << endl; linesWritten++;
+            // Save other item fields...
+        }
+
+
+        outstream << plyr.ringCharges << endl; linesWritten++;
+        outstream << plyr.lwater << endl; linesWritten++;
+            outstream << plyr.alignment << endl; linesWritten++;
+            outstream << plyr.lfood << endl; linesWritten++;
+            outstream << plyr.ltorches << endl; linesWritten++;
+            outstream << plyr.ltimepieces << endl; linesWritten++;
+            outstream << plyr.lcompasses << endl; linesWritten++;
+            outstream << plyr.lkeys << endl; linesWritten++;
+            outstream << plyr.lcrystals << endl; linesWritten++;
+            outstream << plyr.lgems << endl; linesWritten++;
+            outstream << plyr.ljewels << endl; linesWritten++;
+            outstream << plyr.lgold << endl; linesWritten++;
+            outstream << plyr.lsilver << endl; linesWritten++;
+            outstream << plyr.lcopper << endl; linesWritten++;
+            outstream << plyr.spellIndex << endl; linesWritten++;
+            outstream << plyr.effectIndex << endl; linesWritten++;
+            outstream << plyr.retreatFriendship << endl; linesWritten++;
+            outstream << plyr.damonFriendship << endl; linesWritten++;
+
+            for (size_t i = 0; i < noOfSmithyFriendships; ++i) {
+                outstream << plyr.smithyFriendships[i] << endl; linesWritten++;
+                // Save other item fields...
+            }
+       
+            for (size_t i = 0; i < noOfBankAccountStatuses; ++i) {
+                outstream << plyr.bankAccountStatuses[i] << endl; linesWritten++;
+                // Save other item fields...
+            }
+
+            for (size_t i = 0; i < noOfBankAccountBalances; ++i) {
+                outstream << plyr.bankAccountBalances[i] << endl; linesWritten++;
+                // Save other item fields...
+            }
+
+            for (size_t i = 0; i < noOfClothing; ++i) {
+                outstream << plyr.clothing[i] << endl; linesWritten++;
+                // Save other item fields...
+            }
+ 
+ 
+
+            outstream << plyr.goblinsVisited << endl; linesWritten++;
+                outstream << plyr.goblinsChallenged << endl; linesWritten++;
+                outstream << plyr.goblinsDefeated << endl; linesWritten++;
+                outstream << plyr.goblinsCombat << endl; linesWritten++;
+                outstream << plyr.goblinsReforged << endl; linesWritten++;
+                outstream << plyr.trollsVisited << endl; linesWritten++;
+                outstream << plyr.trollsChallenged << endl; linesWritten++;
+                outstream << plyr.trollsDefeated << endl; linesWritten++;
+                outstream << plyr.trollsCombat << endl; linesWritten++;
+                outstream << plyr.trollsReforged << endl; linesWritten++;
+                outstream << plyr.oracleReturnTomorrow << endl; linesWritten++;
+                outstream << plyr.oracleDay << endl; linesWritten++;
+                outstream << plyr.oracleMonth << endl; linesWritten++;
+                outstream << plyr.oracleYear << endl; linesWritten++;
+                outstream << plyr.oracleQuestNo << endl; linesWritten++;
+
+                for (size_t i = 0; i < noOfHealerDays; ++i) {
+                    outstream << plyr.healerDays[i] << endl; linesWritten++;
+                    // Save other item fields...
+                }
+
+                for (size_t i = 0; i < noOfHealerHours; ++i) {
+                    outstream << plyr.healerHours[i] << endl; linesWritten++;
+                    // Save other item fields...
+                }
+
+                for (size_t i = 0; i < noOfHealerMinutes; ++i) {
+                    outstream << plyr.healerMinutes[i] << endl; linesWritten++;
+                    // Save other item fields...
+                }
+
+       
+
+
+                outstream << plyr.treasureFinding << endl; linesWritten++;
+                    outstream << plyr.invisibility << endl; linesWritten++;
+
+                    for (size_t i = 0; i < noOfDiseases; ++i) {
+                        outstream << plyr.diseases[i] << endl; linesWritten++;
+                        // Save other item fields...
+                    }
+
+                    for (size_t i = 0; i < noOfPoison; ++i) {
+                        outstream << plyr.poison[i] << endl; linesWritten++;
+                        // Save other item fields...
+                    }
+
+
+     
+                    outstream << plyr.delusion << endl; linesWritten++;
+
+                    for (size_t i = 0; i < noOfElements; ++i) {
+                        outstream << plyr.invulnerability[i] << endl; linesWritten++;
+                        // Save other item fields...
+                    }
+
+                        outstream << plyr.noticeability << endl; linesWritten++;
+                        outstream << plyr.protection1 << endl; linesWritten++;
+                        outstream << plyr.protection2 << endl; linesWritten++;
+                        outstream << plyr.forgeDays << endl; linesWritten++;
+                        outstream << plyr.forgeType << endl; linesWritten++;
+                        outstream << plyr.forgeBonus << endl; linesWritten++;
+                        outstream << plyr.forgeName << endl; linesWritten++;
+                        outstream << plyr.stolenFromVault << endl; linesWritten++;
+                        
+                        for (size_t i = 0; i < noOfGuilds; ++i) {
+                            outstream << plyr.guildAccepting[i] << endl; linesWritten++;
+                            // Save other item fields...
+                        }
+
+    
+                            outstream << plyr.light << endl; linesWritten++;
+                            outstream << plyr.supervision << endl; linesWritten++;
+                            outstream << plyr.fatigue << endl; linesWritten++;
+                            outstream << plyr.fatigueRate << endl; linesWritten++;
+                            outstream << plyr.spell_index << endl; linesWritten++;
+                            outstream << plyr.temperature << endl; linesWritten++;
+                            outstream << plyr.hungerRate << endl; linesWritten++;
+                            outstream << plyr.thirstRate << endl; linesWritten++;
+                            outstream << plyr.items_index << endl; linesWritten++;
+                            outstream << plyr.luck << endl; linesWritten++;
+                            outstream << plyr.TemporalAdjustment << endl; linesWritten++;
+
+                            for (size_t i = 0; i < noOfFixedTreasures; ++i) {
+                                outstream << plyr.fixedTreasures[i] << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+
+                            for (int i = linesWritten; i < itemBufferStart; ++i) {
+                                outstream << endl; linesWritten++;
+                            }
+                            outstream <<  "Item Buffer follows" << endl;  
+
+
+                            for (size_t i = 0; i < noOfItemBuffer; ++i) {
+                                outstream << itemBuffer[i].hp << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (size_t i = 0; i < noOfItemBuffer; ++i) {
+                                outstream << itemBuffer[i].index << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (size_t i = 0; i < noOfItemBuffer; ++i) {
+                                outstream << itemBuffer[i].level << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (size_t i = 0; i < noOfItemBuffer; ++i) {
+                                outstream << itemBuffer[i].location << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (size_t i = 0; i < noOfItemBuffer; ++i) {
+                                outstream << itemBuffer[i].type << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (size_t i = 0; i < noOfItemBuffer; ++i) {
+                                outstream << itemBuffer[i].x << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (size_t i = 0; i < noOfItemBuffer; ++i) {
+                                outstream << itemBuffer[i].y << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (size_t i = 0; i < noOfItemBuffer; ++i) {
+                                outstream << itemBuffer[i].name << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (size_t i = 0; i < noOfItemBuffer; ++i) {
+                                outstream << itemBuffer[i].maxHP << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (size_t i = 0; i < noOfItemBuffer; ++i) {
+                                outstream << itemBuffer[i].flags << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (size_t i = 0; i < noOfItemBuffer; ++i) {
+                                outstream << itemBuffer[i].minStrength << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (size_t i = 0; i < noOfItemBuffer; ++i) {
+                                outstream << itemBuffer[i].minDexterity << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (size_t i = 0; i < noOfItemBuffer; ++i) {
+                                outstream << itemBuffer[i].useStrength << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (size_t i = 0; i < noOfItemBuffer; ++i) {
+                                outstream << itemBuffer[i].blunt << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (size_t i = 0; i < noOfItemBuffer; ++i) {
+                                outstream << itemBuffer[i].sharp << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (size_t i = 0; i < noOfItemBuffer; ++i) {
+                                outstream << itemBuffer[i].earth << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (size_t i = 0; i < noOfItemBuffer; ++i) {
+                                outstream << itemBuffer[i].air << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (size_t i = 0; i < noOfItemBuffer; ++i) {
+                                outstream << itemBuffer[i].fire << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (size_t i = 0; i < noOfItemBuffer; ++i) {
+                                outstream << itemBuffer[i].water << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (size_t i = 0; i < noOfItemBuffer; ++i) {
+                                outstream << itemBuffer[i].power << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (size_t i = 0; i < noOfItemBuffer; ++i) {
+                                outstream << itemBuffer[i].magic << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (size_t i = 0; i < noOfItemBuffer; ++i) {
+                                outstream << itemBuffer[i].good << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (size_t i = 0; i < noOfItemBuffer; ++i) {
+                                outstream << itemBuffer[i].evil << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (size_t i = 0; i < noOfItemBuffer; ++i) {
+                                outstream << itemBuffer[i].cold << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (size_t i = 0; i < noOfItemBuffer; ++i) {
+                                outstream << itemBuffer[i].acid << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (size_t i = 0; i < noOfItemBuffer; ++i) {
+                                outstream << itemBuffer[i].nature << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (size_t i = 0; i < noOfItemBuffer; ++i) {
+                                outstream << itemBuffer[i].weight << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (size_t i = 0; i < noOfItemBuffer; ++i) {
+                                outstream << itemBuffer[i].alignment << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (size_t i = 0; i < noOfItemBuffer; ++i) {
+                                outstream << itemBuffer[i].melee << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (size_t i = 0; i < noOfItemBuffer; ++i) {
+                                outstream << itemBuffer[i].ammo << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (size_t i = 0; i < noOfItemBuffer; ++i) {
+                                outstream << itemBuffer[i].parry << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (size_t i = 0; i < noOfItemBuffer; ++i) {
+                                outstream << itemBuffer[i].cat << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (size_t i = 0; i < noOfItemBuffer; ++i) {
+                                outstream << itemBuffer[i].iLevel << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (size_t i = 0; i < noOfItemBuffer; ++i) {
+                                outstream << itemBuffer[i].buffType << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (int i = linesWritten; i < spellBufferStart; ++i) {
+                                outstream << endl; linesWritten++;
+                            }
+                            outstream << "Spell Buffer follows" << endl; linesWritten++;
+                            for (size_t i = 0; i < noOfSpellBuffer; ++i) {
+                                outstream << spellBuffer[i].no << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (size_t i = 0; i < noOfSpellBuffer; ++i) {
+                                outstream << spellBuffer[i].percentage << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (int i = linesWritten; i < effectBufferStart; ++i) {
+                                outstream << endl; linesWritten++;
+                            }
+                            outstream << "Effect Buffer follows" << endl;
+                            for (size_t i = 0; i < noOfSpellBuffer; ++i) {
+                                outstream << effectBuffer[i].effectNo << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (size_t i = 0; i < noOfSpellBuffer; ++i) {
+                                outstream << effectBuffer[i].negativeValue << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (size_t i = 0; i < noOfSpellBuffer; ++i) {
+                                outstream << effectBuffer[i].positiveValue << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (size_t i = 0; i < noOfSpellBuffer; ++i) {
+                                outstream << effectBuffer[i].duration << endl; linesWritten++;
+                                // Save other item fields...
+                            }
+                            for (int i = linesWritten; i < smithyDailyWaresStart; ++i) {
+                                outstream << endl; linesWritten++;
+                            }
+                            outstream << "Smithy Daily Wares follows" << endl; linesWritten++;
+                            for (int z = 0; z < noOfSmithyFriendships; ++z)
+                            {
+                                for (int x = 0; x < noOfSmithDailyWares; ++x)
+                                {
+                                    outstream << itos(smithyDailyWares[z][x]) << endl; linesWritten++;
+                                }
+                            }
+                            for (int i = linesWritten; i < saveGameIndex; ++i) {
+                                outstream << endl; linesWritten++;
+                            }
+                            outstream << "Automap follows" << endl; linesWritten++;
+                            for (int z = 0; z < noOfLevels; ++z)
+                            {
+                                for (int x = 0; x < noOfAutoMapExplored; ++x)
+                                {
+                                    outstream << itos(autoMapExplored[z][x]) << endl; linesWritten++;   
+                                }
+                            }
+                            outstream << plyr.name << endl; linesWritten++;
+                            outstream << plyr.z_offset << endl; linesWritten++;
+                            outstream << progrelease << endl; linesWritten++;
+                            outstream.close();
+                            return true;
+    
+}
 
 
 

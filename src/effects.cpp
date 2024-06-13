@@ -39,8 +39,8 @@ std::map<int, int(*)> effectsMap = {
 	{10,&plyr.diseases[0]},
 	{11,&plyr.poison[0]},
 	{12,&plyr.crystals},
-	{13,&plyr.luck}
-	
+	{13,&plyr.luck},
+    {14,&plyr.TemporalAdjustment}
 };
 
 struct spellSlot spellSlotloc;
@@ -244,7 +244,7 @@ void updateStats(std::bitset<8> binaryStats, int positiveValue) {
 }
 
 
-void updateHStats(std::bitset<14> binaryEffects, int positiveValue) {
+void updateHStats(std::bitset<15> binaryEffects, int positiveValue) {
 	for (int i = 0; i < 8; i++) {
 		if (binaryEffects.test(i)) {
 			*(effectsMap[i]) += positiveValue;
@@ -282,11 +282,12 @@ void applyEffect(int hour, int effectid)
 	std::bitset<8> binaryStat(spells[effectBuffer[effectid].effectNo].stattype);
 	std::bitset<13> binaryElems(spells[effectBuffer[effectid].effectNo].elementtype);
 	std::bitset<13> binaryWeaponBuff(spells[effectBuffer[effectid].effectNo].elementtype);
-	std::bitset<14> binaryEffects(spells[effectBuffer[effectid].effectNo].stattype);
+	std::bitset<15> binaryEffects(spells[effectBuffer[effectid].effectNo].stattype);
 
 	switch (spells[effectBuffer[effectid].effectNo].spelltype)
 	{
 	case 0: //Update stats
+
 		if (spells[effectBuffer[effectid].effectNo].effect == 0) { spellActivated = 1; }  //bit of a frig for single use spells like Conjure Food
 		updateStats(binaryStat, (spells[effectBuffer[effectid].effectNo].positiveValue - spells[effectBuffer[effectid].effectNo].negativeValue) * spellActivated);
 		if (spells[effectBuffer[effectid].effectNo].effect == 0) { spellActivated = -1; }

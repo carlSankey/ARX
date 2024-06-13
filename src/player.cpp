@@ -10,10 +10,9 @@
 #include <map>
 
 
+#include "constants.h"
 #include "globals.h"
 #include "dev.h"
-
-
 #include "createCharacter.h"
 #include "player.h"
 #include "misc.h"
@@ -35,7 +34,7 @@ using namespace std;
 
 Player plyr;
 
-const int damageTypes = 13;
+
 
 
 bool autoMapExplored[5][4096]; // 5 levels of 4096 on/off values
@@ -811,7 +810,8 @@ void initStats()
     plyr.smithyFriendships[2] = 2;
     plyr.smithyFriendships[3] = 2;
 
-    for (int i=0 ; i<=35 ; i++) { spellBuffer[i].no = 255; } // Set buffer to 255 to stop confusion about learning spell no. 0
+    for (int i=0 ; i<=noOfSpellBuffer ; i++) { spellBuffer[i].no = 255; } // Set buffer to 255 to stop confusion about learning spell no. 0
+    for (int i = 0; i <= noOfEffects; i++) { effectBuffer[i].effectNo = 0; } // Set buffer to 255 to stop confusion about learning spell no. 0
     for (int i=0 ; i<20 ; i++) { plyr.doorDetails[i].direction=0; plyr.doorDetails[i].x=0; plyr.doorDetails[i].y=0; plyr.doorDetails[i].level=0; } // Initialise door buffer
     plyr.doorDetailIndex=0;
 
@@ -832,7 +832,7 @@ void initStats()
     plyr.poison[2] = 0;
     plyr.poison[3] = 0;
     plyr.delusion = 0;
-    for (int i=0 ; i< damageTypes; i++) { plyr.invulnerability[i] = 0; }
+    for (int i=0 ; i< noOfElements; i++) { plyr.invulnerability[i] = 0; }
     plyr.noticeability = 0;
     plyr.protection1 = 0;
     plyr.protection2 = 0;
@@ -922,18 +922,16 @@ void createNewCharacter(int scenario)
 
 void checkplayerLight()
 {
-
+    plyr.light = 0;
+    //Reasons for player light to be true
+    //Torch (could change this to a spell effect
      if (itemBuffer[plyr.priWeapon].name == "Lit Torch" || itemBuffer[plyr.secWeapon].name == "Lit Torch")
     {
         plyr.light = 1;
        
         return;
     }
-    else
-    {
-        plyr.light = 0;
-        
-    }
+
     for  (int i = 0; i < sizeof(effectBuffer) / sizeof(effectBuffer[0]); i++)
     {
         if (spells[effectBuffer[i].effectNo].spelltype == 3 && spells[effectBuffer[i].effectNo].stattype == 8)
@@ -942,11 +940,20 @@ void checkplayerLight()
             
             break;
         }
-        else
-        {
-            plyr.light = 0;
-           
-        }
+
     }
    
+}
+
+
+std::string setGenderString(int gender) {
+    if (gender == 1) {
+        return "man";
+    }
+    else if (gender == 2) {
+        return "woman";
+    }
+    else {
+        return "unknown";
+    }
 }

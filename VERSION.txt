@@ -1,5 +1,13 @@
 Alternate Reality X
 -------------------
+Version 0.90.0 - 13th June 2024
+* Fixed - Shop selling random weapons/armour
+* Added - Moved items/encounters etc outside of code to assist in the expansions. 
+          Plan is to change the code to become an engine where adding/updating external files will enable the addition of the new modules.
+		  Beware these are encrypeted and any modification may send the FBI agents around
+* Added - Two Handed Weapon bonus if using a two handed weapon with both hands
+* Added - Area specific encounters  (to be updated for all areas) 
+
 Version 0.84.0 - 28th Nov 2023
 * Fixed - Issue with being immobilized if you pick anything up
 * Added - Light effect (Green Cap are illuminating)

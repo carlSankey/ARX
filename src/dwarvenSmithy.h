@@ -5,8 +5,8 @@
  *
  */
 
-const int dwarvenFileSize = 459;
-extern unsigned char dwarvenBinary[dwarvenFileSize];
+
+extern unsigned char dwarvenBinary[noOfDwarvenFile];
 
 void loadDwarvenBinary();
 

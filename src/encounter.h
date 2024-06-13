@@ -43,6 +43,8 @@ void updateOpponents();
 void chooseEncounter();
 void opponentCallsForHelp();
 void opponentFlees();
+
+void RunAway(int backup);
 //void SetTileImage(int tile_no);
 //void loadCityMonsters();
 //void loadWeapons();
@@ -51,11 +53,11 @@ void opponentFlees();
 void checkTreasure();
 void thiefYield();
 
-int inputNumber();
+extern int inputNumber();
+
 void healerHealWounds();
 void healerCureDiseases();
 void healerCurePoisons();
-
 void drawEncounterView();
 void updateEncounterStatusText();
 void initMonster(int monsterNo);
@@ -75,23 +77,24 @@ int calcPlayerWeaponDamage(int weaponNo, float attackFactor, int attacker);
 int calcPlayerSpellDamage(int spellNo, int attacker);
 int calcOpponentWeaponDamage(int weaponNo,float attackFactor, int attacker);
 void checkAlignmentEncounter(int opponentNo);
-
+void updateAmmoCount(int plyrWeaponIndex, int remainingAmmo);
 void surrenderToGuard();
 
 void pauseEncounter();
 
+
+void MoveItemToMonsterWeapon(int WeaponIndex, int ItemIndex);
 struct encRecord
 {
 	int encProb;
 	int encType;
 };
 
+extern struct MapEncounter;
 
-
+std::vector<int> randomEncounterPick(const MapEncounter* newMapEncounter, int arraySize, int ZoneToMatch, int TimeToMatch);
+int randomEncounterPicker(int ZoneToMatch, int TimeToMatch, int arraySize);
 double round(double d);
-
-
-
 
 
  

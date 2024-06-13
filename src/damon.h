@@ -2,10 +2,8 @@
 #ifndef _damonh 
 #define _damonh 
 
-const int damonFileSize = 916;
+
 extern unsigned char damonBinary[damonFileSize];
-
-
 
 void message(string txt);
 void shopDamon();

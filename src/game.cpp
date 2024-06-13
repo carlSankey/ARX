@@ -37,6 +37,7 @@
 #include "ferry.h"
 #include "undeadKing.h"
 #include "staircase.h"
+#include "prison.h"
 #include "lift.h"
 #include "automap.h"
 #include "lyrics.h"
@@ -44,7 +45,6 @@
 #include "actor.h"
 #include "saveGame.h"
 #include "input.h"
-#include "spells.h"
 
 sf::Time dt;
 sf::Time encounterCheckTime;
@@ -927,7 +927,7 @@ void checkTeleport()
 }
 
 
-void checkFixedTreasures()
+void checkFixedTreasuresold()
 {
 	int treasureRef;
 	switch(plyr.special)
@@ -1019,6 +1019,11 @@ void checkFixedTreasures()
 }
 
 
+
+
+
+
+
 void checkShop()
 {
      switch(plyr.special)
@@ -1033,7 +1038,7 @@ void checkShop()
             shopRetreat();
             break;
         case 11: // Palace Prison
-            // Check for completed code already
+			shopPrison();// Check for completed code already
             break;
         case 19: // Ferryman
             shopFerry();

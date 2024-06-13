@@ -6,6 +6,7 @@
 #include <iostream>
 #include <sstream>
 
+#include "constants.h"
 #include "player.h"
 #include "font.h"
 #include "display.h"
@@ -36,7 +37,7 @@ string guildLyricsFilename;
 
 int itemQuantity; // used for number of charges to be paid for
 
-const int numberOfGuilds = 14; // 14 excluding - 2 extras in City
+
 
 
 
@@ -67,7 +68,7 @@ struct guildSpell
 guildSpell guildSpells[76];
 
 
-guild guilds[numberOfGuilds] =
+guild guilds[noOfGuilds] =
 {
 	{"Thieves Guild",			43, 29,	64, 128,2, 1, 8 ,150,100}, //0
 	{"Blue Wizards Guild",		18,	16,	120, 192,2,2,6 ,150,100}, //1
@@ -112,7 +113,7 @@ std::cout << guildNo <<"\n";
 	
 	for (int i=0 ; i<75 ; i++)
 	{
-		std::bitset<numberOfGuilds> binaryFlags(spells[i].guild);
+		std::bitset<noOfGuilds> binaryFlags(spells[i].guild);
 			if (binaryFlags.test(guildNo))
 			{
 				guildSpellsNo++;
@@ -159,7 +160,7 @@ std::cout << guildNo <<"\n";
 
 	// Check for enemy guilds. Assume both full and associate membership counts
 	bool enemyGuild = false;
-	for (int i=0 ; i<=numberOfGuilds ; i++)
+	for (int i=0 ; i<=noOfGuilds ; i++)
 	{
 		if ((plyr.guildMemberships[i]==255) && (guilds[i].enemyGuild==guildNo)) enemyGuild = true;
 		if ((plyr.guildMemberships[i]==240) && (guilds[i].enemyGuild==guildNo)) enemyGuild = true;
@@ -299,7 +300,7 @@ std::cout << guildNo <<"\n";
 				if ((plyr.level >= guilds[guildNo].minLevel) && (plyr.alignment >= guilds[guildNo].minAlignment) && (plyr.alignment <= guilds[guildNo].maxAlignment))
 				{
 					int guildFullMembership = 255;
-					for (int i=0 ; i<=numberOfGuilds ; i++) { if (plyr.guildMemberships[i]==255) guildFullMembership = i; }
+					for (int i=0 ; i<=noOfGuilds ; i++) { if (plyr.guildMemberships[i]==255) guildFullMembership = i; }
 					if (guildFullMembership == 255) guildMenu = 3;
 					if (guildFullMembership < 255) guildMenu = 2;
 				}
@@ -358,7 +359,7 @@ std::cout << guildNo <<"\n";
 					deductCoins(0,(guilds[guildNo].fullDues),0);
 
 					// remove or replace any previous "full membership" guild records
-					for (int i=0 ; i<=numberOfGuilds ; i++) { if (plyr.guildMemberships[i]==255) plyr.guildMemberships[i]=240; }
+					for (int i=0 ; i<=noOfGuilds ; i++) { if (plyr.guildMemberships[i]==255) plyr.guildMemberships[i]=240; }
 
 					int guildRingRef = getQuestItemRef(3);
 					//itemBuffer[ringRef].location = 0; // move this guild ring to the void
@@ -380,7 +381,7 @@ std::cout << guildNo <<"\n";
 					if (guildNo==11) newGuildName = "Assassins Ring";
 					if (guildNo==12) newGuildName = "Mercenaries Ring";
 					if (guildNo==13) newGuildName = "Paladins Ring";
-					questItems[(itemBuffer[guildRingRef].index)].name = newGuildName;
+					newItemArray[(itemBuffer[guildRingRef].index)].name = newGuildName;
 					plyr.ringCharges = 99;
 
 					plyr.guildMemberships[guildNo] = 255; // Now full member of this guild
@@ -811,7 +812,7 @@ int getGuildNo()
 	if (plyr.scenario==0) // City
 	{
 
-		for (int i=0 ; i<numberOfGuilds ; i++) // Max number of guild objects
+		for (int i=0 ; i<noOfGuilds ; i++) // Max number of guild objects
 		{
 			if ((guilds[i].x == plyr.x) && (guilds[i].y == plyr.y))
 			{

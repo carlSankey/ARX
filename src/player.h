@@ -223,7 +223,8 @@ struct Player
 
 
   // end new items for save game!
-
+  // want to change this to generic for example mapQuest[0] = Freed Prisoner
+  // also want to add a script reader for example Quest 1 Location = xx Ques
   bool goblinsVisited;
   bool goblinsChallenged;
   bool goblinsDefeated;
@@ -271,10 +272,13 @@ struct Player
   float thirstRate;  //The rate at which the player gets thirsty 0 - 1
   int spell_index;  //The number of spells in the sytem including item based effects
   int items_index;
+  int fixed_index;
   int luck;
+  int TemporalAdjustment;
+  bool PrisonRelease;
 };
 
-
+std::string setGenderString(int gender);
 
 extern Player plyr;
 

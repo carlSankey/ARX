@@ -4,10 +4,13 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <cstdio>
+#include <vector>
 
 #include "actor.h"
 #include "misc.h"
 #include "globals.h"
+
 
 using namespace std;
 
@@ -61,11 +64,16 @@ monsterFramePair animations[44] =
 };
 
 
-monster Monsters[noOfEncounters];           // City and Dungeon monsters combined
+//newMonster Monster_Buffer[noOfEncounters];           // City and Dungeon monsters combined
 weapon monsterWeapons[noOfMonsterWeapons];  // Weapons & attacks which are part of the Dungeon monsters data
 //weapon Weapons[noOfWeapons];                // Weapons
 
-unsigned char monstersBinary[monstersFileSize];
+newMonster* Monster_Buffer = nullptr;
+
+newMonster* monster = nullptr;
+
+
+unsigned char monstersBinary[noOfMonstersFile];
 
 int monsterOffsets[noOfEncounters];
 int pluralNameOffset;
@@ -172,7 +180,7 @@ void initialiseMonsterOffsets()
 }
 
 
-void convertMonstersBinary()
+void convertMonstersBinaryOld()
 {
     string filename = "data/map/encountersNew.txt";
     outdata.open(filename.c_str()); // opens the file
@@ -181,9 +189,10 @@ void convertMonstersBinary()
         cerr << "Error: character file could not be saved" << endl;
     }
 	
+
+
 	
-	
-    // Reads through the binary block and creates entry in Monsters[]
+    // Reads through the binary block and creates entry in Monster_Buffer[]
     // Bytes 2, 4, 6, 8 and 10 appear to always have a value of 0xAA
 
     int idx = 0; // Start byte for each monster
@@ -198,15 +207,15 @@ void convertMonstersBinary()
         int attackOffset[3]; // Array of offsets to 3 Dungeon weapons / attacks
         maxNumberEncountered = monstersBinary[idx];
 
-		  Monsters[i].maxencounters = maxNumberEncountered;
+		  Monster_Buffer[i].maxencounters = maxNumberEncountered;
         outdata <<  endl;
         outdata << "offset: ox" << std::hex << idx << endl;
-        outdata << std::dec <<  "numenc:" << Monsters[i].maxencounters << endl;
+        outdata << std::dec <<  "numenc:" << Monster_Buffer[i].maxencounters << endl;
 
 
         int animationNumber = monstersBinary[idx+0x1D];
-        Monsters[i].image = animations[animationNumber].startFrame;
-        Monsters[i].image2 = animations[animationNumber].endFrame;
+        Monster_Buffer[i].image = animations[animationNumber].startFrame;
+        Monster_Buffer[i].image2 = animations[animationNumber].endFrame;
         outdata << "anim#:" << animationNumber << endl;
 
 if (i == DEVOURER)
@@ -225,7 +234,7 @@ if (i == DEVOURER)
 		  			  case MASTER_THIEF:
 					  		nameTextOffset = 0x2c2;
 							maxNumberEncountered = 0;
-        					Monsters[i].maxencounters = 0;
+        					Monster_Buffer[i].maxencounters = 0;
 					  		break;
 		  }
 
@@ -233,48 +242,48 @@ if (i == DEVOURER)
 		  switch(i)
 		  {
 		  			  case MUGGER:
-		  			  	Monsters[i].name = "Mugger";
+		  			  	Monster_Buffer[i].name = "Mugger";
 					  		break;
 		  			  case ROBBER:
-		  			  	Monsters[i].name = "Robber";
+		  			  	Monster_Buffer[i].name = "Robber";
 					  		break;
 		  			  case FIGHTER:
-		  			  	Monsters[i].name = "Fighter";
+		  			  	Monster_Buffer[i].name = "Fighter";
 					  		break;
 		  			  case SWORDSMAN:
-		  			  	Monsters[i].name = "Swordsman";
+		  			  	Monster_Buffer[i].name = "Swordsman";
 					  		break;
 		  			  case COURIER:
-		  			  	Monsters[i].name = "Courier";
+		  			  	Monster_Buffer[i].name = "Courier";
 					  		break;
 		  			  case COMMONER:
-		  			  	Monsters[i].name = "Commoner";
+		  			  	Monster_Buffer[i].name = "Commoner";
 					  		break;
 		  			  case MERCHANT:
-		  			  	Monsters[i].name = "Merchant";
+		  			  	Monster_Buffer[i].name = "Merchant";
 					  		break;
 		  			  case ARCHMAGE:
-		  			  	Monsters[i].name = "Arch Mage";
+		  			  	Monster_Buffer[i].name = "Arch Mage";
 					  		break;
 		  			  case GNOLL:
-		  			  	Monsters[i].name = "Gnoll";
+		  			  	Monster_Buffer[i].name = "Gnoll";
 					  		break;
 		  			  case HOBBIT:
-		  			  	Monsters[i].name = "Hobbit";
+		  			  	Monster_Buffer[i].name = "Hobbit";
 					  		break;
 		  			  case GIANT:
-		  			  	Monsters[i].name = "Giant";
+		  			  	Monster_Buffer[i].name = "Giant";
 					  		break;
 		  			  case SMALL_GREEN_DRAGON:
-		  			  	Monsters[i].name = "Small Green Dragon";
+		  			  	Monster_Buffer[i].name = "Small Green Dragon";
 					  		break;
 		  			  case NOBLEWOMAN:
-		  			  	Monsters[i].name = "Noble Woman";
+		  			  	Monster_Buffer[i].name = "Noble Woman";
 					  		break;
 		  }
 
 
-        outdata << "name:" << Monsters[i].name << endl;
+        outdata << "name:" << Monster_Buffer[i].name << endl;
 		  
 
         // Note: idx+3 might be offset for plural name - if one exists
@@ -286,106 +295,106 @@ if (i == DEVOURER)
         		nameTextOffset = 0x2c2;
 
         if (maxNumberEncountered>1) readMonsterPluralNameText(i,pluralNameOffset);
-        outdata << "name plural:" <<     Monsters[i].pluName  << endl;
+        outdata << "name plural:" <<     Monster_Buffer[i].pluName  << endl;
 
 
 
         int deathTextOffset = idx + 66;
         readMonsterDeathText(i,deathTextOffset);
-        outdata << "death Text:" <<     Monsters[i].armorText  << endl;
+        outdata << "death Text:" <<     Monster_Buffer[i].armorText  << endl;
 
-        Monsters[i].hp = monstersBinary[idx+0x23];
-        Monsters[i].maxHP = monstersBinary[idx+0x23];
+        Monster_Buffer[i].hp = monstersBinary[idx+0x23];
+        Monster_Buffer[i].maxHP = monstersBinary[idx+0x23];
 
         // Special cases - thief
-        if (i==THIEF) { Monsters[i].hp = 5; Monsters[i].maxHP = 5; }
-        if (i==MASTER_THIEF) { Monsters[i].hp = 35; Monsters[i].maxHP = 35; }
-        if (i==FBI_AGENT) { Monsters[i].hp = 0; Monsters[i].maxHP = 0; }
-        outdata << "hp:" <<     Monsters[i].hp  << endl;
-        outdata << "maxhp:" <<     Monsters[i].maxHP  << endl;
+        if (i==THIEF) { Monster_Buffer[i].hp = 5; Monster_Buffer[i].maxHP = 5; }
+        if (i==MASTER_THIEF) { Monster_Buffer[i].hp = 35; Monster_Buffer[i].maxHP = 35; }
+        if (i==FBI_AGENT) { Monster_Buffer[i].hp = 0; Monster_Buffer[i].maxHP = 0; }
+        outdata << "hp:" <<     Monster_Buffer[i].hp  << endl;
+        outdata << "maxhp:" <<     Monster_Buffer[i].maxHP  << endl;
 
 if (i == DEVOURER)
 {
 	std::cout << "GHOST" << " idx " << idx << " i " << i << "\n";
 }
 
-        Monsters[i].alignment = monstersBinary[idx+12];
-        outdata << "alignment:" <<     Monsters[i].alignment  << endl;
+        Monster_Buffer[i].alignment = monstersBinary[idx+12];
+        outdata << "alignment:" <<     Monster_Buffer[i].alignment  << endl;
 
 
 
-        Monsters[i].sta =   monstersBinary[idx+0x24];
-        outdata << "sta:" <<     Monsters[i].sta  << endl;
-        Monsters[i].cha =   monstersBinary[idx+0x25];
-        outdata << "cha:" <<     Monsters[i].cha  << endl;
-        Monsters[i].str =   monstersBinary[idx+0x26];
-        outdata << "str:" <<     Monsters[i].str  << endl;
-        Monsters[i].inte =  monstersBinary[idx+0x27];
-        outdata << "inte:" <<     Monsters[i].inte  << endl;
-        Monsters[i].wis =   monstersBinary[idx+0x28];
-        outdata << "wis:" <<     Monsters[i].wis  << endl;
-        Monsters[i].skl =   monstersBinary[idx+0x29];
-        outdata << "skl:" <<     Monsters[i].skl  << endl;
-        Monsters[i].spd =   monstersBinary[idx+0x2A];
-        if (i==MASTER_THIEF) { Monsters[i].hp = 35; Monsters[i].maxHP = 35; }
-        outdata << "spd:" <<     Monsters[i].spd  << endl;
+        Monster_Buffer[i].sta =   monstersBinary[idx+0x24];
+        outdata << "sta:" <<     Monster_Buffer[i].sta  << endl;
+        Monster_Buffer[i].cha =   monstersBinary[idx+0x25];
+        outdata << "cha:" <<     Monster_Buffer[i].cha  << endl;
+        Monster_Buffer[i].str =   monstersBinary[idx+0x26];
+        outdata << "str:" <<     Monster_Buffer[i].str  << endl;
+        Monster_Buffer[i].inte =  monstersBinary[idx+0x27];
+        outdata << "inte:" <<     Monster_Buffer[i].inte  << endl;
+        Monster_Buffer[i].wis =   monstersBinary[idx+0x28];
+        outdata << "wis:" <<     Monster_Buffer[i].wis  << endl;
+        Monster_Buffer[i].skl =   monstersBinary[idx+0x29];
+        outdata << "skl:" <<     Monster_Buffer[i].skl  << endl;
+        Monster_Buffer[i].spd =   monstersBinary[idx+0x2A];
+        if (i==MASTER_THIEF) { Monster_Buffer[i].hp = 35; Monster_Buffer[i].maxHP = 35; }
+        outdata << "spd:" <<     Monster_Buffer[i].spd  << endl;
 
-        Monsters[i].tFood =         monstersBinary[idx+0x2B];
-        outdata << "tFood:" <<     Monsters[i].tFood  << endl;
-        Monsters[i].tWater =        monstersBinary[idx+0x2C];
-        outdata << "tWater:" <<     Monsters[i].tWater  << endl;
-        Monsters[i].tTorches =      monstersBinary[idx+0x2D];
-        outdata << "tTorches:" <<     Monsters[i].tTorches  << endl;
-        Monsters[i].tTimepieces =   monstersBinary[idx+0x2E];
-        outdata << "tTimepieces:" <<     Monsters[i].tTimepieces  << endl;
-        Monsters[i].tCompasses =    monstersBinary[idx+0x2F];
-        outdata << "tCompasses:" <<     Monsters[i].tCompasses  << endl;
-        Monsters[i].tKeys =         monstersBinary[idx+0x30];
-        outdata << "tKeys:" <<     Monsters[i].tKeys  << endl;
-        Monsters[i].tCrystals =     monstersBinary[idx+0x31];
-        outdata << "tCrystals:" <<     Monsters[i].tCrystals  << endl;
-        Monsters[i].tGems =         monstersBinary[idx+0x32];
-        outdata << "tGems:" <<     Monsters[i].tGems  << endl;
-        Monsters[i].tJewels =       monstersBinary[idx+0x33];
-        outdata << "tJewels:" <<     Monsters[i].tJewels  << endl;
-        Monsters[i].tGold =         monstersBinary[idx+0x34];
-        outdata << "tGold:" <<     Monsters[i].tGold  << endl;
-        Monsters[i].tSilver =       monstersBinary[idx+0x35];
-        outdata << "tSilver:" <<     Monsters[i].tSilver  << endl;
-        Monsters[i].tCopper =       monstersBinary[idx+0x36];
-        outdata << "tCopper:" <<     Monsters[i].tCopper  << endl;
+        Monster_Buffer[i].tFood =         monstersBinary[idx+0x2B];
+        outdata << "tFood:" <<     Monster_Buffer[i].tFood  << endl;
+        Monster_Buffer[i].tWater =        monstersBinary[idx+0x2C];
+        outdata << "tWater:" <<     Monster_Buffer[i].tWater  << endl;
+        Monster_Buffer[i].tTorches =      monstersBinary[idx+0x2D];
+        outdata << "tTorches:" <<     Monster_Buffer[i].tTorches  << endl;
+        Monster_Buffer[i].tTimepieces =   monstersBinary[idx+0x2E];
+        outdata << "tTimepieces:" <<     Monster_Buffer[i].tTimepieces  << endl;
+        Monster_Buffer[i].tCompasses =    monstersBinary[idx+0x2F];
+        outdata << "tCompasses:" <<     Monster_Buffer[i].tCompasses  << endl;
+        Monster_Buffer[i].tKeys =         monstersBinary[idx+0x30];
+        outdata << "tKeys:" <<     Monster_Buffer[i].tKeys  << endl;
+        Monster_Buffer[i].tCrystals =     monstersBinary[idx+0x31];
+        outdata << "tCrystals:" <<     Monster_Buffer[i].tCrystals  << endl;
+        Monster_Buffer[i].tGems =         monstersBinary[idx+0x32];
+        outdata << "tGems:" <<     Monster_Buffer[i].tGems  << endl;
+        Monster_Buffer[i].tJewels =       monstersBinary[idx+0x33];
+        outdata << "tJewels:" <<     Monster_Buffer[i].tJewels  << endl;
+        Monster_Buffer[i].tGold =         monstersBinary[idx+0x34];
+        outdata << "tGold:" <<     Monster_Buffer[i].tGold  << endl;
+        Monster_Buffer[i].tSilver =       monstersBinary[idx+0x35];
+        outdata << "tSilver:" <<     Monster_Buffer[i].tSilver  << endl;
+        Monster_Buffer[i].tCopper =       monstersBinary[idx+0x36];
+        outdata << "tCopper:" <<     Monster_Buffer[i].tCopper  << endl;
 
-        Monsters[i].aBlunt =    monstersBinary[idx+0x37];
-        outdata << "aBlunt:" <<     Monsters[i].aBlunt  << endl;
-        Monsters[i].aSharp =    monstersBinary[idx+0x38];
-        outdata << "aSharp:" <<     Monsters[i].aSharp  << endl;
-        Monsters[i].aEarth =    monstersBinary[idx+0x39];
-        outdata << "aEarth:" <<     Monsters[i].aEarth  << endl;
-        Monsters[i].aAir =      monstersBinary[idx+0x3A];
-        outdata << "aAir:" <<     Monsters[i].aAir  << endl;
-        Monsters[i].aFire =     monstersBinary[idx+0x3B];
-        outdata << "aFire:" <<     Monsters[i].aFire  << endl;
-        Monsters[i].aWater =    monstersBinary[idx+0x3C];
-        outdata << "aWater:" <<     Monsters[i].aWater  << endl;
-        Monsters[i].aPower =    monstersBinary[idx+0x3D];
-        outdata << "aPower:" <<     Monsters[i].aPower  << endl;
-        Monsters[i].aMagic =    monstersBinary[idx+0x3E];
-        outdata << "aMagic:" <<     Monsters[i].aMagic  << endl;
-        Monsters[i].aGood =     monstersBinary[idx+0x3F];
-        outdata << "aGood:" <<     Monsters[i].aGood  << endl;
-        Monsters[i].aEvil =     monstersBinary[idx+0x40];
-        outdata << "aEvil:" <<     Monsters[i].aEvil  << endl;
-        Monsters[i].aCold =     monstersBinary[idx+0x41];
-        outdata << "aCold:" <<     Monsters[i].aCold  << endl;
+        Monster_Buffer[i].aBlunt =    monstersBinary[idx+0x37];
+        outdata << "aBlunt:" <<     Monster_Buffer[i].aBlunt  << endl;
+        Monster_Buffer[i].aSharp =    monstersBinary[idx+0x38];
+        outdata << "aSharp:" <<     Monster_Buffer[i].aSharp  << endl;
+        Monster_Buffer[i].aEarth =    monstersBinary[idx+0x39];
+        outdata << "aEarth:" <<     Monster_Buffer[i].aEarth  << endl;
+        Monster_Buffer[i].aAir =      monstersBinary[idx+0x3A];
+        outdata << "aAir:" <<     Monster_Buffer[i].aAir  << endl;
+        Monster_Buffer[i].aFire =     monstersBinary[idx+0x3B];
+        outdata << "aFire:" <<     Monster_Buffer[i].aFire  << endl;
+        Monster_Buffer[i].aWater =    monstersBinary[idx+0x3C];
+        outdata << "aWater:" <<     Monster_Buffer[i].aWater  << endl;
+        Monster_Buffer[i].aPower =    monstersBinary[idx+0x3D];
+        outdata << "aPower:" <<     Monster_Buffer[i].aPower  << endl;
+        Monster_Buffer[i].aMagic =    monstersBinary[idx+0x3E];
+        outdata << "aMagic:" <<     Monster_Buffer[i].aMagic  << endl;
+        Monster_Buffer[i].aGood =     monstersBinary[idx+0x3F];
+        outdata << "aGood:" <<     Monster_Buffer[i].aGood  << endl;
+        Monster_Buffer[i].aEvil =     monstersBinary[idx+0x40];
+        outdata << "aEvil:" <<     Monster_Buffer[i].aEvil  << endl;
+        Monster_Buffer[i].aCold =     monstersBinary[idx+0x41];
+        outdata << "aCold:" <<     Monster_Buffer[i].aCold  << endl;
 
 
         // Temporary weapon values based on existing ARX weapon handling
-        Monsters[i].w1 = 1;
-        Monsters[i].w2 = 0;
-        Monsters[i].w3 = 0;
-        Monsters[i].w4 = 0;
-        Monsters[i].w5 = 0;
-        Monsters[i].w6 = 0;
+        Monster_Buffer[i].w1 = 1;
+        Monster_Buffer[i].w2 = 0;
+        Monster_Buffer[i].w3 = 0;
+        Monster_Buffer[i].w4 = 0;
+        Monster_Buffer[i].w5 = 0;
+        Monster_Buffer[i].w6 = 0;
 
         // Weapon / attack reading
         int weapon1 = idx + monstersBinary[idx+5];
@@ -413,14 +422,14 @@ std::cout << "weapon1 "  << weapon1 << " 2"  << weapon2 << " 3"  << weapon3 << "
 
         outdata <<  "wpn1 offset: 0x" <<  std::hex <<   weapon1 << std::dec  << endl;
         createMonsterWeapon(currentWeapon, weapon1);
-        Monsters[i].w1 = currentWeapon;
+        Monster_Buffer[i].w1 = currentWeapon;
         currentWeapon++; // Increment each time a new weapon or attack is created
 
         if (!(weapon1 == weapon2))
         {
         outdata <<  "wpn2 offset: 0x" <<  std::hex <<   weapon2 << std::dec  << endl;
             createMonsterWeapon(currentWeapon, weapon2);
-            Monsters[i].w2 = currentWeapon;
+            Monster_Buffer[i].w2 = currentWeapon;
             currentWeapon++; // Increment each time a new weapon or attack is created
         }
 
@@ -428,7 +437,7 @@ std::cout << "weapon1 "  << weapon1 << " 2"  << weapon2 << " 3"  << weapon3 << "
         {
         outdata <<  "wpn3 offset: 0x" <<  std::hex <<   weapon3 << std::dec  << endl;
             createMonsterWeapon(currentWeapon, weapon3);
-            Monsters[i].w3 = currentWeapon;
+            Monster_Buffer[i].w3 = currentWeapon;
             currentWeapon++; // Increment each time a new weapon or attack is created
         }
         
@@ -436,7 +445,7 @@ std::cout << "weapon1 "  << weapon1 << " 2"  << weapon2 << " 3"  << weapon3 << "
         {
         outdata <<  "wpn4 offset: 0x" <<  std::hex <<   weapon3 << std::dec  << endl;
             createMonsterWeapon(currentWeapon, weapon3);
-            Monsters[i].w4 = currentWeapon;
+            Monster_Buffer[i].w4 = currentWeapon;
             currentWeapon++; // Increment each time a new weapon or attack is created
         }
 
@@ -444,7 +453,7 @@ std::cout << "weapon1 "  << weapon1 << " 2"  << weapon2 << " 3"  << weapon3 << "
         {
         outdata <<  "wpn5 offset: 0x" <<  std::hex <<   weapon3 << std::dec  << endl;
             createMonsterWeapon(currentWeapon, weapon3);
-            Monsters[i].w5 = currentWeapon;
+            Monster_Buffer[i].w5 = currentWeapon;
             currentWeapon++; // Increment each time a new weapon or attack is created
         }
 
@@ -452,50 +461,50 @@ std::cout << "weapon1 "  << weapon1 << " 2"  << weapon2 << " 3"  << weapon3 << "
         {
         outdata <<  "wpn6 offset: 0x" <<  std::hex <<   weapon3 << std::dec  << endl;
             createMonsterWeapon(currentWeapon, weapon3);
-            Monsters[i].w6 = currentWeapon;
+            Monster_Buffer[i].w6 = currentWeapon;
             currentWeapon++; // Increment each time a new weapon or attack is created
         }
         
 
-        Monsters[i].c1 = 100;
-        Monsters[i].c2 = 0;
-        Monsters[i].c3 = 0;
-        Monsters[i].c4 = 0;
-        Monsters[i].c5 = 0;
-        Monsters[i].c6 = 0;
+        Monster_Buffer[i].c1 = 100;
+        Monster_Buffer[i].c2 = 0;
+        Monster_Buffer[i].c3 = 0;
+        Monster_Buffer[i].c4 = 0;
+        Monster_Buffer[i].c5 = 0;
+        Monster_Buffer[i].c6 = 0;
         
         int numWeapons = 0;
-        if (Monsters[i].w1 != 0)
+        if (Monster_Buffer[i].w1 != 0)
 		  	  numWeapons++;
-        if (Monsters[i].w2 != 0)
+        if (Monster_Buffer[i].w2 != 0)
 		  	  numWeapons++;
-        if (Monsters[i].w3 != 0)
+        if (Monster_Buffer[i].w3 != 0)
 		  	  numWeapons++;
-        if (Monsters[i].w4 != 0)
+        if (Monster_Buffer[i].w4 != 0)
 		  	  numWeapons++;
-        if (Monsters[i].w5 != 0)
+        if (Monster_Buffer[i].w5 != 0)
 		  	  numWeapons++;
-        if (Monsters[i].w6 != 0)
+        if (Monster_Buffer[i].w6 != 0)
 		  	  numWeapons++;
 
-        if (Monsters[i].w1 != 0)
-		  	  Monsters[i].c1 = ((int)100 / numWeapons);
-        if (Monsters[i].w2 != 0)
-		  	  Monsters[i].c2 = ((int)100 / numWeapons);
-        if (Monsters[i].w3 != 0)
-		  	  Monsters[i].c3 = ((int)100 / numWeapons);
-        if (Monsters[i].w4 != 0)
-		  	  Monsters[i].c4 = ((int)100 / numWeapons);
-        if (Monsters[i].w5 != 0)
-		  	  Monsters[i].c5 = ((int)100 / numWeapons);
-        if (Monsters[i].w6 != 0)
-		  	  Monsters[i].c6 = ((int)100 / numWeapons);
-         std::cout << "c1 "  << Monsters[i].c1  << "\n\n";
-         std::cout << "c2 "  << Monsters[i].c2  << "\n\n";
-         std::cout << "c3 "  << Monsters[i].c3  << "\n\n";
-         std::cout << "c4 "  << Monsters[i].c4  << "\n\n";
-         std::cout << "c5 "  << Monsters[i].c5  << "\n\n";
-         std::cout << "c6 "  << Monsters[i].c6  << "\n\n";
+        if (Monster_Buffer[i].w1 != 0)
+		  	  Monster_Buffer[i].c1 = ((int)100 / numWeapons);
+        if (Monster_Buffer[i].w2 != 0)
+		  	  Monster_Buffer[i].c2 = ((int)100 / numWeapons);
+        if (Monster_Buffer[i].w3 != 0)
+		  	  Monster_Buffer[i].c3 = ((int)100 / numWeapons);
+        if (Monster_Buffer[i].w4 != 0)
+		  	  Monster_Buffer[i].c4 = ((int)100 / numWeapons);
+        if (Monster_Buffer[i].w5 != 0)
+		  	  Monster_Buffer[i].c5 = ((int)100 / numWeapons);
+        if (Monster_Buffer[i].w6 != 0)
+		  	  Monster_Buffer[i].c6 = ((int)100 / numWeapons);
+         std::cout << "c1 "  << Monster_Buffer[i].c1  << "\n\n";
+         std::cout << "c2 "  << Monster_Buffer[i].c2  << "\n\n";
+         std::cout << "c3 "  << Monster_Buffer[i].c3  << "\n\n";
+         std::cout << "c4 "  << Monster_Buffer[i].c4  << "\n\n";
+         std::cout << "c5 "  << Monster_Buffer[i].c5  << "\n\n";
+         std::cout << "c6 "  << Monster_Buffer[i].c6  << "\n\n";
 
 
 
@@ -503,17 +512,17 @@ std::cout << "weapon1 "  << weapon1 << " 2"  << weapon2 << " 3"  << weapon3 << "
 if (i == DEVOURER)
 {
 
-std::cout << "Monster " << Monsters[i].name << " anim " << animationNumber << " s: " << Monsters[i].image  << ":" << Monsters[i].image2 << "algn: " << Monsters[i].alignment << std::endl ;
-    std::cout << "Name:  " << Monsters[i].name << "\n";
-    std::cout << "  HP:    " << Monsters[i].hp ;
-    std::cout << "  Align: " << Monsters[i].alignment;
-    std::cout << "  Sta: " << Monsters[i].sta << " Cha: " << Monsters[i].cha << " Str: " << Monsters[i].str << " Int: " << Monsters[i].inte <<
-       " Wis: " << Monsters[i].wis << " Skl: " << Monsters[i].skl << " Spd: " << Monsters[i].sta << "\n\n";
-std::cout << "blunt"  << Monsters[i].aBlunt << " sharp"  << Monsters[i].aSharp << " earth"  << Monsters[i].aEarth << " air"  << Monsters[i].aAir<< "\n\n";
-std::cout << "cold "  << Monsters[i].aCold << " evil"  << Monsters[i].aEvil << " magic"  << Monsters[i].aMagic << " air"  << Monsters[i].aAir<< "\n\n";
+std::cout << "Monster " << Monster_Buffer[i].name << " anim " << animationNumber << " s: " << Monster_Buffer[i].image  << ":" << Monster_Buffer[i].image2 << "algn: " << Monster_Buffer[i].alignment << std::endl ;
+    std::cout << "Name:  " << Monster_Buffer[i].name << "\n";
+    std::cout << "  HP:    " << Monster_Buffer[i].hp ;
+    std::cout << "  Align: " << Monster_Buffer[i].alignment;
+    std::cout << "  Sta: " << Monster_Buffer[i].sta << " Cha: " << Monster_Buffer[i].cha << " Str: " << Monster_Buffer[i].str << " Int: " << Monster_Buffer[i].inte <<
+       " Wis: " << Monster_Buffer[i].wis << " Skl: " << Monster_Buffer[i].skl << " Spd: " << Monster_Buffer[i].sta << "\n\n";
+std::cout << "blunt"  << Monster_Buffer[i].aBlunt << " sharp"  << Monster_Buffer[i].aSharp << " earth"  << Monster_Buffer[i].aEarth << " air"  << Monster_Buffer[i].aAir<< "\n\n";
+std::cout << "cold "  << Monster_Buffer[i].aCold << " evil"  << Monster_Buffer[i].aEvil << " magic"  << Monster_Buffer[i].aMagic << " air"  << Monster_Buffer[i].aAir<< "\n\n";
 
-std::cout << "w1="  << Monsters[i].w1 << " w2="  << Monsters[i].w2 << " w3="  << Monsters[i].w3 << "\n\n";
-std::cout << "c1="  << Monsters[i].c1 << " c2="  << Monsters[i].c2 << " c3="  << Monsters[i].c3 << "\n\n";
+std::cout << "w1="  << Monster_Buffer[i].w1 << " w2="  << Monster_Buffer[i].w2 << " w3="  << Monster_Buffer[i].w3 << "\n\n";
+std::cout << "c1="  << Monster_Buffer[i].c1 << " c2="  << Monster_Buffer[i].c2 << " c3="  << Monster_Buffer[i].c3 << "\n\n";
 
 std::cout << "weapon1 "  << weapon1 << " 2"  << weapon2 << " 3"  << weapon3 << "\n\n";
 }
@@ -521,11 +530,305 @@ std::cout << "weapon1 "  << weapon1 << " 2"  << weapon2 << " 3"  << weapon3 << "
     }
 
 
+    
+      
+
+  
+
+
+
      outdata.close();
 
 
+    
 }
 
+
+
+
+
+
+
+newMonster* newMonArray = nullptr;
+
+newMonster* SelectedMonmArray = nullptr;
+
+std::vector<newMonster> readMonsterCSV(const std::string& filename) {
+    std::vector<newMonster> data;
+
+    // Open the CSV file
+    std::ifstream file("data/map/" + filename);
+    if (!file.is_open()) {
+        std::cerr << "Error opening file: " << filename << std::endl;
+        return data; // Return empty vector if file couldn't be opened
+    }
+
+    std::string line;
+    while (std::getline(file, line)) {
+        std::stringstream lineStream(line);
+        newMonster newMonster;
+        std::string cell;
+
+        // Parsing CSV fields into the struct members
+        std::getline(lineStream, cell, ','); // Assuming the index is the first column
+        newMonster.index = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.type = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.maxencounters = std::stoi(cell);
+
+        std::getline(lineStream, newMonster.name, ',');
+
+        std::getline(lineStream, newMonster.pluName, ',');
+
+        std::getline(lineStream, newMonster.armorText, ',');
+
+
+        std::getline(lineStream, cell, ',');
+        newMonster.behaviour = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.alignment = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.stealth = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.randomStrength = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.randomSkill = std::stoi(cell);
+        
+        std::getline(lineStream, cell, ',');
+        newMonster.randomIntelligence = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.randomSpeed = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.hp = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.randomHP = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.maxHP = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.image = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.image2 = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.sta = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.cha = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.str = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.inte = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.wis = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.skl = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.spd = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.aBlunt = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.aSharp = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.aEarth = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.aAir = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.aFire = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.aWater = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.aPower = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.aMagic = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.aGood = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.aEvil = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.aCold = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.aNature = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.aAcid = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.tPotions = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.tEquipment = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.tFood = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.tWater = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.tTorches = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.tTimepieces = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.tCompasses = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.tKeys = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.tCrystals = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.tCopper = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.tSilver = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.tGold = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.tGems = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.tJewels = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.tCorpse = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.w1 = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.w2 = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.w3 = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.w4 = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.w5 = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.w6 = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.c1 = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.c2 = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.c3 = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.c4 = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.c5 = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.c6 = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.callForHelp = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.s0 = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.s1 = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.s2 = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.s3 = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.s4 = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.s5 = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.s6 = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.s7 = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.s8 = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.s9 = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.braveness = std::stoi(cell);
+
+        std::getline(lineStream, cell, ',');
+        newMonster.minLevel = std::stoi(cell);
+
+        std::getline(lineStream, newMonster.hash, ',');
+
+
+        data.push_back(newMonster);
+    }
+
+    file.close();
+    return data;
+
+}
+
+void convertMonstersBinary()
+{
+    std::string filename = "Monsters.csv";
+    std::vector<newMonster>  csvData = readMonsterCSV(filename);
+
+    // Convert vector to a dynamically allocated array of NewItem structs
+    size_t itemCount = csvData.size();
+    Monster_Buffer = new newMonster[itemCount];
+
+    // Copy data from vector to the dynamically allocated array
+    for (size_t i = 0; i < itemCount; ++i) {
+        Monster_Buffer[i] = csvData[i];
+        
+    }
+
+}
 
 void createMonsterWeapon(int currentWeapon, int weaponOffset)
 {
@@ -657,6 +960,7 @@ cout << "Name:  " << currentWeapon << "," << monsterWeapons[currentWeapon].name 
         << "\nGood:  " << monsterWeapons[currentWeapon].good << "\nEvil:  " << monsterWeapons[currentWeapon].evil << "\nCold:  "
         << monsterWeapons[currentWeapon].cold << "\n\n";
 
+    
 
 
 }
@@ -703,8 +1007,8 @@ void readMonsterNameText(int monsterNo, int nameOffset)
         z++;
     }
     if (maxNumberEncountered > 1) pluralNameOffset = z+1;
-    Monsters[monsterNo].name = ss.str();
-    //cout << "Name " << monsterNo << ", Offset " << nameOffset << " : " << Monsters[monsterNo].name << "\n";
+    Monster_Buffer[monsterNo].name = ss.str();
+    //cout << "Name " << monsterNo << ", Offset " << nameOffset << " : " << Monster_Buffer[monsterNo].name << "\n";
 }
 
 
@@ -730,8 +1034,8 @@ void readMonsterPluralNameText(int monsterNo, int pluralNameOffset)
         ss << (char) c;
         z++;
     }
-    Monsters[monsterNo].pluName = ss.str();
-    //cout << "Name " << monsterNo << ", Offset " << nameOffset << " : " << Monsters[monsterNo].name << "\n";
+    Monster_Buffer[monsterNo].pluName = ss.str();
+    //cout << "Name " << monsterNo << ", Offset " << nameOffset << " : " << Monster_Buffer[monsterNo].name << "\n";
 }
 
 
@@ -758,10 +1062,10 @@ void readMonsterDeathText(int monsterNo, int deathOffset)
         if (!(c==0x0D)) ss << (char) c;
         z++;
     }
-    Monsters[monsterNo].armorText = ss.str();
-    //cout << "Death message: " << Monsters[monsterNo].armorText << "\n\n";
+    Monster_Buffer[monsterNo].armorText = ss.str();
+    //cout << "Death message: " << Monster_Buffer[monsterNo].armorText << "\n\n";
 
-//Monsters[monsterNo].armorText = "dies";
+//Monster_Buffer[monsterNo].armorText = "dies";
 
 }
 
@@ -785,7 +1089,7 @@ void loadMonstersBinary() {
     }
 
     // File opened successfully
-    for (int i = 0; i < monstersFileSize; i++) {
+    for (int i = 0; i < noOfMonstersFile; i++) {
         monstersBinary[i] = fgetc(fp);
     }
     fclose(fp);
@@ -816,61 +1120,61 @@ void loadEncounters()
 if (i == DEVOURER)
 			cout << "i:" << i <<" a:"<<a<<" " <<line << "  " ;
 if (a==47) cout << "\n"; 
-			if (a==0) { Monsters[i].name = text; }
-			if (a==1) { Monsters[i].pluName = text; }
-			if (a==2) { Monsters[i].armorText = text; }
-			if (a==3) { Monsters[i].hp = atoi(text.c_str()); }
-			if (a==4) { Monsters[i].alignment = atoi(text.c_str()); }
-			if (a==5) { Monsters[i].image = atoi(text.c_str()); }
+			if (a==0) { Monster_Buffer[i].name = text; }
+			if (a==1) { Monster_Buffer[i].pluName = text; }
+			if (a==2) { Monster_Buffer[i].armorText = text; }
+			if (a==3) { Monster_Buffer[i].hp = atoi(text.c_str()); }
+			if (a==4) { Monster_Buffer[i].alignment = atoi(text.c_str()); }
+			if (a==5) { Monster_Buffer[i].image = atoi(text.c_str()); }
 
-			if (a==6) { Monsters[i].sta = atoi(text.c_str()); }
-			if (a==7) { Monsters[i].cha = atoi(text.c_str());}
-			if (a==8) { Monsters[i].str = atoi(text.c_str());}
-			if (a==9) { Monsters[i].inte = atoi(text.c_str());}
-			if (a==10) { Monsters[i].wis = atoi(text.c_str()); }
-			if (a==11) { Monsters[i].skl = atoi(text.c_str());}
-			if (a==12) { Monsters[i].spd = atoi(text.c_str());}
+			if (a==6) { Monster_Buffer[i].sta = atoi(text.c_str()); }
+			if (a==7) { Monster_Buffer[i].cha = atoi(text.c_str());}
+			if (a==8) { Monster_Buffer[i].str = atoi(text.c_str());}
+			if (a==9) { Monster_Buffer[i].inte = atoi(text.c_str());}
+			if (a==10) { Monster_Buffer[i].wis = atoi(text.c_str()); }
+			if (a==11) { Monster_Buffer[i].skl = atoi(text.c_str());}
+			if (a==12) { Monster_Buffer[i].spd = atoi(text.c_str());}
 
-			if (a==13) { Monsters[i].tFood = atoi(text.c_str()); }
-			if (a==14) { Monsters[i].tWater = atoi(text.c_str());}
-			if (a==15) { Monsters[i].tTorches = atoi(text.c_str());}
-			if (a==16) { Monsters[i].tTimepieces = atoi(text.c_str()); }
-			if (a==17) { Monsters[i].tCompasses = atoi(text.c_str()); }
-			if (a==18) { Monsters[i].tKeys = atoi(text.c_str()); }
-			if (a==19) { Monsters[i].tCrystals = atoi(text.c_str());}
-			if (a==20) { Monsters[i].tGems = atoi(text.c_str()); }
-			if (a==21) { Monsters[i].tJewels = atoi(text.c_str());}
-			if (a==22) { Monsters[i].tGold = atoi(text.c_str());}
-			if (a==23) { Monsters[i].tSilver = atoi(text.c_str()); }
-			if (a==24) { Monsters[i].tCopper = atoi(text.c_str()); 	}
+			if (a==13) { Monster_Buffer[i].tFood = atoi(text.c_str()); }
+			if (a==14) { Monster_Buffer[i].tWater = atoi(text.c_str());}
+			if (a==15) { Monster_Buffer[i].tTorches = atoi(text.c_str());}
+			if (a==16) { Monster_Buffer[i].tTimepieces = atoi(text.c_str()); }
+			if (a==17) { Monster_Buffer[i].tCompasses = atoi(text.c_str()); }
+			if (a==18) { Monster_Buffer[i].tKeys = atoi(text.c_str()); }
+			if (a==19) { Monster_Buffer[i].tCrystals = atoi(text.c_str());}
+			if (a==20) { Monster_Buffer[i].tGems = atoi(text.c_str()); }
+			if (a==21) { Monster_Buffer[i].tJewels = atoi(text.c_str());}
+			if (a==22) { Monster_Buffer[i].tGold = atoi(text.c_str());}
+			if (a==23) { Monster_Buffer[i].tSilver = atoi(text.c_str()); }
+			if (a==24) { Monster_Buffer[i].tCopper = atoi(text.c_str()); 	}
 
-			if (a==25) { Monsters[i].aBlunt = Hex2Dec(text.c_str()); }
-			if (a==26) { Monsters[i].aSharp = Hex2Dec(text.c_str()); }
-			if (a==27) { Monsters[i].aEarth = Hex2Dec(text.c_str()); }
-			if (a==28) { Monsters[i].aAir = Hex2Dec(text.c_str()); }
-			if (a==29) { Monsters[i].aFire = Hex2Dec(text.c_str()); }
-			if (a==30) { Monsters[i].aWater = Hex2Dec(text.c_str()); }
-			if (a==31) { Monsters[i].aPower = Hex2Dec(text.c_str()); }
-			if (a==32) { Monsters[i].aMagic = Hex2Dec(text.c_str()); }
-			if (a==33) { Monsters[i].aGood = Hex2Dec(text.c_str()); }
-			if (a==34) { Monsters[i].aEvil = Hex2Dec(text.c_str()); }
-			if (a==35) { Monsters[i].aCold = Hex2Dec(text.c_str()); }
+			if (a==25) { Monster_Buffer[i].aBlunt = Hex2Dec(text.c_str()); }
+			if (a==26) { Monster_Buffer[i].aSharp = Hex2Dec(text.c_str()); }
+			if (a==27) { Monster_Buffer[i].aEarth = Hex2Dec(text.c_str()); }
+			if (a==28) { Monster_Buffer[i].aAir = Hex2Dec(text.c_str()); }
+			if (a==29) { Monster_Buffer[i].aFire = Hex2Dec(text.c_str()); }
+			if (a==30) { Monster_Buffer[i].aWater = Hex2Dec(text.c_str()); }
+			if (a==31) { Monster_Buffer[i].aPower = Hex2Dec(text.c_str()); }
+			if (a==32) { Monster_Buffer[i].aMagic = Hex2Dec(text.c_str()); }
+			if (a==33) { Monster_Buffer[i].aGood = Hex2Dec(text.c_str()); }
+			if (a==34) { Monster_Buffer[i].aEvil = Hex2Dec(text.c_str()); }
+			if (a==35) { Monster_Buffer[i].aCold = Hex2Dec(text.c_str()); }
 
-			if (a==36) { Monsters[i].w1 = atoi(text.c_str());}
-			if (a==37) { Monsters[i].w2 = atoi(text.c_str());}
-			if (a==38) { Monsters[i].w3 = atoi(text.c_str());}
-			if (a==39) { Monsters[i].w4 = atoi(text.c_str());}
-			if (a==40) { Monsters[i].w5 = atoi(text.c_str());}
-			if (a==41) { Monsters[i].w6 = atoi(text.c_str());}
+			if (a==36) { Monster_Buffer[i].w1 = atoi(text.c_str());}
+			if (a==37) { Monster_Buffer[i].w2 = atoi(text.c_str());}
+			if (a==38) { Monster_Buffer[i].w3 = atoi(text.c_str());}
+			if (a==39) { Monster_Buffer[i].w4 = atoi(text.c_str());}
+			if (a==40) { Monster_Buffer[i].w5 = atoi(text.c_str());}
+			if (a==41) { Monster_Buffer[i].w6 = atoi(text.c_str());}
 
-			if (a==42) { Monsters[i].c1 = atoi(text.c_str()); }
-			if (a==43) { Monsters[i].c2 = atoi(text.c_str());}
-			if (a==44) { Monsters[i].c3 = atoi(text.c_str());}
-			if (a==45) { Monsters[i].c4 = atoi(text.c_str());}
-			if (a==46) { Monsters[i].c5 = atoi(text.c_str());}
-			if (a==47) { Monsters[i].c6 = atoi(text.c_str());}
+			if (a==42) { Monster_Buffer[i].c1 = atoi(text.c_str()); }
+			if (a==43) { Monster_Buffer[i].c2 = atoi(text.c_str());}
+			if (a==44) { Monster_Buffer[i].c3 = atoi(text.c_str());}
+			if (a==45) { Monster_Buffer[i].c4 = atoi(text.c_str());}
+			if (a==46) { Monster_Buffer[i].c5 = atoi(text.c_str());}
+			if (a==47) { Monster_Buffer[i].c6 = atoi(text.c_str());}
 if (i == DEVOURER)
-std::cout << "Name :" << Monsters[i].name << "c1 "<< Monsters[i].c1 << " c2 "<< Monsters[i].c2 << "\n";
+std::cout << "Name :" << Monster_Buffer[i].name << "c1 "<< Monster_Buffer[i].c1 << " c2 "<< Monster_Buffer[i].c2 << "\n";
 		}
 	}
 	instream.close();

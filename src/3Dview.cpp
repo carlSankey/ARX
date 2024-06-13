@@ -8,6 +8,7 @@
 #include <sstream>
 #include <cstdio>
 
+#include "constants.h"
 #include "3Dview.h"
 #include "display.h"
 #include "player.h"
@@ -20,12 +21,17 @@
 
 
 // Storage for textures
-const int numberOfTextures = 68;
-const int numberOfBackgrounds = 61; //was 46
-GLuint texture[numberOfTextures];
-sf::Texture background[numberOfBackgrounds];
-string textureNames[numberOfTextures];
-string backgroundNames[numberOfBackgrounds];
+
+//const int noOfBackgrounds = 61; //was 46
+
+
+sf::Texture background[noOfBackgrounds];
+std::string backgroundNames[noOfBackgrounds];
+
+GLuint texture[noOfTextures];
+//sf::Texture background[noOfBackgrounds];
+string textureNames[noOfTextures];
+//string backgroundNames[noOfBackgrounds];
 
 int filter;                                     // Which Filter To Use
 int fogMode[]= { GL_EXP, GL_EXP2, GL_LINEAR };  // Storage For Three Types Of Fog
@@ -69,7 +75,7 @@ void draw3DBackground()
 			scaleX = float(viewWidth) / float(360);
 			scaleY = float(viewHeight) / float(190);
 			Background.setScale(scaleX, scaleY);
-			Background.setPosition(viewPortX, viewPortY);
+			Background.setPosition(static_cast<float>(viewPortX), static_cast<float>(viewPortY));
 		}
 		if (graphicMode == A16BIT_SMALL) // New textures and original size
 		{
@@ -298,52 +304,58 @@ void draw3DBackground()
 	}
 
 }
+void loadBackgroundNames() {
+	std::string::size_type idx;
+	std::string filename;
 
+	for (int i = 0; i < noOfBackgrounds; i++) {
+		backgroundNames[i] = "";
+	}
 
+	std::cout << "Loading background Texture" << std::endl;
 
-void loadBackgroundNames()
-{
-	string::size_type idx;
-	string filename;
-	for (int i=0 ; i<numberOfBackgrounds ; i++) { backgroundNames[i]=""; }
-
-std::cout << "Loading background Texture" << std::endl;
-
-	if (graphicMode == ATARI_SMALL)
+	if (graphicMode == 0)
 		filename = "data/map/backgrounds.txt";
-	else if (graphicMode == A16BIT_SMALL)
+	else if (graphicMode == 1)
 		filename = "data/map/backgrounds_16bit.txt";
 	else
-	{
 		filename = "data/map/backgroundsUpdated.txt";
+
+	std::ifstream instream(filename);
+	if (!instream) {
+		std::cerr << "Error: background file " << filename << " could not be loaded" << std::endl;
+		return;
 	}
-	std::ifstream instream;
-	std::string line,text;
-	instream.open(filename.c_str());
-	if ( !instream )
-	{
-      cerr << "Error: background file " << filename << " file could not be loaded" << endl;
-	}
-//std::cout << "num " << numberOfBackgrounds << std::endl;	
-	for (int i=0 ; i<numberOfBackgrounds ; i++)
-	{
-		getline(instream, line);
+
+	std::string line, text;
+	for (int i = 0; i < noOfBackgrounds; i++) {
+		if (!std::getline(instream, line)) {
+			std::cerr << "Error: not enough lines in file " << filename << std::endl;
+			break;
+		}
+
 		idx = line.find('=');
-		text = line.substr(idx+2);
-		backgroundNames[i]= text;
-//std::cout << "num " << i << backgroundNames[i] << std::endl;	
-		background[i].loadFromFile("data/images/backgrounds/"+text+".png");
+		if (idx == std::string::npos || idx + 2 >= line.size()) {
+			std::cerr << "Error: invalid format in line " << i + 1 << std::endl;
+			continue;
+		}
+
+		text = line.substr(idx + 2);
+		backgroundNames[i] = text;
+
+		if (!background[i].loadFromFile("data/images/backgrounds/" + text + ".png")) {
+			std::cerr << "Error loading texture: data/images/backgrounds/" + text + ".png" << std::endl;
+		}
 	}
+
 	instream.close();
 }
-
-
 
 void loadTextureNames()
 {
 	string::size_type idx;
 	string filename;
-	for (int i=0 ; i<numberOfTextures ; i++) { textureNames[i]=""; }
+	for (int i=0 ; i<noOfTextures ; i++) { textureNames[i]=""; }
 	if (graphicMode == ATARI_SMALL)
 	{
 		filename = "data/map/textures.txt";
@@ -361,7 +373,7 @@ void loadTextureNames()
 	{
       //cerr << "Error: textureNames file could not be loaded" << endl;
 	}
-	for (int i=0 ; i<numberOfTextures ; i++)
+	for (int i=0 ; i<noOfTextures ; i++)
 	{
 		getline(instream, line);
 		idx = line.find('=');
@@ -383,8 +395,8 @@ void initTextures()
     sf::Image Image;
 	string filename;
     char tempfilename[100];
-	glGenTextures(numberOfTextures, &texture[0]); // problem line - don't include in loop. Always 0???
-	for ( int i=0; i<numberOfTextures; i++ )
+	glGenTextures(noOfTextures, &texture[0]); // problem line - don't include in loop. Always 0???
+	for ( int i=0; i<noOfTextures; i++ )
     {
 		filename = textureNames[i];
 		if (graphicMode == ATARI_SMALL)

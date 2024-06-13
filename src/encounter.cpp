@@ -7,9 +7,11 @@
 #include <map>
 #include <chrono>
 #include <thread>
+#include <iomanip>
+#include <random>
 
+#include "constants.h"
 #include "globals.h"
-#include "actor.h"
 #include "player.h"
 #include "font.h"
 #include "display.h"
@@ -21,6 +23,9 @@
 #include "automap.h"
 #include "audio.h"
 #include "spells.h"
+#include "actor.h"
+
+
 
 bool    checkForTreasure;
 bool    encounterRunning;
@@ -34,25 +39,25 @@ bool    playerStunned;
 bool	opponentStunned;
 int		no_found = 0;
 bool	foundTreasure = false; 
-//int currentOpponent;
-//int currentOpponentQuantity;
+int OpponentSwitchWeapons;
+
 
 extern int elementMap[];
+extern Map maps[];
 
 
-const int MAX_OPPONENTS = 8;
-const int MAX_CONSOLE_MESSAGES = 20;
 string  consoleMessages[MAX_CONSOLE_MESSAGES];
 
 void awardExperience(int opponentNo);
 void text(string str);
 
-const int DUNGEON_TABLE_ENCOUNTERS = 64;
+
 
 int spellDamageValues[13];
 
+ extern MapEncounter* newMapEncounter;
 
-
+extern newMonster* Monster_Buffer;
 
  bonusDamage weaponBonusMap;
 
@@ -263,9 +268,9 @@ encRecord dayEncTable[32] =
 extern int statPanelY;
 extern bool musicPlaying;
 
-monster Opponents[8]; // max 8 monsters against you
+newMonster Opponents[8]; // max 8 monsters against you
 
-monster opponent;
+newMonster opponent;
 
 bonusDamage weaponBonus;
 int weaponProbabilities[6] = { 0,0,0,0,0,0 };
@@ -319,8 +324,8 @@ void encounterLoop(int encounterType, int opponentQuantity)
     opponentType = encounterType;
     checkForTreasure = false;
 	animationNotStarted = true;
-	firstFrame = Monsters[opponentType].image;
-	lastFrame = Monsters[opponentType].image2;
+	firstFrame = Monster_Buffer[opponentType].image;
+	lastFrame = Monster_Buffer[opponentType].image2;
 	encounterRunning = true;
 	encounterTurns = 0;
 	playerTurn = true;
@@ -336,8 +341,11 @@ void encounterLoop(int encounterType, int opponentQuantity)
 	stunnedTurnsRemaining = 0;
     plyr.status_text = "                                        ";
     playerRunsAway = false;
+	
+	if (plyr.TemporalAdjustment == 0) { plyr.TemporalAdjustment = 1; }
 
-
+	
+	int adjustmentFactor = static_cast<int>(plyr.TemporalAdjustment);
     // Move to display!
 	if (graphicMode==ALTERNATE_LARGE) plyr.z_offset = 0.3;
 	else plyr.z_offset = 1.5;
@@ -362,15 +370,13 @@ void encounterLoop(int encounterType, int opponentQuantity)
 		if (!waitingForSpaceKey )
         {
 
-		  		  //Opponent will choice to do something after 4.0 no matter what the player does        
-			     attackCheckTime += attackTimer;
-				  if ((attackCheckTime >= sf::seconds(4.0f) && Opponents[0].stunnedTurnsRemaining <1) || playerStunned == true)
-				  {
-			  		  	processOpponentAction();
-			  		  	attackCheckTime = attackClock.restart();
-						
-						
-				  }
+		  	//Opponent will choice to do something after 4.0 no matter what the player does        
+			attackCheckTime += attackTimer;
+			if ((attackCheckTime >= (sf::seconds(4.0f) * static_cast<float>(plyr.TemporalAdjustment)) && Opponents[0].stunnedTurnsRemaining <1) || playerStunned == true)
+			{
+			  	processOpponentAction();
+			  	attackCheckTime = attackClock.restart();
+			}
 
             if (playerTurn) processPlayerAction();
             else processOpponentAction();
@@ -421,11 +427,7 @@ void encounterLoop(int encounterType, int opponentQuantity)
         plyr.fixedEncounter = false;
         if (playerRunsAway)
         {
-            if (plyr.facing== WEST) { plyr.x = plyr.oldx; }
-            if (plyr.facing== NORTH) { plyr.x = plyr.oldx; }
-            if (plyr.facing== EAST) { plyr.y = plyr.oldy; }
-            if (plyr.facing== SOUTH) { plyr.y = plyr.oldy; }
-            plyr.z_offset=1.0;
+			RunAway(1);
         }
         else
         {
@@ -440,18 +442,34 @@ void encounterLoop(int encounterType, int opponentQuantity)
 }
 
 
+void RunAway(int backup)
+{
+	if (backup == 1)
+	{
+		if (plyr.facing == WEST) { plyr.x = plyr.oldx; }
+		if (plyr.facing == NORTH) { plyr.x = plyr.oldx; }
+		if (plyr.facing == EAST) { plyr.y = plyr.oldy; }
+		if (plyr.facing == SOUTH) { plyr.y = plyr.oldy; }
+		plyr.z_offset = 1.0;
+	}
+	else
+	{
+		plyr.facing = randn(1, 5);
+	}
+}
+
 void initialiseOpponents(int opponentType, int opponentQuantity)
 {
 	
     // Clean out all 8 opponent slots with an empty monster object (using the unused FBI Agent for this)
     for(int i = 0; i < MAX_OPPONENTS; ++i)
 	{
-		Opponents[i] = Monsters[FBI_AGENT];
+		Opponents[i] = Monster_Buffer[FBI_AGENT];
 	}
     for(int i = 0; i < opponentQuantity; ++i)
 	{
-		Opponents[i] = Monsters[opponentType];
-	//	Opponents[i].w1 = opponentChooseWeapon();
+		Opponents[i] = Monster_Buffer[opponentType];
+		Opponents[i].chosenWeapon = opponentChooseWeapon();
 		if (opponentType==DOPPLEGANGER)
         {
             // Doppleganger
@@ -490,18 +508,71 @@ void initialiseOpponents(int opponentType, int opponentQuantity)
 
 
     int w = Opponents[0].w1;
-    cout << "Name:  " << monsterWeapons[w].name << "\n";
-    cout << "HP:    " << monsterWeapons[w].hp << "\n";
-    cout << "Align: " << monsterWeapons[w].alignment << "\n\n";
-    cout << "Blunt: " << monsterWeapons[w].blunt << "\nSharp: " << monsterWeapons[w].sharp << "\nEarth: "
-        << monsterWeapons[w].earth << "\nAir:   " << monsterWeapons[w].air
-        << "\nFire:  " << monsterWeapons[w].fire << "\nWater: " << monsterWeapons[w].water << "\nPower: "
-        << monsterWeapons[w].power << "\nMagic: " << monsterWeapons[w].magic
-        << "\nGood:  " << monsterWeapons[w].good << "\nEvil:  " << monsterWeapons[w].evil << "\nCold:  "
-        << monsterWeapons[w].cold << "\n\n";
+    cout << "Name:  " << newItemArray[w].name << "\n";
+    cout << "HP:    " << newItemArray[w].hp << "\n";
+    cout << "Align: " << newItemArray[w].alignment << "\n\n";
+    cout << "Blunt: " << newItemArray[w].blunt << "\nSharp: " << newItemArray[w].sharp << "\nEarth: "
+        << newItemArray[w].earth << "\nAir:   " << newItemArray[w].air
+        << "\nFire:  " << newItemArray[w].fire << "\nWater: " << newItemArray[w].water << "\nPower: "
+        << newItemArray[w].power << "\nMagic: " << newItemArray[w].magic
+        << "\nGood:  " << newItemArray[w].good << "\nEvil:  " << newItemArray[w].evil << "\nCold:  "
+        << newItemArray[w].cold << "\n\n";
+
+
+			MoveItemToMonsterWeapon(0, Opponents[0].w1);
+			MoveItemToMonsterWeapon(1, Opponents[0].w2);
+			MoveItemToMonsterWeapon(2, Opponents[0].w3);
+			MoveItemToMonsterWeapon(3, Opponents[0].w4);
+			MoveItemToMonsterWeapon(4, Opponents[0].w5);
+			MoveItemToMonsterWeapon(5, Opponents[0].w6);
+	
+			OpponentSwitchWeapons = 0;
+}
+
+
+
+
+void MoveItemToMonsterWeapon(int WeaponIndex, int ItemIndex)
+{
+		monsterWeapons[WeaponIndex].article = "a";
+		monsterWeapons[WeaponIndex].name = newItemArray[ItemIndex].name;
+		monsterWeapons[WeaponIndex].desc = "";
+		monsterWeapons[WeaponIndex].descMon = "";
+		monsterWeapons[WeaponIndex].type = newItemArray[ItemIndex].itemType;
+		monsterWeapons[WeaponIndex].index = ItemIndex;
+		monsterWeapons[WeaponIndex].flags = newItemArray[ItemIndex].flags;
+		monsterWeapons[WeaponIndex].minStrength = newItemArray[ItemIndex].minStrength;
+		monsterWeapons[WeaponIndex].minDexterity = newItemArray[ItemIndex].minDexterity;
+		monsterWeapons[WeaponIndex].useStrength = newItemArray[ItemIndex].useStrength;
+		monsterWeapons[WeaponIndex].blunt = newItemArray[ItemIndex].blunt;
+		monsterWeapons[WeaponIndex].sharp = newItemArray[ItemIndex].sharp;
+		monsterWeapons[WeaponIndex].earth = newItemArray[ItemIndex].earth;
+		monsterWeapons[WeaponIndex].air = newItemArray[ItemIndex].air;
+		monsterWeapons[WeaponIndex].fire = newItemArray[ItemIndex].fire;
+		monsterWeapons[WeaponIndex].water = newItemArray[ItemIndex].water;
+		monsterWeapons[WeaponIndex].power = newItemArray[ItemIndex].power;
+		monsterWeapons[WeaponIndex].magic = newItemArray[ItemIndex].magic;
+		monsterWeapons[WeaponIndex].good = newItemArray[ItemIndex].good;
+		monsterWeapons[WeaponIndex].evil = newItemArray[ItemIndex].evil;
+		monsterWeapons[WeaponIndex].cold = newItemArray[ItemIndex].cold;
+		monsterWeapons[WeaponIndex].nature = newItemArray[ItemIndex].nature;
+		monsterWeapons[WeaponIndex].acid = newItemArray[ItemIndex].acid;
+		monsterWeapons[WeaponIndex].weight = newItemArray[ItemIndex].weight;
+		monsterWeapons[WeaponIndex].hp = newItemArray[ItemIndex].hp;
+		monsterWeapons[WeaponIndex].maxHP = newItemArray[ItemIndex].maxHP;
+		monsterWeapons[WeaponIndex].alignment = newItemArray[ItemIndex].alignment;
+		monsterWeapons[WeaponIndex].melee = newItemArray[ItemIndex].melee;
+		monsterWeapons[WeaponIndex].ammo = newItemArray[ItemIndex].ammo;
+		monsterWeapons[WeaponIndex].parry = newItemArray[ItemIndex].parry;
+		monsterWeapons[WeaponIndex].special = 0;
+		monsterWeapons[WeaponIndex].specialType = 0;
+		monsterWeapons[WeaponIndex].specialName = "";
 
 
 }
+
+	
+
 
 
 void removeOpponent()
@@ -513,9 +584,20 @@ void removeOpponent()
 		Opponents[i] = Opponents[i+1];
 	}
 	// Add an empty slot to the end of the array (the unused FBI Agent is used for this)
-	Opponents[(MAX_OPPONENTS-1)] = Monsters[FBI_AGENT];
+	Opponents[(MAX_OPPONENTS-1)] = Monster_Buffer[FBI_AGENT];
 }
 
+void addOpponent()
+{
+	// Removes Opponents[0], shuffles the other 7 and adds an Empty
+	//if No Of opponents is < MAX_OPPONENTS then add one
+	//add a Monster_Buffer[opponent.index]
+	if (encounterQuantity < MAX_OPPONENTS)
+	{
+		Opponents[(encounterQuantity +1)] = Monster_Buffer[Opponents[0].index];
+		
+	}
+}
 
 void checkForActiveOpponents()
 {
@@ -545,9 +627,14 @@ void updateOpponents()
 */
 void processOpponentAction()
 {
-
-
 	//Need to add Opponent spell casting, but need to add list of spells monster can have first
+
+	// Might change this to use case 
+	// also add break stun before this, so they can break the spell and then attack in the same action
+	// work out which action the encounter is going to do and set a case value 
+	// 1 attack
+	// 2 cast spell
+	// 3 
     if (encounterNotHostile)
     {
         if (encounterTurns == 3) { opponentLeaves(); }
@@ -578,19 +665,22 @@ void processOpponentAction()
 		else if (braveness < randn(0, ((plyr.str + plyr.level) - plyr.alcohol))) // check to see if the oppoenent is scraed and flees
 		{
 			opponentFlees();
-
 		}
-		else if (Opponents[curOpponent].callForHelp == 1)
+		else if ((Opponents[curOpponent].callForHelp == 1) && (braveness < 20))
 		{
-			opponentCallsForHelp();
+			if (encounterQuantity < MAX_OPPONENTS) 
+			{ 
+				opponentCallsForHelp();
+			} 
+			else
+			{
+				opponentAttack();
+			}
 		}
 		else
 		{
-
 			opponentAttack();
-
 		}
-
     }
     encounterTurns++;
   	attackCheckTime = sf::Time::Zero;
@@ -666,6 +756,7 @@ void processPlayerAction()
 			{
 				playerRunsAway = true; 
 				encounterRunning = false; 
+				RunAway(0);
 			}
 		}
         if ( key == "P" ) pauseEncounter();
@@ -1233,16 +1324,16 @@ void playerAttack(int attackType, float attackFactorBonus)
     }
 
 	// Check for missile weapon (e.g Crossbow)
-	if ((itemBuffer[plyr.priWeapon].melee != 0xFF) && (hitAttempt))
+	//melee = no of hands needed to use. for example Greatsword = 2 hands, Bow = 3 hands, Crossbow = 3 hands, dagger = 1
+	if ((itemBuffer[plyr.priWeapon].melee > 2) && (hitAttempt))
     {
-        missileWeapon = true;
+         missileWeapon = true;
         if (itemBuffer[plyr.priWeapon].ammo > 0)
         {
             missileAmmoAvailable = true;
             itemBuffer[plyr.priWeapon].ammo--;
             int remainingAmmo = itemBuffer[plyr.priWeapon].ammo;
-            if (remainingAmmo < 10) itemBuffer[plyr.priWeapon].name = "Crossbow [0" + itos(remainingAmmo) + "]";
-            else itemBuffer[plyr.priWeapon].name = "Crossbow [" + itos(remainingAmmo) + "]";
+			updateAmmoCount( plyr.priWeapon, remainingAmmo);
         }
         weaponDesc = itemBuffer[plyr.priWeapon].name;
     }
@@ -1259,6 +1350,10 @@ void playerAttack(int attackType, float attackFactorBonus)
 		if ( (strengthDifference >= 128) && (strengthDifference < 192) )  { attackFactorBonus += 1; }
 		if (strengthDifference >= 192) { attackFactorBonus += 1; }
 	}
+	if (itemBuffer[plyr.priWeapon].melee == 2 && plyr.secWeapon == 0) { attackFactorBonus += 0.5; } // using two handed weapon two handed
+
+
+
 	attackFactor += attackFactorBonus;
 
 	// Hit probability
@@ -1291,6 +1386,7 @@ void playerAttack(int attackType, float attackFactorBonus)
 	{
 		plyr.strPartials++; // Each successful hit contributes towards an extra strength point
 		if (plyr.strPartials==255) { plyr.str++; plyr.strPartials = 0; }
+
 		int damage = calcPlayerWeaponDamage(weapon, attackFactor, 0);
 //damage = 85; // debugging damage
 
@@ -1318,6 +1414,23 @@ void playerAttack(int attackType, float attackFactorBonus)
 	if ( Opponents[0].hp<1) {opponentDeath(0); }
 
 	playerTurn = false;
+}
+
+std::string itos2(int i) {
+	std::stringstream ss;
+	ss << std::setw(2) << std::setfill('0') << i;
+	return ss.str();
+}
+
+void updateAmmoCount( int plyrWeaponIndex, int remainingAmmo) {
+	std::string& itemName = itemBuffer[plyrWeaponIndex].name;
+	size_t openBracketPos = itemName.find('[');
+	size_t closeBracketPos = itemName.find(']', openBracketPos);
+
+	if (openBracketPos != std::string::npos && closeBracketPos != std::string::npos) {
+		std::string numberString = itos2(remainingAmmo);
+		itemName.replace(openBracketPos + 1, closeBracketPos - openBracketPos - 1, numberString);
+	}
 }
 
 /**
@@ -1529,8 +1642,28 @@ void opponentAttack()
 {
 	bool opponentIsAttacking;
 	bool hitSuccess;
-	
+	int ChooseWeapon = 0;
 	if (whoStartedIt == 0) { whoStartedIt = 1; }
+
+
+	// Choose which type of attack
+
+	if (Opponents[0].s1 > 0)
+	{
+		// Can cast spells
+
+		int OpponentCastSpell = randn(0,100);
+	}
+
+	if (Opponents[0].callForHelp == 1)
+	{
+
+		opponentCallsForHelp();
+	}
+
+
+
+
 
 	int bPart = randn(0,5);
 	string bPartText = "you";
@@ -1556,11 +1689,21 @@ std::cout << "opponent #: " << curOpponent << "\n";
     if (opponentNoAttacking==6) prefix="7th ";
     if (opponentNoAttacking==7) prefix="8th ";
 
-
-
-	if (Opponents[0].chosenWeapon == 0 || Opponents[0].type == 0x03) {
- 		Opponents[0].chosenWeapon = opponentChooseWeapon();
+	
+	if (OpponentSwitchWeapons < 1 || OpponentSwitchWeapons >6)
+	{
+		int ChooseWeapon = opponentChooseWeapon();
+		OpponentSwitchWeapons++;
 	}
+
+	if (Opponents[0].chosenWeapon != ChooseWeapon) //Logic for opponent to swicth weapons if they are doing no damage
+	{
+		OpponentSwitchWeapons = 0;
+	}
+	Opponents[0].chosenWeapon = ChooseWeapon;
+		
+		
+	//}
 	// Opponents[0].
     //int chosenWeapon = Opponents[0].w1;
 
@@ -1594,12 +1737,10 @@ std::cout << "opponent #: " << curOpponent << "\n";
 
     if (hitSuccess)
     {
-				//int damage = randn(1,6); // CHANGE!!!
+				//int damage = randn(1,6); // CHANGE!!!  3
 
 			//Check for disease type from monster carrier value (to be added)
-        if (opponentType==GIANT_RAT) { if (plyr.diseases[0] == 0) plyr.diseases[0] = 1;} // Rabies
-        if (opponentType== MOLD) { if (plyr.diseases[1] == 0) plyr.diseases[1] = 1;} // Mold
-        if (opponentType== SLIME) { if (plyr.diseases[2] == 0) plyr.diseases[2] = 1;} // Fungus
+       
         float attackFactor = 1.0; //
         int damage = calcOpponentWeaponDamage(Opponents[0].chosenWeapon,attackFactor, 1);
 
@@ -1625,13 +1766,19 @@ std::cout << " weapon desc " << Opponents[0].chosenWeapon << "\n";
         if (damage!=1000) { plyr.hp-=damage; }
 
         str = prefix + Opponents[0].name + " " + attackDesc + "@" + bPartText + " with "+ weaponName + "@for " + itos(damage) + ".";
-        if (damage==0) { str = prefix + Opponents[0].name + " " + attackDesc + "@" + bPartText + " with "+ weaponName + "@which has no effect!"; }
+        if (damage==0) 
+		{ str = prefix + Opponents[0].name + " " + attackDesc + "@" + bPartText + " with "+ weaponName + "@which has no effect!";
+		OpponentSwitchWeapons++;
+		}
         //if (damage==1000) { str = prefix + opponent.name + " " + attackDesc + "@you with "+ opponentWeapon.name + "@which is stopped by your skin!"; }
 
 		if (bPart == 3 && plyr.headArmour != 255) checkDurablility(plyr.headArmour, damage);
 		if (bPart == 4 && plyr.armsArmour != 255) checkDurablility(plyr.armsArmour, damage);
 		if (bPart == 5 && plyr.legsArmour != 255) checkDurablility(plyr.legsArmour, damage);
 			
+		if (opponentType == GIANT_RAT && damage >0) { if (plyr.diseases[0] == 0) plyr.diseases[0] = 1; } // Rabies
+		if (opponentType == MOLD && damage > 0) { if (plyr.diseases[1] == 0) plyr.diseases[1] = 1; } // Mold
+		if (opponentType == SLIME && damage > 0) { if (plyr.diseases[2] == 0) plyr.diseases[2] = 1; } // Fungus
 		
     }
 
@@ -1675,6 +1822,11 @@ std::cout << " weapon desc " << Opponents[0].chosenWeapon << "\n";
 
 void opponentCallsForHelp()
 {
+
+	consoleMessage("The "+ Opponents[0].name + " Calls for help...");
+	addOpponent();
+	consoleMessage("Another " + Opponents[0].name + " Arrives");
+	updateOpponents();
 	//add logic to call for help
 	//increase 
 }
@@ -1827,6 +1979,141 @@ string getPlayerAttackDesc(int damage)
     return result;
 }
 
+int NewcalcOpponentWeaponDamage(int weaponNo, float attackFactor, int attacker)
+{
+	// CALCULATE MONSTER WEAPON / ATTACK DAMAGE
+
+	// attacker - 1 = monster
+	int weaponDamageValues[13];
+	weaponDamageValues[0] = monsterWeapons[weaponNo].blunt;
+	weaponDamageValues[1] = monsterWeapons[weaponNo].sharp;
+	weaponDamageValues[2] = monsterWeapons[weaponNo].earth;
+	weaponDamageValues[3] = monsterWeapons[weaponNo].air;
+	weaponDamageValues[4] = monsterWeapons[weaponNo].fire;
+	weaponDamageValues[5] = monsterWeapons[weaponNo].water;
+	weaponDamageValues[6] = monsterWeapons[weaponNo].power;
+	weaponDamageValues[7] = monsterWeapons[weaponNo].magic;
+	weaponDamageValues[8] = monsterWeapons[weaponNo].good;
+	weaponDamageValues[9] = monsterWeapons[weaponNo].evil;
+	weaponDamageValues[10] = monsterWeapons[weaponNo].cold;
+	weaponDamageValues[10] = monsterWeapons[weaponNo].nature;
+	weaponDamageValues[10] = monsterWeapons[weaponNo].acid;
+	if (opponentType == DOPPLEGANGER)
+	{
+		weaponDamageValues[0] = itemBuffer[weaponNo].blunt;
+		weaponDamageValues[1] = itemBuffer[weaponNo].sharp;
+		weaponDamageValues[2] = itemBuffer[weaponNo].earth;
+		weaponDamageValues[3] = itemBuffer[weaponNo].air;
+		weaponDamageValues[4] = itemBuffer[weaponNo].fire;
+		weaponDamageValues[5] = itemBuffer[weaponNo].water;
+		weaponDamageValues[6] = itemBuffer[weaponNo].power;
+		weaponDamageValues[7] = itemBuffer[weaponNo].magic;
+		weaponDamageValues[8] = itemBuffer[weaponNo].good;
+		weaponDamageValues[9] = itemBuffer[weaponNo].evil;
+		weaponDamageValues[10] = itemBuffer[weaponNo].cold;
+		weaponDamageValues[11] = itemBuffer[weaponNo].nature;
+		weaponDamageValues[12] = itemBuffer[weaponNo].acid;
+	}
+
+	int armorValues[13] = { 0,0,0,0,0,0,0,0,0,0,0,0,0 };
+	// Need to add modifier for player armor values & armor body parts
+
+	int armors[13]; // holds results of rolling for armor protection
+
+	//Check to see if the user is wearing the entire armor suit.
+	//If yes, they they get full protection,  otherwise no
+	float numArmorPieces = 0;
+	if (plyr.headArmour != 255)
+		numArmorPieces++;
+	if (plyr.bodyArmour != 255)
+		numArmorPieces++;
+	if (plyr.legsArmour != 255)
+		numArmorPieces++;
+	if (plyr.armsArmour != 255)
+		numArmorPieces++;
+
+	numArmorPieces = numArmorPieces / 4;
+	armorValues[0] = itemBuffer[plyr.bodyArmour].blunt;
+	armorValues[1] = itemBuffer[plyr.bodyArmour].sharp;
+	armorValues[2] = itemBuffer[plyr.bodyArmour].earth;
+	armorValues[3] = itemBuffer[plyr.bodyArmour].air;
+	armorValues[4] = itemBuffer[plyr.bodyArmour].fire;
+	armorValues[5] = itemBuffer[plyr.bodyArmour].water;
+	armorValues[6] = itemBuffer[plyr.bodyArmour].power;
+	armorValues[7] = itemBuffer[plyr.bodyArmour].magic;
+	armorValues[8] = itemBuffer[plyr.bodyArmour].good;
+	armorValues[9] = itemBuffer[plyr.bodyArmour].evil;
+	armorValues[10] = itemBuffer[plyr.bodyArmour].cold;
+	armorValues[11] = itemBuffer[plyr.bodyArmour].nature;
+	armorValues[12] = itemBuffer[plyr.bodyArmour].acid;
+
+	int armorIndex = 0;
+	while (armorIndex < 11)
+	{
+
+		std::pair<int, int> dice = getDigits(armorValues[armorIndex]);
+		int noDice = dice.first;
+		int noSides = dice.second;
+
+		noDice = ((int)noDice * numArmorPieces);
+		noSides = ((int)noDice * numArmorPieces);
+		if (noDice > 0 && noSides > 0)
+		{
+			armors[armorIndex] = rollDice(noDice, noSides);
+		}
+		else
+		{
+			armors[armorIndex] = 0;
+		}
+		armorIndex++;
+	}
+
+
+
+	int damages[13] = { 0,0,0,0,0,0,0,0,0,0,0,0,0 }; // holds results of rolling for damage
+
+	int damageIndex = 0; // 0 is blunt, 1 is sharp, 11 is cold - 11 damage types in total
+
+	//    cout << "Opponent:";
+
+	while (damageIndex < 11)
+	{
+		
+		std::pair<int, int> dice = getDigits(weaponDamageValues[damageIndex]);
+		int noDice = dice.first;
+		int noSides = dice.second;
+
+		//int currentDamage = round((weaponDamageValues[damageIndex])* attackFactor);
+		if (noDice > 0 && noSides > 0)
+		{
+			damages[damageIndex] = rollDice(noDice, noSides);
+			if (armorValues[damageIndex] == 0xff) { damages[damageIndex] = 0; }
+			else if (armorValues[damageIndex] == 0xf0) { damages[damageIndex] = damages[damageIndex] * -1; }
+			else if (armorValues[damageIndex] == 0x0f) { damages[damageIndex] = damages[damageIndex] * 2; }
+			else {
+				damages[damageIndex] -= armors[damageIndex];
+				if (damages[damageIndex] < 0)
+					damages[damageIndex] = 0;
+			}
+
+
+			//            cout << damages[damageIndex] << " (" << noDice << " D" << noSides << "), ";
+		}
+		else
+		{
+			damages[damageIndex] = 0;
+		}
+		damageIndex++;
+	}
+
+	
+	//std::cout << "B:" << damages[0] << " S:" << damages[1] << " E:" << damages[2] << " A:" << damages[3] << " F:" << damages[4] << " W:" << damages[5] << " P:" << damages[6] << " M:" << damages[7] << " G:" << damages[8] << " E:" << damages[9] << " C:" << damages[10] << std::endl;
+	int totalDamage = damages[0] + damages[1] + damages[2] + damages[3] + damages[4] + damages[5] + damages[6] + damages[7] + damages[8] + damages[9] + damages[10];
+	return totalDamage;
+
+}
+
+
 
 int calcOpponentWeaponDamage(int weaponNo, float attackFactor, int attacker)
 {
@@ -1834,7 +2121,7 @@ int calcOpponentWeaponDamage(int weaponNo, float attackFactor, int attacker)
 
 	// attacker - 1 = monster
 	int weaponDamageValues[13];
-	weaponDamageValues[0] = monsterWeapons[weaponNo].blunt;
+ 	weaponDamageValues[0] = monsterWeapons[weaponNo].blunt;
 	weaponDamageValues[1] = monsterWeapons[weaponNo].sharp;
 	weaponDamageValues[2] = monsterWeapons[weaponNo].earth;
 	weaponDamageValues[3] = monsterWeapons[weaponNo].air;
@@ -1899,8 +2186,10 @@ int calcOpponentWeaponDamage(int weaponNo, float attackFactor, int attacker)
 		int armorIndex = 0;
 		while (armorIndex < 11)
 		{
-			int noDice = (armorValues[armorIndex] & 0xf0) >> 4;
-			int noSides = (armorValues[armorIndex] & 0x0f);
+			
+			std::pair<int, int> dice = getDigits(armorValues[armorIndex]);
+			int noDice = dice.first;
+			int noSides = dice.second;
 
 			noDice = ((int)noDice * numArmorPieces);
 			noSides = ((int)noDice * numArmorPieces);
@@ -1925,8 +2214,10 @@ int calcOpponentWeaponDamage(int weaponNo, float attackFactor, int attacker)
 
 	while (damageIndex < 11)
 	{
-		int noDice = (weaponDamageValues[damageIndex] & 0xf0) >> 4;
-		int noSides = (weaponDamageValues[damageIndex] & 0x0f);
+
+		std::pair<int, int> dice = getDigits(weaponDamageValues[damageIndex]);
+		int noDice = dice.first;
+		int noSides = dice.second;
 
 		//int currentDamage = round((weaponDamageValues[damageIndex])* attackFactor);
 		if (noDice > 0 && noSides >0)
@@ -1951,35 +2242,11 @@ int calcOpponentWeaponDamage(int weaponNo, float attackFactor, int attacker)
 		damageIndex++;
 	}
 
-//    cout << "\n";
-	// Compare weapon damages against ancounter armour values inc. vulnerabilities and invulnerabilities
-	// 0xff = invulnerable.
-	// 0xf0 = absorbs power from this damage type.
-	// 0x0f = takes double damage from this damage type.
 
-/*
-	if (attacker==1) // Opponent attacking
-	{
-		for(int i = 0; i < 11; ++i) // number of damages to compare against armors
-		{
-			if (armors[i] == 0x0f)	//Double Damages
-				damages[i] =  damages[i] * 2;
-			if (armors[i] == 0xff)	//Invulnerbale
-				damages[i] = 0;
-			else
-				 damages[i] -= armors[i];
 
-			if ( damages[i] < 0 ) { damages[i] = 0; }
-		}
-//		totalDamage = damages[0] + damages[1] + damages[2] + damages[3] + damages[4] + damages[5] + damages[6] + damages[7] + damages[8] + damages[9] + damages[10];
-		std::cout << "B:" << damages[0] << " S:" << damages[1] << " E:" << damages[2] << " A:" << damages[3] << " F:" << damages[4] << " W:" << damages[5] << " P:" << damages[6] << " M:" << damages[7] << " G:" << damages[8] << " E:" << damages[9] << " C:" << damages[10] << std::endl;
-		//if (totalDamage==0) { return 1000; }
-		//if (totalDamage >0) { return totalDamage; }
-	}
 
-*/
 	//std::cout << "B:" << damages[0] << " S:" << damages[1] << " E:" << damages[2] << " A:" << damages[3] << " F:" << damages[4] << " W:" << damages[5] << " P:" << damages[6] << " M:" << damages[7] << " G:" << damages[8] << " E:" << damages[9] << " C:" << damages[10] << std::endl;
-	int totalDamage = damages[0]+damages[1]+damages[2]+damages[3]+damages[4]+damages[5]+damages[6]+damages[7]+damages[8]+damages[9]+damages[10];
+	int totalDamage = damages[0]+damages[1]+damages[2]+damages[3]+damages[4]+damages[5]+damages[6]+damages[7]+damages[8]+damages[9]+damages[10] + damages[11] + damages[12];
 	return totalDamage;
 
 }
@@ -1989,15 +2256,14 @@ int calcPlayerSpellDamage(int spellNo, int attacker)
 {
     // CALCULATE PLAYER WEAPON / ATTACK DAMAGE
 
-	// attacker - 0 = player
 
 
 	std::bitset<13> binarySpells(spells[spellNo].elementtype);
 
-	updateAttack(binarySpells, spells[spellNo].negativeValue);
+	updateAttack(binarySpells, spells[spellNo].positiveValue);
 
-	int armorValues[13] = { 0,0,0,0,0,0,0,0,0,0,0,0,0 };
-    int armors[13] = { 0,0,0,0,0,0,0,0,0,0,0,0 };
+	int armorValues[noOfElements] = { 0,0,0,0,0,0,0,0,0,0,0,0,0 };
+    int armors[noOfElements] = { 0,0,0,0,0,0,0,0,0,0,0,0 };
 
 	if (attacker==0) // Player attacking
 	{
@@ -2019,8 +2285,11 @@ int calcPlayerSpellDamage(int spellNo, int attacker)
 		int armorIndex = 0;
 		while (armorIndex < 12)
 		{
-			int noDice = (armorValues[armorIndex] & 0xf0) >> 4;
-			int noSides = (armorValues[armorIndex] & 0x0f);
+			
+			std::pair<int, int> dice = getDigits(armorValues[armorIndex]);
+			int noDice = dice.first;
+			int noSides = dice.second;
+
 			if (noDice > 0 ) armors[armorIndex] = rollDice(noDice, noSides);
 
 			armorIndex++;
@@ -2028,32 +2297,40 @@ int calcPlayerSpellDamage(int spellNo, int attacker)
 	}
 
 
+	int damages[noOfElements] = { 0,0,0,0,0,0,0,0,0,0,0,0,0 }; // holds results of rolling for damage
 
-	int damages[13] = { 0,0,0,0,0,0,0,0,0,0,0,0,0 }; // holds results of rolling for damage
-
-	int damageIndex = 0; // 0 is blunt, 1 is sharp, 11 is cold - 11 damage types in total
+	int damageIndex = 0; // 0 is blunt, 1 is sharp, 11 is cold - 13 damage types in total
 
 	cout << "Player Damage:";
 std::cout << "B:" << spellDamageValues[0] << " S:" << spellDamageValues[1] << " E:" << spellDamageValues[2] << " A:" << spellDamageValues[3] << " F:" << spellDamageValues[4] << " W:" << spellDamageValues[5] << " P:" << spellDamageValues[6] << " M:" << spellDamageValues[7] << " G:" << spellDamageValues[8] << " E:" << spellDamageValues[9] << " C:" << spellDamageValues[10] << std::endl;
-	while (damageIndex < 13)
+	while (damageIndex < noOfElements)
 	{
-//		int noDice = (weaponDamageValues[damageIndex] & 0xf0) >> 4;
-//		int noSides = (weaponDamageValues[damageIndex] & 0x0f);
-		int noDice = ((int)spellDamageValues[damageIndex] / 10);
-		int noSides = spellDamageValues[damageIndex] - (noDice * 10);
+		std::pair<int, int> dice = getDigits(spellDamageValues[damageIndex]);
+		int noDice = dice.first;
+		int noSides = dice.second;
 
 		//int currentDamage = round((weaponDamageValues[damageIndex])* attackFactor);
 		if (noDice > 0 || noSides > 0)
         {
             damages[damageIndex] = rollDice(noDice, noSides);
-            if (armorValues[damageIndex]==0xff) { damages[damageIndex] = 0; }
-            else if (armorValues[damageIndex]==0xf0) { damages[damageIndex] = damages[damageIndex]*-1; }
-            else if (armorValues[damageIndex]==0x0f) { damages[damageIndex] = damages[damageIndex]*2; }
-            else {
+			
+            if (armorValues[damageIndex]==0xff) { damages[damageIndex] = 0; }  // if armorValue for specif element is 255 then invunerable
+            else if (armorValues[damageIndex]==0xf0) 
+			{ 
+				damages[damageIndex] = damages[damageIndex]*-1; 
+				str = opponent.name + " Resist the damage";
+			} //If 240 the absorbs damage
+            else if (armorValues[damageIndex]==0x0f) 
+			{ 
+				damages[damageIndex] = damages[damageIndex]*2; 
+				str = opponent.name + " Appears strengthened by the attack";
+			} // If 15 then double damage
+            else 
+			{
 				 damages[damageIndex] -= armors[damageIndex];
 				 if (damages[damageIndex] < 0 )
 				 	 damages[damageIndex] = 0;
-				}
+			}
 
            cout << damages[damageIndex] << " (" << noDice << " D" << noSides << ") \n";
         }
@@ -2066,26 +2343,16 @@ std::cout << "B:" << spellDamageValues[0] << " S:" << spellDamageValues[1] << " 
 	// 0xf0 = absorbs power from this damage type.
 	// 0x0f = takes double damage from this damage type.
 
-	if (attacker==0) // Player attacking
-	{
-		for(int i = 0; i < 11; ++i) // number of damage slots to compare against armour slots
-		{
-			if (armors[i] == 0xf0)	// Double damage
-				damages[i] *=  2;
-			else if (armors[i] == 0xff)	// Invulnerable to this weapon
-				  damages[i] = 0;
-			else
-				 damages[i] -= armors[i];
-			if ( damages[i] < 0 ) { damages[i] = 0; }
-		}
-	}
 
 
-std::cout << "B:" << damages[0] << " S:" << damages[1] << " E:" << damages[2] << " A:" << damages[3] << " F:" << damages[4] << " W:" << damages[5] << " P:" << damages[6] << " M:" << damages[7] << " G:" << damages[8] << " E:" << damages[9] << " C:" << damages[10] << std::endl;
-	int totalDamage = damages[0]+damages[1]+damages[2]+damages[3]+damages[4]+damages[5]+damages[6]+damages[7]+damages[8]+damages[9]+damages[10];
+
+std::cout << "Base:" << spells[spellNo].baseDamage << " B:" << damages[0] << " S:" << damages[1] << " E:" << damages[2] << " A:" << damages[3] << " F:" << damages[4] << " W:" << damages[5] << " P:" << damages[6] << " M:" << damages[7] << " G:" << damages[8] << " E:" << damages[9] << " C:" << damages[10] << " N:" << damages[11] << " AC:" << damages[12] << std::endl;
+	int totalDamage = damages[0]+damages[1]+damages[2]+damages[3]+damages[4]+damages[5]+damages[6]+damages[7]+damages[8]+damages[9]+damages[10]+damages[11] +damages[12] + spells[spellNo].baseDamage;
 	return totalDamage;
 
 }
+
+
 
 
 int calcPlayerWeaponDamage(int weaponNo, float attackFactor, int attacker)
@@ -2134,8 +2401,11 @@ int calcPlayerWeaponDamage(int weaponNo, float attackFactor, int attacker)
 		int armorIndex = 0;
 		while (armorIndex < 13)
 		{
-			int noDice = (armorValues[armorIndex] & 0xf0) >> 4;
-			int noSides = (armorValues[armorIndex] & 0x0f);
+		
+			std::pair<int, int> dice = getDigits(armorValues[armorIndex]);
+			int noDice = dice.first;
+			int noSides = dice.second;
+
 			if (noDice > 0) armors[armorIndex] = rollDice(noDice, noSides);
 
 			armorIndex++;
@@ -2154,8 +2424,12 @@ int calcPlayerWeaponDamage(int weaponNo, float attackFactor, int attacker)
 	{
 		//		int noDice = (weaponDamageValues[damageIndex] & 0xf0) >> 4;
 		//		int noSides = (weaponDamageValues[damageIndex] & 0x0f);
-		int noDice = ((int)weaponDamageValues[damageIndex] / 10);
-		int noSides = weaponDamageValues[damageIndex] - (noDice * 10);
+		//int noDice = ((int)weaponDamageValues[damageIndex] / 10);
+		//int noDice = ((int)left(weaponDamageValues[damageIndex],1))
+		
+		std::pair<int, int> dice = getDigits(weaponDamageValues[damageIndex]);
+		int noDice = dice.first;
+		int noSides = dice.second;
 
 		//int currentDamage = round((weaponDamageValues[damageIndex])* attackFactor);
 		if (noDice > 0 || noSides > 0)
@@ -2203,14 +2477,23 @@ int calcPlayerWeaponDamage(int weaponNo, float attackFactor, int attacker)
 }
 
 
+
 int opponentChooseWeapon()
 {
+	//c = the probability of each weapopn
+
+	
+
 	weaponProbabilities[0] = Opponents[0].c1;
 	weaponProbabilities[1] = Opponents[0].c2;
 	weaponProbabilities[2] = Opponents[0].c3;
 	weaponProbabilities[3] = Opponents[0].c4;
 	weaponProbabilities[4] = Opponents[0].c5;
 	weaponProbabilities[5] = Opponents[0].c6;
+
+
+	weaponProbabilities[Opponents[0].chosenWeapon] - OpponentSwitchWeapons;
+
 
 std::cout <<" Weapon chose " << Opponents[0].c1 << " 1 " << Opponents[0].c2 << " 2 " << Opponents[0].c3 << "\n";
 
@@ -2232,11 +2515,12 @@ std::cout <<" Weapon chose " << Opponents[0].w1 << " 1 " << Opponents[0].w2 << "
 	while (chosenWeaponNo == 255)
 	{
 		weaponProbabilityTotal += weaponProbabilities[weaponIndex];
-		if ( weaponProbability <= weaponProbabilityTotal ) { chosenWeaponNo = weaponReferences[weaponIndex]; }
+		if ( weaponProbability <= weaponProbabilityTotal ) { chosenWeaponNo = weaponIndex; }
 		if ( weaponIndex == 6) { chosenWeaponNo = 0; } // error weapon!
 		weaponIndex++;
 	}
 std::cout <<" Weapon chose " << chosenWeaponNo << " name " << monsterWeapons[chosenWeaponNo].name << "\n";
+	OpponentSwitchWeapons = 1;
 	return chosenWeaponNo;
 }
 
@@ -2246,12 +2530,12 @@ void initMonster(int monsterNo)
     // Initialise a SINGLE monster - legacy City logic
 
     /*
-    Opponents[a] = Monsters[monsterNo]; // copy monster details to current Opponents[a] object
-    Opponents[a].hp += randn(0,Monsters[monsterNo].randomHP);
-    Opponents[a].str += randn(0,Monsters[monsterNo].randomStrength);
-    Opponents[a].skl += randn(0,Monsters[monsterNo].randomSkill);
-    Opponents[a].inte += randn(0,Monsters[monsterNo].randomIntelligence);
-    Opponents[a].spd += randn(0,Monsters[monsterNo].randomSpeed);
+    Opponents[a] = Monster_Buffer[monsterNo]; // copy monster details to current Opponents[a] object
+    Opponents[a].hp += randn(0,Monster_Buffer[monsterNo].randomHP);
+    Opponents[a].str += randn(0,Monster_Buffer[monsterNo].randomStrength);
+    Opponents[a].skl += randn(0,Monster_Buffer[monsterNo].randomSkill);
+    Opponents[a].inte += randn(0,Monster_Buffer[monsterNo].randomIntelligence);
+    Opponents[a].spd += randn(0,Monster_Buffer[monsterNo].randomSpeed);
     Opponents[a].maxHP = Opponents[a].hp;
 
     if (monsterNo==DOPPLEGANGER)
@@ -2529,7 +2813,7 @@ void checkFixedEncounters()
 
 void selectEncounterTheme()
 {
-    //int opponentAlignment = Monsters[opponentNo].alignment;
+    //int opponentAlignment = Monster_Buffer[opponentNo].alignment;
     if ((plyr.scenario==0) && (Opponents[0].alignment > 127))  { playEncounterTheme(0); }
     if ((plyr.scenario==0) && (Opponents[0].alignment < 128))  { playEncounterTheme(1); }
     if ((plyr.scenario==1) && (Opponents[0].alignment < 128))  { playEncounterTheme(2); }
@@ -2594,6 +2878,8 @@ void chooseEncounter()
 	int numMonsters = 1;
     plyr.status = ENCOUNTER;
 
+	
+
     // CITY - Day
 	if ((plyr.timeOfDay!=1) && (plyr.scenario==CITY))
 	{
@@ -2623,46 +2909,26 @@ void chooseEncounter()
 
 	if ((plyr.scenario==DUNGEON) && ((plyr.zone == 17) || (plyr.zone == 16)))  // Dungeon - Well Lit Area
 	{
-		//monsterNo = randn(0,73); // pick random dungeon encounter
-		int encCount = 0;
-		int monsterProb = randn(0, 255);
-		for(int i = 0; i < 11; ++i)
-		{
-			if ((monsterProb >= encCount) && (monsterProb < wellLitEncTable[i].encProb+encCount))
-			{ monsterNo = wellLitEncTable[i].encType; }
-			encCount = encCount+wellLitEncTable[i].encProb;
-		}
-		if (monsterNo==0) { monsterNo=1; cout << "Error: Monster 0 rolled!\n"; }
+		monsterNo = randomEncounterPicker(plyr.zone, plyr.timeOfDay, maps[plyr.map].encounterIndex);
 	}
 
 	if ((plyr.scenario==DUNGEON) && !((plyr.zone == 17) || (plyr.zone == 16)))
     {
-        int encCount = 0;
-		int monsterProb = randn(0, 255);
-		for(int i = 0; i < DUNGEON_TABLE_ENCOUNTERS; ++i)
-		{
-			if ((monsterProb >= encCount) && (monsterProb < dungeonTable[i].encProb+encCount))
-			{ monsterNo = dungeonTable[i].encType; }
-			encCount = encCount+dungeonTable[i].encProb;
-		}
-		if (monsterNo==0) { monsterNo=1; cout << "Error: Monster 0 rolled!\n"; }
+		monsterNo = randomEncounterPicker(plyr.zone, plyr.timeOfDay, maps[plyr.map].encounterIndex);
     }
 
 	if ((plyr.scenario==DUNGEON) && (plyr.map==4)) monsterNo = 19;
-// cout << "Monster: "<< monsterNo << " " << Monsters[monsterNo].name << "\n";
+// cout << "Monster: "<< monsterNo << " " << Monster_Buffer[monsterNo].name << "\n";
 
-    if (monsterNo > 70)
-    {
-        //cout << "City monster " << monsterNo << " encountered.\n";
-    }
+    
     plyr.fixedEncounter = false;
 
 	 //adjust the max encounter based on other player stats.
 	 if (plyr.scenario==DUNGEON)
 	 {
-	 	numMonsters = Monsters[monsterNo].maxencounters;
+	 	numMonsters = Monster_Buffer[monsterNo].maxencounters;
 	 	int adjustment =  (plyr.level+1) /2;	//increase the chances of more encounters for higher levels.
-	 	if (plyr.alignment < 128 && Monsters[monsterNo].alignment> 127)	//Good encounter vs. evil player.  Make it tougher
+	 	if (plyr.alignment < 128 && Monster_Buffer[monsterNo].alignment> 127)	//Good encounter vs. evil player.  Make it tougher
 	 	 adjustment ++;
 	 	if (plyr.alignment < 20 )	//Pure evil player
 	 	 adjustment ++;
@@ -2699,28 +2965,15 @@ void checkAlignmentEncounter(int opponentNo)
 	if (opponent.alignment < 128)
 		return;		//  No harm comes to attacking evil opponents.
 		
-	if (encounterNotHostile)
+	if (encounterNotHostile && opponent.alignment > 128)
 	{
-		switch(opponentType)
-		{
-		   case COMMONER:
-			case GUARD:
-			case NOBLEMAN:
-			case NOVICE:
-			case PAUPER:
-			case HEALER:
-			case APPRENTICE:
-			case ACOLYTE:
-			case WIZARD:
-  			    plyr.alignment -= 5;	//Evil act.
+  			    plyr.alignment -= 5;	//Evil act.  Lower = Evil
   			    
-  			    if (plyr.alignment > 130)
+  			    if (plyr.alignment > 130)  //Not sure why theres a maximum check here as we only decrease the alignment?
   			    	 plyr.alignment = 100;
   			    	 
 			   if (plyr.alignment < 0) 	 
 			   	plyr.alignment = 0;
-  			    break;
-		}
 	
 	}	
 //std::cout << "plyr align " << plyr.alignment << " opn# " << opponentNo << "\n";	
@@ -2756,12 +3009,13 @@ void checkTreasure()
 	int found = 0;
 	int tot_found =  0;
 	int max_treasure = 20;
-   
+	int weapon = 0;
    
 	// Check to see if the opponent was carrying a weapon (as opposed to claws or teeth)
 	// Only type 0x03 weapons can be dropped - type 0xFF refers to natural weapons such as bites, tails, claws, spells
-	int weapon = opponent.chosenWeapon; // Modify
-    Opponents[0] = Monsters[opponentType];
+	
+	
+    Opponents[0] = Monster_Buffer[opponentType];
 
 	
 	found = randn(0,100);
@@ -2771,11 +3025,11 @@ void checkTreasure()
 	//
 
 
-  	if (monsterWeapons[weapon].type==0x03 && found <= plyr.treasureFinding)
+	if (monsterWeapons[opponent.chosenWeapon].type == 178 && found <= plyr.treasureFinding)
 	{
 		//Most of the time you don't get a weapon from creatures.  It should be hard to gain weapons.
 		//Original code was get weapon after each encounter.
-		createWeapon(weapon); // Create a new instance of this weapon type on the floor
+		createWeapon(opponent.chosenWeapon); // Create a new instance of this weapon type on the floor
 		foundTreasure = true; // need to ensure that only weapons get created!
 	}
 
@@ -2859,26 +3113,66 @@ void checkTreasure()
 			foundTreasure = false;
 		}
 
+		if (opponentType == MASTER_THIEF) // MASTER THEIF KILLED 
+		{
+			int SilverKey =  randn(0, 100);
+			if (SilverKey < 10)
+			{
+				createQuestItem(187);
+				foundTreasure = false;
+			}
+		}
+
+		
+
 		//Other Items find
 		
 		int tempFound = randn(0, plyr.items_index) ;
-		if ( found <= plyr.treasureFinding)
-			{
 
-				//Most of the time you don't get a weapon from creatures.  It should be hard to gain weapons.
-				//Original code was get weapon after each encounter.
-				createGeneralItem(tempFound); // Create a new instance of this weapon type on the floor
-				foundTreasure = true; // need to ensure that only weapons get created!
+
+		if (found <= plyr.treasureFinding)
+		{
+
+			//Most of the time you don't get a weapon from creatures.  It should be hard to gain weapons.
+			//Original code was get weapon after each encounter.
+
+			// want to use ilevel and cat to determine which item the encounter has dropped. eliminating things like weapons/potions etc dropping from a rat.
+			// 
+			//did encounter drop their weapon?
+
+			
+			
+
+
+
+			if (monsterWeapons[opponent.chosenWeapon].type == 178)
+			{
+			
+				createGeneralItem(monsterWeapons[opponent.chosenWeapon].index); // Create a new instance of this weapon type on the floor
+				foundTreasure = true; 
+			}
+
+			if (Monster_Buffer[opponent.index].tPotions > 0) {  }
+
+			
+
+			createGeneralItem(randomItemPicker( 0 , plyr.level, 1, 175));
+	
+			foundTreasure = true; 
 			}
 
 		//Corpse find
-
+		if (opponent.tCorpse > 0) { 
+			createCorpseItem(opponent.index); 
+			foundTreasure = true;
+		}
 
 
 
 
 		//need to write another check if buffed with treasurefinding
    if ((foundTreasure) && (plyr.treasureFinding>15)) { plyr.treasureFinding = 15; }	//Once you find treasure then remove the potion affect.
+
 	if (foundTreasure) getItems();
 
 }
@@ -2926,3 +3220,87 @@ void checkTreasure()
 //12,10,9b
 //14,13,87 basilisk
 
+
+std::vector<int> randomEncounterPick(const MapEncounter* newMapEncounter, int arraySize, int ZoneToMatch, int TimeToMatch) {
+	std::vector<int> matchingIndices;
+
+	int DayOrNight = 0;
+	if (TimeToMatch > 1) {
+		DayOrNight = 0; // Assuming 0 represents day
+	}
+	else {
+		DayOrNight = 1; // Assuming 1 represents night
+	}
+	int zoneFound = 0;
+	for (int i = 0; i < arraySize; ++i) {
+		if (newMapEncounter[i].Zone == ZoneToMatch)
+		{
+			// do  
+			zoneFound = 1;
+			i = arraySize;
+		}
+
+	}
+	if (zoneFound == 0){ ZoneToMatch = 99;}
+
+	// Find indices matching the criteria
+	for (int i = 0; i < arraySize; ++i) {
+		if (newMapEncounter[i].Zone == ZoneToMatch && (newMapEncounter[i].TimeOfDay == DayOrNight || newMapEncounter[i].TimeOfDay == 2) && plyr.level >= Monster_Buffer[newMapEncounter[i].Encounter].minLevel) {
+			matchingIndices.push_back(i);
+		}
+	}
+
+	return matchingIndices;
+}
+
+int randomEncounterPicker(int ZoneToMatch, int TimeToMatch, int arraySize)
+{
+
+
+	std::vector<int> matchingIndices = randomEncounterPick(newMapEncounter, arraySize, ZoneToMatch, TimeToMatch);
+
+	// Randomly pick an index from matching indices
+	// Check if there are matching indices
+	if (!matchingIndices.empty()) {
+		// Initialize random number generator
+		std::random_device rd;
+		std::mt19937 gen(rd());
+
+		// Calculate total probability of matching encounters
+		double totalProbability = 0.0;
+		for (int index : matchingIndices) {
+			totalProbability += newMapEncounter[index].Probability;
+		}
+
+		// Generate a random number between 0 and the total probability
+		std::uniform_real_distribution<> dis(0.0, totalProbability);
+		double randomProbability = dis(gen);
+
+		// Select the encounter based on probabilities
+		double cumulativeProbability = 0.0;
+		int selectedIndex = -1;
+		for (int index : matchingIndices) {
+			cumulativeProbability += newMapEncounter[index].Probability;
+			if (randomProbability < cumulativeProbability) {
+				selectedIndex = index;
+				break;
+			}
+		}
+
+		// Display the randomly selected encounter
+		if (selectedIndex != -1) {
+			std::cout << "Randomly picked Encounter: " << Monster_Buffer[newMapEncounter[selectedIndex].Encounter].name << std::endl;
+			return newMapEncounter[selectedIndex].Encounter;
+		}
+	}
+
+	// Handle the case when no matching encounter is found
+	// You may want to return some default value or throw an exception
+
+	else {
+		std::cout << "No Encounters match the criteria." << std::endl;
+		return 0;
+	}
+
+
+}

@@ -29,7 +29,7 @@ using namespace sf;
 
 sf::Sprite encImage;
 
-string version = "0.84.0";
+string version = "0.85.0";
 
 int windowMode, graphicMode, windowWidth, windowHeight, viewWidth, viewHeight;
 int viewPortX;
@@ -960,7 +960,8 @@ void loadShopImage(int imageno)
         if (imageno==24) { ShopImage.loadFromFile("data/images/locations/undead.png"); }
         if (imageno==25) { ShopImage.loadFromFile("data/images/locations/arena.png"); }
         if (imageno==26) { ShopImage.loadFromFile("data/images/locations/dwarvenSmithy.png"); }
-        if (imageno==27) { ShopImage.loadFromFile("data/images/locations/6.png"); }
+		if (imageno == 27) { ShopImage.loadFromFile("data/images/locations/6.png"); }
+		if (imageno == 28) { ShopImage.loadFromFile("data/images/locations/Prison.png"); }
     }
     if (graphicMode > ATARI_SMALL)
     {

@@ -35,6 +35,8 @@ Mapcell levelmap[4096]; // 4096 = 64 by 64 cells, 96x128 - 12288
 FILE *fp;               // file pointer - used when reading files
 char tempString[100];   // temporary string
 
+MapEncounter* newMapEncounter = nullptr;
+
 
 
 zoneRecord zones[28]  =
@@ -460,6 +462,43 @@ void initMaps()
 }
 
 
+std::vector<MapEncounter> readMapEncounterCSV(const std::string& filename) {
+	std::vector<MapEncounter> data;
+
+	// Open the CSV file
+	std::ifstream file("data/map/" + filename);
+	if (!file.is_open()) {
+		std::cerr << "Error opening file: " << filename << std::endl;
+		return data; // Return empty vector if file couldn't be opened
+	}
+
+	std::string line;
+	while (std::getline(file, line)) {
+		std::stringstream lineStream(line);
+		MapEncounter newMapEncounter;
+		std::string cell;
+
+		// Parsing CSV fields into the struct members
+		std::getline(lineStream, cell, ','); // Assuming the index is the first column
+		newMapEncounter.Zone = std::stoi(cell);
+
+		std::getline(lineStream, cell, ','); // 
+		newMapEncounter.Encounter = std::stoi(cell);
+
+		std::getline(lineStream, cell, ','); // 
+		newMapEncounter.Probability = std::stoi(cell);
+
+		std::getline(lineStream, cell, ','); // 
+		newMapEncounter.TimeOfDay = std::stoi(cell);
+
+		data.push_back(newMapEncounter);
+	}
+
+	file.close();
+	return data;
+}
+
+
 void setCurrentZone()
 {
 	// x >= entry 3 x2
@@ -644,8 +683,10 @@ void loadMapData(int map)
 		getline(instream, junk);
 		//cout << "\n\n";
 	}
+	maps[map].encounterIndex = readEncounterData(map);
 	instream.close();
 	//printSpecial(); // generate special lists
+	
 }
 
 
@@ -765,4 +806,23 @@ void printSpecial()
 				}
 		}
 	}
+}
+
+size_t readEncounterData(int map)
+{
+	std::string filename =  (maps[map].filename) + "Encounter.csv" ;
+	std::vector<MapEncounter>  csvData = readMapEncounterCSV(filename);
+
+	// Convert vector to a dynamically allocated array of NewItem structs
+	size_t itemCount = csvData.size();
+	newMapEncounter = new MapEncounter[itemCount];
+
+	// Copy data from vector to the dynamically allocated array
+	for (size_t i = 0; i < itemCount; ++i) {
+		newMapEncounter[i] = csvData[i];
+		
+	}
+
+	return itemCount;
+
 }

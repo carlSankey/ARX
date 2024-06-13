@@ -1,8 +1,8 @@
 #ifndef _smithyh 
 #define _smithyh 
 
-const int citySmithyFileSize = 1691;
-extern unsigned char citySmithyBinary[citySmithyFileSize];
+
+extern unsigned char citySmithyBinary[noOfCitySmithyFile];
 
 void loadCitySmithyBinary();
 

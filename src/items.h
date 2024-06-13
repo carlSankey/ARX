@@ -1,13 +1,14 @@
 #ifndef _itemsh 
 #define _itemsh 
 
+#include "constants.h"
 #include <string>
 #include <vector>
 
-const int itemBufferSize = 250;
 
-const int dungeonItemsSize = 10496;
-extern unsigned char dungeonItems[dungeonItemsSize];
+
+
+extern unsigned char dungeonItems[noOfDungeonItems];
 extern int itemOffsets[141];
 
 //const newItem newItemArray[250];
@@ -77,8 +78,10 @@ int newcreateItem(
     int melee,
     int ammo,
     int parry,
-    int effect)
-    ;
+    int effect,
+    int cat,
+    int level,
+    int buffType);
 
 struct clothingItem
 {
@@ -119,8 +122,22 @@ struct newItem
     int effect;
     int elementType;
     int statType;
+    int acid;
+    int nature;
+    int cold;
+    int evil;
+    int good;
+    int magic;
+    int power;
+    int water;
+    int fire;
+    int air;
+    int earth;
+    int sharp;
+    int blunt;
     int negativeValue;
     int positiveValue;
+    int baseDamage;
     int duration;
     int damage;
     int hp;
@@ -135,7 +152,9 @@ struct newItem
     int ammo;
     int parry;
     int cat;
-    int level;
+    int iLevel;
+    int buffType;
+    std::string hash;
 };
 
 extern newItem* newItemArray; // Declaration of the array
@@ -155,6 +174,7 @@ int createGeneralItem(int ItemNo);
 
 void swapClothing(int object_ref);
 int createGenericItem(int type, int value);
+int createCorpseItem(int MonsterIndex);
 bool checkForQuestItem(int itemNo);
 int getQuestItemRef(int itemNo);
 void getItems();
@@ -182,6 +202,7 @@ void use_singleUse(int object_ref);
 void use_wand(int object_ref);
 void use_eye(int object_ref);
 
+void removeArmourBuff(int itemId);
 
 void useObject(int object_ref);
 void dropObject(int object_ref);
@@ -197,7 +218,7 @@ int inputWithdrawalQuantity(int itemRef);
 void use_armor(int object_ref);
 void use_questItem(int object_ref);
 void use_ammoItem(int object_ref);
-
+void use_equipment(int object_ref);
 
 void displayObjectBuffer();
 
@@ -210,6 +231,24 @@ int returnCarriedWeight();
 std::map<std::pair<int, int>, int> countItemTypes(newItem* items, int size);
 
 
+
+
+struct fixedTreasure
+{
+
+    int no;
+    int item_Index;
+    int special;
+    std::string message;
+  
+};
+
+std::vector<fixedTreasure> readFixedTreasureCSV(const std::string& filename);
+
+void replaceSymbol(std::string& str, const std::string& replaceWith, const std::string stringToFind);
+
+void readFTData();
+int findValue(fixedTreasure arr[], int size, int value);
 
 int randomItemPicker(int itemCatToMatch, int levelToMatch, int arraySize, int typeToMatch);
 
@@ -255,13 +294,26 @@ struct buffer_item
     int buffType = 0; //0 is not buffed
     int effect = 0  ;  //same as spell effect
     int statType = 0; //same as spell stattype
+    int cat; //Category that it belongs to (melee, Projectiles, magical , unconventional, firearms
+    int iLevel;
 };
 
-extern buffer_item itemBuffer[itemBufferSize];
 
-// Your existing header content goes here 
+struct potionIdentity
+{
+    int index;
+    std::string name;
+};
+
+
+std::string getStringFromBinary(int binaryValue, const std::map<int, std::string>& potionColour);
+extern buffer_item itemBuffer[noOfItemBuffer];
+
+
  void removeItemBuff( int itemId);
 
+
  void updateItemBuff(std::bitset<13> binaryItemBuff, int positiveValue);
+
 #endif // _itemsh 
 

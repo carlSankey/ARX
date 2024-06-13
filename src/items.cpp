@@ -10,6 +10,7 @@
 #include <direct.h>
 #include <random>
 
+#include "constants.h"
 #include "audio.h"
 #include "player.h"
 #include "font.h"
@@ -25,15 +26,20 @@
 #include "itemSelect.h"
 #include "effects.h"
 #include "spells.h"
+#include "damon.h"
 
 
 extern struct SearchResult;
 
-buffer_item itemBuffer[itemBufferSize]; // Items on floor,carried and in void - now 250
+buffer_item itemBuffer[noOfItemBuffer]; // Items on floor,carried and in void - now 250
 
-unsigned char dungeonItems[dungeonItemsSize];
+unsigned char dungeonItems[noOfDungeonItems];
 
 bonusDamage itemBonus;
+
+fixedTreasure* fixed_Buffer = nullptr;
+
+fixedTreasure* fixed = nullptr;
 
 
 std::map<int, int*> itemBonusMap = {
@@ -51,6 +57,10 @@ std::map<int, int*> itemBonusMap = {
 	 {11 , &itemBonus.nature },
 	 {12 , &itemBonus.acid }
 };
+
+
+
+
 
 
 int itemOffsets[141] =
@@ -236,15 +246,58 @@ std::vector<newItem> readItemCSV(const std::string& filename) {
 		
 		std::getline(lineStream, cell, ',');
 		newItem.elementType = std::stoi(cell);
-		
+
 		std::getline(lineStream, cell, ',');
 		newItem.statType = std::stoi(cell);
+
+
+		std::getline(lineStream, cell, ',');
+		newItem.acid = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		newItem.nature = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		newItem.cold = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		newItem.evil = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		newItem.good = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		newItem.magic = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		newItem.power = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		newItem.water = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		newItem.fire = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		newItem.air = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		newItem.earth = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		newItem.sharp = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		newItem.blunt = std::stoi(cell);
 			
 		std::getline(lineStream, cell, ',');
 		newItem.negativeValue = std::stoi(cell);
 		
 		std::getline(lineStream, cell, ',');
 		newItem.positiveValue = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		newItem.baseDamage = std::stoi(cell);
 		
 		std::getline(lineStream, cell, ',');
 		newItem.duration = std::stoi(cell);
@@ -289,7 +342,63 @@ std::vector<newItem> readItemCSV(const std::string& filename) {
 		newItem.cat = std::stoi(cell);
 
 		std::getline(lineStream, cell, ',');
-		newItem.level = std::stoi(cell);
+		newItem.iLevel = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		newItem.buffType = std::stoi(cell);
+
+		std::getline(lineStream, newItem.hash, ',');
+
+		std::string input = std::to_string(newItem.index) +
+			newItem.name +
+			//need to match the Hash string
+			std::to_string(newItem.itemType) +
+			std::to_string(newItem.cost) +
+			std::to_string(newItem.effect) +
+			std::to_string(newItem.elementType) +
+			std::to_string(newItem.statType) +
+			std::to_string(newItem.acid) +
+			std::to_string(newItem.nature) +
+			std::to_string(newItem.cold) +
+			std::to_string(newItem.evil) +
+			std::to_string(newItem.good) +
+			std::to_string(newItem.magic) +
+			std::to_string(newItem.power) +
+			std::to_string(newItem.water) +
+			std::to_string(newItem.fire) +
+			std::to_string(newItem.air) +
+			std::to_string(newItem.earth) +
+			std::to_string(newItem.sharp) +
+			std::to_string(newItem.blunt) +
+			std::to_string(newItem.negativeValue) +
+			std::to_string(newItem.positiveValue) +
+			std::to_string(newItem.baseDamage) +
+			std::to_string(newItem.duration) +
+			std::to_string(newItem.damage) +
+			std::to_string(newItem.hp) +
+			std::to_string(newItem.maxHP) +
+			std::to_string(newItem.flags) +
+			std::to_string(newItem.minStrength) +
+			std::to_string(newItem.minDexterity) +
+			std::to_string(newItem.useStrength) +
+			std::to_string(newItem.weight) +
+			std::to_string(newItem.alignment) +
+			std::to_string(newItem.melee) +
+			std::to_string(newItem.ammo) +
+			std::to_string(newItem.parry) +
+			std::to_string(newItem.cat) +
+			std::to_string(newItem.iLevel) +
+			std::to_string(newItem.buffType) +
+			"ARX2023";
+		std::string hash = sha256(input);
+
+		if (hash != newItem.hash)
+		{
+						newItem.weight = 65536;
+		
+		}
+
+
 
 		data.push_back(newItem);
 	}
@@ -302,7 +411,7 @@ std::vector<newItem> readItemCSV(const std::string& filename) {
 
 
 
-buffer_item tempBuffer[itemBufferSize]; // Temp buffer for rebuilding new object buffer when bufferIndex reaches 99
+buffer_item tempBuffer[noOfItemBuffer]; // Temp buffer for rebuilding new object buffer when bufferIndex reaches 99
 
 
 clothingItem clothingItems[30] =
@@ -403,6 +512,40 @@ potionItem Potions[44] =
 	{"Potion of Unnoticeability",	        "clear",    "bitter",   "safe"},
 };
 
+
+
+std::map<int, std::string> potionColour = {
+	{1, "yellow"},
+	 {2 , "white" },
+	 {4 , "silver" },
+	 {8 , "red" },
+	 {16 , "orange" },
+	 {32 , "green" },
+	 {64 , "clear" },
+	 {128 , "black" },
+	 {256 , "amber" },
+};
+
+
+
+std::map<int, std::string> potionTaste = {
+	{1, "sweet"},
+	 {2 , "sour" },
+	 {4 , "salty" },
+	 {8 , "plain" },
+	 {16 , "dry" },
+	 {32 , "bitter" },
+	 {64 , "alkaline" },
+	 {128 , "acidic" },
+};
+
+
+
+std::map<int, std::string> potionSip = {
+	{1, "safe"},
+	 {2 , "dangerous" },
+	 {4 , "caution" },
+};
 
 
 
@@ -536,7 +679,10 @@ int newcreateItem(
 	int melee,
 	int ammo,
 	int parry,
-	int effect)
+	int effect,
+	int cat,
+	int iLevel,
+	int buffType)
 {
 	// Create a new item in itemBuffer[]
 
@@ -583,6 +729,9 @@ int newcreateItem(
 	new_item.x = plyr.x;
 	new_item.y = plyr.y;
 	new_item.level = plyr.map;
+	new_item.cat = cat;
+	new_item.iLevel = iLevel;
+	new_item.buffType = buffType;
 
 	// Update buffer and buffer references
 	itemBuffer[plyr.buffer_index] = new_item;
@@ -593,7 +742,9 @@ int newcreateItem(
 
 void createBareHands()
 {
-    int itemRef = createItem(178,0,"bare hand",255,255,6,0,0,1,0x15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255,0,0,0);
+	int itemRef = newcreateItem(178, 23, "Bare Hands", 65536, 65536, 0, 0, 0, 1, 14,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 0, 0, 0, 0, 0);
+
     itemBuffer[itemRef].location = 99; // body part of player - 99 so it doesn't show up in the inventory
     //plyr.priWeapon = itemRef;
     //plyr.secWeapon = itemRef;
@@ -628,8 +779,8 @@ string getItemDesc(int itemRef)
 	if (itemBuffer[itemRef].type==178) itemDesc = itemBuffer[itemRef].name;
 	if (itemBuffer[itemRef].type==180) itemDesc = itemBuffer[itemRef].name;
 	if (itemBuffer[itemRef].type==199) itemDesc = itemBuffer[itemRef].name;
-	if (itemBuffer[itemRef].type==200) itemDesc = questItems[(itemBuffer[itemRef].index)].name;
-	if (itemBuffer[itemRef].type==201) itemDesc = questItems[(itemBuffer[itemRef].index)].name;
+	if (itemBuffer[itemRef].type==200) itemDesc = newItemArray[(itemBuffer[itemRef].index)].name;
+	if (itemBuffer[itemRef].type==201) itemDesc = newItemArray[(itemBuffer[itemRef].index)].name;
 	return itemDesc;
 }
 
@@ -648,6 +799,10 @@ int createPotion(int potion_no)
      new_item.y = plyr.y;
      new_item.level = plyr.map;
      new_item.hp = 0; // For potions 0 indicates unidentified
+
+
+
+
 	 itemBuffer[plyr.buffer_index] = new_item;
      int new_item_ref = plyr.buffer_index;
 	 plyr.buffer_index++;
@@ -723,6 +878,10 @@ int createQuestItem(int questItemNo)
 int createGeneralItem(int ItemNo)
 {
 	
+	//want to add an indentified potion
+	//where if youve drank it, you now know what it is.
+	// and add clues to potion combos in taverns/shop/luckys
+
 	tidyObjectBuffer();
 	buffer_item new_item;
 
@@ -735,7 +894,9 @@ int createGeneralItem(int ItemNo)
 	new_item.level = plyr.map;
 	new_item.melee = newItemArray[ItemNo].melee;
 	new_item.effect = newItemArray[ItemNo].effect;
-
+	new_item.flags = newItemArray[ItemNo].flags;
+	new_item.buffType = newItemArray[ItemNo].buffType;
+	new_item.hp = newItemArray[ItemNo].hp;
 	itemBuffer[plyr.buffer_index] = new_item;
 	int new_item_ref = plyr.buffer_index;
 	plyr.buffer_index++;
@@ -772,13 +933,16 @@ void getItems()
 			if (itemBuffer[cur_idx].type == 10) {str = itos(itemBuffer[cur_idx].hp) + " Gold"; }
 			if (itemBuffer[cur_idx].type == 11) {str = itos(itemBuffer[cur_idx].hp) + " Silver"; }
 			if (itemBuffer[cur_idx].type == 12) {str = itos(itemBuffer[cur_idx].hp) + " Copper"; }
+			if (itemBuffer[cur_idx].type == 101) { str = itemBuffer[cur_idx].name; }
+			if (itemBuffer[cur_idx].type == 175) { str = itemBuffer[cur_idx].name; }
 			if ((itemBuffer[cur_idx].type == 176) && (itemBuffer[cur_idx].hp == 0)) { str = "Potion"; }
 			if ((itemBuffer[cur_idx].type == 176) && (itemBuffer[cur_idx].hp == 1)) { str = Potions[(itemBuffer[cur_idx].index)].name; }
 			if (itemBuffer[cur_idx].type == 177) { str = itemBuffer[cur_idx].name; }
 			if (itemBuffer[cur_idx].type == 178) { str = itemBuffer[cur_idx].name; }
+			if (itemBuffer[cur_idx].type == 180) { str = itemBuffer[cur_idx].name; }
 			if (itemBuffer[cur_idx].type == 199) { str = itemBuffer[cur_idx].name; }
 			if (itemBuffer[cur_idx].type == 180) { str = itemBuffer[cur_idx].name; }
-			if (itemBuffer[cur_idx].type == 200) { str = questItems[(itemBuffer[cur_idx].index)].name; }
+			if (itemBuffer[cur_idx].type == 200) { str = newItemArray[(itemBuffer[cur_idx].index)].name; }
 			cyText (4,str);
 			cyText (7,"Yes, No or ESC.");
 			updateDisplay();
@@ -809,7 +973,7 @@ void getItems()
 						itemBuffer[cur_idx].location = 0; // remove this item to the void
 					}
 
-					if (itemBuffer[cur_idx].type > 150)
+					if (itemBuffer[cur_idx].type > 100 )
 					{
 						itemBuffer[cur_idx].location = 10; // moved to player inventory
 					}
@@ -858,7 +1022,7 @@ void displayObjectBuffer()
 			text(18,2, "L");
 			text(20,2, "Item");
 
-			str = "Buffer Index "+itos(plyr.buffer_index)+" of " +itos(itemBufferSize);
+			str = "Buffer Index "+itos(plyr.buffer_index)+" of " +itos(noOfItemBuffer);
 			text(0,0, str);
 
 			int cur_idx = 0;
@@ -878,10 +1042,10 @@ void displayObjectBuffer()
                 if ((itemBuffer[cur_idx].type == 176) && (itemBuffer[cur_idx].hp == 1)) { str = Potions[(itemBuffer[cur_idx].index)].name; }
 				if (itemBuffer[cur_idx].type==180) { str = itemBuffer[cur_idx].name; }
 				if (itemBuffer[cur_idx].type==199) { str = itemBuffer[cur_idx].name; }
-				if (itemBuffer[cur_idx].type==200) { str = questItems[(itemBuffer[cur_idx].index)].name; }
+				if (itemBuffer[cur_idx].type==200) { str = newItemArray[(itemBuffer[cur_idx].index)].name; }
 				if (itemBuffer[cur_idx].type==201)
 				{
-					str = questItems[(itemBuffer[cur_idx].index)].name;
+					str = newItemArray[(itemBuffer[cur_idx].index)].name;
 					//str = (questItems[(itemBuffer[cur_idx].index)].name) + " [" + itos(plyr.ringCharges) + "]";
 				}
 				text(20,(cur_idx+3),str);
@@ -1162,18 +1326,19 @@ int selectItem(int selectItemMode)
 						if ( itemBuffer[cur_idx].type==178) { str = itemBuffer[cur_idx].name; }
 						if ( itemBuffer[cur_idx].type==180) { str = itemBuffer[cur_idx].name; }
 						if ( itemBuffer[cur_idx].type==199) { str = itemBuffer[cur_idx].name; }
+						if ( itemBuffer[cur_idx].type == 101) { str = itemBuffer[cur_idx].name; }
 
 						// Display quest items in inventory
 						if (itemBuffer[cur_idx].type==200)
 						{
-							str = questItems[(itemBuffer[cur_idx].index)].name;
+							str = newItemArray[(itemBuffer[cur_idx].index)].name;
 						}
 
 						// Display guild ring name and charges
 						if (itemBuffer[cur_idx].type==201)
 						{
 							//str = questItems[(itemBuffer[cur_idx].index)].name;
-							str = (questItems[(itemBuffer[cur_idx].index)].name) + " [" + itos(plyr.ringCharges) + "]";
+							str = (newItemArray[(itemBuffer[cur_idx].index)].name) + " [" + itos(plyr.ringCharges) + "]";
 						}
 
 						// Indicate items worn or in use as primary or secondary weapons
@@ -1809,15 +1974,7 @@ void use_armor(int object_ref)
 	if (itemBuffer[object_ref].melee == 3) {plyr.legsArmour = object_ref;}
 	cout << itemBuffer[object_ref].melee << "\n";
 
-	//Add armour buff 
-
-
-	//int armorRef = itemBuffer[object_ref].index;
-	//	if (Armor[armorRef].bodyLocation==1) {plyr.headArmour = object_ref;}
-	//	if (Armor[armorRef].bodyLocation==2) {plyr.bodyArmour = object_ref;}
-	//	if (Armor[armorRef].bodyLocation==3) {plyr.armsArmour = object_ref;}
-	//	if (Armor[armorRef].bodyLocation==4) {plyr.legsArmour = object_ref;}
-	checkItemBuff();
+//	checkItemBuff();
 }
 
 
@@ -1847,18 +2004,21 @@ void use_potion(int object_ref)
 			key_value = getSingleKey();
 			if (key_value == "1")
 			{
-                string str = "The potion tastes " + Potions[potionType].taste +".";
+				std::string potionTasteDesc = getStringFromBinary(itemBuffer[object_ref].minDexterity, potionTaste);
+                string str = "The potion tastes " + potionTasteDesc + ".";
                 itemMessage(str);
 			}
 			if (key_value == "2")
 			{
-                string str = "You take a sip of the potion,@and feel it is " + Potions[potionType].sip +".";
+				std::string potionSipDesc = getStringFromBinary(itemBuffer[object_ref].useStrength, potionSip);
+                string str = "You take a sip of the potion,@and feel it is " + potionSipDesc +".";
                 if (Potions[potionType].sip=="caution") { str = "You take a sip of the potion,@and feel that you@should show caution."; }
                 itemMessage(str);
 			}
             if (key_value == "3")
 			{
-                string str = "You open the potion and@see a potion that is " + Potions[potionType].color +"@in colour.";
+				std::string potionColourDesc = getStringFromBinary(itemBuffer[object_ref].minStrength, potionColour);
+                string str = "You open the potion and@see a potion that is " + potionColourDesc +"@in colour.";
                 itemMessage(str);
 			}
 			if (key_value == "4") { quaffPotion(object_ref); keypressed=true; }
@@ -2114,7 +2274,7 @@ void use_item(int object_ref)
 
 
 	int newSpell_Ref = createSpell(
-		newItemArray[itemBuffer[object_ref].index].flags,
+		newItemArray[itemBuffer[object_ref].index].buffType,
 		newItemArray[itemBuffer[object_ref].index].index,
 		newItemArray[itemBuffer[object_ref].index].name,
 		100,  //Percentage
@@ -2124,6 +2284,7 @@ void use_item(int object_ref)
 		newItemArray[itemBuffer[object_ref].index].statType,
 		newItemArray[itemBuffer[object_ref].index].negativeValue,
 		newItemArray[itemBuffer[object_ref].index].positiveValue,
+		newItemArray[itemBuffer[object_ref].index].baseDamage,
 		newItemArray[itemBuffer[object_ref].index].duration,
 		newItemArray[itemBuffer[object_ref].index].damage,
 		0, //lessonsno
@@ -2152,6 +2313,9 @@ void use_item(int object_ref)
 	case 3:
 		use_eye(newSpell_Ref);
 		break;
+	
+	case 4:
+		use_equipment(newSpell_Ref);
 
 	}
 	
@@ -2176,6 +2340,7 @@ void use_wand(int object_ref)
 	else
 	{
 		string str = "You need a crystal.";
+		consoleMessage(str);
 	}
 }
 
@@ -2184,6 +2349,15 @@ void use_eye(int object_ref)
 
 		castSpellAction(object_ref);
 		itemBuffer[object_ref].ammo -= 1;
+	
+}
+
+
+void use_equipment(int object_ref)
+{
+
+
+	castSpellAction(object_ref);
 	
 }
 
@@ -2264,6 +2438,32 @@ int createGenericItem(int type, int value)
      int new_item_ref = plyr.buffer_index;
 	 plyr.buffer_index++;
      return new_item_ref; // what was the new items index in the object buffer
+}
+
+
+int createCorpseItem(int MonsterIndex)
+{
+	// generic item type = 1 - food, 2 - water, 3 - torches, 4 - timepieces, 5 - compasses
+	 // location options:
+	 // 0 - limbo, 1 - floor, 10 - carried, 11 - primary, 12 - secondary,
+	// 13 - worn, 14 - head, 15 - arms, 16 - legs, 17 - body
+	 //int weapon_no = encounters[monster_no].weapon_no;
+	tidyObjectBuffer();
+	buffer_item new_item;
+	//new_item.index = 0; // should be weapon_no?
+	new_item.type = 101; // Corpse
+	new_item.index = plyr.buffer_index;
+	new_item.location = 1; // the floor
+	new_item.x = plyr.x;
+	new_item.y = plyr.y;
+	new_item.level = plyr.map;
+	new_item.name = Monster_Buffer[MonsterIndex].name + " Corpse";
+	//new_item.hp = Weapons[weapon_no].hp;
+	new_item.hp = 1; // for generic items sets number e.g. 4 food packets, 3 gold
+	itemBuffer[plyr.buffer_index] = new_item;
+	int new_item_ref = plyr.buffer_index;
+	plyr.buffer_index++;
+	return new_item_ref; // what was the new items index in the object buffer
 }
 
 
@@ -2430,7 +2630,7 @@ void tidyObjectBuffer()
 	// 0 - limbo, 1 - floor, 10 - carried, 11 - primary, 12 - secondary,
     // 13 - worn, 14 - head, 15 - arms, 16 - legs, 17 - body
 
-    int bufferSafetyCheckIndex = (itemBufferSize-3);
+    int bufferSafetyCheckIndex = (noOfItemBuffer-3);
 
 	if ( plyr.buffer_index > bufferSafetyCheckIndex)
 	{
@@ -2533,17 +2733,24 @@ void itemMessage(string message)
 void checkItemBuff()
 {
 
-	if (itemBuffer[plyr.priWeapon].effect > 99) { castSpellAction( itemBuffer[plyr.priWeapon].effect); }
-	if (itemBuffer[plyr.secWeapon].effect > 99) { castSpellAction( itemBuffer[plyr.secWeapon].effect); }
-	if (itemBuffer[plyr.headArmour].effect > 99) { castSpellAction( itemBuffer[plyr.headArmour].effect); }
-	if (itemBuffer[plyr.bodyArmour].effect > 99) { castSpellAction( itemBuffer[plyr.bodyArmour].effect); }
-	if (itemBuffer[plyr.armsArmour].effect > 99) { castSpellAction( itemBuffer[plyr.armsArmour].effect); }
-	if (itemBuffer[plyr.legsArmour].effect > 99) { castSpellAction( itemBuffer[plyr.legsArmour].effect); }
-	if (clothingItems[plyr.clothing[0]].effect > 99) { castSpellAction( clothingItems[plyr.clothing[0]].effect); }
-	if (clothingItems[plyr.clothing[1]].effect > 99) { castSpellAction( clothingItems[plyr.clothing[1]].effect); }
-	if (clothingItems[plyr.clothing[2]].effect > 99) { castSpellAction( clothingItems[plyr.clothing[2]].effect); }
-	if (clothingItems[plyr.clothing[3]].effect > 99) { castSpellAction( clothingItems[plyr.clothing[3]].effect); }
+	if (itemBuffer[plyr.priWeapon].effect > 0) { use_item(plyr.priWeapon); }
+	if (itemBuffer[plyr.secWeapon].effect > 0) { use_item(plyr.secWeapon); }
+	if (itemBuffer[plyr.headArmour].effect > 0) { use_item(plyr.headArmour); }
+	if (itemBuffer[plyr.bodyArmour].effect > 0) { use_item(plyr.bodyArmour); }
+	if (itemBuffer[plyr.armsArmour].effect > 0) { use_item(plyr.armsArmour); }
+	if (itemBuffer[plyr.legsArmour].effect > 0) { use_item(plyr.legsArmour); }
+	if (itemBuffer[plyr.clothing[0]].effect > 0) { castSpellAction(itemBuffer[plyr.clothing[0]].effect); }
+	if (itemBuffer[plyr.clothing[1]].effect > 0) { castSpellAction(itemBuffer[plyr.clothing[1]].effect); }
+	if (itemBuffer[plyr.clothing[2]].effect > 0) { castSpellAction(itemBuffer[plyr.clothing[2]].effect); }
+	if (itemBuffer[plyr.clothing[3]].effect > 0) { castSpellAction(itemBuffer[plyr.clothing[3]].effect); }
 	
+	//need to remove buff if effect no = 0
+	// Look for itemindex in effectbuffer then remove the effect 
+	// 
+	//doing all the equipment at the same time check to buff
+	//need to add if buff already exisits then don't doible up Could do that in the apply effect function
+
+
 }
 
 
@@ -2554,9 +2761,15 @@ void removeItemBuff(int itemId)
 	SearchResult WeaponBuffNo = findEffectBySpellTypeOrLastFree(4, 50);
 
 	effectBuffer[WeaponBuffNo.index].effectNo = 0;
-	effectBuffer[WeaponBuffNo.index].effectNo = 0;
+
 }
 
+void removeArmourBuff(int itemId)
+{
+	
+	effectBuffer[itemId].effectNo = 0;
+
+}
 
 int findlastmonsterWeapon()
 {
@@ -2585,7 +2798,7 @@ void addNewMonsterItem()
 	* 
 	* or modify the exising Bin file to add more weapons.
 	* might be easier to make a new Weapon reading system based upon the scenario
-	* 
+	*  Done
 	*/
 }
 
@@ -2633,7 +2846,7 @@ std::map<std::pair<int, int>, int> countItemTypes(newItem* items, int size) {
 
 	// Count occurrences of each itemType with level
 	for (int i = 0; i < size; ++i) {
-		std::pair<int, int> key = std::make_pair(items[i].itemType, items[i].level);
+		std::pair<int, int> key = std::make_pair(items[i].itemType, items[i].iLevel);
 		itemTypeLevelCount[key]++;
 	}
 
@@ -2646,7 +2859,7 @@ std::vector<int> randomPick(const newItem* newItemArray, int arraySize, int item
 
 	// Find indices matching the criteria
 	for (int i = 0; i < arraySize; ++i) {
-		if (newItemArray[i].cat == itemCatToMatch && newItemArray[i].level == levelToMatch && newItemArray[i].itemType == typeToMatch) {
+		if (newItemArray[i].cat == itemCatToMatch && newItemArray[i].iLevel == levelToMatch && newItemArray[i].itemType == typeToMatch) {
 			matchingIndices.push_back(i);
 		}
 	}
@@ -2686,7 +2899,7 @@ void checkDurablility(int itemIndex, int itemDamage)
 {
 
 
-	int itemDamaged = randn(0, itemDamage/10);
+  	int itemDamaged = randn(0, itemDamage/10);
 	
 	itemBuffer[itemIndex].hp -= itemDamaged;
 	if (itemBuffer[itemIndex].hp < 5 && itemBuffer[itemIndex].hp > 1)
@@ -2716,3 +2929,110 @@ void checkDurablility(int itemIndex, int itemDamage)
 
 }
 
+std::vector<fixedTreasure> readFixedTreasureCSV(const std::string& filename) {
+	std::vector<fixedTreasure> data;
+
+	// Open the CSV file
+	std::ifstream file("data/map/" + filename);
+	if (!file.is_open()) {
+		std::cerr << "Error opening file: " << filename << std::endl;
+		return data; // Return empty vector if file couldn't be opened
+	}
+
+	std::string line;
+	while (std::getline(file, line)) {
+		std::stringstream lineStream(line);
+		fixedTreasure newFixedTreasure;
+		std::string cell;
+
+		// Parsing CSV fields into the struct members
+		std::getline(lineStream, cell, ','); // Assuming the index is the first column
+		newFixedTreasure.no = std::stoi(cell);
+
+		std::getline(lineStream, cell, ','); // 
+		newFixedTreasure.item_Index = std::stoi(cell);
+
+		std::getline(lineStream, cell, ','); // 
+		newFixedTreasure.special = std::stoi(cell);
+
+		std::getline(lineStream, newFixedTreasure.message, ',');
+
+	
+
+		data.push_back(newFixedTreasure);
+	}
+
+	file.close();
+	return data;
+}
+
+void readFTData()
+{
+	std::string filename = "fixedTreasure.csv";
+	std::vector<fixedTreasure>  csvData = readFixedTreasureCSV(filename);
+
+	// Convert vector to a dynamically allocated array of NewItem structs
+	size_t itemCount = csvData.size();
+	fixed_Buffer = new fixedTreasure[itemCount];
+
+	// Copy data from vector to the dynamically allocated array
+	for (size_t i = 0; i < itemCount; ++i) {
+		fixed_Buffer[i] = csvData[i];
+		plyr.fixed_index = i;
+	}
+
+}
+
+
+void checkFixedTreasures()
+{
+	
+
+ 	int treasureRef = findValue(fixed_Buffer, plyr.fixed_index, plyr.special);
+	
+	if (treasureRef > -1 && !plyr.fixedTreasures[treasureRef-128])
+	{
+		std::string newMessage = fixed_Buffer[treasureRef].message;
+		std::string genderString = setGenderString(plyr.gender);
+		replaceSymbol(newMessage, genderString, "^^");
+		replaceSymbol(newMessage, plyr.name, "||");
+		replaceSymbol(newMessage, "", "\"");
+
+		treasureMessage(newMessage);
+		createGeneralItem(fixed_Buffer[treasureRef].item_Index);
+		//createWeapon(fixed_Buffer[treasureRef].item_Index);
+		plyr.fixedTreasures[treasureRef-128] = true;
+		getItems();
+	}
+	
+
+}
+
+int findValue(fixedTreasure arr[], int size, int value) {
+	for (int i = 0; i < size; ++i) {
+		if (arr[i].special == value) {
+			return arr[i].no; // Value found in the array
+		}
+	}
+	return -1; // Value not found in the array
+}
+
+void replaceSymbol(std::string& str, const std::string& replaceWith, const std::string stringToFind) {
+	int lengthtofind = stringToFind.size();
+	size_t found = str.find(stringToFind);
+	while (found != std::string::npos) {
+		str.replace(found, lengthtofind, replaceWith);
+		found = str.find(stringToFind, found + replaceWith.size());
+	}
+}
+
+
+std::string getStringFromBinary(int binaryValue, const std::map<int, std::string>& potionColour) {
+	// Check if the binaryValue exists in the map
+	if (potionColour.find(binaryValue) != potionColour.end()) {
+		return potionColour.at(binaryValue);
+	}
+	else {
+		return "Unknown"; // Return a default string for unknown values
+	}
+}

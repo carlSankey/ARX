@@ -24,10 +24,17 @@ std::string toCurrency(int i);
 bool checkCoins(int gold,int silver,int copper);
 void deductCoins(int gold,int silver, int copper);
 
+bool stringToBool(const std::string& str);
+
 int inputValue(string message,int shopNo);
 void moduleMessage(string txt);
 
+std::string trimString(float value, int digits);
+
+std::string sha256(const std::string& input);
 // Your existing header content goes here 
  
+std::pair<int, int> getDigits(int number);
+
 #endif // _misch 
 

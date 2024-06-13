@@ -9,6 +9,7 @@
 
 #include <stdio.h>
 
+#include "constants.h"
 #include "player.h"
 #include "font.h"
 #include "display.h"
@@ -68,8 +69,8 @@ damonBattleGearItem damonBattleGearWares[12] =
 	{178,	102,	0x1FE}  // large shield
 };
 
-const size_t daemonsize = 12;
-newdamonBattleGearItem newdamonBattleGearWares[daemonsize];
+
+newdamonBattleGearItem newdamonBattleGearWares[noOfDaemon];
 
 /*
 newdamonBattleGearItem newdamonBattleGearWares[12] =
@@ -105,8 +106,8 @@ struct newdamonClothingItem
 
 
 
-const size_t daemonCsize = 12;
-newdamonClothingItem newdamonClothingWares[daemonCsize];
+
+newdamonClothingItem newdamonClothingWares[noOfDaemonC];
 
 /*
 int readDaemonItems()
@@ -130,11 +131,11 @@ int readDaemonItems()
 	file.close();
 
 	// Assuming the size of newdamonBattleGearWares is fixed to 12
-	//const size_t size = daemonsize;
+	//const size_t size = noOfDaemon;
 	//newdamonBattleGearItem newdamonBattleGearWares[size];
 
 	// Copy data from the vector to the array
-	for (size_t i = 0; i < daemonsize && i < items.size(); ++i) {
+	for (size_t i = 0; i < noOfDaemon && i < items.size(); ++i) {
 		newdamonBattleGearWares[i] = items[i];
 	}
 
@@ -989,7 +990,7 @@ string readNameString(int stringOffset)
 int createInventoryItem(int startByte)
 {
     int index,alignment,weight,wAttributes,melee,ammo,blunt,sharp,earth,air,fire,water,power,magic,good,evil,cold,nature,acid,
-        minStrength,minDexterity,hp,maxHP,flags,parry,useStrength, effect;
+        minStrength,minDexterity,hp,maxHP,flags,parry,useStrength, effect, cat, level, buffType;
 
 
 	int offset = startByte;
@@ -1096,10 +1097,13 @@ int createInventoryItem(int startByte)
         flags              = 0;
         parry              = 0;
 		effect             = 0;
+		cat				   = 0;
+		level			   = 0;
+		buffType		   = 0;
     }
 
     int newItemRef = createItem(itemType,index,itemName,hp,maxHP,flags,minStrength,minDexterity,useStrength,blunt,
-                                sharp,earth,air,fire,water,power,magic,good,evil,cold,nature,acid,weight,alignment,melee,ammo,parry, effect);
+                                sharp,earth,air,fire,water,power,magic,good,evil,cold,nature,acid,weight,alignment,melee,ammo,parry, effect );
     itemBuffer[newItemRef].location = 10; // Add to player inventory - 10
 	return 1;
 }
@@ -1108,7 +1112,7 @@ int createInventoryItem(int startByte)
 int newcreateInventoryItem(int itemNo)
 {
 	int index, alignment, weight, wAttributes, melee, ammo, blunt, sharp, earth, air, fire, water, power, magic, good, evil, cold, nature, acid,
-		minStrength, minDexterity, hp, maxHP, flags, parry, useStrength, effect;
+		minStrength, minDexterity, hp, maxHP, flags, parry, useStrength, effect, cat, iLevel, buffType;
 
 	int offset = 6;
 	
@@ -1127,22 +1131,23 @@ int newcreateInventoryItem(int itemNo)
 		melee = newItemArray[itemNo].melee;
 		ammo = newItemArray[itemNo].ammo;
 
-		std::bitset<13> binaryItemBuff(newItemArray[itemNo].elementType);
+		//std::bitset<13> binaryItemBuff(newItemArray[itemNo].elementType);
 
-		updateItemBuff(binaryItemBuff, (newItemArray[itemNo].positiveValue - newItemArray[itemNo].negativeValue));
-		blunt = itemBonus.blunt;
-		sharp = itemBonus.sharp;
-		earth = itemBonus.earth;
-		air = itemBonus.air;
-		fire = itemBonus.fire;
-		water = itemBonus.water;
-		power = itemBonus.power;
-		magic = itemBonus.magic;
-		good = itemBonus.good;
-		evil = itemBonus.evil;
-		cold = itemBonus.cold;
-		nature = itemBonus.nature;
-		acid = itemBonus.acid;
+		//updateItemBuff(binaryItemBuff, (newItemArray[itemNo].positiveValue - newItemArray[itemNo].negativeValue));  //Old method no longer used
+
+		blunt = newItemArray[itemNo].blunt + itemBonus.blunt;
+		sharp = newItemArray[itemNo].sharp;
+		earth = newItemArray[itemNo].earth;
+		air = newItemArray[itemNo].air;
+		fire = newItemArray[itemNo].fire;
+		water = newItemArray[itemNo].water;
+		power = newItemArray[itemNo].power;
+		magic = newItemArray[itemNo].magic;
+		good = newItemArray[itemNo].good;
+		evil = newItemArray[itemNo].evil;
+		cold = newItemArray[itemNo].cold;
+		nature = newItemArray[itemNo].nature;
+		acid = newItemArray[itemNo].acid;
 
 		minStrength = newItemArray[itemNo].minStrength;
 		minDexterity = newItemArray[itemNo].minDexterity;
@@ -1151,12 +1156,14 @@ int newcreateInventoryItem(int itemNo)
 		flags = newItemArray[itemNo].flags;
 		parry = newItemArray[itemNo].parry;
 		effect = newItemArray[itemNo].effect;
-	
+		cat = newItemArray[itemNo].cat; 
+		iLevel = newItemArray[itemNo].iLevel;
+		buffType = newItemArray[itemNo].buffType;
 
 	
 
 	int newItemRef = newcreateItem(itemType, index, itemName, hp, maxHP, flags, minStrength, minDexterity, useStrength, blunt,
-		sharp, earth, air, fire, water, power, magic, good, evil, cold, nature, acid, weight, alignment, melee, ammo, parry, effect);
+		sharp, earth, air, fire, water, power, magic, good, evil, cold, nature, acid, weight, alignment, melee, ammo, parry, effect, cat,iLevel,buffType);
 	itemBuffer[newItemRef].location = 10; // Add to player inventory - 10
 	return 1;
 }

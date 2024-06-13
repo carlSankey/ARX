@@ -1,9 +1,9 @@
 #ifndef _spellsh 
 #define _spellsh 
 
-const int SpellList = 77;
+#include "constants.h"
 
-extern unsigned char spellItems[SpellList];
+extern unsigned char spellItems[noOfSpellList];
 
 
 
@@ -36,6 +36,10 @@ struct spellRecord
 	int maxpercent;
 	int guild;
 	std::string castText;
+	int baseDamage;
+	std::string hash;
+
+
 };
 
 int createSpell(
@@ -49,6 +53,7 @@ int createSpell(
 	int stattype,
 	int negativeValue,
 	int positiveValue,
+	int baseDamage,
 	float duration,
 	int damage,
 	int lessonsno,

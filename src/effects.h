@@ -19,7 +19,7 @@ void Effect(int spellNo);
 
 
 void updateStats(std::bitset<8> binaryStats, int positiveValue);
-void updateHStats(std::bitset<14> binaryEffects, int positiveValue);
+void updateHStats(std::bitset<15> binaryEffects, int positiveValue);
 void updateInvuls(std::bitset<13> binaryElems, int positiveValue);
 void applyEffect(int hour, int effectid);
 void spellEffect(int spellId);

@@ -6,7 +6,10 @@
 #include <bitset>
 #include <utility> // For std::pair
 #include <map>
+#include <openssl/evp.h>
+#include <openssl/sha.h>
 
+#include "constants.h"
 #include "spells.h"
 #include "effects.h"
 #include "items.h"
@@ -20,7 +23,7 @@
 
 using namespace std;
 
-unsigned char  spellItems[SpellList];
+unsigned char  spellItems[noOfSpellList];
 extern struct monster;
 extern  monster Opponents[];
 
@@ -109,7 +112,7 @@ std::vector<spellRecord> readSpellsCSV(const std::string& filename) {
 		newSpell.lessonsno = std::stoi(cell);
 
 		std::getline(lineStream, cell, ',');
-		newSpell.lessonboost = std::stof(cell);
+		newSpell.lessonboost =  std::stof(cell);
 
 		std::getline(lineStream, cell, ',');
 		newSpell.uses = std::stoi(cell);
@@ -122,7 +125,37 @@ std::vector<spellRecord> readSpellsCSV(const std::string& filename) {
 
 		std::getline(lineStream, newSpell.castText, ',');
 		
+		std::getline(lineStream, cell, ',');
+		newSpell.baseDamage = std::stoi(cell);
 
+		std::getline(lineStream, newSpell.hash, ',');
+
+		std::string input = std::to_string(newSpell.no) +
+			newSpell.name +
+			std::to_string(newSpell.spelltype) +
+			std::to_string(newSpell.percentage) +
+			std::to_string(newSpell.cost) +
+			std::to_string(newSpell.effect) +
+			std::to_string(newSpell.elementtype) +
+			std::to_string(newSpell.stattype) +
+			std::to_string(newSpell.negativeValue) +
+			std::to_string(newSpell.positiveValue) +
+			trimString(newSpell.duration,2) +
+			std::to_string(newSpell.damage) +
+			std::to_string(newSpell.lessonsno) +
+			trimString(newSpell.lessonboost,2) +
+			std::to_string(newSpell.uses) +
+			std::to_string(newSpell.maxpercent) +
+			std::to_string(newSpell.guild) +
+						   newSpell.castText +
+			"ARX2023";
+		std::string hash = sha256(input);
+
+		if (hash != newSpell.hash)
+		{
+			newSpell.positiveValue = 0;
+			newSpell.negativeValue = 0;
+		}
 		data.push_back(newSpell);
 	}
 
@@ -160,6 +193,7 @@ int createSpell(
 	int stattype,
 	int negativeValue,
 	int positiveValue,
+	int baseDamage,
 	float duration,
 	int damage,
 	int lessonsno,
@@ -178,7 +212,7 @@ int createSpell(
 
 	SearchResult results = findSpellByNameOrLastFree(name, plyr.spell_index);
 	int newSpellIndex = 0;
-	if (results.found) //If already in the spells list (we must ahve cast this before
+	if (results.found) //If already in the spells list (we must have cast this before)
 	{
 		newSpellIndex = results.index;
 	}
@@ -189,18 +223,19 @@ int createSpell(
 	// Set item attributes
 
 	new_spell.name = name ;
-	new_spell.no = no;
+	new_spell.no = newSpellIndex;
 	new_spell.spelltype = spelltype;	//Type 0 = Attribute Change, 1 = inventory change, 2 = Buff, 3 = Damage
 	new_spell.percentage = percentage;		//base
 	new_spell.cost = cost;			// ring cost
-	new_spell.effect = effect;			//0 = Blind,1 = paralyse......
+	new_spell.effect = effect;			//0 = how many people affected.
 	new_spell.elementtype= elementtype;    //Hex value
 	new_spell.stattype= stattype;       //Hex value		
 	new_spell.negativeValue= negativeValue;
-	new_spell. positiveValue=positiveValue;
+	new_spell.positiveValue=positiveValue;
+	new_spell.baseDamage = baseDamage;
 	new_spell.duration=duration;		//Duration
 	new_spell.damage=damage;			//Failure Damage
-	new_spell. lessonsno=lessonsno;
+	new_spell.lessonsno=lessonsno;
 	new_spell.lessonboost=lessonboost;
 	new_spell.uses=uses;
 	new_spell.maxpercent=maxpercent;
@@ -447,14 +482,14 @@ void castSpellAction(int spellNo)
 	SearchResult effectIndexloc;
 	SearchResult spellSlotloc;
 
-	if (spells[spellNo].spelltype != 2 || spells[spellNo].duration == 0)  //If the spell that was cast is not a combat spell
+	if (spells[spellNo].spelltype != 2 || spells[spellNo].duration > 0)  //If the spell that was cast is not a combat spell
 	{
 		//search for the spell if it already active
 		effectIndexloc = findEffectByNoOrLastFree(spells[spellNo].no, sizeof(effectBuffer));
 		spellSlotloc = findActiveSpellNoLastFree(spells[spellNo].no, sizeof(plyr.ActiveSpell));
 	}
 
-	if (spells[spellNo].duration > 0 )
+	if (spells[spellNo].duration > 0 && spells[spellNo].duration != 65536)
 	{
 		plyr.ActiveSpell[spellSlotloc.index] = spells[spellNo].no;
 	}
