@@ -363,7 +363,7 @@ void displaySaveGame()
 }
 
 
-
+/*
 bool loadCharacter(int saveSlot)
 {
 
@@ -736,7 +736,7 @@ string saveGameReleaseNo = character[28540];
 
   return true;
 }
-
+*/
 
 bool newloadCharacter(int saveSlot, Player& plyr) {
     string filename = "data/saves/save" + to_string(saveSlot) + ".txt";
@@ -1258,7 +1258,7 @@ bool newloadCharacter(int saveSlot, Player& plyr) {
 }
 
 
-
+/*
 bool saveCharacter(int saveSlot)
 {
     ofstream outdata;
@@ -1631,7 +1631,7 @@ character[28540] = "Release 0.85";
     outdata.close();
     return (1); // Added by me
 }
-
+*/
 
 bool newsaveCharacter(int saveSlot, const Player& plyr) {
 

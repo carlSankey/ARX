@@ -82,14 +82,14 @@ void draw3DBackground()
 			scaleX = float(viewWidth) / float(360);
 			scaleY = float(viewHeight) / float(190);
 			Background.setScale(scaleX, scaleY);
-			Background.setPosition(viewPortX, viewPortY);
+			Background.setPosition(static_cast<float>(viewPortX), static_cast<float>(viewPortY));
 		}
 		if (graphicMode == ALTERNATE_SMALL) // New textures and original size
 		{
 			scaleX = float(viewWidth) / float(1024);
 			scaleY = float(viewHeight/2) / float(384);
 			Background.setScale(scaleX, scaleY);
-			Background.setPosition(viewPortX, viewPortY);
+			Background.setPosition(static_cast<float>(viewPortX), static_cast<float>(viewPortY));
 		}
 		if (graphicMode == ALTERNATE_LARGE) // New textures and large size
 		{
@@ -97,7 +97,7 @@ void draw3DBackground()
 			scaleX = float(viewWidth) / float(1024);
 			scaleY = float(viewHeight/2) / float(384);
 			Background.setScale(scaleX, scaleY);
-			Background.setPosition(viewPortX, (viewPortY));
+			Background.setPosition(static_cast<float>(viewPortX), static_cast<float>(viewPortY));
 		}
 
 
@@ -290,16 +290,16 @@ void draw3DBackground()
 			circle.setRadius(4);
 			circle.setOutlineColor(sf::Color::Yellow);
 			circle.setOutlineThickness(5);
-			circle.setPosition(viewPortX+185, viewPortY+sunY);
+			circle.setPosition(static_cast<float>(viewPortX) +185, static_cast<float>(viewPortY) +sunY);
 			circle.setFillColor(sf::Color::Yellow);
 			App.draw(circle);
 		}
-
+		
 	}
 	if (drawMounain == true && graphicMode == A16BIT_SMALL )
 	{
 		Mountain.setScale(scaleX, scaleY);
-		Mountain.setPosition(viewPortX, viewPortY);
+		Mountain.setPosition(static_cast<float>(viewPortX), static_cast<float>(viewPortY));
 		App.draw(Mountain);
 	}
 

@@ -1,0 +1,16 @@
+﻿  3Dview.cpp
+C:\Source\ARX2023\src\3Dview.cpp(427,69): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
+C:\Source\ARX2023\src\3Dview.cpp(494,21): warning C4305: '=': truncation from 'double' to 'float'
+C:\Source\ARX2023\src\3Dview.cpp(581,12): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\3Dview.cpp(582,12): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\3Dview.cpp(663,24): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\3Dview.cpp(664,25): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\3Dview.cpp(753,57): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Source\ARX2023\src\3Dview.cpp(754,57): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Source\ARX2023\src\3Dview.cpp(777,56): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Source\ARX2023\src\3Dview.cpp(778,56): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Source\ARX2023\src\3Dview.cpp(806,56): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Source\ARX2023\src\3Dview.cpp(807,56): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+  ARXX.vcxproj -> C:\Source\ARX2023\src\Release\ARXX.exe
+  'pwsh.exe' is not recognized as an internal or external command,
+  operable program or batch file.
