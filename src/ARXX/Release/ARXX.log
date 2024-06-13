@@ -1,16 +1,98 @@
-﻿  3Dview.cpp
-C:\Source\ARX2023\src\3Dview.cpp(427,69): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
-C:\Source\ARX2023\src\3Dview.cpp(494,21): warning C4305: '=': truncation from 'double' to 'float'
-C:\Source\ARX2023\src\3Dview.cpp(581,12): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Source\ARX2023\src\3Dview.cpp(582,12): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Source\ARX2023\src\3Dview.cpp(663,24): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Source\ARX2023\src\3Dview.cpp(664,25): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Source\ARX2023\src\3Dview.cpp(753,57): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
-C:\Source\ARX2023\src\3Dview.cpp(754,57): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
-C:\Source\ARX2023\src\3Dview.cpp(777,56): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
-C:\Source\ARX2023\src\3Dview.cpp(778,56): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
-C:\Source\ARX2023\src\3Dview.cpp(806,56): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
-C:\Source\ARX2023\src\3Dview.cpp(807,56): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+﻿  ARX.cpp
+C:\Source\ARX2023\src\actor.h(123,8): warning C4099: 'newMonster': type name first seen using 'class' now seen using 'struct'
+C:\Source\ARX2023\src\damon.h(17,15): warning C4091: 'extern ': ignored on left of 'newItem' when no variable is declared
+C:\Source\ARX2023\src\damon.h(18,15): warning C4091: 'extern ': ignored on left of 'newdamonClothingItem' when no variable is declared
+C:\Source\ARX2023\src\damon.h(19,15): warning C4091: 'extern ': ignored on left of 'newdamonBattleGearItem' when no variable is declared
+  actor.cpp
+C:\Source\ARX2023\src\actor.h(123,8): warning C4099: 'newMonster': type name first seen using 'class' now seen using 'struct'
+  display.cpp
+C:\Source\ARX2023\src\encounter.h(93,15): warning C4091: 'extern ': ignored on left of 'MapEncounter' when no variable is declared
+C:\Source\ARX2023\src\actor.h(123,8): warning C4099: 'newMonster': type name first seen using 'class' now seen using 'struct'
+C:\Source\ARX2023\src\display.cpp(320,26): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Source\ARX2023\src\display.cpp(321,28): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Source\ARX2023\src\display.cpp(344,68): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\display.cpp(344,63): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\display.cpp(345,68): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\display.cpp(345,46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\display.cpp(391,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\display.cpp(391,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\display.cpp(517,14): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Source\ARX2023\src\display.cpp(594,41): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\display.cpp(594,32): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\display.cpp(614,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\display.cpp(614,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\display.cpp(627,27): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\display.cpp(627,24): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\display.cpp(633,27): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\display.cpp(633,24): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\display.cpp(639,27): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\display.cpp(639,24): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\display.cpp(726,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\display.cpp(726,26): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\display.cpp(734,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\display.cpp(734,23): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\display.cpp(998,47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\display.cpp(998,43): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\display.cpp(1012,47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\display.cpp(1012,25): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\display.cpp(1016,45): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\display.cpp(1016,24): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\display.cpp(1021,45): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\display.cpp(1021,28): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\display.cpp(1024,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\display.cpp(1024,71): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\display.cpp(1303,30): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\display.cpp(1303,28): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\display.cpp(1399,30): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Source\ARX2023\src\display.cpp(1412,24): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Source\ARX2023\src\display.cpp(1429,63): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\display.cpp(1429,58): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\display.cpp(1430,94): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Source\ARX2023\src\display.cpp(1430,89): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  encounter.cpp
+C:\Source\ARX2023\src\encounter.h(93,15): warning C4091: 'extern ': ignored on left of 'MapEncounter' when no variable is declared
+C:\Source\ARX2023\src\actor.h(123,8): warning C4099: 'newMonster': type name first seen using 'class' now seen using 'struct'
+C:\Source\ARX2023\src\encounter.cpp(350,52): warning C4305: '=': truncation from 'double' to 'float'
+C:\Source\ARX2023\src\encounter.cpp(618,2): warning C4102: 'std': unreferenced label
+C:\Source\ARX2023\src\encounter.cpp(749,20): warning C4553: '==': result of expression not used; did you intend '='?
+C:\Source\ARX2023\src\encounter.cpp(1593,60): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Source\ARX2023\src\encounter.cpp(2058,25): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Source\ARX2023\src\encounter.cpp(2059,26): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Source\ARX2023\src\encounter.cpp(2194,26): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Source\ARX2023\src\encounter.cpp(2195,27): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Source\ARX2023\src\encounter.cpp(2495,49): warning C4552: '-': result of expression not used
+  game.cpp
+C:\Source\ARX2023\src\encounter.h(93,15): warning C4091: 'extern ': ignored on left of 'MapEncounter' when no variable is declared
+C:\Source\ARX2023\src\damon.h(17,15): warning C4091: 'extern ': ignored on left of 'newItem' when no variable is declared
+C:\Source\ARX2023\src\damon.h(18,15): warning C4091: 'extern ': ignored on left of 'newdamonClothingItem' when no variable is declared
+C:\Source\ARX2023\src\damon.h(19,15): warning C4091: 'extern ': ignored on left of 'newdamonBattleGearItem' when no variable is declared
+C:\Source\ARX2023\src\actor.h(123,8): warning C4099: 'newMonster': type name first seen using 'class' now seen using 'struct'
+C:\Source\ARX2023\src\game.cpp(625,44): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Source\ARX2023\src\game.cpp(705,19): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Source\ARX2023\src\game.cpp(1132,16): warning C4305: '=': truncation from 'double' to 'float'
+  items.cpp
+C:\Source\ARX2023\src\encounter.h(93,15): warning C4091: 'extern ': ignored on left of 'MapEncounter' when no variable is declared
+C:\Source\ARX2023\src\actor.h(123,8): warning C4099: 'newMonster': type name first seen using 'class' now seen using 'struct'
+C:\Source\ARX2023\src\damon.h(17,15): warning C4091: 'extern ': ignored on left of 'newItem' when no variable is declared
+C:\Source\ARX2023\src\damon.h(18,15): warning C4091: 'extern ': ignored on left of 'newdamonClothingItem' when no variable is declared
+C:\Source\ARX2023\src\damon.h(19,15): warning C4091: 'extern ': ignored on left of 'newdamonBattleGearItem' when no variable is declared
+C:\Source\ARX2023\src\items.cpp(32,15): warning C4091: 'extern ': ignored on left of 'SearchResult' when no variable is declared
+C:\Source\ARX2023\src\items.cpp(2288,45): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  smithy.cpp
+C:\Source\ARX2023\src\encounter.h(93,15): warning C4091: 'extern ': ignored on left of 'MapEncounter' when no variable is declared
+C:\Source\ARX2023\src\actor.h(123,8): warning C4099: 'newMonster': type name first seen using 'class' now seen using 'struct'
+C:\Source\ARX2023\src\smithy.cpp(52,33): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Source\ARX2023\src\smithy.cpp(53,27): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Source\ARX2023\src\smithy.cpp(53,34): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Source\ARX2023\src\smithy.cpp(54,29): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Source\ARX2023\src\smithy.cpp(55,25): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Source\ARX2023\src\smithy.cpp(55,32): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Source\ARX2023\src\smithy.cpp(221,54): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Source\ARX2023\src\smithy.cpp(262,53): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Source\ARX2023\src\smithy.cpp(265,21): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  Generating Code...
+C:\Source\ARX2023\src\items.cpp(1429,1): warning C4715: 'selectItem': not all control paths return a value
+C:\Source\ARX2023\src\encounter.cpp(3306,1): warning C4715: 'randomEncounterPicker': not all control paths return a value
   ARXX.vcxproj -> C:\Source\ARX2023\src\Release\ARXX.exe
   'pwsh.exe' is not recognized as an internal or external command,
   operable program or batch file.

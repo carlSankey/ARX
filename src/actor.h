@@ -194,7 +194,7 @@ struct newMonster
 	int c4;
 	int c5;
 	int c6;
-	int stunnedTurnsRemaining;
+	int stunnedTurnsRemaining =0;
 	std::string stunnedtext;
 	int callForHelp;
 	int s0;

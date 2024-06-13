@@ -179,7 +179,7 @@ void initialiseMonsterOffsets()
     monsterOffsets[86] = 0x246;    // Master Thief
 }
 
-
+/*
 void convertMonstersBinaryOld()
 {
     string filename = "data/map/encountersNew.txt";
@@ -543,7 +543,7 @@ std::cout << "weapon1 "  << weapon1 << " 2"  << weapon2 << " 3"  << weapon3 << "
     
 }
 
-
+*/
 
 
 
