@@ -217,7 +217,7 @@ std::vector<newItem> readItemCSV(const std::string& filename) {
 	std::vector<newItem> data;
 
 	// Open the CSV file
-	std::ifstream file("data/map/"+filename);
+	std::ifstream file("data/map/core/"+filename);
 	if (!file.is_open()) {
 		std::cerr << "Error opening file: " << filename << std::endl;
 		return data; // Return empty vector if file couldn't be opened
@@ -799,7 +799,7 @@ int createPotion(int potion_no)
      new_item.y = plyr.y;
      new_item.level = plyr.map;
      new_item.hp = 0; // For potions 0 indicates unidentified
-
+	 new_item.weight = 1;
 
 
 
@@ -896,7 +896,36 @@ int createGeneralItem(int ItemNo)
 	new_item.effect = newItemArray[ItemNo].effect;
 	new_item.flags = newItemArray[ItemNo].flags;
 	new_item.buffType = newItemArray[ItemNo].buffType;
+	
+	
+
+
+	new_item.maxHP = newItemArray[ItemNo].maxHP;
+	
+	new_item.minStrength = newItemArray[ItemNo].minStrength;
+	new_item.minDexterity = newItemArray[ItemNo].minDexterity;
+	new_item.useStrength = newItemArray[ItemNo].useStrength;
+	new_item.blunt = newItemArray[ItemNo].blunt;
+	new_item.sharp = newItemArray[ItemNo].sharp;
+	new_item.earth = newItemArray[ItemNo].earth;
+	new_item.air = newItemArray[ItemNo].air;
+	new_item.fire = newItemArray[ItemNo].fire;
+	new_item.water = newItemArray[ItemNo].water;
+	new_item.power = newItemArray[ItemNo].power;
+	new_item.magic = newItemArray[ItemNo].magic;
+	new_item.good = newItemArray[ItemNo].good;
+	new_item.evil = newItemArray[ItemNo].evil;
+	new_item.cold = newItemArray[ItemNo].cold;
+	new_item.nature = newItemArray[ItemNo].nature;
+	new_item.acid = newItemArray[ItemNo].acid;
+	new_item.alignment = newItemArray[ItemNo].alignment;
+	new_item.melee = newItemArray[ItemNo].melee;
+	new_item.ammo = newItemArray[ItemNo].ammo;
+	new_item.parry = newItemArray[ItemNo].parry;
+	new_item.effect = newItemArray[ItemNo].effect;
+
 	new_item.hp = newItemArray[ItemNo].hp;
+	new_item.weight = newItemArray[ItemNo].weight;
 	itemBuffer[plyr.buffer_index] = new_item;
 	int new_item_ref = plyr.buffer_index;
 	plyr.buffer_index++;
@@ -1425,7 +1454,8 @@ int selectItem(int selectItemMode)
 	if ((itemRef != 9999) && (selectItemMode!=3)) determineItemAction(selectItemMode, itemRef); // Pass on mode and index for buffer items only if something selected
 	if ((itemRef != 9999) && (selectItemMode==3)) { return itemRef; }
 	if ((itemRef == 9999) && (selectItemMode==3)) { return 9999; } // no selection of an object
-
+	
+	return 9999; // Or another appropriate default value
 }
 
 
@@ -2069,7 +2099,7 @@ void quaffPotion(int object_ref)
     if (potionType==27) { plyr.invulnerability[6] += 8; }
     if (potionType==28) { plyr.invulnerability[7] += 8; }
     if (potionType==29) { plyr.invulnerability[8] += 8; }
-    if (potionType==30) { plyr.noticeability += 2;}
+	if (potionType == 30) { plyr.noticeability += 50; updateNoticability(); }
     if (potionType==31) { plyr.alcohol+=65; }
     if (potionType==32) { plyr.str+=1; }
     if (potionType==33) { plyr.inte+=1; }
@@ -2082,7 +2112,7 @@ void quaffPotion(int object_ref)
     if (potionType==40) { plyr.protection1 += 2; }
     if (potionType==41) { plyr.protection2 += 2; }
     if (potionType==42) { plyr.treasureFinding+=5; }
-    if (potionType==43) { plyr.noticeability -= 2; if (plyr.noticeability < 0) { plyr.noticeability = 0; }  }
+    if (potionType==43) { plyr.noticeability -= 50; if (plyr.noticeability < 0) { plyr.noticeability = 0; }  }
 
     itemBuffer[object_ref].location = 0; // Move used potion to void
     tidyObjectBuffer();
@@ -2933,7 +2963,7 @@ std::vector<fixedTreasure> readFixedTreasureCSV(const std::string& filename) {
 	std::vector<fixedTreasure> data;
 
 	// Open the CSV file
-	std::ifstream file("data/map/" + filename);
+	std::ifstream file("data/map/core/" + filename);
 	if (!file.is_open()) {
 		std::cerr << "Error opening file: " << filename << std::endl;
 		return data; // Return empty vector if file couldn't be opened
@@ -2990,7 +3020,7 @@ void checkFixedTreasures()
 
  	int treasureRef = findValue(fixed_Buffer, plyr.fixed_index, plyr.special);
 	
-	if (treasureRef > -1 && !plyr.fixedTreasures[treasureRef-128])
+	if (treasureRef > -1 && !plyr.fixedTreasures[treasureRef])
 	{
 		std::string newMessage = fixed_Buffer[treasureRef].message;
 		std::string genderString = setGenderString(plyr.gender);
@@ -2999,9 +3029,12 @@ void checkFixedTreasures()
 		replaceSymbol(newMessage, "", "\"");
 
 		treasureMessage(newMessage);
-		createGeneralItem(fixed_Buffer[treasureRef].item_Index);
+	
+
+			createGeneralItem(fixed_Buffer[treasureRef].item_Index);
+	
 		//createWeapon(fixed_Buffer[treasureRef].item_Index);
-		plyr.fixedTreasures[treasureRef-128] = true;
+		plyr.fixedTreasures[treasureRef] = true;
 		getItems();
 	}
 	

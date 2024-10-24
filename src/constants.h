@@ -2,7 +2,7 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
-const std::string progRelease = "0.91";
+const std::string progRelease = "0.91"; //Release version
 
 //3Dview
 const int noOfTextures = 68;  //no of image in the images folder
@@ -43,30 +43,33 @@ const int noOfMonstersFile = 45056; //number of bytes inthe MonsterFile ** think
 //const int noOfInventory = 4096;  //not used
 
 //dammon
-const size_t noOfDaemon = 12;
-const size_t noOfDaemonC = 12;
-const int damonFileSize = 916;
+const size_t noOfDaemon = 12; //Size of the Damon stock
+const size_t noOfDaemonC = 12; //size of the stock display
+const int damonFileSize = 916; // Size of the dameon stock file
 
 //dwarvenSmithy
-const int noOfDwarvenFile = 459;
+const int noOfDwarvenFile = 459;  //Size of the dwareven smithy file 
 
 
 //encounter
-const int MAX_OPPONENTS = 8;
-const int MAX_CONSOLE_MESSAGES = 20;
-const int DUNGEON_TABLE_ENCOUNTERS = 64;
+const int MAX_OPPONENTS = 8;  //maximum number of opponents you can face at once
+const int MAX_CONSOLE_MESSAGES = 20;  //Maximum number of messages that can be displayed one after each way
+const int DUNGEON_TABLE_ENCOUNTERS = 64; //Not Sure
 
 //guild
 
 
 
 //items
-const int noOfDungeonItems = 10496;
-const int noOfFixedTreasures = 64;
+const int noOfDungeonItems = 10496;  //Maximum number of items in the dungeon
+const int noOfFixedTreasures = 64;  //Maximum number of fixed treasure items, not sure if its per scenario
 
 //itemselect
 const int MAX_MENU_ENTRIES = 4; // Max 4 entries per menu page.
 
+
+//Level
+const int noOfRoomMessages = 255;
 //module
 const int MAX_MENU_ITEMS = 6; // Max 6 items per menu page. Should be usable for building any type of general shop menus with a maximum of 20 multi page items
 
@@ -75,11 +78,11 @@ const int MAX_MENU_ITEMS = 6; // Max 6 items per menu page. Should be usable for
 
 
 //Smithy
-const int noOfCitySmithyFile = 1691;
+const int noOfCitySmithyFile = 1691;  //Not sure
 
 
 //spells 
- const int noOfSpellList = 77;
+ const int noOfSpellList = 77;  //Maximum number of spells
 
 // Other constants...
 

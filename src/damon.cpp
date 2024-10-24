@@ -71,6 +71,8 @@ damonBattleGearItem damonBattleGearWares[12] =
 
 
 newdamonBattleGearItem newdamonBattleGearWares[noOfDaemon];
+newdamonBattleGearItem newsmithyWares[noOfDaemon];
+
 
 /*
 newdamonBattleGearItem newdamonBattleGearWares[12] =
@@ -370,9 +372,9 @@ while (damonMenu == 22) // buy item?
 {
     itemNo = menuStartItem+itemChoice;
     itemCost = newItemArray[newdamonClothingWares[itemNo].itemRef].cost;
-    float tempitemcost = newItemArray[newdamonClothingWares[itemNo].itemRef].cost;
+    float tempitemcost = static_cast<float>(newItemArray[newdamonClothingWares[itemNo].itemRef].cost);
     float temp = (tempitemcost/100)*75;
-    itemLowestCost = temp;
+    itemLowestCost = static_cast<int>(temp);
     damonOffer = itemCost;
     damonMenu = 23;
 }
@@ -944,7 +946,7 @@ void loadDamonBinary() {
 	FILE* fp = nullptr;       // Initialize fp to nullptr
 
 	char tempString[100];     // temporary string
-	int err = sprintf_s(tempString, sizeof(tempString), "%s%s", "data/map/", "DamonItems.bin");
+	int err = sprintf_s(tempString, sizeof(tempString), "%s%s", "data/map/core/", "DamonItems.bin");
 
 	if (err > 0) {
 		// Attempt to open the file for reading in binary mode
@@ -1319,4 +1321,13 @@ void UpdateShopStock()
 	maxBattleGearOnSale = populateUniqueIndicesBG(newdamonBattleGearWares, ArmorQty, 0, 0, plyr.items_index, 178, false);
 
 	maxClothingOnSale = populateUniqueIndicesCL(newdamonClothingWares, maxClothingOnSale, 0, 0, plyr.items_index, 180);
+}
+
+
+void UpdateSmithyStock()
+{
+	int maxBattleGearOnSale = 12;
+	std::map<std::pair<int, int>, int> itemCounts = countItemTypes(newItemArray, plyr.items_index);
+	int WeaponQty =  maxBattleGearOnSale;
+	maxBattleGearOnSale = populateUniqueIndicesBG(newsmithyWares, WeaponQty, 0, 0, plyr.items_index, 177, true);
 }

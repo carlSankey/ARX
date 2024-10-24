@@ -611,7 +611,7 @@ for(int y = 0; y < 14; ++y)
  plyr.items_index = atoi(character[259].c_str());
  plyr.luck = atoi(character[260].c_str());
  plyr.TemporalAdjustment = atoi(character[261].c_str());
- bool PrisonRelease;
+ int PrisonRelease;
 
 int loadGameIndex = 400; // start location for object buffer items
 for(int z = 0; z < noOfItemBuffer; ++z)
@@ -748,8 +748,8 @@ bool newloadCharacter(int saveSlot, Player& plyr) {
     }
 
     string text;
-    int linesRead = 0;
-
+    volatile int linesRead = 0; //Remove volatile after debugging
+    volatile int linesRead100s = 0;
     // Load player data
     getline(instream, text); plyr.gender = stoi(text); linesRead++;
     getline(instream, text); plyr.hp = stoi(text); linesRead++;
@@ -797,51 +797,58 @@ bool newloadCharacter(int saveSlot, Player& plyr) {
     getline(instream, text); plyr.wis = stoi(text); linesRead++;
     getline(instream, text); plyr.skl = stoi(text); linesRead++;
     
-    getline(instream, text);
+    getline(instream, text); linesRead++;
     try {
         plyr.xp = std::stoi(text);
     }
     catch (const std::invalid_argument& e) {
+        std::cerr << "Invalid argument exception caught: " << e.what() << std::endl;
         plyr.xp = 0; // or another default value
     }
     linesRead++;
 
     getline(instream, text); plyr.level = stoi(text); linesRead++;// xp leve
 
-    getline(instream, text);
+    getline(instream, text); linesRead++;
     try {
         plyr.chrPartials = std::stoi(text);
     }
     catch (const std::invalid_argument& e) {
+        std::cerr << "Invalid argument exception caught: " << e.what() << std::endl;
         plyr.chrPartials = 0; // or another default value
     }
     linesRead++;
 
-    getline(instream, text);
+    getline(instream, text); 
     try {
-        plyr.intPartials = std::stoi(text);
+        plyr.intPartials = std::stoi(text); 
     }
     catch (const std::invalid_argument& e) {
+        std::cerr << "Invalid argument exception caught: " << e.what() << std::endl;
         plyr.intPartials = 0; // or another default value
     }
     linesRead++;
 
     getline(instream, text);
     try {
-        plyr.strPartials = std::stoi(text);
+        plyr.strPartials = std::stoi(text); 
     }
     catch (const std::invalid_argument& e) {
+        std::cerr << "Invalid argument exception caught: " << e.what() << std::endl;
         plyr.strPartials = 0; // or another default value
     }
     linesRead++;
 
-    getline(instream, text);
+    getline(instream, text); 
     try {
         plyr.speed = std::stoi(text);
     }
     catch (const std::invalid_argument& e) {
+        // Use e to handle the exception or its details
+        std::cerr << "Invalid argument exception caught: " << e.what() << std::endl;
         plyr.speed = 0; // or another default value
     }
+
     linesRead++;
 
     getline(instream, text); plyr.stealth = stoi(text); linesRead++;
@@ -933,17 +940,17 @@ bool newloadCharacter(int saveSlot, Player& plyr) {
 
 
 
-    getline(instream, text); plyr.goblinsVisited = stoi(text); linesRead++;
-    getline(instream, text); plyr.goblinsChallenged = stoi(text); linesRead++;
-    getline(instream, text); plyr.goblinsDefeated = stoi(text); linesRead++;
-    getline(instream, text); plyr.goblinsCombat = stoi(text); linesRead++;
-    getline(instream, text); plyr.goblinsReforged = stoi(text); linesRead++;
-    getline(instream, text); plyr.trollsVisited = stoi(text); linesRead++;
-    getline(instream, text); plyr.trollsChallenged = stoi(text); linesRead++;
-    getline(instream, text); plyr.trollsDefeated = stoi(text); linesRead++;
-    getline(instream, text); plyr.trollsCombat = stoi(text); linesRead++;
-    getline(instream, text); plyr.trollsReforged = stoi(text); linesRead++;
-    getline(instream, text); plyr.oracleReturnTomorrow = stoi(text); linesRead++;
+    getline(instream, text); plyr.goblinsVisited = stringToBool(text); linesRead++;
+    getline(instream, text); plyr.goblinsChallenged = stringToBool(text); linesRead++;
+    getline(instream, text); plyr.goblinsDefeated = stringToBool(text); linesRead++;
+    getline(instream, text); plyr.goblinsCombat = stringToBool(text); linesRead++;
+    getline(instream, text); plyr.goblinsReforged = stringToBool(text); linesRead++;
+    getline(instream, text); plyr.trollsVisited = stringToBool(text); linesRead++;
+    getline(instream, text); plyr.trollsChallenged = stringToBool(text); linesRead++;
+    getline(instream, text); plyr.trollsDefeated = stringToBool(text); linesRead++;
+    getline(instream, text); plyr.trollsCombat = stringToBool(text); linesRead++;
+    getline(instream, text); plyr.trollsReforged = stringToBool(text); linesRead++;
+    getline(instream, text); plyr.oracleReturnTomorrow = stringToBool(text); linesRead++;
     getline(instream, text); plyr.oracleDay = stoi(text); linesRead++;
     getline(instream, text); plyr.oracleMonth = stoi(text); linesRead++;
     getline(instream, text); plyr.oracleYear = stoi(text); linesRead++;
@@ -1002,19 +1009,19 @@ bool newloadCharacter(int saveSlot, Player& plyr) {
         getline(instream, text); plyr.guildAccepting[i] = stringToBool(text); linesRead++;
         // Save other item fields...
     }
-
+    linesRead100s = linesRead;
 
     getline(instream, text); plyr.light = stoi(text); linesRead++;
     getline(instream, text); plyr.supervision = stoi(text); linesRead++;
-    getline(instream, text); plyr.fatigue = stoi(text); linesRead++;
-    getline(instream, text); plyr.fatigueRate = stoi(text); linesRead++;
+    getline(instream, text); plyr.fatigue = stof(text); linesRead++;
+    getline(instream, text); plyr.fatigueRate = stof(text); linesRead++;
     getline(instream, text); plyr.spell_index = stoi(text); linesRead++;
     getline(instream, text); plyr.temperature = stoi(text); linesRead++;
-    getline(instream, text); plyr.hungerRate = stoi(text); linesRead++;
-    getline(instream, text); plyr.thirstRate = stoi(text); linesRead++;
+    getline(instream, text); plyr.hungerRate = stof(text); linesRead++;
+    getline(instream, text); plyr.thirstRate = stof(text); linesRead++;
     getline(instream, text); plyr.items_index = stoi(text); linesRead++;
     getline(instream, text); plyr.luck = stoi(text); linesRead++;
-    getline(instream, text); plyr.TemporalAdjustment = stoi(text); linesRead++;
+    getline(instream, text); plyr.TemporalAdjustment = stoi(text); linesRead++;  //261
 
     for (size_t i = 0; i < noOfFixedTreasures; ++i) {
         getline(instream, text); plyr.fixedTreasures[i] = stringToBool(text); linesRead++;
@@ -1022,10 +1029,10 @@ bool newloadCharacter(int saveSlot, Player& plyr) {
     }
 
     
-    for (int i = linesRead; i < itemBufferStart; ++i) {
-        getline(instream, text);
+    for (int i = linesRead; i < itemBufferStart+2; ++i) {
+        getline(instream, text); linesRead++;
     }
-    getline(instream, text);
+    getline(instream, text); linesRead++;
     if (text != "Item Buffer follows") {
         cerr << "Error: Expected 'Item Buffer follows' at line 400" << endl;
         return false;
@@ -1170,14 +1177,15 @@ bool newloadCharacter(int saveSlot, Player& plyr) {
         // Save other item fields...
     }
 
-    for (int i = linesRead; i < spellBufferStart; ++i) {
-        getline(instream, text);
+    for (int i = linesRead; i < spellBufferStart+3; ++i) {
+        getline(instream, text); linesRead++;
     }
-    getline(instream, text);
+    getline(instream, text); linesRead++;
     if (text != "Spell Buffer follows") {
         cerr << "Error: Expected 'Item Buffer follows' at line 400" << endl;
         return false;
     }
+
     for (size_t i = 0; i < noOfSpellBuffer; ++i) {
         getline(instream, text); spellBuffer[i].no = stoi(text); linesRead++;
         // Save other item fields...
@@ -1187,10 +1195,10 @@ bool newloadCharacter(int saveSlot, Player& plyr) {
         // Save other item fields...
     }
 
-    for (int i = linesRead; i < effectBufferStart; ++i) {
-        getline(instream, text);
+    for (int i = linesRead; i < effectBufferStart+3; ++i) {
+        getline(instream, text); linesRead++;
     }
-    getline(instream, text);
+    getline(instream, text); linesRead++;
     if (text != "Effect Buffer follows") {
         cerr << "Error: Expected 'Item Buffer follows' at line 400" << endl;
         return false;
@@ -1209,14 +1217,14 @@ bool newloadCharacter(int saveSlot, Player& plyr) {
         // Save other item fields...
     }
     for (size_t i = 0; i < noOfSpellBuffer; ++i) {
-        getline(instream, text); effectBuffer[i].duration = stoi(text); linesRead++;
+        getline(instream, text); effectBuffer[i].duration = stof(text); linesRead++;
         // Save other item fields...
     }
 
-    for (int i = 10; i < smithyDailyWaresStart; ++i) {
-        getline(instream, text);
+    for (int i = linesRead; i < smithyDailyWaresStart+4; ++i) {
+        getline(instream, text); linesRead++;
     }
-    getline(instream, text);
+    getline(instream, text); linesRead++;
     if (text != "Smithy Daily Wares follows") {
         cerr << "Error: Expected 'Item Buffer follows' at line 400" << endl;
         return false;
@@ -1229,10 +1237,10 @@ bool newloadCharacter(int saveSlot, Player& plyr) {
         }
     }
 
-    for (int i = 10; i < saveGameIndex; ++i) {
-        getline(instream, text);
+    for (int i = linesRead; i < saveGameIndex+4; ++i) {
+        getline(instream, text); linesRead++;
     }
-    getline(instream, text);
+    getline(instream, text); linesRead++;
     if (text != "Automap follows") {
         cerr << "Error: Expected 'Item Buffer follows' at line 400" << endl;
         return false;
@@ -2077,6 +2085,7 @@ bool newsaveCharacter(int saveSlot, const Player& plyr) {
                             }
                             outstream << plyr.name << endl; linesWritten++;
                             outstream << plyr.z_offset << endl; linesWritten++;
+                            outstream << plyr.prisonRelease << endl; linesWritten++;
                             outstream << progrelease << endl; linesWritten++;
                             outstream.close();
                             return true;

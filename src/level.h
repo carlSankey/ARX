@@ -25,6 +25,7 @@ void moveMapLevel();
 void moveMapLevelTeleport();
 size_t readEncounterData(int map);
 
+void clearArray(std::string roomMessages[], int size);
 
 struct Teleport
 {
@@ -102,7 +103,7 @@ struct MapEncounter
 std::vector<MapEncounter> readMapEncounterCSV(const std::string& filename);
 
 extern zoneRecord zones[28];
-
+extern Map maps[];
  
 // Your existing header content goes here 
  

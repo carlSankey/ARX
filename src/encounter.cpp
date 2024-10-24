@@ -264,7 +264,7 @@ encRecord dayEncTable[32] =
 	
 };
 
-
+extern int HackedMonsters;
 extern int statPanelY;
 extern bool musicPlaying;
 
@@ -464,7 +464,7 @@ void initialiseOpponents(int opponentType, int opponentQuantity)
     // Clean out all 8 opponent slots with an empty monster object (using the unused FBI Agent for this)
     for(int i = 0; i < MAX_OPPONENTS; ++i)
 	{
-		Opponents[i] = Monster_Buffer[FBI_AGENT];
+		Opponents[i] = Monster_Buffer[NOBODYHERE];
 	}
     for(int i = 0; i < opponentQuantity; ++i)
 	{
@@ -529,9 +529,6 @@ void initialiseOpponents(int opponentType, int opponentQuantity)
 			OpponentSwitchWeapons = 0;
 }
 
-
-
-
 void MoveItemToMonsterWeapon(int WeaponIndex, int ItemIndex)
 {
 		monsterWeapons[WeaponIndex].article = "a";
@@ -571,20 +568,22 @@ void MoveItemToMonsterWeapon(int WeaponIndex, int ItemIndex)
 
 }
 
-	
-
-
-
 void removeOpponent()
 {
     // Removes Opponents[0], shuffles the other 7 and adds an Empty
+	encounterQuantity -= 1;
 
+	Opponents[curOpponent] = Monster_Buffer[NOBODYHERE];
+	
     for(int i = 0; i < (MAX_OPPONENTS)-1; ++i)
 	{
-		Opponents[i] = Opponents[i+1];
+		if (Opponents[i].hp >0) {
+			Opponents[i] = Opponents[i + 1];
+		}
+		
 	}
 	// Add an empty slot to the end of the array (the unused FBI Agent is used for this)
-	Opponents[(MAX_OPPONENTS-1)] = Monster_Buffer[FBI_AGENT];
+	Opponents[(MAX_OPPONENTS-1)] = Monster_Buffer[NOBODYHERE];
 }
 
 void addOpponent()
@@ -605,17 +604,19 @@ void checkForActiveOpponents()
 	if (Opponents[0].hp <= 0) encounterRunning = false;
 }
 
-
 void updateOpponents()
 {
     // Count total remaining opponents
 	encounterQuantity=0;
-	for(int i = 0; i < 8; ++i) //
-	{
-		if (Opponents[i].hp>0) encounterQuantity++;
+	for (int i = 0; i < MAX_OPPONENTS - 1; ++i) { // Ensure we do not go out of bounds
+		if (Opponents[i].hp > 0) {
+			encounterQuantity++;
+			// Skip the entire group of consecutive matching indices
+		
+		}
 	}
-	if (encounterQuantity > 1)
-	std:cout << "Num Opn# " << encounterQuantity << "\n";
+	//if (encounterQuantity > 1)
+	//std:cout << "Num Opn# " << encounterQuantity << "\n";
 }
 
 
@@ -704,8 +705,9 @@ void processOpponentAction()
  */
 void processPlayerAction()
 {
-
-	if (stunnedTurnsRemaining > 0) { stunnedTurnsRemaining--; }
+	//Within a while loop
+	//Should exit of the player has done something or can't do anything
+	
 	if (stunnedTurnsRemaining == 0) { playerStunned = false; }
 
     if (opponentSurprised)          encounterMenu = 3;
@@ -743,15 +745,26 @@ void processPlayerAction()
 			if (playerescape < opponentescape)
 		  	{
 			      consoleMessage( "You didn't escape.");
-				if ( key=="SPACE" )
-		 			{
-					encounterMenu = 1; 
-					playerStunned == true;
-					if ((Opponents[0].alignment<128) || (!encounterNotHostile))
-			         	opponentAttack();
-					}
+				  updateDisplay();
+				  bool keynotpressed = true;
+				  key = "";
+				  while (keynotpressed)
+				  {
+					  key = getSingleKey();
+					  if (key == "SPACE")
+					  {
+						  encounterMenu = 1;
+						  //playerStunned == true;
+						  playerTurn == false;
+						  if ((Opponents[0].alignment < 128) || (!encounterNotHostile))
+							  opponentAttack();
+						  keynotpressed = true;
+					  }
 
-		  	  	
+					  if (key != "") { keynotpressed = false; }
+				  }
+				 
+				  
 			} else  
 			{
 				playerRunsAway = true; 
@@ -855,7 +868,6 @@ void processPlayerAction()
         if ( key=="SPACE" ) { encounterMenu = 1; }
     }
 
-
     else if (encounterMenu == 5) // healer transact
     {
         //cout << "Healer transact menu\n";
@@ -882,6 +894,8 @@ void processPlayerAction()
 
 	if(key != "") { lastActionTimer = actionClock.restart(); }
 	
+	
+
 }   // <- End of process player
 
 
@@ -1658,7 +1672,7 @@ void opponentAttack()
 	if (Opponents[0].callForHelp == 1)
 	{
 
-		opponentCallsForHelp();
+ 		opponentCallsForHelp();
 	}
 
 
@@ -1742,7 +1756,7 @@ std::cout << "opponent #: " << curOpponent << "\n";
 			//Check for disease type from monster carrier value (to be added)
        
         float attackFactor = 1.0; //
-        int damage = calcOpponentWeaponDamage(Opponents[0].chosenWeapon,attackFactor, 1);
+        int damage = NewcalcOpponentWeaponDamage(Opponents[0].chosenWeapon,attackFactor, 1);
 
         if (opponentType==DOPPLEGANGER)
         {
@@ -1827,8 +1841,7 @@ void opponentCallsForHelp()
 	addOpponent();
 	consoleMessage("Another " + Opponents[0].name + " Arrives");
 	updateOpponents();
-	//add logic to call for help
-	//increase 
+	
 }
 
 
@@ -2114,7 +2127,7 @@ int NewcalcOpponentWeaponDamage(int weaponNo, float attackFactor, int attacker)
 }
 
 
-
+/*
 int calcOpponentWeaponDamage(int weaponNo, float attackFactor, int attacker)
 {
     // CALCULATE MONSTER WEAPON / ATTACK DAMAGE
@@ -2250,7 +2263,7 @@ int calcOpponentWeaponDamage(int weaponNo, float attackFactor, int attacker)
 	return totalDamage;
 
 }
-
+*/
 
 int calcPlayerSpellDamage(int spellNo, int attacker)
 {
@@ -2361,8 +2374,6 @@ int calcPlayerWeaponDamage(int weaponNo, float attackFactor, int attacker)
 
 	// attacker - 0 = player
 	int weaponDamageValues[13];
-	
-
 	
  		weaponDamageValues[0] = itemBuffer[weaponNo].blunt + weaponBonus.blunt;
 		weaponDamageValues[1] = itemBuffer[weaponNo].sharp + weaponBonus.sharp;
@@ -2857,9 +2868,11 @@ void updateEncounterStatusText()
 
 void checkEncounter()
 {
+	int Suprisecheck = (plyr.stealth - plyr.noticeability) + plyr.alcohol;
     if (encounterThemeNotPlaying())
     {
-        int encounter_check = randn(0, (plyr.stealth - plyr.noticeability) + plyr.alcohol);  //a little different from the City
+		if (Suprisecheck < 0); Suprisecheck = 1;
+        int encounter_check = randn(0, Suprisecheck);  //a little different from the City
 
 		if (encounter_check == 0)  //character is suprised
 		{
@@ -2917,10 +2930,20 @@ void chooseEncounter()
 		monsterNo = randomEncounterPicker(plyr.zone, plyr.timeOfDay, maps[plyr.map].encounterIndex);
     }
 
+	if (plyr.scenario != DUNGEON || plyr.scenario != CITY)
+	{
+		monsterNo = randomEncounterPicker(plyr.zone, plyr.timeOfDay, maps[plyr.map].encounterIndex);
+
+	}
+
 	if ((plyr.scenario==DUNGEON) && (plyr.map==4)) monsterNo = 19;
 // cout << "Monster: "<< monsterNo << " " << Monster_Buffer[monsterNo].name << "\n";
-
+	if (HackedMonsters == 1) monsterNo = 8;
     
+
+
+
+
     plyr.fixedEncounter = false;
 
 	 //adjust the max encounter based on other player stats.
@@ -3115,11 +3138,14 @@ void checkTreasure()
 
 		if (opponentType == MASTER_THIEF) // MASTER THEIF KILLED 
 		{
-			int SilverKey =  randn(0, 100);
-			if (SilverKey < 10)
+			if (plyr.prisonRelease < 2)
 			{
-				createQuestItem(187);
-				foundTreasure = false;
+				int SilverKey = randn(0, 100);
+				if (SilverKey < 10)
+				{
+					createQuestItem(187);
+					foundTreasure = false;
+				}
 			}
 		}
 
@@ -3140,24 +3166,23 @@ void checkTreasure()
 			// 
 			//did encounter drop their weapon?
 
-			
-			
 
-
-
-			if (monsterWeapons[opponent.chosenWeapon].type == 178)
+			if (monsterWeapons[opponent.chosenWeapon].type == 178 ) //Dropable weapons are only type 178
 			{
 			
 				createGeneralItem(monsterWeapons[opponent.chosenWeapon].index); // Create a new instance of this weapon type on the floor
 				foundTreasure = true; 
 			}
 
-			if (Monster_Buffer[opponent.index].tPotions > 0) {  }
+			//Need to update this so potions are only found some of the time when treasure is found.
 
-			
+			if (Monster_Buffer[opponent.index].tPotions > 0)
+			{ 
+				createGeneralItem(randomItemPicker(0, plyr.level, 1, 175));
 
-			createGeneralItem(randomItemPicker( 0 , plyr.level, 1, 175));
-	
+			}
+
+		
 			foundTreasure = true; 
 			}
 

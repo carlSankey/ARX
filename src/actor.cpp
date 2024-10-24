@@ -14,6 +14,7 @@
 
 using namespace std;
 
+int HackedMonsters = 0;
 
 monsterFramePair animations[44] =
 {
@@ -555,9 +556,9 @@ newMonster* SelectedMonmArray = nullptr;
 
 std::vector<newMonster> readMonsterCSV(const std::string& filename) {
     std::vector<newMonster> data;
-
+    HackedMonsters = 0;
     // Open the CSV file
-    std::ifstream file("data/map/" + filename);
+    std::ifstream file("data/map/core/" + filename);
     if (!file.is_open()) {
         std::cerr << "Error opening file: " << filename << std::endl;
         return data; // Return empty vector if file couldn't be opened
@@ -803,7 +804,96 @@ std::vector<newMonster> readMonsterCSV(const std::string& filename) {
         newMonster.minLevel = std::stoi(cell);
 
         std::getline(lineStream, newMonster.hash, ',');
+        
+        std::string input = std::to_string(newMonster.index) +
+            std::to_string(newMonster.type) +
+            std::to_string(newMonster.maxencounters) +
+            newMonster.name +
+            newMonster.pluName +
+            newMonster.armorText +
+            std::to_string(newMonster.behaviour) +
+            std::to_string(newMonster.alignment) +
+            std::to_string(newMonster.stealth) +
+            std::to_string(newMonster.randomStrength) +
+            std::to_string(newMonster.randomSkill) +
+            std::to_string(newMonster.randomIntelligence) +
+            std::to_string(newMonster.randomSpeed) +
+            std::to_string(newMonster.hp) +
+            std::to_string(newMonster.randomHP) +
+            std::to_string(newMonster.maxHP) +
+            std::to_string(newMonster.image) +
+            std::to_string(newMonster.image2) +
+            std::to_string(newMonster.sta) +
+            std::to_string(newMonster.cha) +
+            std::to_string(newMonster.str) +
+            std::to_string(newMonster.inte) +
+            std::to_string(newMonster.wis) +
+            std::to_string(newMonster.skl) +
+            std::to_string(newMonster.spd) +
+            std::to_string(newMonster.aBlunt) +
+            std::to_string(newMonster.aSharp) +
+            std::to_string(newMonster.aEarth) +
+            std::to_string(newMonster.aAir) +
+            std::to_string(newMonster.aFire) +
+            std::to_string(newMonster.aWater) +
+            std::to_string(newMonster.aPower) +
+            std::to_string(newMonster.aMagic) +
+            std::to_string(newMonster.aGood) +
+            std::to_string(newMonster.aEvil) +
+            std::to_string(newMonster.aCold) +
+            std::to_string(newMonster.aNature) +
+            std::to_string(newMonster.aAcid) +
+            std::to_string(newMonster.tPotions) +
+            std::to_string(newMonster.tEquipment) +
+            std::to_string(newMonster.tFood) +
+            std::to_string(newMonster.tWater) +
+            std::to_string(newMonster.tTorches) +
+            std::to_string(newMonster.tTimepieces) +
+            std::to_string(newMonster.tCompasses) +
+            std::to_string(newMonster.tKeys) +
+            std::to_string(newMonster.tCrystals) +
+            std::to_string(newMonster.tCopper) +
+            std::to_string(newMonster.tSilver) +
+            std::to_string(newMonster.tGold) +
+            std::to_string(newMonster.tGems) +
+            std::to_string(newMonster.tJewels) +
+            std::to_string(newMonster.tCorpse) +
+            std::to_string(newMonster.w1) +
+            std::to_string(newMonster.w2) +
+            std::to_string(newMonster.w3) +
+            std::to_string(newMonster.w4) +
+            std::to_string(newMonster.w5) +
+            std::to_string(newMonster.w6) +
+            std::to_string(newMonster.c1) +
+            std::to_string(newMonster.c2) +
+            std::to_string(newMonster.c3) +
+            std::to_string(newMonster.c4) +
+            std::to_string(newMonster.c5) +
+            std::to_string(newMonster.c6) +
+            std::to_string(newMonster.callForHelp) +
+            std::to_string(newMonster.s0) +
+            std::to_string(newMonster.s1) +
+            std::to_string(newMonster.s2) +
+            std::to_string(newMonster.s3) +
+            std::to_string(newMonster.s4) +
+            std::to_string(newMonster.s5) +
+            std::to_string(newMonster.s6) +
+            std::to_string(newMonster.s7) +
+            std::to_string(newMonster.s8) +
+            std::to_string(newMonster.s9) +
+            std::to_string(newMonster.braveness) +
+            std::to_string(newMonster.minLevel) +
+           
+          
+            "ARX2023";
+      
+        std::string hash = sha256(input);
 
+        if (hash != newMonster.hash)
+        {
+            HackedMonsters = 1;
+
+        }
 
         data.push_back(newMonster);
     }
@@ -1069,11 +1159,10 @@ void readMonsterDeathText(int monsterNo, int deathOffset)
 
 }
 
-
 void loadMonstersBinary() {
     FILE* fp;               // file pointer - used when reading files
     char tempString[100];   // temporary string
-    int err = sprintf_s(tempString, sizeof(tempString), "%s%s", "data/map/", "monsters.bin");
+    int err = sprintf_s(tempString, sizeof(tempString), "%s%s", "data/map/core/", "monsters.bin");
 
     if (err < 0) {
         // Handle sprintf_s error
@@ -1100,7 +1189,7 @@ void loadEncounters()
 {
 	std::ifstream instream;
 	std::string junk, data, junk2;
-	instream.open("data/map/encounters.txt");
+	instream.open("data/map/core/encounters.txt");
 	if( !instream )
 	{
       cout << "Error: Encounters file could not be loaded" << endl;

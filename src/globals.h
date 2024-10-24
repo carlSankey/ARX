@@ -150,7 +150,8 @@ enum encounters
 	NOBLEWOMAN = 83,
 	CUTTHROAT = 84,
 	BRIGAND = 85,
-	MASTER_THIEF = 86	
+	MASTER_THIEF = 86,
+    NOBODYHERE = 87
 };
 
 // Items from encounters, found on Dungeon floor or from Dungeon quests

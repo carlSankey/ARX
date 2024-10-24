@@ -256,7 +256,7 @@ loadShopImage(11);
 			for (int i=5 ; i<10 ; i++) // Max number of room prices in this menu display
 			{
 				x = 28;
-				room_cost = Rooms[i].baseCost * Inns[InnNo].costMultiplier;
+				room_cost = static_cast<int>(Rooms[i].baseCost * Inns[InnNo].costMultiplier);
 				if (room_cost<1000) { x = 30; }
 				bText (x,(i-3),toCurrency(room_cost));
 				bText (34,(i-3),"coppers");
@@ -299,7 +299,7 @@ loadShopImage(11);
 		{
 
 			clearShopDisplay();
-			roomCost = Rooms[roomChoice].baseCost * Inns[InnNo].costMultiplier;
+			roomCost = static_cast<int>(Rooms[roomChoice].baseCost * Inns[InnNo].costMultiplier);
 			if (!checkCoins(0,0,roomCost))
 			{
 				cText ("I'm sorry, you have not the funds.");

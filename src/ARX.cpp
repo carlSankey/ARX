@@ -40,9 +40,6 @@ int main()
 {
     string key;
 
-	
-
-
     if (!loadConfig()) return 0; // load screen resolution from arx.ini
     //FreeConsole(); // Hides the console window - make ARX.ini option
 	setDeveloperFlags();
@@ -52,7 +49,7 @@ int main()
     dispInit();
 	InitFont();
 	loadLogoImage();
-
+	bool  LoadSaveOK = false;
 	initSaveGameDescriptions();
 
 	while (programRunning)
@@ -87,19 +84,20 @@ int main()
 					updateDisplay();
 
 					key = getSingleKey();
-					if ( key=="0" ) { newloadCharacter(0, plyr); startGame(); loadgameMenu = 256; }
-					if ( key=="1" ) { newloadCharacter(1, plyr); startGame(); loadgameMenu = 256; }
-					if ( key=="2" ) { newloadCharacter(2, plyr); startGame(); loadgameMenu = 256; }
-					if ( key=="3" ) { newloadCharacter(3, plyr); startGame(); loadgameMenu = 256; }
-					if ( key=="4" ) { newloadCharacter(4, plyr); startGame(); loadgameMenu = 256; }
-					if ( key=="5" ) { newloadCharacter(5, plyr); startGame(); loadgameMenu = 256; }
-					if ( key=="6" ) { newloadCharacter(6, plyr); startGame(); loadgameMenu = 256; }
-					if ( key=="7" ) { newloadCharacter(7, plyr); startGame(); loadgameMenu = 256; }
-					if ( key=="8" ) { newloadCharacter(8, plyr); startGame(); loadgameMenu = 256; }
-					if ( key=="9" ) { newloadCharacter(9, plyr); startGame(); loadgameMenu = 256; }
+					if ( key=="0" ) {  LoadSaveOK = newloadCharacter(0, plyr); startGame(); loadgameMenu = 256; }
+					if ( key=="1" ) { LoadSaveOK = newloadCharacter(1, plyr); startGame(); loadgameMenu = 256; }
+					if ( key=="2" ) { LoadSaveOK = newloadCharacter(2, plyr); startGame(); loadgameMenu = 256; }
+					if ( key=="3" ) { LoadSaveOK = newloadCharacter(3, plyr); startGame(); loadgameMenu = 256; }
+					if ( key=="4" ) { LoadSaveOK = newloadCharacter(4, plyr); startGame(); loadgameMenu = 256; }
+					if ( key=="5" ) { LoadSaveOK = newloadCharacter(5, plyr); startGame(); loadgameMenu = 256; }
+					if ( key=="6" ) { LoadSaveOK = newloadCharacter(6, plyr); startGame(); loadgameMenu = 256; }
+					if ( key=="7" ) { LoadSaveOK = newloadCharacter(7, plyr); startGame(); loadgameMenu = 256; }
+					if ( key=="8" ) { LoadSaveOK = newloadCharacter(8, plyr); startGame(); loadgameMenu = 256; }
+					if ( key=="9" ) { LoadSaveOK = newloadCharacter(9, plyr); startGame(); loadgameMenu = 256; }
 					if ( key=="ESC" ) { loadgameMenu = 256; }
 			}
 			key="";
+			if (LoadSaveOK == false) { displayError(); }
 		}
 
 
@@ -176,10 +174,13 @@ void startGame()
 	UpdateShopStock();
     //clearInventory();           // Set the inventory char array to zeros
 
+	UpdateSmithyStock();
+
 	readFTData();
 
     // Not in use yet - dungeonItems()
     //loadDungeonItems();         // Sets up the Dungeon items char array
+
 
     gameLoop(); // Enter the main game loop
 }

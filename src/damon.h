@@ -8,6 +8,7 @@ extern unsigned char damonBinary[damonFileSize];
 void message(string txt);
 void shopDamon();
 void stockDamon();
+void UpdateSmithyStock();
 void loadDamonBinary();
 
 int createInventoryItem(int startByte);

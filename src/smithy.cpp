@@ -49,10 +49,10 @@ struct Smithy
 
 Smithy Smithies[4] =
 {
-	{"Sharp Weaponsmiths",		1.25,		1.65,	55,		4,	20},
-	{"Occum's Weaponsmiths",	1.10,		1.35,	56,		5,	21},
-	{"Best Armorers",			1.50,		2.40,	57,		8,	19},
-	{"Knight's Armorers",		1.60,		2.35,	58,		11,	15}
+	{"Sharp Weaponsmiths",		1.25f,		1.65f,	55,		4,	20},
+	{"Occum's Weaponsmiths",	1.10f,		1.35f,	56,		5,	21},
+	{"Best Armorers",			1.50f,		2.40f,	57,		8,	19},
+	{"Knight's Armorers",		1.60f,		2.35f,	58,		11,	15}
 
 };
 
@@ -218,7 +218,7 @@ void shopSmithy()
 				string itemCostDesc;
 				x = 28;
 				int itemNo = smithyDailyWares[smithyNo][menuStartItem+i];
-				itemCost = Smithies[smithyNo].initialPriceFactor * smithyWares[itemNo].basePrice;
+				itemCost = static_cast<int>(Smithies[smithyNo].initialPriceFactor * smithyWares[itemNo].basePrice);
 				//itemCost = smithyWares[itemNo].basePrice;
 				if (itemCost<1000) { x = 30;}
 				if (itemCost>999) { x = 28;}
@@ -259,10 +259,10 @@ void shopSmithy()
 		{
 			smithyNo = getSmithyNo();
 			itemNo = smithyDailyWares[smithyNo][menuStartItem+itemChoice];
-			itemCost = Smithies[smithyNo].initialPriceFactor * smithyWares[itemNo].basePrice;
+			itemCost = static_cast<int>(Smithies[smithyNo].initialPriceFactor * smithyWares[itemNo].basePrice);
 			float tempitemcost = Smithies[smithyNo].initialPriceFactor * smithyWares[itemNo].basePrice;
 			float temp = (tempitemcost/100)*75;
-			itemLowestCost = temp;
+			itemLowestCost = static_cast<int>(temp);
 			smithyOffer = itemCost;
 			smithyMenu = 3;
 		}
@@ -590,7 +590,7 @@ string readSmithyItemString(int stringOffset)
 void loadCitySmithyBinary() {
 	FILE* fp;               // file pointer - used when reading files
 	char tempString[100];   // temporary string
-	sprintf_s(tempString, sizeof(tempString), "%s%s", "data/map/", "smithyItems.bin");
+	sprintf_s(tempString, sizeof(tempString), "%s%s", "data/map/core/", "smithyItems.bin");
 
 	// Use fopen_s for improved error handling
 	if (fopen_s(&fp, tempString, "rb") == 0 && fp != NULL) {

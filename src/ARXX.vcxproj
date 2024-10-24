@@ -188,7 +188,9 @@ sfml-window.lib
     <ClCompile Include="prison.cpp" />
     <ClCompile Include="rathskeller.cpp" />
     <ClCompile Include="retreat.cpp" />
-    <ClCompile Include="saveGame.cpp" />
+    <ClCompile Include="saveGame.cpp">
+      <DeploymentContent>false</DeploymentContent>
+    </ClCompile>
     <ClCompile Include="screen.cpp" />
     <ClCompile Include="shop.cpp" />
     <ClCompile Include="smithy.cpp" />

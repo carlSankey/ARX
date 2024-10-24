@@ -58,21 +58,21 @@ struct Shop
 
 Shop Shops[15] =
 {
-	{"Smiley's Shop",		    1.00,		1.53,	40,		8,	20},
-	{"Honest Trader",	        1.10,		1.75,	41,		8,	21},
-	{"Adventurer's Outfitters",	0.95,		1.35,	42,		8,	19},
-	{"Warrior's Supplies",		0.80,		1.10,	43,		5,	17},
-    {"General Store",		    0.90,		1.29,	44,		5,	23},
-	{"Exclusive Outfitters",	1.10,		1.85,	45,		10,	15},
-	{"Rocky's Emporium",		1.00,		1.53,	46,		9,	17},
-	{"Best Bargain Store",		1.10,		1.85,	47,		9,	21},
-    {"Special Imports Store",	0.90,		1.55,	48,		10,	14},
-	{"Betelgeuse Sales",	    0.90,		1.43,	49,		3,	22},
-	{"Merchant's Grotto",		1.00,		1.64,	50,		4,	19},
-	{"Sunset Market",		    1.00,		1.53,	51,		9,	19},
-    {"Pauline's Emporium",		0.95,		1.35,	52,		11,	16},
-	{"Da Place!",	            0.82,		1.12,	53,		8,	17},
-	{"Trade Winds",			    0.95,		1.70,	54,		8,	17}
+	{"Smiley's Shop",		    1.00f,		1.53f,	40,		8,	20},
+	{"Honest Trader",	        1.10f,		1.75f,	41,		8,	21},
+	{"Adventurer's Outfitters",	0.95f,		1.35f,	42,		8,	19},
+	{"Warrior's Supplies",		0.80f,		1.10f,	43,		5,	17},
+    {"General Store",		    0.90f,		1.29f,	44,		5,	23},
+	{"Exclusive Outfitters",	1.10f,		1.85f,	45,		10,	15},
+	{"Rocky's Emporium",		1.00f,		1.53f,	46,		9,	17},
+	{"Best Bargain Store",		1.10f,		1.85f,	47,		9,	21},
+    {"Special Imports Store",	0.90f,		1.55f,	48,		10,	14},
+	{"Betelgeuse Sales",	    0.90f,		1.43f,	49,		3,	22},
+	{"Merchant's Grotto",		1.00f,		1.64f,	50,		4,	19},
+	{"Sunset Market",		    1.00f,		1.53f,	51,		9,	19},
+    {"Pauline's Emporium",		0.95f,		1.35f,	52,		11,	16},
+	{"Da Place!",	            0.82f,		1.12f,	53,		8,	17},
+	{"Trade Winds",			    0.95f,		1.70f,	54,		8,	17}
 };
 
 
@@ -232,7 +232,7 @@ while (shopMenu == 22) // buy item?
     itemCost = shopClothingWares[itemNo].price;
     float tempitemcost = shopClothingWares[itemNo].price;
     float temp = (tempitemcost/100)*75;
-    itemLowestCost = temp;
+    itemLowestCost = static_cast<int>(temp);
     shopOffer = itemCost;
     shopMenu = 23;
 }

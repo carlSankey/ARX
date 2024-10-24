@@ -46,7 +46,7 @@ lyricElement                    lyrics[2048];
 //==============================================================================
 void initLyricFont()
     {
-	lyricFontImage.loadFromFile("data/images/songFont.png");
+	lyricFontImage.loadFromFile("data/images/core/songFont.png");
 	lyricCharImage.setTexture(lyricFontImage);
     }
 
@@ -99,7 +99,7 @@ void drawLyricChar(int x, int initchar_no)
 	int charX                       =   char_no * 32;
 
 	lyricCharImage.setTextureRect(sf::IntRect(charX, 0 , 32, 16));
-	lyricCharImage.setPosition(lyricX+((x - 1) * 32), lyricY);
+	lyricCharImage.setPosition(static_cast<int>(lyricX+((x - 1) * 32)), static_cast<int>(lyricY));
 	App.draw(lyricCharImage);
     }
 
@@ -320,15 +320,15 @@ void updateLyrics()
             //std::cout  << "fRatio = " << (1.0 - fRatio) << "\n";
             if ((1.0 - fRatio) > 0.50)
                 {
-                fSpeedCoefficient   =   1.0;
+                fSpeedCoefficient   =   1.0f;
                 }
             else if ((1.0 - fRatio) < 0)
                 {
-                fSpeedCoefficient   =   0.1;
+                fSpeedCoefficient   =   0.1f;
                 }
             else
                 {
-                fSpeedCoefficient   =   (1.0 - fRatio);
+                fSpeedCoefficient   =   (1.0f - fRatio);
                 }
             float     fConverted    =   (lyrics[lyricPointer].x * (fSpeedCoefficient));
             //cout << "\nfConverted = " << fConverted << "\n";

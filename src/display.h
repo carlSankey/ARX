@@ -7,6 +7,7 @@
 
 #include <string>
 
+
 using namespace std;
 
 void createGameWindow();
@@ -28,6 +29,8 @@ void drawConsoleBackground();
 void displayLoading();
 void displayMainMenu();
 void displayAcknowledgements();
+
+void displayError();
 
 
 void clearDisplay(); // clear display prior to displaying non openGL scene

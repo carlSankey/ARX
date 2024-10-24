@@ -1,0 +1,91 @@
+# Map 0 - The City
+filename = city
+width = 64 
+height = 64
+description = in the City of Xebec's Demise
+background = 1
+      
+# Map 1 - The Dungeon - Level 1
+filename = dungeon1
+width = 64 
+height = 64
+description = on level 1 of the Dungeon
+background = 0
+      
+# Map 2 - The Dungeon - Level 2
+filename = dungeon2
+width = 32 
+height = 32
+description = on level 2 of the Dungeon
+background = 0
+      
+# Map 3 - The Dungeon - Level 3
+filename = dungeon3
+width = 32 
+height = 32
+description = on level 3 of the Dungeon
+background = 0
+      
+# Map 4 - The Dungeon - Level 4
+filename = dungeon4
+width = 32
+height = 32
+description = on level 4 of the Dungeon
+background = 0
+
+# Map 5 - The Wilderness - North West
+filename = wildernessNW
+width = 64
+height = 64
+description = in the North West of the wilderness
+background = 0
+
+# Map 6 - The Wilderness - North
+filename = wildernessN
+width = 64
+height = 64
+description = in the North of the wilderness
+background = 0
+
+# Map 7 - The Wilderness - North East
+filename = wildernessNE
+width = 64
+height = 64
+description = in the North East of the wilderness
+background = 0
+
+# Map 8 - The Wilderness - West
+filename = wildernessW
+width = 64
+height = 64
+description = in the West of the wilderness
+background = 0
+
+# Map 9 - The Wilderness - East
+filename = wildernessE
+width = 64
+height = 64
+description = in the East of the wilderness
+background = 0
+
+# Map 10 - The Wilderness - South West
+filename = wildernessSW
+width = 64
+height = 64
+description = in the South West of the wilderness
+background = 0
+
+# Map 11 - The Wilderness - South
+filename = wildernessS
+width = 64
+height = 64
+description = in the South of the wilderness
+background = 0
+
+# Map 12 - The Wilderness - South East
+filename = wildernessSE
+width = 64 
+height = 64
+description = in the South East of the wilderness
+background = 0
+EOF

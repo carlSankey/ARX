@@ -32,11 +32,11 @@ void InitFont()
 		std::cerr << "Error code: " << error << std::endl;
 	}
 
-	std::wcout << L"Current Working Directory: " << buffer << "/data/images/arfont.png" << std::endl;
+	std::wcout << L"Current Working Directory: " << buffer << "/data/images/core/arfont.png" << std::endl;
 
 
-	if (plyr.fontStyle==0) { FontImage.loadFromFile("data/images/arfontSmooth.png"); }
-	if (plyr.fontStyle == 1) { FontImage.loadFromFile("data/images/arfont.png"); }
+	if (plyr.fontStyle==0) { FontImage.loadFromFile("data/images/core/arfontSmooth.png"); }
+	if (plyr.fontStyle == 1) { FontImage.loadFromFile("data/images/core/arfont.png"); }
 
 
 

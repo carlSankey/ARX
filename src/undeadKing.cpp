@@ -55,7 +55,7 @@ void shopUndeadKing()
 	// Move the player outside the Undead Palace
 	plyr.x = 14;
 	plyr.y = 28;
-	plyr.z_offset=1.6; // position player just outside door
+	plyr.z_offset=1.6f; // position player just outside door
 	plyr.status = 1; // explore
 }
 

@@ -24,8 +24,8 @@
 using namespace std;
 
 unsigned char  spellItems[noOfSpellList];
-extern struct monster;
-extern  monster Opponents[];
+//extern  monster Opponents[];
+
 
 spellItem spellBuffer[76]; // learnt spells that can be cast
 
@@ -60,7 +60,7 @@ std::vector<spellRecord> readSpellsCSV(const std::string& filename) {
 	std::vector<spellRecord> data;
 
 	// Open the CSV file
-	std::ifstream file("data/map/" + filename);
+	std::ifstream file("data/map/core/" + filename);
 	if (!file.is_open()) {
 		std::cerr << "Error opening file: " << filename << std::endl;
 		return data; // Return empty vector if file couldn't be opened
@@ -103,7 +103,7 @@ std::vector<spellRecord> readSpellsCSV(const std::string& filename) {
 		newSpell.positiveValue = std::stoi(cell);
 
 		std::getline(lineStream, cell, ',');
-		newSpell.duration = std::stoi(cell);
+		newSpell.duration = std::stof(cell);
 
 		std::getline(lineStream, cell, ',');
 		newSpell.damage = std::stoi(cell);
@@ -509,7 +509,7 @@ void castSpellAction(int spellNo)
 
 		if (!effectIndexloc.found)
 		{
-			applyEffect(spells[spellNo].duration, effectIndexloc.index);
+			applyEffect(static_cast<int>(spells[spellNo].duration), effectIndexloc.index);
 		}
 		break;
 
@@ -524,7 +524,7 @@ void castSpellAction(int spellNo)
 		effectBuffer[effectIndexloc.index].duration = spells[spellNo].duration; // hours
 		if (!effectIndexloc.found)
 		{
-			applyEffect(effectBuffer[effectIndexloc.index].duration, effectIndexloc.index);
+			applyEffect(static_cast<int>(effectBuffer[effectIndexloc.index].duration), effectIndexloc.index);
 		}
 		break;
 
@@ -544,7 +544,7 @@ void castSpellAction(int spellNo)
 			effectBuffer[effectIndexloc.index].duration = spells[spellNo].duration; // hours
 			if (!effectIndexloc.found)
 			{
-				applyEffect(effectBuffer[effectIndexloc.index].duration, effectIndexloc.index);
+				applyEffect(static_cast<int>(effectBuffer[effectIndexloc.index].duration), effectIndexloc.index);
 			}
 		
 		break;
@@ -559,7 +559,7 @@ void castSpellAction(int spellNo)
 		effectBuffer[effectIndexloc.index].duration = spells[spellNo].duration; // hours
 		if (!effectIndexloc.found)
 		{
-			applyEffect(effectBuffer[effectIndexloc.index].duration, effectIndexloc.index);
+			applyEffect(static_cast<int>(effectBuffer[effectIndexloc.index].duration), effectIndexloc.index);
 		}
 		break;
 
@@ -599,7 +599,7 @@ void castSpellAction(int spellNo)
 
 		if (!effectIndexloc.found)
 		{
-			applyEffect(spells[spellNo].duration, effectIndexloc.index);
+			applyEffect(static_cast<int>(spells[spellNo].duration), effectIndexloc.index);
 		}
 		break;
 	case 11: // Item action

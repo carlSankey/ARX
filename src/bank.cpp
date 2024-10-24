@@ -47,9 +47,9 @@ struct bank
 //	name						accounts									loc		op	cl	job		gem		jewel
 bank banks[3] =
 {
-	{"First City Bank",			0.5,0.3,1,0,0.9,0.9,1,0,2.6,3.0,1,0,		37,		0,	23,	51,		0,		0},
-	{"Granite Bank",			0.5,0.2,1,0,1.0,1.0,1,0,2.7,3.1,1,0,		38,		11,	2,	51,		3000,	1},
-	{"Gram's Gold Exchange",	0.6,0.1,1,0,1.3,1.0,1,0,3.2,3.3,1,0,		39,		0,	23,	46,		0,		0}
+	{"First City Bank",			0.5f,0.3f,1,0,0.9f,0.9f,1,0,2.6f,3.0f,1,0,		37,		0,	23,	51,		0,		0},
+	{"Granite Bank",			0.5f,0.2f,1,0,1.0f,1.0f,1,0,2.7f,3.1f,1,0,		38,		11,	2,	51,		3000,	1},
+	{"Gram's Gold Exchange",	0.6f,0.1f,1,0,1.3f,1.0f,1,0,3.2f,3.3f,1,0,		39,		0,	23,	46,		0,		0}
 };
 
 
@@ -77,9 +77,9 @@ struct bankJob
 
 bankJob bankJobs[3] =
 {
-	{"Guard",		30,	36,	"Strength",		15,		0.6875,		15.95,	3.97},
-	{"File Clerk",	50,	56,	"Intelligence",	20,		0.5625,		2.29,	0.05},
-	{"Coin Roller",	22,	28,	"Alignment",	144,	0.59375,	2.29,	0.05 }
+	{"Guard",		30,	36,	"Strength",		15,		0.6875f,		15.95f,	3.97f},
+	{"File Clerk",	50,	56,	"Intelligence",	20,		0.5625f,		2.29f,	0.05f},
+	{"Coin Roller",	22,	28,	"Alignment",	144,	0.59375f,	2.29f,	0.05f }
 };
 
 

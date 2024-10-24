@@ -275,7 +275,7 @@ struct Player
   int fixed_index;
   int luck;
   int TemporalAdjustment;
-  bool PrisonRelease;
+  int prisonRelease;
 };
 
 std::string setGenderString(int gender);

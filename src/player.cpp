@@ -302,8 +302,8 @@ string checkTemprature()
     if ((plyr.temperature > -50) && (plyr.temperature < 0)) { tempDesc = "Chilly"; }
     if ((plyr.temperature > 0 ) && (plyr.temperature < 25)) { tempDesc = "    "; }
     if ((plyr.temperature > 25) && (plyr.temperature < 50)) { tempDesc = "Warm";  }
-    if ((plyr.temperature > 51) && (plyr.temperature < 154)) { tempDesc = "Hot"; plyr.thirstRate += 0.08; }
-    if (plyr.temperature > 155) { tempDesc = "Roasting!"; plyr.thirstRate += 0.16; }
+    if ((plyr.temperature > 51) && (plyr.temperature < 154)) { tempDesc = "Hot"; plyr.thirstRate += 1; }
+    if (plyr.temperature > 155) { tempDesc = "Roasting!"; plyr.thirstRate += 4; }
     return tempDesc;
 }
 
@@ -349,7 +349,8 @@ string checkDisease()
 
 void updateNoticability()
 {
-    if (plyr.noticeability > 0.024) { plyr.noticeability -= 0.025; }  
+    if (plyr.noticeability > 100) { plyr.noticeability = 100; }  
+    if (plyr.noticeability < 0) { plyr.noticeability = 0; }
 }
 
 
@@ -364,13 +365,13 @@ void updateDigestion()
 
 void updateThirst()
 {
-    plyr.thirst += plyr.thirstRate;
+    plyr.thirst += static_cast<int>(10*plyr.thirstRate);
 }
 
 
 void updateHunger()
 {
-    plyr.hunger += plyr.hungerRate;
+    plyr.hunger += static_cast<int>(10*plyr.hungerRate);// -50 = Bloated +100 = Starving
 
 }
 
@@ -475,7 +476,7 @@ void updateSpell(int hour )
 
     for (int i = 0; i < 4; i++)
     {
-        int SpellDuraction = effectBuffer[i].duration;
+        int SpellDuraction = static_cast<int>(effectBuffer[i].duration);
         
         std::bitset<8> binaryStat(spells[effectBuffer[i].effectNo].stattype);
         std::bitset<13> binaryElems(spells[effectBuffer[i].effectNo].elementtype);

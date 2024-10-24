@@ -1,4 +1,4 @@
-   gender,
+gender,
 hp,
 maxhp,
 scenario,
@@ -8,7 +8,7 @@ mapHeight,
 x,
 oldx,
 y,
-1oldy,
+oldy,
 facing,
 front,
 back,
@@ -43,8 +43,6 @@ str,
 inte,
 wis,
 skl,
-maxhp,
-hp,
 xp,
 level, // xp level
 chrPartials,
@@ -140,7 +138,7 @@ protection2,
 forgeDays,
 forgeType,
 forgeBonus,
-plyr.forgeName;
+forgeName,
 stolenFromVault,
 base_guildAccepting, //Contains 14 elements
 light = base_guildAccepting + noOfguildAccepting,
@@ -197,70 +195,23 @@ effectBufferStart = 7500,
 base_effectBuffereffectNo, //Contains 50 elements
 base_effectBuffernegativeValue = base_effectBuffereffectNo + noOfEffects,
 base_effectBufferpositiveValue= base_effectBuffernegativeValue + noOfEffects,
-base_effectBuffer[z].duration= base_effectBufferpositiveValue + noOfEffects,
-
-
-    // Smithy daily wares - int smithyDailyWares[4][10];
-	
-smithyDailyWaresStart = 7700
-
-
-for (int z = 0; z < 4; ++z)
-{
-    for (int x = 0; x < 10; ++x)
-    {
-        saveGameIndex itos(smithyDailyWares[z][x],
-        saveGameIndex++;
-    }
-}
-//cout << saveGameIndex << "\n";
-    //int tavernDailyFoods[14][6];
-saveGameIndex = 7710; // start location for object buffer items
-for (int z = 0; z < 14; ++z)
-{
-    for (int x = 0; x < 6; ++x)
-    {
-        saveGameIndex itos(tavernDailyFoods[z][x],
-        saveGameIndex++;
-    }
-}
-//cout << saveGameIndex << "\n";
-    //int tavernDailyDrinks[14][6];
-saveGameIndex = 7794; // start location for object buffer items
-for (int z = 0; z < 14; ++z)
-{
-    for (int x = 0; x < 6; ++x)
-    {
-        saveGameIndex itos(tavernDailyDrinks[z][x],
-        saveGameIndex++;
-    }
-}
-//cout << saveGameIndex << "\n";
-    // int shopDailyWares[15][12];
-saveGameIndex = 7878; // start location for object buffer items
-for (int z = 0; z < 15; ++z)
-{
-    for (int x = 0; x < 12; ++x)
-    {
-        saveGameIndex itos(shopDailyWares[z][x],
-        saveGameIndex++;
-    }
-}
-
+base_effectBufferduration= base_effectBufferpositiveValue + noOfEffects,
+smithyDailyWaresStart = 7700,
+base_smithyDailyWares1,
+base_smithyDailyWares2 = base_smithyDailyWares1 + noOfsmithDailyWares,
+base_smithyDailyWares3 = base_smithyDailyWares2 + noOfsmithDailyWares,
+base_smithyDailyWares4 = base_smithyDailyWares3 + noOfsmithDailyWares,
+tavernDailyFoodsStart = 7800,
+tavernDailyFoods,  //Move to Random
+tavernDailyDrinks, //Move to Random
+shopDailyWares, //Moved to Random
+saveGameIndex = 8058, // start location for automapexplored
 // Currently inn and tavern job openings are not part of saved game
-//cout << saveGameIndex << "\n";
-    //bool autoMapExplored[5][4096];
-saveGameIndex = 8058; // start location for automapexplored
-for (int z = 0; z < 5; ++z)
-{
-    for (int x = 0; x < 4096; ++x)
-    {
-        saveGameIndex itos(autoMapExplored[z][x],
-        saveGameIndex++;
-    }
-}
-//cout << saveGameIndex << "\n";
-
-28538 plyr.name;
-28539 ftos(plyr.z_offset,
-28540 "Release 0.85";
+base_autoMapExplored1,
+base_autoMapExplored2 = base_autoMapExplored1 + noOfautoMapExplored,
+base_autoMapExplored3 = base_autoMapExplored2 + noOfautoMapExplored,
+base_autoMapExplored4 = base_autoMapExplored3 + noOfautoMapExplored,
+base_autoMapExplored5 = base_autoMapExplored4 + noOfautoMapExplored,
+name = base_autoMapExplored5 + noOfautoMapExplored,
+z_offset,
+Release,

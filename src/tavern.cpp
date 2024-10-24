@@ -55,20 +55,20 @@ struct tavern
 tavern Taverns[14] =
 {
 //	  name						price		loc		op	cl	job		member	classy
-	{"Flaming Dragon",			1.2,		23,		0,	23,	51,		0,		0},
-	{"Misty Mountain",			3.5,		24,		11,	2,	51,		3000,	1},
-	{"Screaming Siren Bar",		1.2,		25,		16,	3,	64,		0,		0},
-	{"Happy Hunter Rest Stop",	1.4,		26,		0,	7,	77,		0,		0},
-	{"Dancing Nymph",			1.6,		27,		16,	7,	72,		0,		0},
-	{"Club",					3.5,		28,		18,	22,	182,	1500,	1},
-	{"Black Devil",				1.4,		29,		0,	5,	64,		0,		1},
-	{"Lost Oasis",				0.8,		30,		0,	23,	26,		0,		1},
-	{"Last Stop",				1.2,		31,		0,	23,	38,		0,		0},
-	{"Tail of the Dog",			2.0,		32,		0,	23,	192,	0,		0},
-	{"Club Babylon",			5.0,		33,		10,	4,	77,		50000,	1},
-	{"Lost Tears",				1.8,		34,		0,	23,	56,		0,		1},
-	{"Mom's Bar",				1.6,		35,		0,	23,	128,	0,		0},
-	{"Lusty Lloyds",			1.0,		36,		0,	23,	46,		0,		0}
+	{"Flaming Dragon",			1.2f,		23,		0,	23,	51,		0,		0},
+	{"Misty Mountain",			3.5f,		24,		11,	2,	51,		3000,	1},
+	{"Screaming Siren Bar",		1.2f,		25,		16,	3,	64,		0,		0},
+	{"Happy Hunter Rest Stop",	1.4f,		26,		0,	7,	77,		0,		0},
+	{"Dancing Nymph",			1.6f,		27,		16,	7,	72,		0,		0},
+	{"Club",					3.5f,		28,		18,	22,	182,	1500,	1},
+	{"Black Devil",				1.4f,		29,		0,	5,	64,		0,		1},
+	{"Lost Oasis",				0.8f,		30,		0,	23,	26,		0,		1},
+	{"Last Stop",				1.2f,		31,		0,	23,	38,		0,		0},
+	{"Tail of the Dog",			2.0f,		32,		0,	23,	192,	0,		0},
+	{"Club Babylon",			5.0f,		33,		10,	4,	77,		50000,	1},
+	{"Lost Tears",				1.8f,		34,		0,	23,	56,		0,		1},
+	{"Mom's Bar",				1.6f,		35,		0,	23,	128,	0,		0},
+	{"Lusty Lloyds",			1.0f,		36,		0,	23,	46,		0,		0}
 };
 
 struct tavernDrinkItem
@@ -163,9 +163,9 @@ struct tavernJob
 
 tavernJob tavernJobs[3] =
 {
-	{"Bouncer",	    40,	44,	"Strength",	22,	0.75,	19.69, 7.26},
-	{"Host",	    20,	24,	"Charm",	12,	0.5625, 0.77,  0.01},
-	{"Dish Washer",	8,	12,	"Skill",    9,	0.5625, 12.64, 2.20}
+	{"Bouncer",	    40,	44,	"Strength",	22,	0.75f,	19.69f, 7.26f},
+	{"Host",	    20,	24,	"Charm",	12,	0.5625f, 0.77f,  0.01f},
+	{"Dish Washer",	8,	12,	"Skill",    9,	0.5625f, 12.64f, 2.20f}
 };
 
 
@@ -477,7 +477,7 @@ while (tavernMenu == 22) // Attempt to buy a club membership
 				string itemCostDesc;
 				x = 33;
 				int itemNo = tavernDailyDrinks[tavernNo][i];
-				itemCost = Taverns[tavernNo].priceFactor * tavernDrinks[itemNo].basePrice;
+				itemCost = static_cast<int>(Taverns[tavernNo].priceFactor * tavernDrinks[itemNo].basePrice);
 				//itemCost = tavernWares[itemNo].basePrice;
 				if (itemCost<10) { x = 34;}
 				if ((itemCost>9) && (itemCost < 100)) { x = 32;}
@@ -520,7 +520,7 @@ while (tavernMenu == 22) // Attempt to buy a club membership
 		{
 			tavernNo = getTavernNo();
 			drinkNo = tavernDailyDrinks[tavernNo][drinkChoice];
-			drinkCost = Taverns[tavernNo].priceFactor * tavernDrinks[drinkNo].basePrice;
+			drinkCost = static_cast<int>(Taverns[tavernNo].priceFactor * tavernDrinks[drinkNo].basePrice);
 			if (!checkCoins(0,0,drinkCost)) { tavernMenu = 5; } // offended!
 			else { tavernMenu = 6; }
 		}
@@ -583,7 +583,7 @@ while (tavernMenu == 22) // Attempt to buy a club membership
 				string itemCostDesc;
 				x = 33;
 				int itemNo = tavernDailyFoods[tavernNo][i];
-				itemCost = Taverns[tavernNo].priceFactor * tavernFoods[itemNo].basePrice;
+				itemCost = static_cast<int>(Taverns[tavernNo].priceFactor * tavernFoods[itemNo].basePrice);
 				//itemCost = tavernWares[itemNo].basePrice;
 				if (itemCost<10) { x = 37;}
 				if ((itemCost>9) && (itemCost < 100)) { x = 34;}
@@ -628,7 +628,7 @@ while (tavernMenu == 22) // Attempt to buy a club membership
 		{
 			tavernNo = getTavernNo();
 			foodNo = tavernDailyFoods[tavernNo][foodChoice];
-			foodCost = Taverns[tavernNo].priceFactor * tavernFoods[foodNo].basePrice;
+			foodCost = static_cast<int>(Taverns[tavernNo].priceFactor * tavernFoods[foodNo].basePrice);
 			if (!checkCoins(0,0,foodCost)) { tavernMenu = 9; } // offended!
 			else { tavernMenu = 10; }
 		}
@@ -789,7 +789,7 @@ while (tavernMenu == 22) // Attempt to buy a club membership
 
         while (tavernMenu == 30) // Buy a round
 		{
-		    int roundCost = 80 * Taverns[tavernNo].priceFactor;
+		    int roundCost = static_cast<int>(80 * Taverns[tavernNo].priceFactor);
 		    tavernDisplayUpdate();
 			str = "A round for the house will cost@@" + itos(roundCost) + " coppers.@@@Dost thou still wish to buy? (Y or N)";
             cyText (0, str);

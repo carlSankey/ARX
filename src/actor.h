@@ -14,7 +14,7 @@
 
 std::string readBinaryString(int stringOffset);
 
-class newMonster;
+extern struct  newMonster;
 
 extern newMonster* Monster_Buffer;
 
@@ -120,6 +120,8 @@ struct monster
 	int braveness;
 };
 
+//.extern monster Opponents[];  // Declare the array of Monster
+
 struct newMonster
 {
 
@@ -212,6 +214,9 @@ struct newMonster
 	int minLevel;
 	std::string hash;
 };
+
+
+
 
 std::vector<newMonster> readMonsterCSV(const std::string& filename);
 

@@ -87,11 +87,9 @@ void clearAutoMaps()
 
 void InitMap()
 {
-	mapImage.loadFromFile("data/images/maptiles.png");
+	mapImage.loadFromFile("data/images/core/maptiles.png");
 	cellImage.setTexture(mapImage);
-
-	if (plyr.scenario==0) legendImage.loadFromFile("data/images/cityLegend.png");
-	if (plyr.scenario==1) legendImage.loadFromFile("data/images/dungeonLegend.png");
+	legendImage.loadFromFile("data/images/Scenario_" + std::to_string(plyr.scenario) + "/Legend.png");
 	mapLegend.setTexture(legendImage);
 }
 
@@ -120,7 +118,7 @@ void DrawImage(int x,int y, int tileNo)
 	int tileX = (column)*tileSize;	// x loc on tiles image in pixels
 	int tileY = ((row)*tileSize);	// y loc on tiles image in pixels
 	cellImage.setTextureRect(sf::IntRect(tileX, tileY , tileSize, tileSize));
-	cellImage.setPosition(x,y); // simply display at x,y pixel locations
+	cellImage.setPosition(static_cast<float>(x), static_cast<float>(y)); // simply display at x,y pixel locations
 	//cellImage.setScale(scale,scale);
 	//if (plyr.drawingBigAutomap) { App.draw(cellImage); }
 	//else { App.draw(cellImage); }
@@ -256,7 +254,7 @@ void drawAutomap()
             rectangle2.setOutlineColor(sf::Color::Yellow);
             rectangle2.setFillColor(sf::Color(0, 0, 0, 128));
             rectangle2.setOutlineThickness(1);
-            rectangle2.setPosition(miniMapX+1, miniMapY+1);
+            rectangle2.setPosition(static_cast<float>(miniMapX+1), static_cast<float>(miniMapY+1));
             App.draw(rectangle2);
         }
 

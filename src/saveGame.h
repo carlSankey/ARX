@@ -18,10 +18,10 @@ void updateSaveGameDescriptions();
 
 void initcharacter();
 
-bool saveCharacter(int saveSlot);
+//bool saveCharacter(int saveSlot);
 bool newsaveCharacter(int saveSlot, const Player& plyr);
 bool newloadCharacter(int saveSlot, Player& plyr);
-bool loadCharacter(int saveSlot);
+//bool loadCharacter(int saveSlot);
 
 
 std::string ftos(float i);	// convert float to string

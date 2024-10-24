@@ -75,7 +75,8 @@ void playerCast(int spellNo);
 int opponentChooseWeapon();
 int calcPlayerWeaponDamage(int weaponNo, float attackFactor, int attacker);
 int calcPlayerSpellDamage(int spellNo, int attacker);
-int calcOpponentWeaponDamage(int weaponNo,float attackFactor, int attacker);
+int NewcalcOpponentWeaponDamage(int weaponNo,float attackFactor, int attacker);
+
 void checkAlignmentEncounter(int opponentNo);
 void updateAmmoCount(int plyrWeaponIndex, int remainingAmmo);
 void surrenderToGuard();
@@ -90,7 +91,7 @@ struct encRecord
 	int encType;
 };
 
-extern struct MapEncounter;
+extern struct MapEncounter ;
 
 std::vector<int> randomEncounterPick(const MapEncounter* newMapEncounter, int arraySize, int ZoneToMatch, int TimeToMatch);
 int randomEncounterPicker(int ZoneToMatch, int TimeToMatch, int arraySize);

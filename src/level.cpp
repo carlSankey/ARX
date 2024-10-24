@@ -10,6 +10,7 @@
 #include <sstream>
 #include <string>
 
+#include "constants.h"
 #include "level.h"
 #include "player.h"
 #include "encounter.h"
@@ -26,9 +27,10 @@ using std::endl;
 //int levelHeight = 64;
 //int levelWidth = 64;
 
-Map maps[6];
+Map maps[13];
 string descriptions[255];
-string roomMessages[255];
+std::string roomMessages[noOfRoomMessages];
+
 zoneRect zones2[255]; // across full first dungeon level
 Mapcell levelmap[4096]; // 4096 = 64 by 64 cells, 96x128 - 12288
 
@@ -376,14 +378,29 @@ void moveMapLevel()
 		loadZoneData(2); // temp
 		loadMessages(2); // temp
 	}
-
+	if ((plyr.x == 35) && (plyr.y == 0) && (plyr.map == 0)) // from City to Wilderness N
+	{
+		plyr.x = 14;
+		plyr.y = 22;
+		plyr.facing = NORTH;
+		plyr.map = 6; // The Wilderness
+		plyr.scenario = 3; // The Dungeon
+		plyr.z_offset = 1.0f;
+		plyr.mapWidth = 64;
+		plyr.mapHeight = 64;
+		loadMapData(6);
+		loadDescriptions(6);
+		//loadDungeonMonsters();
+		loadZoneData(6); // temp
+		loadMessages(6); // temp
+	}
 }
 
 
 void loadDescriptions(int map)
 {
 	for (int i=0 ; i<255 ; i++) { descriptions[i]=""; }
-	string filename = "data/map/"+(maps[map].filename)+"Descriptions.txt";
+	string filename = "data/map/Scenario_" + std::to_string(map) + "/" +(maps[map].filename)+"Descriptions.txt";
 	std::ifstream instream;
 	std::string line;
 	instream.open(filename.c_str());
@@ -402,11 +419,17 @@ void loadDescriptions(int map)
 	instream.close();
 }
 
+void clearArray(std::string roomMessages[], int size) {
+	for (int i = 0; i < size; ++i) {
+		roomMessages[i] = "";
+	}
+}
 
 void loadMessages(int map)
 {
-	for (int i=0 ; i<100 ; i++) { roomMessages[i]=""; } // Fix 256 to actual message numbers - Smithy item corruption
-	string filename = "data/map/"+(maps[map].filename)+"Messages.txt";
+	// Populate the array with empty strings
+	clearArray(roomMessages, noOfRoomMessages);// Fix 256 to actual message numbers - Smithy item corruption
+	string filename = "data/map/Scenario_" + std::to_string(map) + "/" +(maps[map].filename)+"Messages.txt";
 	std::ifstream instream;
 	std::string line;
 	instream.open(filename.c_str());
@@ -430,7 +453,7 @@ void initMaps()
 	std::ifstream instream;
 	std::string junk,line, text;
 
-	instream.open("data/map/maps.txt");
+	instream.open("data/map/core/maps.txt");
 	if( !instream )
 	{
       cerr << "Error: MAPS.TXT file could not be loaded" << endl;
@@ -448,7 +471,7 @@ void initMaps()
 			//cout << line << "\n";
 			idx = line.find('=');
 			text = line.substr(idx+2);
-			if (a==0) { maps[i].filename = text; }
+			if (a==0) { maps[i].filename = text; } //contains the prefix for the files
 			if (a==1) { maps[i].width = atoi(text.c_str()); }
 			if (a==2) { maps[i].height = atoi(text.c_str()); }
 			if (a==3) { maps[i].description = text; }
@@ -466,7 +489,7 @@ std::vector<MapEncounter> readMapEncounterCSV(const std::string& filename) {
 	std::vector<MapEncounter> data;
 
 	// Open the CSV file
-	std::ifstream file("data/map/" + filename);
+	std::ifstream file(filename);
 	if (!file.is_open()) {
 		std::cerr << "Error opening file: " << filename << std::endl;
 		return data; // Return empty vector if file couldn't be opened
@@ -553,7 +576,7 @@ void setCurrentZone()
 void saveHumanReadableMap()
 {
 	 ofstream outdata; // outdata is like cin
-  outdata.open("data/map/dungeon4.txt"); // opens the file
+  outdata.open("data/images/Scenario_" + std::to_string(plyr.scenario) + "/" + maps[plyr.map].filename + ".txt"); // opens the file
    if( !outdata )
    { // file couldn't be opened
       cerr << "Error: map file could not be saved" << endl;
@@ -607,7 +630,7 @@ void loadZoneData(int map)
 		zones2[a].zoneRef = 0;
 	}
 
-	string filename = "data/map/"+(maps[map].filename)+"Zones.txt";
+	string filename = "data/map/Scenario_" + std::to_string(map) + "/" +(maps[map].filename)+"Zones.txt";
 	std::ifstream instream;
 	std::string junk,line, text;
 	instream.open(filename.c_str());
@@ -643,7 +666,7 @@ void loadZoneData(int map)
 void loadMapData(int map)
 {
 	std::ifstream instream;
-	string filename = "data/map/"+(maps[map].filename)+"Cells.txt";
+	string filename = "data/map/Scenario_" + std::to_string(map) + "/" +(maps[map].filename)+"Cells.txt";
 	instream.open(filename.c_str());
 	if( !instream )
 	{
@@ -761,7 +784,7 @@ void transMapIndex (int idx)
 void loadBinaryLevel() {
 	FILE* fp;
 	char tempString[100]; // Declare tempString with an appropriate size
-	sprintf_s(tempString, sizeof(tempString), "%s%s", "data/map/", "dun4.bin");
+	sprintf_s(tempString, sizeof(tempString), "%s%s", "data/map/Scenario_" + std::to_string(plyr.scenario) + "/", "dun4.bin");
 
 	// Use fopen_s for improved error handling
 	if (fopen_s(&fp, tempString, "rb") == 0 && fp != NULL) {
@@ -810,7 +833,7 @@ void printSpecial()
 
 size_t readEncounterData(int map)
 {
-	std::string filename =  (maps[map].filename) + "Encounter.csv" ;
+	std::string filename = "data/map/Scenario_" + std::to_string(map) + "/" +(maps[map].filename) + "Encounter.csv" ;
 	std::vector<MapEncounter>  csvData = readMapEncounterCSV(filename);
 
 	// Convert vector to a dynamically allocated array of NewItem structs

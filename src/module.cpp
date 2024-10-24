@@ -28,7 +28,7 @@ void runModule(int module)
 	if (plyr.facing==EAST) { plyr.x = plyr.oldx; }
 	if (plyr.facing==NORTH) { plyr.y = plyr.oldy; }
 	if (plyr.facing==SOUTH) { plyr.y = plyr.oldy; }
-	plyr.z_offset=1.6; // position player just outside door
+	plyr.z_offset=1.6f; // position player just outside door
 	plyr.status = EXPLORE;
 }
 

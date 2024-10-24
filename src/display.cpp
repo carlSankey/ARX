@@ -29,7 +29,7 @@ using namespace sf;
 
 sf::Sprite encImage;
 
-string version = "0.85.0";
+string version = "0.90.0";
 
 int windowMode, graphicMode, windowWidth, windowHeight, viewWidth, viewHeight;
 int viewPortX;
@@ -50,7 +50,7 @@ int shopStatsY;   // y position for stats in shops
 int shopConsoleY; // y position for console in shops
 int shopPictureY;
 
-extern string roomMessages[255];
+extern std::string roomMessages[noOfRoomMessages];
 extern string descriptions[255];
 
 //extern buffer_item itemBuffer[100];
@@ -649,26 +649,26 @@ void loadResources()
 	loadTextureNames();
 	initTextures();
 	initLyricFont();
-
+	initMaps();
 	loadCounterImages();
 
 	if (graphicMode != A16BIT_SMALL)
 	{
-		compassN.loadFromFile("data/images/compass_n.png");
-		compassS.loadFromFile("data/images/compass_s.png");
-		compassW.loadFromFile("data/images/compass_w.png");
-		compassE.loadFromFile("data/images/compass_e.png");
+		compassN.loadFromFile("data/images/core/compass_n.png");
+		compassS.loadFromFile("data/images/core/compass_s.png");
+		compassW.loadFromFile("data/images/core/compass_w.png");
+		compassE.loadFromFile("data/images/core/compass_e.png");
 	} else {
-		compassN.loadFromFile("data/images/compass_n_16bit.png");
-		compassS.loadFromFile("data/images/compass_s_16bit.png");
-		compassW.loadFromFile("data/images/compass_w_16bit.png");
-		compassE.loadFromFile("data/images/compass_e_16bit.png");
+		compassN.loadFromFile("data/images/core/compass_n_16bit.png");
+		compassS.loadFromFile("data/images/core/compass_s_16bit.png");
+		compassW.loadFromFile("data/images/core/compass_w_16bit.png");
+		compassE.loadFromFile("data/images/core/compass_e_16bit.png");
 	}
 
 	// Create a sprite for the stat banner
-	BannerImageCity.loadFromFile("data/images/cityBanner.png");
+	BannerImageCity.loadFromFile("data/images/Scenario_" + std::to_string(plyr.scenario) + "/" +  "Banner.png");
 	Banner.setTexture(BannerImageCity);
-	BannerImageStrip.loadFromFile("data/images/cityBannerStatusLine.png");
+	BannerImageStrip.loadFromFile("data/images/Scenario_" + std::to_string(plyr.scenario) + "/" + "BannerStatusLine.png");
 	BannerStrip.setTexture(BannerImageStrip);
 	//sf::Texture consoleImage, BannerImageCity, BannerImageStrip;
     //sf::Texture compassN,compassS,compassW,compassE;
@@ -688,33 +688,33 @@ std::cout << "Loading encounters Texture" << std::endl;
 void loadCounterImages()
 {
 	// Dungeon gate counters
-	img0.loadFromFile("data/images/0.png");
-	img1.loadFromFile("data/images/1.png");
-	img2.loadFromFile("data/images/2.png");
-	img3.loadFromFile("data/images/3.png");
-	img4.loadFromFile("data/images/4.png");
-	img5.loadFromFile("data/images/5.png");
-	img6.loadFromFile("data/images/6.png");
-	img7.loadFromFile("data/images/7.png");
-	img8.loadFromFile("data/images/8.png");
-	img9.loadFromFile("data/images/9.png");
+	img0.loadFromFile("data/images/core/0.png");
+	img1.loadFromFile("data/images/core/1.png");
+	img2.loadFromFile("data/images/core/2.png");
+	img3.loadFromFile("data/images/core/3.png");
+	img4.loadFromFile("data/images/core/4.png");
+	img5.loadFromFile("data/images/core/5.png");
+	img6.loadFromFile("data/images/core/6.png");
+	img7.loadFromFile("data/images/core/7.png");
+	img8.loadFromFile("data/images/core/8.png");
+	img9.loadFromFile("data/images/core/9.png");
 
 	//City gate counters
-	imgc0.loadFromFile("data/images/c0.png");
-	imgc1.loadFromFile("data/images/c1.png");
-	imgc2.loadFromFile("data/images/c2.png");
-	imgc3.loadFromFile("data/images/c3.png");
-	imgc4.loadFromFile("data/images/c4.png");
-	imgc5.loadFromFile("data/images/c5.png");
-	imgc6.loadFromFile("data/images/c6.png");
-	imgc7.loadFromFile("data/images/c7.png");
-	imgc8.loadFromFile("data/images/c8.png");
-	imgc9.loadFromFile("data/images/c9.png");
+	imgc0.loadFromFile("data/images/core/c0.png");
+	imgc1.loadFromFile("data/images/core/c1.png");
+	imgc2.loadFromFile("data/images/core/c2.png");
+	imgc3.loadFromFile("data/images/core/c3.png");
+	imgc4.loadFromFile("data/images/core/c4.png");
+	imgc5.loadFromFile("data/images/core/c5.png");
+	imgc6.loadFromFile("data/images/core/c6.png");
+	imgc7.loadFromFile("data/images/core/c7.png");
+	imgc8.loadFromFile("data/images/core/c8.png");
+	imgc9.loadFromFile("data/images/core/c9.png");
 
 	//imgDungeonGate.loadFromFile("data/images/gat.png");
 	imgDungeonGate.loadFromFile("data/images/locations2/gate3.png");
 	imgDungeonGate.setSmooth(false);
-	imgCityGate.loadFromFile("data/images/cityGate.png");
+	imgCityGate.loadFromFile("data/images/Scenario_" + std::to_string(plyr.scenario) + "/" + "Gate.png");
 	imgCityGate.setSmooth(false);
 
 }
@@ -960,8 +960,9 @@ void loadShopImage(int imageno)
         if (imageno==24) { ShopImage.loadFromFile("data/images/locations/undead.png"); }
         if (imageno==25) { ShopImage.loadFromFile("data/images/locations/arena.png"); }
         if (imageno==26) { ShopImage.loadFromFile("data/images/locations/dwarvenSmithy.png"); }
-		if (imageno == 27) { ShopImage.loadFromFile("data/images/locations/6.png"); }
+		if (imageno == 27) {ShopImage.loadFromFile("data/images/locations/6.png"); }
 		if (imageno == 28) { ShopImage.loadFromFile("data/images/locations/Prison.png"); }
+		if (imageno == 29) { ShopImage.loadFromFile("data/images/locations/PrisonEmpty.png"); }
     }
     if (graphicMode > ATARI_SMALL)
     {
@@ -1259,6 +1260,20 @@ void displayAcknowledgements()
 
 }
 
+void displayError()
+{
+    bool acknowledgements = true;
+
+    while (acknowledgements)
+    {
+        clearDisplay();
+        SetFontColour(40, 96, 244, 255);
+        drawText(1, 3, "An Error has occured");
+       
+        updateDisplay();
+        if (keyPressed()) acknowledgements = false;
+    }
+}
 
 void SetTileImage(int tile_no)
 {
@@ -1296,7 +1311,7 @@ void SetTileImage(int tile_no)
 void loadLogoImage()
 {
     int x,y;
-    LogoImage.loadFromFile("data/images/logo640x240.png");
+    LogoImage.loadFromFile("data/images/core/logo640x240.png");
     LogoSprite.setTexture(LogoImage);
     x = (windowWidth - 640)/2;
     y = (windowHeight-(180+240))/2;

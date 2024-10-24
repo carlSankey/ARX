@@ -622,7 +622,7 @@ void moveForward()
 					plyr.y++; // s
 					break;
 			}
-			plyr.noticeability = plyr.noticeability + 0.1;
+			plyr.noticeability = plyr.noticeability + 1;
 			if (plyr.scenario==0) { cityDoorSound.play(); } else { dungeonDoorSound.play(); }
 		}
 
@@ -1180,7 +1180,7 @@ void scenarioEntrance(int scenarioNumber)
 		key = getSingleKey();
 
 		if ( key != "" ) { keynotpressed = false; }
-		if ( key == "up" ) { keynotpressed = true; }
+		if ( key == "Y" ) { moveMapLevel(); keynotpressed = true; }
 	}
 	leaveShop();
 }
@@ -1388,8 +1388,8 @@ void initialiseNewGame()
 	smithySound.setBuffer(smithyBuffer);
 	smithySound.setLoop(true);
 
-	teleBlack.loadFromFile("data/images/teleport_black.png");
-	teleGold.loadFromFile("data/images/teleport_gold.png");
+	teleBlack.loadFromFile("data/images/core/teleport_black.png");
+	teleGold.loadFromFile("data/images/core/teleport_gold.png");
 
 	InitMap();
 

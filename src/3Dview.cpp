@@ -315,11 +315,11 @@ void loadBackgroundNames() {
 	std::cout << "Loading background Texture" << std::endl;
 
 	if (graphicMode == 0)
-		filename = "data/map/backgrounds.txt";
+		filename = "data/map/core/backgrounds.txt";
 	else if (graphicMode == 1)
-		filename = "data/map/backgrounds_16bit.txt";
+		filename = "data/map/core/backgrounds_16bit.txt";
 	else
-		filename = "data/map/backgroundsUpdated.txt";
+		filename = "data/map/core/backgroundsUpdated.txt";
 
 	std::ifstream instream(filename);
 	if (!instream) {
@@ -358,13 +358,13 @@ void loadTextureNames()
 	for (int i=0 ; i<noOfTextures ; i++) { textureNames[i]=""; }
 	if (graphicMode == ATARI_SMALL)
 	{
-		filename = "data/map/textures.txt";
+		filename = "data/map/core/textures.txt";
 	}
 	else if (graphicMode == A16BIT_SMALL)
-		filename = "data/map/textures16bit.txt";
+		filename = "data/map/core/textures16bit.txt";
 	else
 	{
-		filename = "data/map/texturesUpdated.txt";
+		filename = "data/map/core/texturesUpdated.txt";
 	}
 	std::ifstream instream;
 	std::string line,text;
@@ -578,8 +578,8 @@ void calculateWallPositions(int c,int d)
 		rightheight = plyr.rightheight; // right wall texture number
 
 		specialwall = plyr.specialwall; // special used for guild sign etc in City
-		float xm = c*2;           // x float value to be added to texture positioning co-ords
-		float zm = d*2;           // z float value to be added to texture positioning co-ords
+		float xm = static_cast<float>(c*2);           // x float value to be added to texture positioning co-ords
+		float zm = static_cast<float>(d*2);           // z float value to be added to texture positioning co-ords
 		zm = (zm+plyr.z_offset)-1.0f; //-1.0f;
 		// Draw front, left and right walls for current map cell
 		drawCellWalls(c, d, xm, zm, frontwall, leftwall, rightwall,frontheight,leftheight,rightheight); // pass wall numbers and x and z mods
@@ -648,6 +648,9 @@ int getTextureIndex(int x)
 		case 33:
 			texture_index = 33; // City Healer door
 			break;
+		case 34:
+			texture_index = 34; // Forest Wall
+			break;
 		default:
 			texture_index = x; // use the non-zone value assigned to the wall
 			break;
@@ -660,8 +663,8 @@ void drawCellWalls(int c, int d, float xm, float zm, int frontwall, int leftwall
 {
     int texture_no = 0;
     int wall_type;
-	float depthdistantfar = (-depth*2)+1;
-	float depthdistantnear = (-depth*2)+3;
+	float depthdistantfar = static_cast<float>(-depth*2)+1;
+	float depthdistantnear = static_cast<float>(-depth*2)+3;
 
 	// Original graphic style for standard height walls?
 	if (graphicMode== ATARI_SMALL || graphicMode == A16BIT_SMALL)
@@ -748,10 +751,10 @@ void drawCellWalls(int c, int d, float xm, float zm, int frontwall, int leftwall
 			texture_no = getTextureIndex(wall_type);
 			glBindTexture(GL_TEXTURE_2D, texture[texture_no]);
 			glBegin(GL_QUADS);		                // begin drawing walls
-			glTexCoord2f(0.0f, 1.0f); glVertex3f(-25.0f+xm, -0.5, depthdistantnear+zm);	// Bottom Left
-			glTexCoord2f(1.0f, 1.0f); glVertex3f(-25.0f+xm, -0.5, depthdistantfar+zm);	// Bottom Right
-			glTexCoord2f(1.0f, 0.0f); glVertex3f(-25.0f+xm,  -0.5+leftheight, depthdistantfar+zm);	// Top Right
-			glTexCoord2f(0.0f, 0.0f); glVertex3f(-25.0f+xm,  -0.5+leftheight, depthdistantnear+zm);	// Top Left
+			glTexCoord2f(0.0f, 1.0f); glVertex3f(-25.0f+xm, -0.5f, depthdistantnear+zm);	// Bottom Left
+			glTexCoord2f(1.0f, 1.0f); glVertex3f(-25.0f+xm, -0.5f, depthdistantfar+zm);	// Bottom Right
+			glTexCoord2f(1.0f, 0.0f); glVertex3f(-25.0f+xm,  -0.5f+leftheight, depthdistantfar+zm);	// Top Right
+			glTexCoord2f(0.0f, 0.0f); glVertex3f(-25.0f+xm,  -0.5f+leftheight, depthdistantnear+zm);	// Top Left
 			glEnd();
 		 if (( ( wall_type == 1 ) || ( wall_type == 2))) // was 1
 		 {
