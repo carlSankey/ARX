@@ -3266,7 +3266,7 @@ std::vector<int> randomEncounterPick(const MapEncounter* newMapEncounter, int ar
 		}
 
 	}
-	if (zoneFound == 0){ ZoneToMatch = 99;}
+	if (zoneFound == 0){ ZoneToMatch = 0;}
 
 	// Find indices matching the criteria
 	for (int i = 0; i < arraySize; ++i) {

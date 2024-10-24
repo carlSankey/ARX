@@ -1,1 +1,18 @@
-﻿
+﻿  encounter.cpp
+C:\Source\ARX2023\src\encounter.h(94,15): warning C4091: 'extern ': ignored on left of 'MapEncounter' when no variable is declared
+  (compiling source file 'encounter.cpp')
+  
+C:\Source\ARX2023\src\actor.h(17,16): warning C4091: 'extern ': ignored on left of 'newMonster' when no variable is declared
+  (compiling source file 'encounter.cpp')
+  
+C:\Source\ARX2023\src\encounter.cpp(350,52): warning C4305: '=': truncation from 'double' to 'float'
+C:\Source\ARX2023\src\encounter.cpp(758,20): warning C4553: '==': result of expression not used; did you intend '='?
+C:\Source\ARX2023\src\encounter.cpp(1607,60): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Source\ARX2023\src\encounter.cpp(2071,25): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Source\ARX2023\src\encounter.cpp(2072,26): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Source\ARX2023\src\encounter.cpp(2506,49): warning C4552: '-': result of expression not used
+C:\Source\ARX2023\src\encounter.cpp(2874,24): warning C4390: ';': empty controlled statement found; is this the intent?
+C:\Source\ARX2023\src\encounter.cpp(3331,1): warning C4715: 'randomEncounterPicker': not all control paths return a value
+  ARXX.vcxproj -> C:\Source\ARX2023\src\Debug\ARXX.exe
+  'pwsh.exe' is not recognized as an internal or external command,
+  operable program or batch file.
