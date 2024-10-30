@@ -450,7 +450,7 @@ void RunAway(int backup)
 		if (plyr.facing == NORTH) { plyr.x = plyr.oldx; }
 		if (plyr.facing == EAST) { plyr.y = plyr.oldy; }
 		if (plyr.facing == SOUTH) { plyr.y = plyr.oldy; }
-		plyr.z_offset = 1.0;
+		plyr.z_offset = 0.1;
 	}
 	else
 	{
@@ -799,7 +799,7 @@ void processPlayerAction()
         if ( key=="3" ) { playerTrick(); } // trick
         if ( key=="4" )
         {
-            if ((plyr.encounterRef == HEALER) && (plyr.scenario==1)) { encounterMenu = 5; } else { playerHail(); }
+            if ((plyr.encounterRef == HEALER) && (plyr.scenario>0)) { encounterMenu = 5; } else { playerHail(); }
         }
         if ( key=="0" ) { encounterRunning = false; } // leave
     }
@@ -2868,11 +2868,11 @@ void updateEncounterStatusText()
 
 void checkEncounter()
 {
-	int Suprisecheck = (plyr.stealth - plyr.noticeability) + plyr.alcohol;
+	int Suprisecheck = (plyr.stealth - plyr.noticeability) - plyr.alcohol ;  // Alcohol higer the more drunk, Stealth = camo more the better, noticebilty the noiec your making
     if (encounterThemeNotPlaying())
     {
-		if (Suprisecheck < 0); Suprisecheck = 1;
-        int encounter_check = randn(0, Suprisecheck);  //a little different from the City
+		if (Suprisecheck < 0) Suprisecheck = 1;
+       int encounter_check = randn(0, Suprisecheck);  //a little different from the City
 
 		if (encounter_check == 0)  //character is suprised
 		{

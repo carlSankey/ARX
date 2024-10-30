@@ -66,3 +66,6 @@
 65 Alien Wall = alienWall
 66 Alien door = alienDoor
 67 Alien arch = alienArch
+68 Wilderness Wall = Treewall
+69 Wilderness door = Treedoor
+70 Wilderness arch = Treearch

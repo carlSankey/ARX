@@ -198,6 +198,8 @@ string readKey()
 			if ((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::X)) keyString="X";
 			if ((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Y)) keyString="Y";
 			if ((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Z)) keyString="Z";
+			if ((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Add)) keyString = "+";
+			if ((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Subtract)) keyString = "-";
 
 			if ((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Space)) keyString="SPACE";
 			if ((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Return)) keyString="RETURN";

@@ -648,8 +648,14 @@ int getTextureIndex(int x)
 		case 33:
 			texture_index = 33; // City Healer door
 			break;
-		case 34:
-			texture_index = 34; // Forest Wall
+		case 68:
+			texture_index = 68; // Forest Wall
+			break;
+		case 69:
+			texture_index = 69; // Forest Door
+			break;
+		case 70:
+			texture_index = 70; // Forest Arch
 			break;
 		default:
 			texture_index = x; // use the non-zone value assigned to the wall

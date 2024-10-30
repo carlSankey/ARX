@@ -126,6 +126,9 @@ void moveMapLevelTeleport()
 
 void moveMapLevel()
 {
+	//Only get here if you have clicked yes to enter new scenario or Yes to stairs menu
+	//USes Plyr.x and plyr.y and map to determin which scenario to go to but why not plyr.special?
+
 	if ((plyr.x==50) && (plyr.y==3) && (plyr.map==1)) // to the city from dungeon 1
 	{
 		plyr.x=49;
@@ -206,7 +209,6 @@ void moveMapLevel()
 		loadMessages(2);
 	}
 
-
 	if ((plyr.x==31)&&(plyr.y==31)&&(plyr.map==2)) // from dungeon 2 to dungeon 1 se fix
 	{
 		plyr.x=47;
@@ -224,8 +226,7 @@ void moveMapLevel()
 		loadMessages(1);
 	}
 
-
-		if ((plyr.x==16)&&(plyr.y==48)&&(plyr.map==1)) // from dungeon 1 to dungeon 2 sw fix
+	if ((plyr.x==16)&&(plyr.y==48)&&(plyr.map==1)) // from dungeon 1 to dungeon 2 sw fix
 	{
 		plyr.x=1;
 		plyr.y=31;
@@ -241,7 +242,6 @@ void moveMapLevel()
 		loadZoneData(2);
 		loadMessages(2);
 	}
-
 
 	if ((plyr.x==0)&&(plyr.y==31)&&(plyr.map==2)) // from dungeon 2 to dungeon 1 ne fix
 	{
@@ -378,13 +378,15 @@ void moveMapLevel()
 		loadZoneData(2); // temp
 		loadMessages(2); // temp
 	}
-	if ((plyr.x == 35) && (plyr.y == 0) && (plyr.map == 0)) // from City to Wilderness N
+
+	// from City to Wilderness N
+	if ((plyr.x == 35) && (plyr.y == 0) && (plyr.map == 0)) 
 	{
-		plyr.x = 14;
-		plyr.y = 22;
+		plyr.x = 40;
+		plyr.y = 61;
 		plyr.facing = NORTH;
 		plyr.map = 6; // The Wilderness
-		plyr.scenario = 3; // The Dungeon
+		plyr.scenario = 6; // The Wilderness
 		plyr.z_offset = 1.0f;
 		plyr.mapWidth = 64;
 		plyr.mapHeight = 64;
@@ -394,6 +396,26 @@ void moveMapLevel()
 		loadZoneData(6); // temp
 		loadMessages(6); // temp
 	}
+
+	if ((plyr.x == 40) && (plyr.y == 62) && (plyr.map == 6))
+	{
+		plyr.x = 35;
+		plyr.y = 1;
+		plyr.facing = SOUTH;
+		plyr.map = 0; // The Wilderness
+		plyr.scenario = 0; // The Wilderness
+		plyr.z_offset = 1.0f;
+		plyr.mapWidth = 64;
+		plyr.mapHeight = 64;
+		loadMapData(0);
+		loadDescriptions(0);
+		//loadDungeonMonsters();
+		loadZoneData(6); // temp
+		loadMessages(6); // temp
+		InitMap();
+	}
+
+
 }
 
 

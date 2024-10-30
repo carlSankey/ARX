@@ -783,7 +783,11 @@ if (plyr.status!=3)
                   bText(11, 5, "You are in the Arena");
                   bText(12, 6, "of Xebec's Demise");
             }
-
+			if (plyr.scenario == 6)
+			{
+				bText(11, 5, "You are in the Wilderness");
+				bText(12, 6, "of Xebec's Demise");
+			}
 			string thirstDesc = checkThirst();
 			bText (1,7,thirstDesc);
 			string hungerDesc = checkHunger();

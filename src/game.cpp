@@ -101,12 +101,11 @@ void gameLoop()
 		{
 		    dt = myclock.restart();
 
-		if (plyr.scenario == 1) {checkTeleport();}
+		if (plyr.scenario > 0) {checkTeleport();}
 
 		if (plyr.hp<0) { plyr.alive=false; }
 
-		checkShop();
-			 
+		checkShop(); 
 			 
 		/* Update player loc details */
 
@@ -182,7 +181,9 @@ void gameLoop()
 		if ( key=="F" ) { if (plyr.fpsOn) {plyr.fpsOn = false;} else {plyr.fpsOn = true;} }
 		if ( key=="A" ) { if (plyr.miniMapOn) {plyr.miniMapOn = false;} else {plyr.miniMapOn = true;} }
 		if ( key=="M" ) { automap(); }
-
+		if (key == "-") {  
+			plyr.noticeability=plyr.noticeability-1; }
+		if (key == "+") { plyr.noticeability = plyr.noticeability + 1; }
 		if ( key=="W" ) { chooseEncounter(); }
 
 		if ( key=="T" ) { if (AR_DEV.TELEPORT_OPTION) teleport(); }
@@ -663,7 +664,23 @@ void moveForward()
 	if (plyr.y == -1) { plyr.y = 63; } // city wrap around
 	if (plyr.y == 64) { plyr.y = 0; } // city wrap around
 	*/
-	if ((plyr.x == -1) || (plyr.x == 64) || (plyr.y == -1) || (plyr.y == 64)) { scenarioEntrance(300); } // city wall edges leading to wilderness
+	if (plyr.x == -1)
+	{
+		scenarioEntrance(401);
+	}
+	if (plyr.x == 64)
+	{
+		scenarioEntrance(406);
+	}
+	if (plyr.y == -1)
+	{
+		scenarioEntrance(403);
+	}
+	if (plyr.y == 64)
+	{
+		scenarioEntrance(404);
+	}
+	 // city wall edges leading to wilderness
 
 
 }
@@ -1019,11 +1036,6 @@ void checkFixedTreasuresold()
 }
 
 
-
-
-
-
-
 void checkShop()
 {
      switch(plyr.special)
@@ -1100,10 +1112,13 @@ void checkShop()
 			shopChapel();
 			break;
         case 4: // entrance to wilderness
-			scenarioEntrance(300);
+			scenarioEntrance(400);
+			break;
+		case 200: // entrance to wilderness
+			scenarioEntrance(200);
 			break;
 		case 300: // entrance to wilderness
-			scenarioEntrance(300);
+			scenarioEntrance(401);
 			break;
 		case 301: // entrance to palace
 			scenarioEntrance(301);
@@ -1157,6 +1172,8 @@ void shopClosed()
 
 void scenarioEntrance(int scenarioNumber)
 {
+	// The doors between scenarios
+	// ScenarioNumber is the going to Scenario (also the plyr.special)
 	bool keynotpressed = true;
 	while (keynotpressed) // closed
 	{
@@ -1167,8 +1184,18 @@ void scenarioEntrance(int scenarioNumber)
 		//App.pushGLStates();
 		switch(scenarioNumber)
 		{
-			case 300: str="the Wilderness"; break;
-			case 301: str="the Palace"; break;
+			
+			case 200: str = "the City"; break;
+			case 301: str = "the Palace"; break;
+			case 401: str = "the Wilderness"; break;
+			case 402: str = "the Wilderness"; break;
+			case 403: str = "the Wilderness"; break;
+			case 404: str = "the Wilderness"; break;
+			case 405: str = "the Wilderness"; break;
+			case 406: str = "the Wilderness"; break;
+			case 407: str = "the Wilderness"; break;
+			case 408: str = "the Wilderness"; break;
+
 		}
 
 		drawStatsPanel();
@@ -1180,9 +1207,11 @@ void scenarioEntrance(int scenarioNumber)
 		key = getSingleKey();
 
 		if ( key != "" ) { keynotpressed = false; }
-		if ( key == "Y" ) { moveMapLevel(); keynotpressed = true; }
+		if (key == "Y") { moveMapLevel(); plyr.status = EXPLORE; keynotpressed = true; }
+		if (key == "N") { plyr.status = EXPLORE; keynotpressed = true; }
 	}
-	leaveShop();
+	//leaveShop();
+	
 }
 
 

@@ -5,7 +5,7 @@
 const std::string progRelease = "0.91"; //Release version
 
 //3Dview
-const int noOfTextures = 68;  //no of image in the images folder
+const int noOfTextures = 71;  //no of image in the images folder
 const int noOfBackgrounds = 61; //no of images in the background folder
 
 //SaveGame

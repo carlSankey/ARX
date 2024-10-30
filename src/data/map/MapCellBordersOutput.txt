@@ -149,7 +149,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 0,10
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -166,8 +166,8 @@ Special = 0
 # Map Cell Item: 0,11
 East wall = 0
 North wall = 13
-West wall = 0
-South wall = 0
+West wall = 5
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -317,7 +317,7 @@ Special = 0
 East wall = 0
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -869,7 +869,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 0,58
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -886,7 +886,7 @@ Special = 0
 # Map Cell Item: 0,59
 East wall = 13
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -947,7 +947,7 @@ Special = 0
 East wall = 13
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -974,7 +974,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 1,1
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 13
 South wall = 13
@@ -991,7 +991,7 @@ Special = 0
 # Map Cell Item: 1,2
 East wall = 0
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -1052,7 +1052,7 @@ Special = 0
 East wall = 0
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -1125,7 +1125,7 @@ Special = 0
 
 # Map Cell Item: 1,11
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -1217,7 +1217,7 @@ Special = 0
 East wall = 0
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -1275,7 +1275,7 @@ Special = 0
 
 # Map Cell Item: 1,21
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -1394,7 +1394,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 1,29
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 0
@@ -1411,8 +1411,8 @@ Special = 0
 # Map Cell Item: 1,30
 East wall = 0
 North wall = 0
-West wall = 0
-South wall = 0
+West wall = 5
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -1559,7 +1559,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 1,40
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -1576,7 +1576,7 @@ Special = 0
 # Map Cell Item: 1,41
 East wall = 0
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -1769,7 +1769,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 1,54
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -1786,7 +1786,7 @@ Special = 0
 # Map Cell Item: 1,55
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -1905,7 +1905,7 @@ Special = 0
 
 # Map Cell Item: 1,63
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 0
 East wall height = 1
@@ -2010,7 +2010,7 @@ Special = 0
 
 # Map Cell Item: 2,6
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -2087,7 +2087,7 @@ Special = 0
 East wall = 0
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -2174,8 +2174,8 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 2,17
-East wall = 0
-North wall = 0
+East wall = 5
+North wall = 5
 West wall = 13
 South wall = 13
 East wall height = 1
@@ -2191,7 +2191,7 @@ Special = 0
 # Map Cell Item: 2,18
 East wall = 13
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -2370,7 +2370,7 @@ Special = 0
 
 # Map Cell Item: 2,30
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 13
 East wall height = 1
@@ -2789,7 +2789,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 2,58
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 0
@@ -2806,7 +2806,7 @@ Special = 0
 # Map Cell Item: 2,59
 East wall = 13
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -2822,7 +2822,7 @@ Special = 0
 East wall = 0
 North wall = 0
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -3045,7 +3045,7 @@ Special = 0
 
 # Map Cell Item: 3,11
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -3780,7 +3780,7 @@ Special = 0
 
 # Map Cell Item: 3,60
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 0
 East wall height = 1
@@ -4022,7 +4022,7 @@ Special = 0
 East wall = 0
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -4562,7 +4562,7 @@ Special = 0
 East wall = 0
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -4592,7 +4592,7 @@ Special = 0
 East wall = 13
 North wall = 0
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -4742,7 +4742,7 @@ Special = 0
 East wall = 0
 North wall = 0
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -4980,7 +4980,7 @@ Special = 0
 
 # Map Cell Item: 5,12
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 0
 East wall height = 1
@@ -5264,7 +5264,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 5,31
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 13
 South wall = 0
@@ -5281,7 +5281,7 @@ Special = 0
 # Map Cell Item: 5,32
 East wall = 13
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -5432,7 +5432,7 @@ Special = 0
 East wall = 0
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -5520,7 +5520,7 @@ Special = 0
 
 # Map Cell Item: 5,48
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 0
 East wall height = 1
@@ -5550,7 +5550,7 @@ Special = 0
 
 # Map Cell Item: 5,50
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 13
 East wall height = 1
@@ -5669,7 +5669,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 5,58
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 0
@@ -5686,7 +5686,7 @@ Special = 0
 # Map Cell Item: 5,59
 East wall = 13
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -5700,7 +5700,7 @@ Special = 0
 
 # Map Cell Item: 5,60
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 0
 East wall height = 1
@@ -5789,7 +5789,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 6,2
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 0
 South wall = 13
@@ -5804,9 +5804,9 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 6,3
-East wall = 0
+East wall = 5
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -5821,7 +5821,7 @@ Special = 0
 # Map Cell Item: 6,4
 East wall = 0
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -5912,7 +5912,7 @@ Special = 0
 East wall = 0
 North wall = 0
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -6329,7 +6329,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 6,38
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -6346,8 +6346,8 @@ Special = 0
 # Map Cell Item: 6,39
 East wall = 13
 North wall = 13
-West wall = 0
-South wall = 0
+West wall = 5
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -6390,7 +6390,7 @@ Special = 0
 
 # Map Cell Item: 6,42
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -6404,7 +6404,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 6,43
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -6421,7 +6421,7 @@ Special = 0
 # Map Cell Item: 6,44
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -6734,7 +6734,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 7,1
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 0
@@ -6749,9 +6749,9 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 7,2
-East wall = 0
+East wall = 5
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -6766,7 +6766,7 @@ Special = 0
 # Map Cell Item: 7,3
 East wall = 13
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -6870,7 +6870,7 @@ Special = 0
 
 # Map Cell Item: 7,10
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 0
 East wall height = 1
@@ -6884,7 +6884,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 7,11
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 13
 South wall = 0
@@ -6901,7 +6901,7 @@ Special = 0
 # Map Cell Item: 7,12
 East wall = 13
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -7169,7 +7169,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 7,30
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 13
 South wall = 13
@@ -7186,7 +7186,7 @@ Special = 0
 # Map Cell Item: 7,31
 East wall = 13
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -7305,7 +7305,7 @@ Special = 0
 
 # Map Cell Item: 7,39
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 0
 East wall height = 1
@@ -7439,7 +7439,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 7,48
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 13
 South wall = 0
@@ -7456,7 +7456,7 @@ Special = 0
 # Map Cell Item: 7,49
 East wall = 0
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -7637,7 +7637,7 @@ Special = 0
 East wall = 13
 North wall = 0
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -7652,7 +7652,7 @@ Special = 0
 East wall = 0
 North wall = 0
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -7919,7 +7919,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 8,16
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -7936,7 +7936,7 @@ Special = 0
 # Map Cell Item: 8,17
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -8219,7 +8219,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 8,36
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 0
@@ -8236,7 +8236,7 @@ Special = 0
 # Map Cell Item: 8,37
 East wall = 13
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -8429,7 +8429,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 8,50
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 0
 South wall = 0
@@ -8446,7 +8446,7 @@ Special = 0
 # Map Cell Item: 8,51
 East wall = 13
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -8459,7 +8459,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 8,52
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 13
 South wall = 0
@@ -8476,7 +8476,7 @@ Special = 0
 # Map Cell Item: 8,53
 East wall = 0
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -8519,7 +8519,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 8,56
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 13
 South wall = 0
@@ -8536,7 +8536,7 @@ Special = 0
 # Map Cell Item: 8,57
 East wall = 0
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -8552,7 +8552,7 @@ Special = 0
 East wall = 13
 North wall = 0
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -8582,7 +8582,7 @@ Special = 0
 East wall = 13
 North wall = 0
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -8595,7 +8595,7 @@ Special = 0
 
 # Map Cell Item: 8,61
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 13
 East wall height = 1
@@ -8610,7 +8610,7 @@ Special = 0
 
 # Map Cell Item: 8,62
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 13
 East wall height = 1
@@ -9152,7 +9152,7 @@ Special = 0
 East wall = 0
 North wall = 0
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -9272,7 +9272,7 @@ Special = 0
 East wall = 13
 North wall = 13
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -9419,7 +9419,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 9,52
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 13
 South wall = 0
@@ -9436,7 +9436,7 @@ Special = 0
 # Map Cell Item: 9,53
 East wall = 0
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -9509,8 +9509,8 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 9,58
-East wall = 0
-North wall = 0
+East wall = 5
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -9526,7 +9526,7 @@ Special = 0
 # Map Cell Item: 9,59
 East wall = 13
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -9540,7 +9540,7 @@ Special = 0
 
 # Map Cell Item: 9,60
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 0
 East wall height = 1
@@ -9824,7 +9824,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 10,15
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 13
 South wall = 0
@@ -9841,7 +9841,7 @@ Special = 0
 # Map Cell Item: 10,16
 East wall = 13
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -10110,7 +10110,7 @@ Special = 0
 
 # Map Cell Item: 10,34
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -10139,7 +10139,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 10,36
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -10154,9 +10154,9 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 10,37
-East wall = 0
+East wall = 5
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -10171,7 +10171,7 @@ Special = 0
 # Map Cell Item: 10,38
 East wall = 13
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -10230,9 +10230,9 @@ Special = 0
 
 # Map Cell Item: 10,42
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -10814,7 +10814,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 11,17
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 13
 South wall = 0
@@ -10831,7 +10831,7 @@ Special = 0
 # Map Cell Item: 11,18
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -11190,7 +11190,7 @@ Special = 0
 
 # Map Cell Item: 11,42
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -11312,7 +11312,7 @@ Special = 0
 East wall = 13
 North wall = 0
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -12002,7 +12002,7 @@ Special = 0
 East wall = 13
 North wall = 0
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -12032,7 +12032,7 @@ Special = 0
 East wall = 13
 North wall = 13
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -12239,7 +12239,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 12,48
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -12256,7 +12256,7 @@ Special = 0
 # Map Cell Item: 12,49
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -12270,7 +12270,7 @@ Special = 0
 
 # Map Cell Item: 12,50
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -12332,7 +12332,7 @@ Special = 0
 East wall = 0
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -12659,7 +12659,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 13,12
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 13
 South wall = 0
@@ -12676,7 +12676,7 @@ Special = 0
 # Map Cell Item: 13,13
 East wall = 0
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -12959,8 +12959,8 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 13,32
-East wall = 0
-North wall = 0
+East wall = 5
+North wall = 5
 West wall = 13
 South wall = 13
 East wall height = 1
@@ -12976,7 +12976,7 @@ Special = 0
 # Map Cell Item: 13,33
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -12990,7 +12990,7 @@ Special = 0
 
 # Map Cell Item: 13,34
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -13262,7 +13262,7 @@ Special = 0
 East wall = 0
 North wall = 13
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -13289,8 +13289,8 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 13,54
-East wall = 0
-North wall = 0
+East wall = 5
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -13306,7 +13306,7 @@ Special = 0
 # Map Cell Item: 13,55
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -13679,7 +13679,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 14,16
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 13
 South wall = 0
@@ -13696,7 +13696,7 @@ Special = 0
 # Map Cell Item: 14,17
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -13787,7 +13787,7 @@ Special = 0
 East wall = 0
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -13877,7 +13877,7 @@ Special = 0
 East wall = 13
 North wall = 0
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -13907,7 +13907,7 @@ Special = 0
 East wall = 13
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -13922,7 +13922,7 @@ Special = 0
 East wall = 13
 North wall = 13
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -13982,7 +13982,7 @@ Special = 0
 East wall = 13
 North wall = 0
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -14159,7 +14159,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 14,48
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -14176,7 +14176,7 @@ Special = 0
 # Map Cell Item: 14,49
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -14192,7 +14192,7 @@ Special = 0
 East wall = 13
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -14220,7 +14220,7 @@ Special = 0
 
 # Map Cell Item: 14,52
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 13
 East wall height = 1
@@ -14612,7 +14612,7 @@ Special = 0
 East wall = 13
 North wall = 0
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -14624,7 +14624,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 15,15
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 13
 South wall = 13
@@ -14641,7 +14641,7 @@ Special = 0
 # Map Cell Item: 15,16
 East wall = 13
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -14745,9 +14745,9 @@ Special = 0
 
 # Map Cell Item: 15,23
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -14789,7 +14789,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 15,26
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -14806,7 +14806,7 @@ Special = 0
 # Map Cell Item: 15,27
 East wall = 13
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -14822,7 +14822,7 @@ Special = 0
 East wall = 13
 North wall = 13
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -14835,7 +14835,7 @@ Special = 0
 
 # Map Cell Item: 15,29
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 13
 East wall height = 1
@@ -14865,7 +14865,7 @@ Special = 0
 
 # Map Cell Item: 15,31
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -14880,9 +14880,9 @@ Special = 0
 
 # Map Cell Item: 15,32
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -14912,7 +14912,7 @@ Special = 0
 East wall = 0
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -14940,7 +14940,7 @@ Special = 0
 
 # Map Cell Item: 15,36
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -15150,7 +15150,7 @@ Special = 0
 
 # Map Cell Item: 15,50
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 0
 East wall height = 1
@@ -15570,7 +15570,7 @@ Special = 0
 
 # Map Cell Item: 16,14
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -15674,7 +15674,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 16,21
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 13
 South wall = 0
@@ -15691,7 +15691,7 @@ Special = 0
 # Map Cell Item: 16,22
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -15705,7 +15705,7 @@ Special = 0
 
 # Map Cell Item: 16,23
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 0
 East wall height = 1
@@ -15780,7 +15780,7 @@ Special = 0
 
 # Map Cell Item: 16,28
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 0
 East wall height = 1
@@ -15794,7 +15794,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 16,29
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 13
 South wall = 13
@@ -15811,7 +15811,7 @@ Special = 0
 # Map Cell Item: 16,30
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -15840,7 +15840,7 @@ Special = 0
 
 # Map Cell Item: 16,32
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 0
 East wall height = 1
@@ -15870,7 +15870,7 @@ Special = 0
 
 # Map Cell Item: 16,34
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -15989,10 +15989,10 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 16,42
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -16004,10 +16004,10 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 16,43
-East wall = 0
+East wall = 5
 North wall = 0
-West wall = 0
-South wall = 0
+West wall = 5
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -16021,8 +16021,8 @@ Special = 0
 # Map Cell Item: 16,44
 East wall = 0
 North wall = 13
-West wall = 0
-South wall = 0
+West wall = 5
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -16172,7 +16172,7 @@ Special = 0
 East wall = 0
 North wall = 0
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -16667,7 +16667,7 @@ Special = 0
 East wall = 0
 North wall = 0
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -16709,7 +16709,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 17,26
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 0
 South wall = 13
@@ -16726,8 +16726,8 @@ Special = 0
 # Map Cell Item: 17,27
 East wall = 13
 North wall = 0
-West wall = 0
-South wall = 0
+West wall = 5
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -16832,7 +16832,7 @@ Special = 0
 East wall = 0
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -16949,10 +16949,10 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 17,42
-East wall = 0
-North wall = 0
+East wall = 5
+North wall = 5
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -16964,10 +16964,10 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 17,43
-East wall = 0
-North wall = 0
-West wall = 0
-South wall = 0
+East wall = 5
+North wall = 5
+West wall = 5
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -16980,9 +16980,9 @@ Special = 0
 
 # Map Cell Item: 17,44
 East wall = 0
-North wall = 0
-West wall = 0
-South wall = 0
+North wall = 5
+West wall = 5
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -17130,7 +17130,7 @@ Special = 0
 
 # Map Cell Item: 17,54
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -17625,7 +17625,7 @@ Special = 0
 
 # Map Cell Item: 18,23
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 13
 East wall height = 1
@@ -17684,10 +17684,10 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 18,27
-East wall = 0
-North wall = 0
+East wall = 5
+North wall = 5
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -17701,7 +17701,7 @@ Special = 0
 # Map Cell Item: 18,28
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -17790,7 +17790,7 @@ Special = 0
 
 # Map Cell Item: 18,34
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 0
 East wall height = 1
@@ -17909,8 +17909,8 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 18,42
-East wall = 0
-North wall = 0
+East wall = 5
+North wall = 5
 West wall = 0
 South wall = 0
 East wall height = 1
@@ -17924,9 +17924,9 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 18,43
-East wall = 0
-North wall = 0
-West wall = 0
+East wall = 5
+North wall = 5
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -17940,8 +17940,8 @@ Special = 0
 
 # Map Cell Item: 18,44
 East wall = 0
-North wall = 0
-West wall = 0
+North wall = 5
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -18029,7 +18029,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 18,50
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 0
@@ -18044,9 +18044,9 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 18,51
-East wall = 0
+East wall = 5
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -18061,7 +18061,7 @@ Special = 0
 # Map Cell Item: 18,52
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -18645,7 +18645,7 @@ Special = 0
 
 # Map Cell Item: 19,27
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 0
 East wall height = 1
@@ -19034,7 +19034,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 19,53
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -19049,9 +19049,9 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 19,54
-East wall = 0
+East wall = 5
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -19066,7 +19066,7 @@ Special = 0
 # Map Cell Item: 19,55
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -19079,7 +19079,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 19,56
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -19096,7 +19096,7 @@ Special = 0
 # Map Cell Item: 19,57
 East wall = 0
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -19592,7 +19592,7 @@ Special = 0
 East wall = 13
 North wall = 13
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -19994,7 +19994,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 20,53
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -20011,7 +20011,7 @@ Special = 0
 # Map Cell Item: 20,54
 East wall = 13
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -20294,10 +20294,10 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 21,9
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -20309,9 +20309,9 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 21,10
-East wall = 0
+East wall = 5
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -20326,8 +20326,8 @@ Special = 0
 # Map Cell Item: 21,11
 East wall = 0
 North wall = 0
-West wall = 0
-South wall = 0
+West wall = 5
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -20550,7 +20550,7 @@ Special = 0
 
 # Map Cell Item: 21,26
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 0
 East wall height = 1
@@ -20744,7 +20744,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 21,39
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 0
 South wall = 13
@@ -20761,7 +20761,7 @@ Special = 0
 # Map Cell Item: 21,40
 East wall = 13
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -21255,9 +21255,9 @@ Special = 0
 
 # Map Cell Item: 22,9
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -21285,9 +21285,9 @@ Special = 0
 
 # Map Cell Item: 22,11
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -21704,7 +21704,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 22,39
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -21719,9 +21719,9 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 22,40
-East wall = 0
+East wall = 5
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -21736,7 +21736,7 @@ Special = 0
 # Map Cell Item: 22,41
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -21869,7 +21869,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 22,50
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 0
 South wall = 0
@@ -21886,7 +21886,7 @@ Special = 0
 # Map Cell Item: 22,51
 East wall = 0
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -22187,7 +22187,7 @@ Special = 0
 East wall = 0
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -22214,8 +22214,8 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 23,9
-East wall = 0
-North wall = 0
+East wall = 5
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -22229,9 +22229,9 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 23,10
-East wall = 0
+East wall = 5
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -22245,8 +22245,8 @@ Special = 0
 
 # Map Cell Item: 23,11
 East wall = 0
-North wall = 0
-West wall = 0
+North wall = 5
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -23145,7 +23145,7 @@ Special = 0
 
 # Map Cell Item: 24,7
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 0
 East wall height = 1
@@ -23252,7 +23252,7 @@ Special = 0
 East wall = 0
 North wall = 0
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -24062,7 +24062,7 @@ Special = 0
 East wall = 0
 North wall = 0
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -24210,7 +24210,7 @@ Special = 0
 
 # Map Cell Item: 25,14
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 0
 East wall height = 1
@@ -24239,7 +24239,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 25,16
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 0
 South wall = 0
@@ -24256,7 +24256,7 @@ Special = 0
 # Map Cell Item: 25,17
 East wall = 13
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -25020,7 +25020,7 @@ Special = 0
 
 # Map Cell Item: 26,4
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 0
 East wall height = 1
@@ -25367,7 +25367,7 @@ Special = 0
 East wall = 13
 North wall = 0
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -25844,7 +25844,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 26,59
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 0
@@ -25861,7 +25861,7 @@ Special = 0
 # Map Cell Item: 26,60
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -25907,7 +25907,7 @@ Special = 0
 East wall = 13
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -25964,7 +25964,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 27,3
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 13
 South wall = 0
@@ -25981,7 +25981,7 @@ Special = 0
 # Map Cell Item: 27,4
 East wall = 0
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -26325,7 +26325,7 @@ Special = 0
 
 # Map Cell Item: 27,27
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 13
 East wall height = 1
@@ -26822,7 +26822,7 @@ Special = 0
 East wall = 0
 North wall = 13
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -26865,7 +26865,7 @@ Special = 0
 
 # Map Cell Item: 27,63
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -27197,7 +27197,7 @@ Special = 0
 East wall = 0
 North wall = 0
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -27332,7 +27332,7 @@ Special = 0
 East wall = 0
 North wall = 0
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -27497,7 +27497,7 @@ Special = 0
 East wall = 0
 North wall = 0
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -27662,7 +27662,7 @@ Special = 0
 East wall = 0
 North wall = 0
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -27780,7 +27780,7 @@ Special = 0
 
 # Map Cell Item: 28,60
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 13
 East wall height = 1
@@ -27794,7 +27794,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 28,61
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -27811,8 +27811,8 @@ Special = 0
 # Map Cell Item: 28,62
 East wall = 0
 North wall = 13
-West wall = 0
-South wall = 0
+West wall = 5
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -27869,7 +27869,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 29,2
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 0
 South wall = 0
@@ -27886,7 +27886,7 @@ Special = 0
 # Map Cell Item: 29,3
 East wall = 13
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -28155,7 +28155,7 @@ Special = 0
 
 # Map Cell Item: 29,21
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 0
 East wall height = 1
@@ -28290,7 +28290,7 @@ Special = 0
 
 # Map Cell Item: 29,30
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 13
 East wall height = 1
@@ -28307,7 +28307,7 @@ Special = 0
 East wall = 13
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -28409,7 +28409,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 29,38
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 13
 South wall = 0
@@ -28426,7 +28426,7 @@ Special = 0
 # Map Cell Item: 29,39
 East wall = 0
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -28455,7 +28455,7 @@ Special = 0
 
 # Map Cell Item: 29,41
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 0
 East wall height = 1
@@ -28499,7 +28499,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 29,44
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 0
 South wall = 0
@@ -28516,7 +28516,7 @@ Special = 0
 # Map Cell Item: 29,45
 East wall = 0
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -28620,7 +28620,7 @@ Special = 0
 
 # Map Cell Item: 29,52
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -28742,7 +28742,7 @@ Special = 0
 East wall = 0
 North wall = 13
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -28770,7 +28770,7 @@ Special = 0
 
 # Map Cell Item: 29,62
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -28862,7 +28862,7 @@ Special = 0
 East wall = 0
 North wall = 0
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -28922,7 +28922,7 @@ Special = 0
 East wall = 0
 North wall = 13
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -28934,7 +28934,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 30,9
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -28951,7 +28951,7 @@ Special = 0
 # Map Cell Item: 30,10
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -28979,7 +28979,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 30,12
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -28996,7 +28996,7 @@ Special = 0
 # Map Cell Item: 30,13
 East wall = 13
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -29265,7 +29265,7 @@ Special = 0
 
 # Map Cell Item: 30,31
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 0
 East wall height = 1
@@ -29417,7 +29417,7 @@ Special = 0
 East wall = 13
 North wall = 0
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -29700,7 +29700,7 @@ Special = 0
 
 # Map Cell Item: 30,60
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 13
 East wall height = 1
@@ -29789,7 +29789,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 31,2
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 13
 South wall = 0
@@ -29806,7 +29806,7 @@ Special = 0
 # Map Cell Item: 31,3
 East wall = 13
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -29820,7 +29820,7 @@ Special = 0
 
 # Map Cell Item: 31,4
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 0
 East wall height = 1
@@ -29880,7 +29880,7 @@ Special = 0
 
 # Map Cell Item: 31,8
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 0
 East wall height = 1
@@ -29909,7 +29909,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 31,10
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 13
 South wall = 0
@@ -29926,7 +29926,7 @@ Special = 0
 # Map Cell Item: 31,11
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -30059,7 +30059,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 31,20
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 13
 South wall = 13
@@ -30076,8 +30076,8 @@ Special = 0
 # Map Cell Item: 31,21
 East wall = 13
 North wall = 13
-West wall = 0
-South wall = 0
+West wall = 5
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -30284,7 +30284,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 31,35
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 13
 South wall = 13
@@ -30301,7 +30301,7 @@ Special = 0
 # Map Cell Item: 31,36
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -30359,7 +30359,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 31,40
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -30375,9 +30375,9 @@ Special = 0
 
 # Map Cell Item: 31,41
 East wall = 13
-North wall = 0
-West wall = 0
-South wall = 0
+North wall = 5
+West wall = 5
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -30419,7 +30419,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 31,44
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -30436,7 +30436,7 @@ Special = 0
 # Map Cell Item: 31,45
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -30764,10 +30764,10 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 32,3
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -30781,7 +30781,7 @@ Special = 0
 # Map Cell Item: 32,4
 East wall = 0
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -30812,7 +30812,7 @@ Special = 0
 East wall = 0
 North wall = 0
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -30824,7 +30824,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 32,7
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 0
 South wall = 13
@@ -30841,7 +30841,7 @@ Special = 0
 # Map Cell Item: 32,8
 East wall = 0
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -30944,7 +30944,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 32,15
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 13
 South wall = 0
@@ -30959,9 +30959,9 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 32,16
-East wall = 0
+East wall = 5
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -30976,7 +30976,7 @@ Special = 0
 # Map Cell Item: 32,17
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -31035,7 +31035,7 @@ Special = 0
 
 # Map Cell Item: 32,21
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 0
 East wall height = 1
@@ -31049,7 +31049,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 32,22
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 13
 South wall = 0
@@ -31066,7 +31066,7 @@ Special = 0
 # Map Cell Item: 32,23
 East wall = 13
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -31157,7 +31157,7 @@ Special = 0
 East wall = 13
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -31335,7 +31335,7 @@ Special = 0
 
 # Map Cell Item: 32,41
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 0
 East wall height = 1
@@ -31725,9 +31725,9 @@ Special = 0
 
 # Map Cell Item: 33,3
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -31757,7 +31757,7 @@ Special = 0
 East wall = 0
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -31770,7 +31770,7 @@ Special = 0
 
 # Map Cell Item: 33,6
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -31892,7 +31892,7 @@ Special = 0
 East wall = 0
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -32115,7 +32115,7 @@ Special = 0
 
 # Map Cell Item: 33,29
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 13
 East wall height = 1
@@ -32132,7 +32132,7 @@ Special = 0
 East wall = 0
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -32234,7 +32234,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 33,37
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 0
 South wall = 0
@@ -32251,7 +32251,7 @@ Special = 0
 # Map Cell Item: 33,38
 East wall = 0
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -32264,7 +32264,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 33,39
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 0
 South wall = 0
@@ -32281,7 +32281,7 @@ Special = 0
 # Map Cell Item: 33,40
 East wall = 13
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -32685,7 +32685,7 @@ Special = 0
 
 # Map Cell Item: 34,3
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 0
 East wall height = 1
@@ -32715,7 +32715,7 @@ Special = 0
 
 # Map Cell Item: 34,5
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 0
 East wall height = 1
@@ -32850,7 +32850,7 @@ Special = 0
 
 # Map Cell Item: 34,14
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 0
 East wall height = 1
@@ -32969,7 +32969,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 34,22
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 13
 South wall = 0
@@ -32986,7 +32986,7 @@ Special = 0
 # Map Cell Item: 34,23
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -32999,7 +32999,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 34,24
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 0
 South wall = 0
@@ -33016,7 +33016,7 @@ Special = 0
 # Map Cell Item: 34,25
 East wall = 13
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -33090,7 +33090,7 @@ Special = 0
 
 # Map Cell Item: 34,30
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -33137,7 +33137,7 @@ Special = 0
 East wall = 13
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -33524,7 +33524,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 34,59
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 0
 South wall = 0
@@ -33541,7 +33541,7 @@ Special = 0
 # Map Cell Item: 34,60
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -33647,7 +33647,7 @@ Special = 0
 East wall = 13
 North wall = 0
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -33707,7 +33707,7 @@ Special = 0
 East wall = 13
 North wall = 0
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -33869,7 +33869,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 35,18
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 0
 South wall = 0
@@ -33886,7 +33886,7 @@ Special = 0
 # Map Cell Item: 35,19
 East wall = 13
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -33959,7 +33959,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 35,24
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 13
 South wall = 0
@@ -33976,7 +33976,7 @@ Special = 0
 # Map Cell Item: 35,25
 East wall = 13
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -34095,9 +34095,9 @@ Special = 0
 
 # Map Cell Item: 35,33
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -34532,7 +34532,7 @@ Special = 0
 East wall = 0
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -34605,9 +34605,9 @@ Special = 0
 
 # Map Cell Item: 36,3
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -34665,7 +34665,7 @@ Special = 0
 
 # Map Cell Item: 36,7
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 0
 East wall height = 1
@@ -34679,7 +34679,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 36,8
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 13
 South wall = 13
@@ -34696,8 +34696,8 @@ Special = 0
 # Map Cell Item: 36,9
 East wall = 13
 North wall = 13
-West wall = 0
-South wall = 0
+West wall = 5
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -34844,7 +34844,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 36,19
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 13
 South wall = 0
@@ -34861,7 +34861,7 @@ Special = 0
 # Map Cell Item: 36,20
 East wall = 13
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -35055,7 +35055,7 @@ Special = 0
 
 # Map Cell Item: 36,33
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 0
 East wall height = 1
@@ -35207,7 +35207,7 @@ Special = 0
 East wall = 13
 North wall = 0
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -35429,7 +35429,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 36,58
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 0
 South wall = 0
@@ -35446,7 +35446,7 @@ Special = 0
 # Map Cell Item: 36,59
 East wall = 13
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -35490,9 +35490,9 @@ Special = 0
 
 # Map Cell Item: 36,62
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -35565,9 +35565,9 @@ Special = 0
 
 # Map Cell Item: 37,3
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -35639,7 +35639,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 37,8
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 0
@@ -35655,8 +35655,8 @@ Special = 0
 
 # Map Cell Item: 37,9
 East wall = 13
-North wall = 0
-West wall = 0
+North wall = 5
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -35702,7 +35702,7 @@ Special = 0
 East wall = 13
 North wall = 0
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -35732,7 +35732,7 @@ Special = 0
 East wall = 0
 North wall = 0
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -35759,7 +35759,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 37,16
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 0
 South wall = 13
@@ -35776,7 +35776,7 @@ Special = 0
 # Map Cell Item: 37,17
 East wall = 13
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -35852,7 +35852,7 @@ Special = 0
 East wall = 13
 North wall = 0
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -35972,7 +35972,7 @@ Special = 0
 East wall = 13
 North wall = 0
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -36164,8 +36164,8 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 37,43
-East wall = 0
-North wall = 0
+East wall = 5
+North wall = 5
 West wall = 13
 South wall = 0
 East wall height = 1
@@ -36179,9 +36179,9 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 37,44
-East wall = 0
+East wall = 5
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -36196,7 +36196,7 @@ Special = 0
 # Map Cell Item: 37,45
 East wall = 0
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -36450,7 +36450,7 @@ Special = 0
 
 # Map Cell Item: 37,62
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 0
 East wall height = 1
@@ -36494,7 +36494,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 38,1
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 0
 South wall = 0
@@ -36511,7 +36511,7 @@ Special = 0
 # Map Cell Item: 38,2
 East wall = 0
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -36525,7 +36525,7 @@ Special = 0
 
 # Map Cell Item: 38,3
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 0
 East wall height = 1
@@ -36599,7 +36599,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 38,8
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 0
 South wall = 0
@@ -36616,7 +36616,7 @@ Special = 0
 # Map Cell Item: 38,9
 East wall = 13
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -36644,7 +36644,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 38,11
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -36659,10 +36659,10 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 38,12
-East wall = 0
-North wall = 0
-West wall = 0
-South wall = 0
+East wall = 5
+North wall = 5
+West wall = 5
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -36676,7 +36676,7 @@ Special = 0
 # Map Cell Item: 38,13
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -36690,7 +36690,7 @@ Special = 0
 
 # Map Cell Item: 38,14
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -36810,7 +36810,7 @@ Special = 0
 
 # Map Cell Item: 38,22
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -36899,7 +36899,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 38,28
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -36916,8 +36916,8 @@ Special = 0
 # Map Cell Item: 38,29
 East wall = 0
 North wall = 13
-West wall = 0
-South wall = 0
+West wall = 5
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -36929,8 +36929,8 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 38,30
-East wall = 0
-North wall = 0
+East wall = 5
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -36946,7 +36946,7 @@ Special = 0
 # Map Cell Item: 38,31
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -37097,7 +37097,7 @@ Special = 0
 East wall = 0
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -37382,7 +37382,7 @@ Special = 0
 East wall = 0
 North wall = 0
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -37620,7 +37620,7 @@ Special = 0
 
 # Map Cell Item: 39,12
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 0
 East wall height = 1
@@ -37875,7 +37875,7 @@ Special = 0
 
 # Map Cell Item: 39,29
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 13
 East wall height = 1
@@ -38039,7 +38039,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 39,40
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 13
 South wall = 13
@@ -38054,10 +38054,10 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 39,41
-East wall = 0
-North wall = 0
-West wall = 0
-South wall = 0
+East wall = 5
+North wall = 5
+West wall = 5
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -38071,7 +38071,7 @@ Special = 0
 # Map Cell Item: 39,42
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -38324,7 +38324,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 39,59
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 0
 South wall = 0
@@ -38340,9 +38340,9 @@ Special = 0
 
 # Map Cell Item: 39,60
 East wall = 0
-North wall = 0
-West wall = 0
-South wall = 0
+North wall = 5
+West wall = 5
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -38519,7 +38519,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 40,8
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 0
 South wall = 0
@@ -38536,7 +38536,7 @@ Special = 0
 # Map Cell Item: 40,9
 East wall = 13
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -38579,7 +38579,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 40,12
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 13
 South wall = 0
@@ -38596,7 +38596,7 @@ Special = 0
 # Map Cell Item: 40,13
 East wall = 13
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -38879,7 +38879,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 40,32
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 0
 South wall = 0
@@ -38894,9 +38894,9 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 40,33
-East wall = 0
+East wall = 5
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -38911,7 +38911,7 @@ Special = 0
 # Map Cell Item: 40,34
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -39015,7 +39015,7 @@ Special = 0
 
 # Map Cell Item: 40,41
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 13
 East wall height = 1
@@ -39300,7 +39300,7 @@ Special = 0
 
 # Map Cell Item: 40,60
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 0
 East wall height = 1
@@ -39407,7 +39407,7 @@ Special = 0
 East wall = 0
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -39452,7 +39452,7 @@ Special = 0
 East wall = 0
 North wall = 0
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -39704,7 +39704,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 41,23
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 13
 South wall = 0
@@ -39721,7 +39721,7 @@ Special = 0
 # Map Cell Item: 41,24
 East wall = 13
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -39749,7 +39749,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 41,26
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 0
@@ -39766,7 +39766,7 @@ Special = 0
 # Map Cell Item: 41,27
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -39779,7 +39779,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 41,28
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 0
 South wall = 0
@@ -39796,7 +39796,7 @@ Special = 0
 # Map Cell Item: 41,29
 East wall = 13
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -39809,7 +39809,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 41,30
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 13
 South wall = 0
@@ -39826,7 +39826,7 @@ Special = 0
 # Map Cell Item: 41,31
 East wall = 0
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -40364,8 +40364,8 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 42,3
-East wall = 0
-North wall = 0
+East wall = 5
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -40381,7 +40381,7 @@ Special = 0
 # Map Cell Item: 42,4
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -40397,7 +40397,7 @@ Special = 0
 East wall = 13
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -40410,9 +40410,9 @@ Special = 0
 
 # Map Cell Item: 42,6
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -40427,7 +40427,7 @@ Special = 0
 East wall = 0
 North wall = 13
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -40454,10 +40454,10 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 42,9
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -40471,7 +40471,7 @@ Special = 0
 # Map Cell Item: 42,10
 East wall = 0
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -40679,7 +40679,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 42,24
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 13
 South wall = 13
@@ -40696,7 +40696,7 @@ Special = 0
 # Map Cell Item: 42,25
 East wall = 0
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -40712,7 +40712,7 @@ Special = 0
 East wall = 13
 North wall = 0
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -41355,7 +41355,7 @@ Special = 0
 
 # Map Cell Item: 43,5
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 0
 East wall height = 1
@@ -41370,7 +41370,7 @@ Special = 0
 
 # Map Cell Item: 43,6
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 0
 East wall height = 1
@@ -41385,7 +41385,7 @@ Special = 0
 
 # Map Cell Item: 43,7
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 0
 East wall height = 1
@@ -41415,7 +41415,7 @@ Special = 0
 
 # Map Cell Item: 43,9
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 0
 East wall height = 1
@@ -41642,7 +41642,7 @@ Special = 0
 East wall = 0
 North wall = 13
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -41670,7 +41670,7 @@ Special = 0
 
 # Map Cell Item: 43,26
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -41747,7 +41747,7 @@ Special = 0
 East wall = 0
 North wall = 0
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -42600,7 +42600,7 @@ Special = 0
 
 # Map Cell Item: 44,24
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 0
 East wall height = 1
@@ -42705,7 +42705,7 @@ Special = 0
 
 # Map Cell Item: 44,31
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 13
 East wall height = 1
@@ -43247,7 +43247,7 @@ Special = 0
 East wall = 13
 North wall = 13
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -43307,7 +43307,7 @@ Special = 0
 East wall = 0
 North wall = 0
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -43724,7 +43724,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 45,35
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 0
@@ -43741,7 +43741,7 @@ Special = 0
 # Map Cell Item: 45,36
 East wall = 13
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -43817,7 +43817,7 @@ Special = 0
 East wall = 0
 North wall = 13
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -44189,7 +44189,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 46,2
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -44204,10 +44204,10 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 46,3
-East wall = 0
-North wall = 0
-West wall = 0
-South wall = 0
+East wall = 5
+North wall = 5
+West wall = 5
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -44221,7 +44221,7 @@ Special = 0
 # Map Cell Item: 46,4
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -44252,7 +44252,7 @@ Special = 0
 East wall = 0
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -44265,7 +44265,7 @@ Special = 0
 
 # Map Cell Item: 46,7
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -44699,7 +44699,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 46,36
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 13
 South wall = 13
@@ -44716,7 +44716,7 @@ Special = 0
 # Map Cell Item: 46,37
 East wall = 0
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -44775,7 +44775,7 @@ Special = 0
 
 # Map Cell Item: 46,41
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 13
 East wall height = 1
@@ -45165,7 +45165,7 @@ Special = 0
 
 # Map Cell Item: 47,3
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 0
 East wall height = 1
@@ -45210,7 +45210,7 @@ Special = 0
 
 # Map Cell Item: 47,6
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -45287,7 +45287,7 @@ Special = 0
 East wall = 0
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -45434,7 +45434,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 47,21
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -45451,7 +45451,7 @@ Special = 0
 # Map Cell Item: 47,22
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -45524,7 +45524,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 47,27
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 13
 South wall = 0
@@ -45541,7 +45541,7 @@ Special = 0
 # Map Cell Item: 47,28
 East wall = 13
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -45572,7 +45572,7 @@ Special = 0
 East wall = 0
 North wall = 13
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -45587,7 +45587,7 @@ Special = 0
 East wall = 0
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -45602,7 +45602,7 @@ Special = 0
 East wall = 0
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -45617,7 +45617,7 @@ Special = 0
 East wall = 13
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -46154,10 +46154,10 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 48,5
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -46171,7 +46171,7 @@ Special = 0
 # Map Cell Item: 48,6
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -46199,7 +46199,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 48,8
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -46216,7 +46216,7 @@ Special = 0
 # Map Cell Item: 48,9
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -46245,7 +46245,7 @@ Special = 0
 
 # Map Cell Item: 48,11
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 0
 East wall height = 1
@@ -46499,7 +46499,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 48,28
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 13
 South wall = 0
@@ -46516,7 +46516,7 @@ Special = 0
 # Map Cell Item: 48,29
 East wall = 0
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -46530,7 +46530,7 @@ Special = 0
 
 # Map Cell Item: 48,30
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -46545,7 +46545,7 @@ Special = 0
 
 # Map Cell Item: 48,31
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -46560,7 +46560,7 @@ Special = 0
 
 # Map Cell Item: 48,32
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -46575,7 +46575,7 @@ Special = 0
 
 # Map Cell Item: 48,33
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 0
 East wall height = 1
@@ -46727,7 +46727,7 @@ Special = 0
 East wall = 0
 North wall = 0
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -47115,7 +47115,7 @@ Special = 0
 
 # Map Cell Item: 49,5
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 0
 East wall height = 1
@@ -47294,7 +47294,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 49,17
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 13
 South wall = 13
@@ -47311,7 +47311,7 @@ Special = 0
 # Map Cell Item: 49,18
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -47429,7 +47429,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 49,26
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 0
 South wall = 13
@@ -47446,7 +47446,7 @@ Special = 0
 # Map Cell Item: 49,27
 East wall = 13
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -47685,7 +47685,7 @@ Special = 0
 
 # Map Cell Item: 49,43
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -47774,7 +47774,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 49,49
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -47791,7 +47791,7 @@ Special = 0
 # Map Cell Item: 49,50
 East wall = 13
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -47819,7 +47819,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 49,52
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 0
 South wall = 0
@@ -47836,7 +47836,7 @@ Special = 0
 # Map Cell Item: 49,53
 East wall = 13
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -48029,7 +48029,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 50,2
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -48046,7 +48046,7 @@ Special = 0
 # Map Cell Item: 50,3
 East wall = 13
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -48389,7 +48389,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 50,26
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -48406,7 +48406,7 @@ Special = 0
 # Map Cell Item: 50,27
 East wall = 13
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -48494,7 +48494,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 50,33
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 0
 South wall = 13
@@ -48511,7 +48511,7 @@ Special = 0
 # Map Cell Item: 50,34
 East wall = 13
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -48539,7 +48539,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 50,36
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 0
@@ -48556,7 +48556,7 @@ Special = 0
 # Map Cell Item: 50,37
 East wall = 13
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -48599,7 +48599,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 50,40
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 13
 South wall = 0
@@ -48616,7 +48616,7 @@ Special = 0
 # Map Cell Item: 50,41
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -48857,7 +48857,7 @@ Special = 0
 East wall = 0
 North wall = 0
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -48932,7 +48932,7 @@ Special = 0
 East wall = 0
 North wall = 0
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -48989,7 +48989,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 51,2
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -49006,7 +49006,7 @@ Special = 0
 # Map Cell Item: 51,3
 East wall = 13
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -49097,7 +49097,7 @@ Special = 0
 East wall = 0
 North wall = 0
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -49139,7 +49139,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 51,12
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 0
 South wall = 13
@@ -49156,7 +49156,7 @@ Special = 0
 # Map Cell Item: 51,13
 East wall = 13
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -49262,7 +49262,7 @@ Special = 0
 East wall = 13
 North wall = 0
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -49394,7 +49394,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 51,29
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 13
 South wall = 0
@@ -49411,7 +49411,7 @@ Special = 0
 # Map Cell Item: 51,30
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -49454,7 +49454,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 51,33
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -49471,7 +49471,7 @@ Special = 0
 # Map Cell Item: 51,34
 East wall = 13
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -49514,7 +49514,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 51,37
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 13
 South wall = 13
@@ -49531,7 +49531,7 @@ Special = 0
 # Map Cell Item: 51,38
 East wall = 0
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -49592,7 +49592,7 @@ Special = 0
 East wall = 0
 North wall = 0
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -49652,7 +49652,7 @@ Special = 0
 East wall = 13
 North wall = 0
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -49739,7 +49739,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 51,52
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 0
 South wall = 13
@@ -49754,9 +49754,9 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 51,53
-East wall = 0
+East wall = 5
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -49771,7 +49771,7 @@ Special = 0
 # Map Cell Item: 51,54
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -49815,9 +49815,9 @@ Special = 0
 
 # Map Cell Item: 51,57
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -49890,7 +49890,7 @@ Special = 0
 
 # Map Cell Item: 51,62
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -49949,7 +49949,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 52,2
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -49966,7 +49966,7 @@ Special = 0
 # Map Cell Item: 52,3
 East wall = 13
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -50055,7 +50055,7 @@ Special = 0
 
 # Map Cell Item: 52,9
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 0
 East wall height = 1
@@ -50220,9 +50220,9 @@ Special = 0
 
 # Map Cell Item: 52,20
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -50550,9 +50550,9 @@ Special = 0
 
 # Map Cell Item: 52,42
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -50610,9 +50610,9 @@ Special = 0
 
 # Map Cell Item: 52,46
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -50729,7 +50729,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 52,54
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 13
 South wall = 0
@@ -50744,9 +50744,9 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 52,55
-East wall = 0
+East wall = 5
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -50761,7 +50761,7 @@ Special = 0
 # Map Cell Item: 52,56
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -50775,7 +50775,7 @@ Special = 0
 
 # Map Cell Item: 52,57
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -51002,7 +51002,7 @@ Special = 0
 East wall = 0
 North wall = 0
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -51122,7 +51122,7 @@ Special = 0
 East wall = 13
 North wall = 0
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -51137,7 +51137,7 @@ Special = 0
 East wall = 0
 North wall = 0
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -51180,7 +51180,7 @@ Special = 0
 
 # Map Cell Item: 53,20
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -51314,7 +51314,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 53,29
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 13
 South wall = 13
@@ -51331,7 +51331,7 @@ Special = 0
 # Map Cell Item: 53,30
 East wall = 0
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -51392,7 +51392,7 @@ Special = 0
 East wall = 13
 North wall = 0
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -51510,7 +51510,7 @@ Special = 0
 
 # Map Cell Item: 53,42
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 0
 East wall height = 1
@@ -51570,7 +51570,7 @@ Special = 0
 
 # Map Cell Item: 53,46
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 0
 East wall height = 1
@@ -51704,7 +51704,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 53,55
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 13
 South wall = 0
@@ -51721,7 +51721,7 @@ Special = 0
 # Map Cell Item: 53,56
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -51869,7 +51869,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 54,2
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 0
@@ -51886,7 +51886,7 @@ Special = 0
 # Map Cell Item: 54,3
 East wall = 0
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -51960,7 +51960,7 @@ Special = 0
 
 # Map Cell Item: 54,8
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 0
 East wall height = 1
@@ -52052,7 +52052,7 @@ Special = 0
 East wall = 0
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -52080,7 +52080,7 @@ Special = 0
 
 # Map Cell Item: 54,16
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 0
 East wall height = 1
@@ -52095,7 +52095,7 @@ Special = 0
 
 # Map Cell Item: 54,17
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 0
 East wall height = 1
@@ -52334,7 +52334,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 54,33
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -52350,9 +52350,9 @@ Special = 0
 
 # Map Cell Item: 54,34
 East wall = 13
-North wall = 0
-West wall = 0
-South wall = 0
+North wall = 5
+West wall = 5
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -52634,7 +52634,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 54,53
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 13
 South wall = 0
@@ -52651,7 +52651,7 @@ Special = 0
 # Map Cell Item: 54,54
 East wall = 13
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -52709,7 +52709,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 54,58
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 13
 South wall = 0
@@ -52726,7 +52726,7 @@ Special = 0
 # Map Cell Item: 54,59
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -52949,7 +52949,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 55,10
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 0
 South wall = 13
@@ -52966,7 +52966,7 @@ Special = 0
 # Map Cell Item: 55,11
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -53010,7 +53010,7 @@ Special = 0
 
 # Map Cell Item: 55,14
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 0
 East wall height = 1
@@ -53072,7 +53072,7 @@ Special = 0
 East wall = 13
 North wall = 0
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -53310,7 +53310,7 @@ Special = 0
 
 # Map Cell Item: 55,34
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 0
 East wall height = 1
@@ -53432,7 +53432,7 @@ Special = 0
 East wall = 13
 North wall = 0
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -54002,7 +54002,7 @@ Special = 0
 East wall = 0
 North wall = 13
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -54030,7 +54030,7 @@ Special = 0
 
 # Map Cell Item: 56,18
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -54179,7 +54179,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 56,28
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 0
 South wall = 13
@@ -54196,7 +54196,7 @@ Special = 0
 # Map Cell Item: 56,29
 East wall = 0
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -54390,9 +54390,9 @@ Special = 0
 
 # Map Cell Item: 56,42
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -54749,7 +54749,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 57,2
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -54764,9 +54764,9 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 57,3
-East wall = 0
+East wall = 5
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -54779,9 +54779,9 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 57,4
-East wall = 0
+East wall = 5
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -54796,7 +54796,7 @@ Special = 0
 # Map Cell Item: 57,5
 East wall = 13
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -54960,7 +54960,7 @@ Special = 0
 
 # Map Cell Item: 57,16
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -55154,7 +55154,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 57,29
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -55171,7 +55171,7 @@ Special = 0
 # Map Cell Item: 57,30
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -55334,7 +55334,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 57,41
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -55350,8 +55350,8 @@ Special = 0
 
 # Map Cell Item: 57,42
 East wall = 13
-North wall = 0
-West wall = 0
+North wall = 5
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -55604,7 +55604,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 57,59
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 13
 South wall = 0
@@ -55621,7 +55621,7 @@ Special = 0
 # Map Cell Item: 57,60
 East wall = 0
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -55712,7 +55712,7 @@ Special = 0
 East wall = 0
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -55784,7 +55784,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 58,7
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -55799,10 +55799,10 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 58,8
-East wall = 0
+East wall = 5
 North wall = 13
-West wall = 0
-South wall = 0
+West wall = 5
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -55816,7 +55816,7 @@ Special = 0
 # Map Cell Item: 58,9
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -55847,7 +55847,7 @@ Special = 0
 East wall = 13
 North wall = 0
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -56459,7 +56459,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 58,52
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 0
 South wall = 13
@@ -56476,7 +56476,7 @@ Special = 0
 # Map Cell Item: 58,53
 East wall = 13
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -56504,7 +56504,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 58,55
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 13
 South wall = 0
@@ -56521,7 +56521,7 @@ Special = 0
 # Map Cell Item: 58,56
 East wall = 0
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -56670,7 +56670,7 @@ Special = 0
 
 # Map Cell Item: 59,2
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -56702,7 +56702,7 @@ Special = 0
 East wall = 13
 North wall = 0
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -56760,9 +56760,9 @@ Special = 0
 
 # Map Cell Item: 59,8
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -56804,10 +56804,10 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 59,11
-East wall = 0
-North wall = 0
+East wall = 5
+North wall = 5
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -56821,7 +56821,7 @@ Special = 0
 # Map Cell Item: 59,12
 East wall = 0
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -57302,7 +57302,7 @@ Special = 0
 East wall = 13
 North wall = 0
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -57347,7 +57347,7 @@ Special = 0
 East wall = 0
 North wall = 0
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -57659,8 +57659,8 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 60,4
-East wall = 0
-North wall = 0
+East wall = 5
+North wall = 5
 West wall = 0
 South wall = 0
 East wall height = 1
@@ -57676,7 +57676,7 @@ Special = 0
 # Map Cell Item: 60,5
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -57720,7 +57720,7 @@ Special = 0
 
 # Map Cell Item: 60,8
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 0
 East wall height = 1
@@ -57749,7 +57749,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 60,10
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -57765,8 +57765,8 @@ Special = 0
 
 # Map Cell Item: 60,11
 East wall = 13
-North wall = 0
-West wall = 0
+North wall = 5
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -57782,7 +57782,7 @@ Special = 0
 East wall = 0
 North wall = 13
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -57794,7 +57794,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 60,13
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -57811,7 +57811,7 @@ Special = 0
 # Map Cell Item: 60,14
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -57842,7 +57842,7 @@ Special = 0
 East wall = 0
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -57974,7 +57974,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 60,25
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -57989,9 +57989,9 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 60,26
-East wall = 0
+East wall = 5
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -58004,9 +58004,9 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 60,27
-East wall = 0
+East wall = 5
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -58019,9 +58019,9 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 60,28
-East wall = 0
+East wall = 5
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -58034,9 +58034,9 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 60,29
-East wall = 0
+East wall = 5
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -58051,7 +58051,7 @@ Special = 0
 # Map Cell Item: 60,30
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -58064,7 +58064,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 60,31
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -58081,7 +58081,7 @@ Special = 0
 # Map Cell Item: 60,32
 East wall = 13
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -58259,8 +58259,8 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 60,44
-East wall = 0
-North wall = 0
+East wall = 5
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -58276,7 +58276,7 @@ Special = 0
 # Map Cell Item: 60,45
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -58305,7 +58305,7 @@ Special = 0
 
 # Map Cell Item: 60,47
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 0
 East wall height = 1
@@ -58334,7 +58334,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 60,49
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 13
 South wall = 0
@@ -58351,7 +58351,7 @@ Special = 0
 # Map Cell Item: 60,50
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -58664,7 +58664,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 61,7
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 13
 South wall = 0
@@ -58681,7 +58681,7 @@ Special = 0
 # Map Cell Item: 61,8
 East wall = 0
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -58709,7 +58709,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 61,10
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -58724,9 +58724,9 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 61,11
-East wall = 0
+East wall = 5
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -58740,8 +58740,8 @@ Special = 0
 
 # Map Cell Item: 61,12
 East wall = 0
-North wall = 0
-West wall = 0
+North wall = 5
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -58800,7 +58800,7 @@ Special = 0
 
 # Map Cell Item: 61,16
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -58814,7 +58814,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 61,17
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -58831,7 +58831,7 @@ Special = 0
 # Map Cell Item: 61,18
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -59114,7 +59114,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 61,37
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 0
 South wall = 13
@@ -59131,7 +59131,7 @@ Special = 0
 # Map Cell Item: 61,38
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -59174,7 +59174,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 61,41
-East wall = 0
+East wall = 5
 North wall = 13
 West wall = 0
 South wall = 13
@@ -59191,7 +59191,7 @@ Special = 0
 # Map Cell Item: 61,42
 East wall = 0
 North wall = 13
-West wall = 0
+West wall = 5
 South wall = 0
 East wall height = 1
 North wall height = 1
@@ -59342,7 +59342,7 @@ Special = 0
 East wall = 13
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -59357,7 +59357,7 @@ Special = 0
 East wall = 13
 North wall = 0
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -59417,7 +59417,7 @@ Special = 0
 East wall = 13
 North wall = 13
 West wall = 0
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -59927,7 +59927,7 @@ Special = 0
 East wall = 0
 North wall = 0
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -59972,7 +59972,7 @@ Special = 0
 East wall = 0
 North wall = 0
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -60077,7 +60077,7 @@ Special = 0
 East wall = 13
 North wall = 13
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -60152,7 +60152,7 @@ Special = 0
 East wall = 13
 North wall = 0
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -60257,7 +60257,7 @@ Special = 0
 East wall = 13
 North wall = 13
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -60300,7 +60300,7 @@ Special = 0
 
 # Map Cell Item: 62,52
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 0
 East wall height = 1
@@ -60315,7 +60315,7 @@ Special = 0
 
 # Map Cell Item: 62,53
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 13
 South wall = 0
 East wall height = 1
@@ -60375,7 +60375,7 @@ Special = 0
 
 # Map Cell Item: 62,57
 East wall = 13
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 0
 East wall height = 1
@@ -60392,7 +60392,7 @@ Special = 0
 East wall = 13
 North wall = 0
 West wall = 13
-South wall = 0
+South wall = 5
 East wall height = 1
 North wall height = 1
 West wall height = 1
@@ -60869,7 +60869,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 63,26
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 13
 South wall = 13
@@ -60885,8 +60885,8 @@ Special = 0
 
 # Map Cell Item: 63,27
 East wall = 0
-North wall = 0
-West wall = 0
+North wall = 5
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -60930,7 +60930,7 @@ Special = 0
 
 # Map Cell Item: 63,30
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -61035,7 +61035,7 @@ Special = 0
 
 # Map Cell Item: 63,37
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -61110,7 +61110,7 @@ Special = 0
 
 # Map Cell Item: 63,42
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -61215,7 +61215,7 @@ Special = 0
 
 # Map Cell Item: 63,49
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
@@ -61259,7 +61259,7 @@ Location = 1
 Special = 0
 
 # Map Cell Item: 63,52
-East wall = 0
+East wall = 5
 North wall = 0
 West wall = 0
 South wall = 13
@@ -61276,7 +61276,7 @@ Special = 0
 # Map Cell Item: 63,53
 East wall = 13
 North wall = 0
-West wall = 0
+West wall = 5
 South wall = 13
 East wall height = 1
 North wall height = 1
@@ -61350,7 +61350,7 @@ Special = 0
 
 # Map Cell Item: 63,58
 East wall = 0
-North wall = 0
+North wall = 5
 West wall = 0
 South wall = 13
 East wall height = 1
