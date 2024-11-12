@@ -33,8 +33,16 @@ std::string trimString(float value, int digits);
 
 std::string sha256(const std::string& input);
 // Your existing header content goes here 
- 
+
+
 std::pair<int, int> getDigits(int number);
+
+void replaceSymbol(std::string& str, const std::string& replaceWith, const std::string stringToFind);
+
+std::string processMessage(std::string unprocessedMessage, std::string ReplacementText);
+
+
+
 
 #endif // _misch 
 

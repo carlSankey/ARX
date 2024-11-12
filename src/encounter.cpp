@@ -46,6 +46,7 @@ extern int elementMap[];
 extern Map maps[];
 
 
+
 string  consoleMessages[MAX_CONSOLE_MESSAGES];
 
 void awardExperience(int opponentNo);
@@ -58,6 +59,11 @@ int spellDamageValues[13];
  extern MapEncounter* newMapEncounter;
 
 extern newMonster* Monster_Buffer;
+
+
+extern openingMessages* opMessages;
+
+extern openingMessages* Message_Buffer;
 
  bonusDamage weaponBonusMap;
 
@@ -444,7 +450,7 @@ void encounterLoop(int encounterType, int opponentQuantity)
 
 void RunAway(int backup)
 {
-	if (backup == 1)
+ 	if (backup == 1)
 	{
 		if (plyr.facing == WEST) { plyr.x = plyr.oldx; }
 		if (plyr.facing == NORTH) { plyr.x = plyr.oldx; }
@@ -636,6 +642,9 @@ void processOpponentAction()
 	// 1 attack
 	// 2 cast spell
 	// 3 
+
+
+
     if (encounterNotHostile)
     {
         if (encounterTurns == 3) { opponentLeaves(); }
@@ -994,7 +1003,7 @@ void determineOpponentOpeningMessage()
 	//Agains need to dermine from opponent rather than hard code
 	// for example
 	// when monster.openingmessage > 0 then encounterMenu = monster.openingmessage
-
+	// Add a new property encounterMenu
 
 	switch (plyr.encounterRef)
 	{
@@ -1016,13 +1025,18 @@ void determineOpponentOpeningMessage()
 
 void checkHostility()
 {
+	// Use behavior and alignment instead of this
+	// Behavior 0 Don't care about what race you are
+	// Behaviour 1 = hate humans
+	// Behaviour 2 = love humand
+
     encounterNotHostile = true;
 
     // Check alignment - Evil
     if (Opponents[0].alignment < 128) encounterNotHostile = false;
 
     // Good but hostile to humans
-	if ((opponentType == PHOENIX) || (opponentType == VALKYRIE)  || (opponentType == DWARF)) encounterNotHostile = false;
+	if (Opponents[0].behaviour == 1 ) encounterNotHostile = false;
 
 	// Check for neutral encounters without intelligence or wisdom - e.g. giant rat
 	if ((Opponents[0].inte == 0) && (Opponents[0].wis == 0)) encounterNotHostile = false;
@@ -1077,10 +1091,40 @@ void playerTransact()
 
 //Agains read this from a file instead of hard coding
 // and link monster responce to responce list
+// Split out Message and action
 void playerHail()
 {
 
-	int response = randn(1,15);
+	//Determin what messages can be returned from an encounter if 
+
+	//i want one number to relate to multiple 
+	int response = 0;
+	string itemText = "";
+	// using encounterbType
+	// only type 1 can communicate
+	// if openingMessage = 0
+	// then use a base level of messages
+	// if above 0 then use specific message
+
+
+
+
+
+	if (Monster_Buffer[plyr.encounterRef].openingMessage == 0 && Monster_Buffer[plyr.encounterRef].type ==1)
+	{
+		response = randn(0, 14);
+	}
+	else
+	{
+		response = Monster_Buffer[plyr.encounterRef].openingMessage;
+	}
+
+	
+
+	
+
+
+	/*
 	if (response==1) str = "\"Run! The Devourer comes!\"";
 	if (response==2) str = "The " + Opponents[0].name + " mumbles@@something unintelligible.";
 	if (response==3) str = "\"Beware of false alarms.\"";
@@ -1097,25 +1141,23 @@ void playerHail()
 	if (response==14) str = "\"Only those who have fought in@@the Great Arena can drink@@in the Block and Parry.\"";
 	if (response==15) str = "\"A flaming torch can make@@an effective weapon.\"";
 
+
+
+	*/
+
 	if ((plyr.encounterRef == NOBLEMAN))
 	{
-		//Use monster name instead of nobleman
-		str = "The nobleman tosses you a coin@and says:@@\"Away knave! Get thyself a bath!\"";
-		if (plyr.gender==2) str = "The nobleman tosses you a coin@and says@\"Away scullion! Get thyself a bath!\"";
 		plyr.gold++;
-
 	}
+
+
 
 	if ((plyr.encounterRef == ACOLYTE))
 	{
 		//Use monster name instead of nobleman
-	    string items[7] = { "food packets" , "water flasks" , "torches" , "timepieces", "compasses", "keys" , "crystals" };
-	    string opponentText = Opponents[0].name;
-	    string itemText = "";
-	    string genderText = "brother";
+	    string items[7] = { "food packets" , "water flasks" , "torches" , "timepieces", "compasses", "keys" , "crystals" };  
+	 
 	    bool itemRequired = true;
-
-	    if ( plyr.gender == 2 ) genderText = "sister";
 
 	    // Check for friendship
 
@@ -1130,10 +1172,13 @@ void playerHail()
             if ((i==6) && (plyr.crystals==0) && (itemRequired))    { itemRequired = false;  itemText = items[i]; plyr.crystals++; }
         }
 
-            if (itemRequired) str ="Greetings!";
-            else {str = "The " + opponentText + " sees you have no@" + itemText + " and tosses you one saying:@@\"For the cause " + genderText + ".\""; }
+            if (itemRequired) response = Monster_Buffer[plyr.encounterRef].openingMessage +1;
+            else { response; }
 
 	}
+
+	str = processMessage(Message_Buffer[response].message, itemText);
+
     consoleMessage(str);
 
     str = "The " + Opponents[0].name + " leaves.";
@@ -1154,6 +1199,7 @@ void opponentLeaves()
 	whoStartedIt = 0;
 }
 
+
 void opponentFlees()
 {
 
@@ -1173,6 +1219,7 @@ void opponentFlees()
 	OpponentLeftTimer.restart();
 	whoStartedIt = 0;
 }
+
 
 void playerOffer()
 {
@@ -1430,11 +1477,13 @@ void playerAttack(int attackType, float attackFactorBonus)
 	playerTurn = false;
 }
 
+
 std::string itos2(int i) {
 	std::stringstream ss;
 	ss << std::setw(2) << std::setfill('0') << i;
 	return ss.str();
 }
+
 
 void updateAmmoCount( int plyrWeaponIndex, int remainingAmmo) {
 	std::string& itemName = itemBuffer[plyrWeaponIndex].name;
@@ -1834,6 +1883,7 @@ std::cout << " weapon desc " << Opponents[0].chosenWeapon << "\n";
 	}
 }
 
+
 void opponentCallsForHelp()
 {
 
@@ -1991,6 +2041,7 @@ string getPlayerAttackDesc(int damage)
 
     return result;
 }
+
 
 int NewcalcOpponentWeaponDamage(int weaponNo, float attackFactor, int attacker)
 {
@@ -2366,8 +2417,6 @@ std::cout << "Base:" << spells[spellNo].baseDamage << " B:" << damages[0] << " S
 }
 
 
-
-
 int calcPlayerWeaponDamage(int weaponNo, float attackFactor, int attacker)
 {
 	// CALCULATE PLAYER WEAPON / ATTACK DAMAGE
@@ -2486,7 +2535,6 @@ int calcPlayerWeaponDamage(int weaponNo, float attackFactor, int attacker)
 	return totalDamage;
 
 }
-
 
 
 int opponentChooseWeapon()

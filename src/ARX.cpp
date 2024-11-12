@@ -153,6 +153,7 @@ void startGame()
 	loadMonstersBinary();
 	initialiseMonsterOffsets();
 	convertMonstersBinary();
+	convertMessagesBinary();
 
 	// Load shop item binary files
 

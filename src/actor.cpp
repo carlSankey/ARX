@@ -73,6 +73,9 @@ newMonster* Monster_Buffer = nullptr;
 
 newMonster* monster = nullptr;
 
+openingMessages* Message_Buffer = nullptr;
+
+openingMessages* opMessages = nullptr;
 
 unsigned char monstersBinary[noOfMonstersFile];
 
@@ -803,6 +806,9 @@ std::vector<newMonster> readMonsterCSV(const std::string& filename) {
         std::getline(lineStream, cell, ',');
         newMonster.minLevel = std::stoi(cell);
 
+        std::getline(lineStream, cell, ',');
+        newMonster.openingMessage = std::stoi(cell);
+
         std::getline(lineStream, newMonster.hash, ',');
         
         std::string input = std::to_string(newMonster.index) +
@@ -883,7 +889,6 @@ std::vector<newMonster> readMonsterCSV(const std::string& filename) {
             std::to_string(newMonster.s9) +
             std::to_string(newMonster.braveness) +
             std::to_string(newMonster.minLevel) +
-           
           
             "ARX2023";
       
@@ -903,6 +908,7 @@ std::vector<newMonster> readMonsterCSV(const std::string& filename) {
 
 }
 
+
 void convertMonstersBinary()
 {
     std::string filename = "Monsters.csv";
@@ -919,6 +925,7 @@ void convertMonstersBinary()
     }
 
 }
+
 
 void createMonsterWeapon(int currentWeapon, int weaponOffset)
 {
@@ -1159,6 +1166,7 @@ void readMonsterDeathText(int monsterNo, int deathOffset)
 
 }
 
+
 void loadMonstersBinary() {
     FILE* fp;               // file pointer - used when reading files
     char tempString[100];   // temporary string
@@ -1269,3 +1277,50 @@ std::cout << "Name :" << Monster_Buffer[i].name << "c1 "<< Monster_Buffer[i].c1 
 	instream.close();
 }
 
+std::vector<openingMessages> readMessagesCSV(const std::string& filename) {
+    std::vector<openingMessages> data;
+    // Open the CSV file
+    std::ifstream file("data/map/core/" + filename);
+    if (!file.is_open()) {
+        std::cerr << "Error opening file: " << filename << std::endl;
+        return data; // Return empty vector if file couldn't be opened
+    }
+
+    std::string line;
+    while (std::getline(file, line)) {
+        std::stringstream lineStream(line);
+        openingMessages opMessage;
+        std::string cell;
+
+        // Parsing CSV fields into the struct members
+        std::getline(lineStream, cell, ','); // Assuming the index is the first column
+        opMessage.index = std::stoi(cell);
+
+        std::getline(lineStream, opMessage.message, ',');
+
+        data.push_back(opMessage);
+    }
+
+    file.close();
+    return data;
+
+    
+}
+
+
+void convertMessagesBinary()
+{
+    std::string filename = "Messages.csv";
+    std::vector<openingMessages>  csvData = readMessagesCSV(filename);
+
+    // Convert vector to a dynamically allocated array of NewItem structs
+    size_t itemCount = csvData.size();
+    Message_Buffer = new openingMessages[itemCount];
+
+    // Copy data from vector to the dynamically allocated array
+    for (size_t i = 0; i < itemCount; ++i) {
+        Message_Buffer[i] = csvData[i];
+
+    }
+
+}

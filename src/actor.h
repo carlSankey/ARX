@@ -7,17 +7,13 @@
 #include <vector>
 
 
-
-
-
-
-
 std::string readBinaryString(int stringOffset);
+
 
 extern struct  newMonster;
 
-extern newMonster* Monster_Buffer;
 
+extern newMonster* Monster_Buffer;
 
 
 void loadEncounters();
@@ -28,16 +24,15 @@ void readMonsterNameText(int monsterNo, int nameTextOffset);
 void readMonsterPluralNameText(int monsterNo, int pluralNameOffset);
 void readMonsterDeathText(int monsterNo, int deathTextOffset);
 void createMonsterWeapon(int currentWeapon, int weaponOffset);
-void convertMonstersBinary();
-
-
-
+void convertMonstersBinary();  // read the monsters into an arrray
+void convertMessagesBinary(); // read the opening messages into an array
 
 struct monsterFramePair
 {
     int startFrame;
     int endFrame;
 };
+
 
 struct monster
 {
@@ -118,9 +113,9 @@ struct monster
 	int callForHelp;
 	int spellBuffer[4];
 	int braveness;
+	int openingMessage;
 };
 
-//.extern monster Opponents[];  // Declare the array of Monster
 
 struct newMonster
 {
@@ -212,13 +207,15 @@ struct newMonster
 	int spellBuffer[4];
 	int braveness;
 	int minLevel;
+	int openingMessage;
 	std::string hash;
 };
 
 
-
-
 std::vector<newMonster> readMonsterCSV(const std::string& filename);
+
+
+
 
 struct weapon
 {
@@ -259,6 +256,14 @@ struct weapon
 };
 
 
+struct openingMessages
+{
+	int index;
+	std::string message;
+};
+
+
+std::vector<openingMessages> readMessagesCSV(const std::string& filename);
 
 extern weapon monsterWeapons[noOfMonsterWeapons];
 extern unsigned char monstersBinary[noOfMonstersFile];

@@ -280,6 +280,10 @@ struct Player
 
 std::string setGenderString(int gender);
 
+std::string setGenderIdString(int gender);
+
+std::string setGenderGreetString(int gender);
+
 extern Player plyr;
 
 

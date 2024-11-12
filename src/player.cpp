@@ -958,3 +958,27 @@ std::string setGenderString(int gender) {
         return "unknown";
     }
 }
+
+std::string setGenderIdString(int gender) {
+    if (gender == 1) {
+        return "knave";
+    }
+    else if (gender == 2) {
+        return "scullion";
+    }
+    else {
+        return "unknown";
+    }
+}
+
+std::string setGenderGreetString(int gender) {
+    if (gender == 1) {
+        return "brother";
+    }
+    else if (gender == 2) {
+        return "sister";
+    }
+    else {
+        return "unknown";
+    }
+}

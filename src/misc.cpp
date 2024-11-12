@@ -26,7 +26,7 @@
 #include "display.h"
 #include "font.h"
 #include "player.h"
-
+#include "actor.h"
 
 
 
@@ -498,3 +498,38 @@ bool stringToBool(const std::string& str) {
 		throw std::invalid_argument("Invalid input string for boolean conversion: " + str);
 	}
 }
+
+void replaceSymbol(std::string& origstr, const std::string& replaceWith, const std::string stringToFind) {
+	int lengthtofind = stringToFind.size();
+	size_t found = origstr.find(stringToFind);
+	while (found != std::string::npos) {
+		origstr.replace(found, lengthtofind, replaceWith);
+		found = origstr.find(stringToFind, found + replaceWith.size());
+	}
+}
+
+
+
+
+
+std::string processMessage(std::string unprocessedMessage, std::string ReplacementText)
+{
+	std::string newMessage = unprocessedMessage;
+	std::string genderString = setGenderString(plyr.gender);
+	std::string genderIdString = setGenderIdString(plyr.gender);
+	std::string genderGreetString = setGenderGreetString(plyr.gender);
+	replaceSymbol(newMessage, genderString, "^^");  //Man Woman
+	replaceSymbol(newMessage, genderIdString, "££"); // Knave Scullion
+	replaceSymbol(newMessage, genderGreetString, ">>"); // Brother Sister
+	replaceSymbol(newMessage, plyr.name, "||"); //Player name
+	replaceSymbol(newMessage, Monster_Buffer[plyr.encounterRef].name, "$$"); //Text
+	if (ReplacementText != "")
+	{
+		replaceSymbol(newMessage, ReplacementText, "++");
+	}
+	replaceSymbol(newMessage, "", "\"");
+	return newMessage;
+
+	
+}
+

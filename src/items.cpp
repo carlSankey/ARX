@@ -2262,7 +2262,7 @@ void use_torch()
 
 		if (key_value == "1")
         {
-            plyr.priWeapon = createItem(178,0x0,"Lit Torch",0x16,0x16, 0x82, 0x04, 0x01, 0x0, 0x13,0,0,0,0x13,0,0,0,0,0,0,0,0,0x02,0,0xFF,0,0x03,0);
+            plyr.priWeapon = createItem(178,0x0,"Lit Torch",0x16,0x16, 0x82, 0x04, 0x01, 0x0, 0x13,0,0,0,0x16,0,0,0,0,0,0,0,0,0x02,0,0x01,0,0x03,0);
             //createWeapon(71); // create a new lit torch was 11
             itemBuffer[plyr.priWeapon].location = 10; // primary was 11
             plyr.torches--;
@@ -3022,11 +3022,8 @@ void checkFixedTreasures()
 	
 	if (treasureRef > -1 && !plyr.fixedTreasures[treasureRef])
 	{
-		std::string newMessage = fixed_Buffer[treasureRef].message;
-		std::string genderString = setGenderString(plyr.gender);
-		replaceSymbol(newMessage, genderString, "^^");
-		replaceSymbol(newMessage, plyr.name, "||");
-		replaceSymbol(newMessage, "", "\"");
+		string newMessage = processMessage(fixed_Buffer[treasureRef].message, "");
+		
 
 		treasureMessage(newMessage);
 	
@@ -3048,15 +3045,6 @@ int findValue(fixedTreasure arr[], int size, int value) {
 		}
 	}
 	return -1; // Value not found in the array
-}
-
-void replaceSymbol(std::string& str, const std::string& replaceWith, const std::string stringToFind) {
-	int lengthtofind = stringToFind.size();
-	size_t found = str.find(stringToFind);
-	while (found != std::string::npos) {
-		str.replace(found, lengthtofind, replaceWith);
-		found = str.find(stringToFind, found + replaceWith.size());
-	}
 }
 
 

@@ -245,7 +245,7 @@ struct fixedTreasure
 
 std::vector<fixedTreasure> readFixedTreasureCSV(const std::string& filename);
 
-void replaceSymbol(std::string& str, const std::string& replaceWith, const std::string stringToFind);
+
 
 void readFTData();
 int findValue(fixedTreasure arr[], int size, int value);
