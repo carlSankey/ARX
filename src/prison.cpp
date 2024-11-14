@@ -13,7 +13,7 @@
 #include "prison.h"
 #include "lyrics.h"
 #include "automap.h"
-
+#include "spells.h"
 
 
 
@@ -222,18 +222,23 @@ void shopPrison()
 		while (prisonMenu == 7)
 		{
 			clearShopDisplay();
-			cyText(1, "To learn the Fugue Spell, thou must");
-			cyText(3, "forget one that thou already knowest.");
+			spellBuffer[plyr.spellIndex].no = 73; // Add new spell to spellBuffer
+			//spellBuffer[plyr.spellIndex].name = spells[guildSpells[spellNo].no].name; // Add new spell name to spellBuffer
+			spellBuffer[plyr.spellIndex].percentage = spells[73].percentage; // Starting percentage success for this spell
+			plyr.spellIndex++;
+
 			cyText(5, "Thou now knowest the Fugue Spell");
 			cyText(7, "Use it wisely, for as its power is");
 			cyText(9, "great so is its cost.");
 			updateDisplay();
-			while (checkKeys)
+			
+
+			while (!checkKeys)
 			{
 				key = getSingleKey();
 				if ((key != "") && (key != "up") && (key != "down") && (key != "I") && (key != "K"))
 				{
-					checkKeys = false;
+					checkKeys = true;
 					prisonMenu = 8;
 				}
 			}
@@ -245,13 +250,15 @@ void shopPrison()
 			cyText(1, "You are teleported to Ozob's secret lair");
 			cyText(3, "Thy reward is the top of my Master's");
 			cyText(5, "staff; may it help you on your quest.");
+
+
 			updateDisplay();
-			while (!checkKeys)
+			while (checkKeys)
 			{
 				key = getSingleKey();
 				if (key != "") 
 				{
-					checkKeys = true;
+					checkKeys = false;
 					prisonMenu = 9;
 				}
 			}
@@ -264,13 +271,18 @@ void shopPrison()
 			cyText(9, "three doors.  Some say that these doors");
 			cyText(11, "lead to my Master's resting place.");
 			updateDisplay();
-			while (checkKeys)
+			
+			while (!checkKeys)
 			{
 				key = getSingleKey();
 				if (key != "") 
 				{
-					checkKeys = false;
+					checkKeys = true;
 					prisonMenu = 0;
+					plyr.special = 0x100;
+					plyr.prisonRelease = 3;
+					
+					
 				}
 			}
 		}
@@ -279,8 +291,21 @@ void shopPrison()
 	}
 
 	//plyr.prisonVisited = true;
-	if (plyr.prisonRelease == 0) { plyr.prisonRelease = 1; }
-	leaveShop();
+	if (plyr.prisonRelease == 0) 
+	{ 
+		plyr.prisonRelease = 1;
+	}
+	if(plyr.prisonRelease == 3)
+	{
+		leaveShop();
+		checkTeleport();
+		updateDisplay();
+	}
+	else
+	{
+		leaveShop();
+	}
+	
 }
 
 

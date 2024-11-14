@@ -60,7 +60,7 @@ extern string mess[25];
 extern string room_descriptions[203];
 extern Mapcell levelmap[4096]; // 12288
 
-extern Teleport teleports[32];
+extern Teleport teleports[33];
 
 sf::SoundBuffer doorCityBuffer;
 sf::SoundBuffer secretCityBuffer;
@@ -887,9 +887,9 @@ void turnRight()
 void checkTeleport()
 {
 
-	if ( (plyr.special>=0xE0) && (plyr.special<=0xFF) ) // 224 - 255
+	if ( (plyr.special>=0xE0) && (plyr.special<=0x100) ) // 224 - 256
  	{
-      for (int i=0 ; i<=31 ; i++) // Max number of teleport objects
+      for (int i=0 ; i<=32 ; i++) // Max number of teleport objects
 	{
  		//int ind = ((plyr.special)-0xEF);
 		if (plyr.special == teleports[i].ref)
