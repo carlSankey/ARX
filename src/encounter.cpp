@@ -3372,6 +3372,8 @@ int randomEncounterPicker(int ZoneToMatch, int TimeToMatch, int arraySize)
 
 	else {
 		std::cout << "No Encounters match the criteria." << std::endl;
+		std::cout << "Zone to Match" + ZoneToMatch  << std::endl;
+		std::cout << "Time To Match " + TimeToMatch << std::endl;
 		return 0;
 	}
 
