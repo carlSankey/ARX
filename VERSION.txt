@@ -1,6 +1,6 @@
 Alternate Reality X
 -------------------
-Version 0.90.0.1 - 13th June 2024
+Version 0.90.0.1 - 14th November 2024
 * Fixed - Master Thief dropping a Silver Key
 * Added - Moved scenarios to seperate folders (how many scenarios)
           Plan is to change the code to become an engine where adding/updating external files will enable the addition of the new modules.
