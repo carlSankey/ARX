@@ -2,7 +2,7 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
-const std::string progRelease = "0.91"; //Release version
+const std::string progRelease = "0.90.0.1"; //Release version
 
 //3Dview
 const int noOfTextures = 71;  //no of image in the images folder
