@@ -1,0 +1,21 @@
+{
+  "name": "arxx",
+  "version": "0.90",
+  "description": "Alternate Reality X - bgfx renderer migration",
+  "dependencies": [
+    "bgfx",
+    {
+      "name": "sfml",
+      "features": [
+        "graphics",
+        "window",
+        "audio",
+        "network"
+      ]
+    },
+    "openssl",
+    "glfw3",
+    "glew",
+"cpp-base64"
+  ]
+}

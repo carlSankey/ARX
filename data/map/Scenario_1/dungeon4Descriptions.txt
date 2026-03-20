@@ -1,0 +1,14 @@
+toast! LEV 4
+in a metallic corridor.
+at a stairway leading up.
+inside a seemingly unused room.
+in an equipment room.
+in a storage room of some sort.
+in a hi-tech lounge room.
+in an alien control room.
+in a seldom-used area.
+at the Gateway to Revelation.
+in a small room.
+by the Gateway to Revelation.
+EOF
+

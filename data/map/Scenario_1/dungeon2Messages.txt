@@ -1,0 +1,26 @@
+A sign on the door says:@@"Damon & Pythias Shoppe"
+A sign above the door reads:@@"THE RETREAT"
+A sign reads:@@"Der Rathskeller Bar & Grille"
+Carved above the doorway are the words:@@"Fine Weapons & Armor"
+An arrow painted on the floor@@points South.
+Writing on the wall says:@@"BEWARE OF THE DRAGON!"
+Writing carved into the door reads:@@"THE GAUNTLET DO NOT ENTER"
+Glowing letters on the door proclaim:@@"Enchantress"
+Writing scrawled on the ground reads@@"GO BACK!"
+Scratchings on the wall read:@@"THERE IS NO ESCAPE!"
+A red arrow on the ground points East.
+A dirty sign reads:@@"Goblins only!"
+A crooked sign says:@@"TROLLS ONLY"
+A plaque reads:@@"Shrine of Monsters"
+You hear the sound of running water.
+Glowing letters float in midair:@@"SEEK THE LIGHT"
+A note posted on the door reads:@@"BEWARE!  THE CAVERNS!"
+The stench is becoming unbearable.
+A sign above the door says:@@"Welcome to the Chapel. Please come in!"
+Black letters hovering slowly say:@@"THE SHADOW WILL HIDE THEE"
+The rune of the all-knowing eye is upon@@the door.
+On the wall is a painting of@@a purple pyramid.
+A skull hangs from the ceiling@@above the door.
+You hear the crackle of electricity.
+You stand before an elaborate door.
+EOF

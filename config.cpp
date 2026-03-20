@@ -1,0 +1,78 @@
+// Load settings from an arx.ini configuration file
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdarg.h>
+
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include <string>
+#include <windows.h>
+
+
+extern int windowMode, graphicMode, windowWidth, windowHeight;
+
+using std::ofstream;
+using std::cerr;
+using std::endl;
+using std::string;
+using std::getline;
+
+
+bool loadConfig()
+{
+
+	char buffer[MAX_PATH];
+	GetCurrentDirectoryA(MAX_PATH, buffer);
+
+	std::cout << "Current Working Directory: " << buffer << std::endl;
+
+
+	std::ifstream instream;
+	string filename = "arx.ini";
+	instream.open(filename.c_str());
+
+	if (!instream) {
+		std::cerr << "Failed to open file: " << filename << std::endl;
+		// Apply defaults so the game can still run
+		windowMode   = 0;
+		graphicMode  = 0;
+		windowWidth  = 1024;
+		windowHeight = 768;
+		return 1;
+	}
+	string junk, line, text;
+	int iniSettings = 4; // number of settings in the ini file
+	string::size_type idx;
+	getline(instream, junk); // read first line as blank
+
+	for (int a = 0; a < iniSettings; ++a) // number of settings in the ini file
+	{
+		getline(instream, line);
+
+		idx = line.find('=');
+		text = line.substr(idx+2);
+
+		if (a==0) { windowMode = atoi(text.c_str()); }
+		if (a==1) { graphicMode = atoi(text.c_str()); }
+		if (a==2) { windowWidth = atoi(text.c_str()); }
+		if (a==3) { windowHeight = atoi(text.c_str()); }
+	}
+	instream.close();
+
+	// Minimum window requirement is currently 640 x 480 pixels
+	if ((windowWidth < 640) || (windowHeight < 480))
+    {
+        std::cout << "WARNING: A minimum window size of 640 x 480 pixels is required." << std::endl << std::endl;
+        windowWidth = 640;
+        windowHeight = 480;
+    }
+	return 1;
+}
+
+
+
+
+
+

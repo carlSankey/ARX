@@ -1,0 +1,68 @@
+Devourer
+
+Special Abilities
+You struggle desperately against the¥sucking force of it's gaping maw.
+Some of your ´Ùv goes¥flying into the mouth of the Devourer.
+sucks up your¥
+
+Thief
+
+special Abilities
+tries unsuccessfully¥to pilfer thy personage.
+has stolen¥some of your
+has taken your¥
+tries¥to bludgeon you.
+
+assassin
+
+special Abilities
+summons help...¥
+but none comes.
+nd another arrives!
+
+
+guards
+
+special Abilities
+
+Surrender in the name of his majesty¥the King. Thou art under arrest varlet!"
+¥"Enough of thy antics,¥to the pokey with thee!"
+¥You receive a swift trial,¥and a slow execution.
+Fellow Thieves Guild members rescue¥you from prison before your trial.
+summons help...¥
+but none arrives. and another comes!
+
+
+Champion
+
+I am here for the honor¥of   
+
+Mage
+signs a rune over your head.
+¥"You shall not prosper from this!"
+
+
+slime
+¥Some of your food has been slimed.
+oozes digestive acid¥onto the floor around you. 
+
+whirlwind
+sucks up all the¥debris in the area
+
+
+Flame Demond
+summons help...
+but none comes. 
+and another arrives!
+
+
+basilisk
+gives you¥a petrifying stare...
+which you avoid.
+which is reflected away.
+which you meet!
+¥You have turned to stone.
+
+
+
+

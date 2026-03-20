@@ -1,0 +1,2 @@
+// ARx_private.rc - Resource file for ARXX
+#include "ARx_private.h"

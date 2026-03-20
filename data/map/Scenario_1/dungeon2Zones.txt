@@ -1,0 +1,84 @@
+# Area no.0 - Hall of Adept
+Y1 = 15
+X1 = 31
+Y2 = 17
+X2 = 27
+Ref = 21
+
+# Area no.1 - Hall of Adept Alcove
+Y1 = 14
+X1 = 29
+Y2 = 15
+X2 = 28
+Ref = 22
+
+# Area no.2 - Crystal caverns 1
+Y1 = 4
+X1 = 13
+Y2 = 12
+X2 = 6
+Ref = 23
+
+# Area no.3 - Crystal caverns 2
+Y1 = 12
+X1 = 9
+Y2 = 15
+X2 = 6
+Ref = 23
+
+# Area no.4 - Hall of mirrors
+Y1 = 5
+X1 = 30
+Y2 = 13
+X2 = 24
+Ref = 24
+
+# Area no.5
+Y1 = 31
+X1 = 39
+Y2 = 32
+X2 = 38
+Ref = 18
+
+# Area no.6
+Y1 = 30
+X1 = 38
+Y2 = 31
+X2 = 37
+Ref = 18
+
+# Area no.7
+Y1 = 31
+X1 = 39
+Y2 = 32
+X2 = 38
+Ref = 18
+
+# Area no.8
+Y1 = 30
+X1 = 38
+Y2 = 31
+X2 = 37
+Ref = 18
+
+# Area no.9
+Y1 = 31
+X1 = 39
+Y2 = 32
+X2 = 38
+Ref = 18
+
+# Area no.10
+Y1 = 30
+X1 = 38
+Y2 = 31
+X2 = 37
+Ref = 18
+
+# Area no.11
+Y1 = 31
+X1 = 39
+Y2 = 32
+X2 = 38
+Ref = 18
+EOF

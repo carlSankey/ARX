@@ -1,0 +1,3789 @@
+
+offset: ox0
+numenc:1
+anim#:0
+name:devourer
+name plural:
+death Text:dissolves in a puddle@of thick smelly ooze.
+hp:72
+maxhp:72
+alignment:128
+sta:20
+cha:8
+str:30
+inte:0
+wis:22
+skl:60
+spd:50
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:85
+aSharp:85
+aEarth:51
+aAir:51
+aFire:51
+aWater:51
+aPower:51
+aMagic:51
+aGood:51
+aEvil:51
+aCold:51
+wpn1 offset: 0x79
+
+offset: ox246
+numenc:4
+anim#:1
+name:thief
+name plural:thieves
+death Text:will plague@this world no longer
+hp:5
+maxhp:5
+alignment:128
+sta:12
+cha:12
+str:12
+inte:12
+wis:12
+skl:12
+spd:12
+tFood:0
+tWater:0
+tTorches:1
+tTimepieces:1
+tCompasses:1
+tKeys:2
+tCrystals:0
+tGems:3
+tJewels:1
+tGold:2
+tSilver:10
+tCopper:60
+aBlunt:19
+aSharp:19
+aEarth:0
+aAir:0
+aFire:18
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x2eb
+wpn2 offset: 0x32f
+wpn3 offset: 0x34f
+wpn4 offset: 0x34f
+wpn5 offset: 0x34f
+wpn6 offset: 0x34f
+
+offset: ox763
+numenc:1
+anim#:2
+name:assassin
+name plural:
+death Text:dies, his face frozen in@an expression of shock and disbelief
+hp:40
+maxhp:40
+alignment:64
+sta:20
+cha:20
+str:60
+inte:20
+wis:20
+skl:65
+spd:99
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:7
+tCrystals:1
+tGems:0
+tJewels:3
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:22
+aSharp:22
+aEarth:0
+aAir:0
+aFire:19
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x7ee
+wpn2 offset: 0x80e
+wpn3 offset: 0x82e
+
+offset: ox875
+numenc:2
+anim#:3
+name:goblin
+name plural:goblins
+death Text:dies
+hp:17
+maxhp:17
+alignment:64
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:20
+spd:20
+tFood:2
+tWater:1
+tTorches:1
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:80
+aBlunt:20
+aSharp:20
+aEarth:15
+aAir:0
+aFire:18
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x910
+wpn2 offset: 0x8cb
+
+offset: oxa22
+numenc:4
+anim#:4
+name:troll
+name plural:trolls
+death Text:dies
+hp:15
+maxhp:15
+alignment:64
+sta:28
+cha:20
+str:40
+inte:20
+wis:20
+skl:20
+spd:20
+tFood:2
+tWater:1
+tTorches:1
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:80
+aBlunt:34
+aSharp:34
+aEarth:15
+aAir:0
+aFire:17
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0xa76
+wpn2 offset: 0xa98
+wpn3 offset: 0xada
+
+offset: oxb58
+numenc:1
+anim#:5
+name:lich
+name plural:
+death Text:dies for@for the last time
+hp:45
+maxhp:45
+alignment:0
+sta:20
+cha:20
+str:16
+inte:70
+wis:70
+skl:38
+spd:30
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:9
+tGems:3
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:34
+aSharp:34
+aEarth:0
+aAir:0
+aFire:0
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0xbbc
+
+offset: oxbf7
+numenc:1
+anim#:6
+name:Undead Knight
+name plural:
+death Text:fades away exclaiming,@"I'm free!  Art thou The One?"
+hp:65
+maxhp:65
+alignment:128
+sta:50
+cha:50
+str:50
+inte:50
+wis:50
+skl:75
+spd:50
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:51
+aSharp:51
+aEarth:17
+aAir:17
+aFire:17
+aWater:17
+aPower:51
+aMagic:17
+aGood:17
+aEvil:17
+aCold:34
+wpn1 offset: 0xc7f
+
+offset: oxcee
+numenc:2
+anim#:7
+name:guard
+name plural:guards
+death Text:dies
+hp:46
+maxhp:46
+alignment:129
+sta:20
+cha:20
+str:40
+inte:20
+wis:20
+skl:38
+spd:20
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:3
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:33
+tCopper:0
+aBlunt:51
+aSharp:51
+aEarth:0
+aAir:0
+aFire:35
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:34
+wpn1 offset: 0xd4f
+wpn2 offset: 0xd71
+wpn3 offset: 0xd95
+
+offset: ox10e7
+numenc:2
+anim#:8
+name:F.B.I. Agent
+name plural:F.B.I. Agents
+death Text:shall return
+hp:0
+maxhp:0
+alignment:128
+sta:90
+cha:90
+str:90
+inte:90
+wis:90
+skl:90
+spd:90
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:240
+aSharp:240
+aEarth:240
+aAir:240
+aFire:240
+aWater:240
+aPower:240
+aMagic:240
+aGood:240
+aEvil:240
+aCold:240
+wpn1 offset: 0x1151
+
+offset: ox117f
+numenc:1
+anim#:6
+name:Dark Knight
+name plural:
+death Text:falls
+hp:37
+maxhp:37
+alignment:64
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:20
+spd:30
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:3
+tCrystals:9
+tGems:1
+tJewels:1
+tGold:70
+tSilver:0
+tCopper:0
+aBlunt:36
+aSharp:36
+aEarth:18
+aAir:18
+aFire:50
+aWater:18
+aPower:18
+aMagic:18
+aGood:18
+aEvil:18
+aCold:18
+wpn1 offset: 0x11d3
+wpn2 offset: 0x11f8
+wpn3 offset: 0x1217
+
+offset: ox124f
+numenc:1
+anim#:9
+name:Champion
+name plural:
+death Text:has fought his last battle
+hp:68
+maxhp:68
+alignment:144
+sta:30
+cha:20
+str:45
+inte:20
+wis:20
+skl:50
+spd:40
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:3
+tCrystals:6
+tGems:9
+tJewels:4
+tGold:0
+tSilver:40
+tCopper:0
+aBlunt:52
+aSharp:52
+aEarth:34
+aAir:34
+aFire:34
+aWater:34
+aPower:34
+aMagic:34
+aGood:34
+aEvil:34
+aCold:34
+wpn1 offset: 0x12b5
+wpn3 offset: 0x12d8
+
+offset: ox1364
+numenc:1
+anim#:10
+name:Healer
+name plural:
+death Text:curses you@with his last breath
+hp:20
+maxhp:20
+alignment:128
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:20
+spd:20
+tFood:1
+tWater:1
+tTorches:0
+tTimepieces:0
+tCompasses:1
+tKeys:1
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:88
+tSilver:88
+tCopper:88
+aBlunt:0
+aSharp:0
+aEarth:0
+aAir:0
+aFire:0
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x13ce
+
+offset: ox169b
+numenc:1
+anim#:9
+name:Knight
+name plural:
+death Text:is undone
+hp:28
+maxhp:28
+alignment:255
+sta:20
+cha:20
+str:40
+inte:20
+wis:20
+skl:40
+spd:40
+tFood:0
+tWater:1
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:3
+tCrystals:5
+tGems:2
+tJewels:1
+tGold:11
+tSilver:59
+tCopper:0
+aBlunt:51
+aSharp:51
+aEarth:17
+aAir:17
+aFire:35
+aWater:17
+aPower:17
+aMagic:17
+aGood:17
+aEvil:17
+aCold:34
+wpn1 offset: 0x16ee
+wpn2 offset: 0x1711
+
+offset: ox184f
+numenc:1
+anim#:11
+name:pauper
+name plural:
+death Text:gasps:@"What you sow, you shall reap!"
+hp:10
+maxhp:10
+alignment:128
+sta:20
+cha:20
+str:40
+inte:20
+wis:20
+skl:40
+spd:28
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:1
+aBlunt:17
+aSharp:17
+aEarth:17
+aAir:17
+aFire:17
+aWater:17
+aPower:17
+aMagic:17
+aGood:17
+aEvil:17
+aCold:17
+wpn1 offset: 0x18c1
+wpn2 offset: 0x18e9
+
+offset: ox1a21
+numenc:1
+anim#:12
+name:nobleman
+name plural:
+death Text:dies with@a sneer on his face
+hp:18
+maxhp:18
+alignment:128
+sta:20
+cha:20
+str:29
+inte:20
+wis:20
+skl:30
+spd:30
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:1
+tCrystals:0
+tGems:3
+tJewels:1
+tGold:40
+tSilver:80
+tCopper:0
+aBlunt:20
+aSharp:20
+aEarth:0
+aAir:0
+aFire:19
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x1a8b
+wpn3 offset: 0x1ab0
+
+offset: ox1b6c
+numenc:1
+anim#:13
+name:alien sentry
+name plural:
+death Text:dissolves in a@thick green puddle
+hp:49
+maxhp:49
+alignment:128
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:60
+spd:60
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:68
+aSharp:68
+aEarth:255
+aAir:255
+aFire:35
+aWater:35
+aPower:19
+aMagic:56
+aGood:255
+aEvil:255
+aCold:56
+wpn1 offset: 0x1bdf
+
+offset: ox1c25
+numenc:2
+anim#:14
+name:robot
+name plural:'bots
+death Text:sputters around a bit@and then explodes
+hp:30
+maxhp:30
+alignment:128
+sta:20
+cha:20
+str:20
+inte:20
+wis:0
+skl:38
+spd:24
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:34
+aSharp:34
+aEarth:255
+aAir:255
+aFire:34
+aWater:51
+aPower:0
+aMagic:255
+aGood:255
+aEvil:255
+aCold:19
+wpn1 offset: 0x1c9c
+wpn2 offset: 0x1cc7
+wpn3 offset: 0x1cf1
+
+offset: ox1d1d
+numenc:3
+anim#:15
+name:novice
+name plural:novices
+death Text:swears vengeance
+hp:8
+maxhp:8
+alignment:128
+sta:15
+cha:15
+str:15
+inte:15
+wis:15
+skl:15
+spd:15
+tFood:0
+tWater:1
+tTorches:1
+tTimepieces:0
+tCompasses:1
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:43
+aBlunt:17
+aSharp:17
+aEarth:0
+aAir:0
+aFire:17
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x1d7f
+wpn2 offset: 0x1da0
+
+offset: ox1de1
+numenc:2
+anim#:15
+name:apprentice
+name plural:apprentices
+death Text:dies
+hp:12
+maxhp:12
+alignment:128
+sta:15
+cha:15
+str:15
+inte:15
+wis:15
+skl:15
+spd:15
+tFood:1
+tWater:1
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:3
+tCrystals:7
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:11
+aBlunt:17
+aSharp:17
+aEarth:0
+aAir:0
+aFire:18
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x1e3f
+wpn2 offset: 0x1e60
+
+offset: ox1ea1
+numenc:1
+anim#:10
+name:mage
+name plural:
+death Text:expires
+hp:37
+maxhp:37
+alignment:128
+sta:25
+cha:25
+str:25
+inte:55
+wis:55
+skl:35
+spd:25
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:3
+tCrystals:7
+tGems:1
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:20
+aSharp:20
+aEarth:18
+aAir:18
+aFire:18
+aWater:18
+aPower:18
+aMagic:18
+aGood:18
+aEvil:18
+aCold:18
+wpn1 offset: 0x1ef0
+wpn3 offset: 0x1f30
+
+offset: ox1f58
+numenc:1
+anim#:16
+name:wizard
+name plural:
+death Text:dies
+hp:67
+maxhp:67
+alignment:128
+sta:20
+cha:20
+str:20
+inte:60
+wis:60
+skl:50
+spd:40
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:17
+tCrystals:33
+tGems:4
+tJewels:6
+tGold:11
+tSilver:19
+tCopper:0
+aBlunt:35
+aSharp:35
+aEarth:34
+aAir:34
+aFire:34
+aWater:34
+aPower:34
+aMagic:34
+aGood:34
+aEvil:34
+aCold:34
+wpn1 offset: 0x1faf
+wpn3 offset: 0x1fd8
+
+offset: ox20d7
+numenc:4
+anim#:15
+name:acolyte
+name plural:acolytes
+death Text:goes to@his final reward
+hp:9
+maxhp:9
+alignment:128
+sta:20
+cha:20
+str:20
+inte:30
+wis:30
+skl:30
+spd:30
+tFood:7
+tWater:6
+tTorches:4
+tTimepieces:0
+tCompasses:1
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:17
+aSharp:17
+aEarth:0
+aAir:0
+aFire:0
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x2144
+wpn2 offset: 0x2165
+wpn3 offset: 0x21a6
+
+offset: ox21c6
+numenc:1
+anim#:10
+name:sage
+name plural:
+death Text:expires
+hp:30
+maxhp:30
+alignment:128
+sta:20
+cha:20
+str:20
+inte:200
+wis:200
+skl:70
+spd:50
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:1
+tKeys:1
+tCrystals:3
+tGems:2
+tJewels:2
+tGold:4
+tSilver:20
+tCopper:0
+aBlunt:34
+aSharp:34
+aEarth:0
+aAir:0
+aFire:34
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x2216
+
+offset: ox230c
+numenc:3
+anim#:17
+name:orc
+name plural:orcs
+death Text:dies
+hp:23
+maxhp:23
+alignment:64
+sta:50
+cha:1
+str:40
+inte:1
+wis:8
+skl:20
+spd:20
+tFood:3
+tWater:3
+tTorches:3
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:35
+aSharp:35
+aEarth:15
+aAir:0
+aFire:19
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x235c
+wpn2 offset: 0x237e
+wpn3 offset: 0x23a2
+
+offset: ox23c5
+numenc:5
+anim#:3
+name:gnome
+name plural:gnomes
+death Text:poofs
+hp:10
+maxhp:10
+alignment:128
+sta:20
+cha:10
+str:15
+inte:60
+wis:20
+skl:25
+spd:33
+tFood:5
+tWater:5
+tTorches:2
+tTimepieces:1
+tCompasses:1
+tKeys:0
+tCrystals:0
+tGems:2
+tJewels:0
+tGold:17
+tSilver:0
+tCopper:0
+aBlunt:20
+aSharp:20
+aEarth:15
+aAir:17
+aFire:17
+aWater:17
+aPower:17
+aMagic:17
+aGood:17
+aEvil:17
+aCold:17
+wpn1 offset: 0x241a
+wpn2 offset: 0x2439
+
+offset: ox2461
+numenc:7
+anim#:18
+name:dwarf
+name plural:dwarves
+death Text:disappears in a@puff of greasy black smoke
+hp:12
+maxhp:12
+alignment:128
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:20
+spd:20
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:1
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:16
+tJewels:5
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:35
+aSharp:35
+aEarth:15
+aAir:18
+aFire:18
+aWater:18
+aPower:18
+aMagic:18
+aGood:18
+aEvil:18
+aCold:18
+wpn1 offset: 0x24dd
+
+offset: ox2526
+numenc:1
+anim#:19
+name:slime
+name plural:
+death Text:splatters@into nothingness
+hp:7
+maxhp:7
+alignment:128
+sta:20
+cha:20
+str:20
+inte:0
+wis:0
+skl:20
+spd:20
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:1
+tCrystals:3
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:0
+aSharp:255
+aEarth:0
+aAir:0
+aFire:0
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x258a
+wpn2 offset: 0x25af
+
+offset: ox2664
+numenc:1
+anim#:19
+name:mold
+name plural:
+death Text:explodes into@fine powder
+hp:8
+maxhp:8
+alignment:128
+sta:20
+cha:20
+str:20
+inte:0
+wis:0
+skl:20
+spd:20
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:1
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:0
+aSharp:255
+aEarth:0
+aAir:0
+aFire:15
+aWater:0
+aPower:0
+aMagic:17
+aGood:0
+aEvil:0
+aCold:34
+wpn1 offset: 0x26c6
+wpn2 offset: 0x26ee
+
+offset: ox2748
+numenc:7
+anim#:20
+name:homunculus
+name plural:homunculii
+death Text:goes up@in a cloud of smoke
+hp:7
+maxhp:7
+alignment:0
+sta:10
+cha:0
+str:15
+inte:60
+wis:60
+skl:50
+spd:40
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:5
+tGems:3
+tJewels:1
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:17
+aSharp:17
+aEarth:17
+aAir:17
+aFire:17
+aWater:17
+aPower:17
+aMagic:17
+aGood:17
+aEvil:17
+aCold:17
+wpn1 offset: 0x27bd
+
+offset: ox27de
+numenc:1
+anim#:21
+name:phoenix
+name plural:
+death Text:is consumed@in a fiery orange ball
+hp:39
+maxhp:39
+alignment:255
+sta:30
+cha:10
+str:30
+inte:20
+wis:21
+skl:30
+spd:40
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:25
+tGems:30
+tJewels:10
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:255
+aSharp:255
+aEarth:0
+aAir:0
+aFire:240
+aWater:15
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:15
+wpn1 offset: 0x284c
+wpn2 offset: 0x2873
+
+offset: ox2898
+numenc:1
+anim#:22
+name:sorceress
+name plural:
+death Text:dies
+hp:41
+maxhp:41
+alignment:128
+sta:20
+cha:20
+str:20
+inte:50
+wis:50
+skl:50
+spd:50
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:15
+tGems:5
+tJewels:0
+tGold:0
+tSilver:45
+tCopper:0
+aBlunt:19
+aSharp:19
+aEarth:19
+aAir:19
+aFire:19
+aWater:19
+aPower:19
+aMagic:19
+aGood:19
+aEvil:19
+aCold:19
+wpn1 offset: 0x28e9
+wpn2 offset: 0x2911
+wpn3 offset: 0x2959
+
+offset: ox2981
+numenc:1
+anim#:23
+name:whirlwind
+name plural:
+death Text:subsides
+hp:17
+maxhp:17
+alignment:128
+sta:20
+cha:0
+str:50
+inte:1
+wis:1
+skl:23
+spd:44
+tFood:7
+tWater:5
+tTorches:4
+tTimepieces:6
+tCompasses:3
+tKeys:4
+tCrystals:1
+tGems:1
+tJewels:1
+tGold:35
+tSilver:35
+tCopper:35
+aBlunt:22
+aSharp:255
+aEarth:0
+aAir:15
+aFire:255
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x29d6
+wpn2 offset: 0x29fe
+wpn3 offset: 0x2a26
+
+offset: ox2a82
+numenc:6
+anim#:24
+name:giant rat
+name plural:giant rats
+death Text:lays lifeless@on the ground
+hp:6
+maxhp:6
+alignment:128
+sta:20
+cha:0
+str:20
+inte:0
+wis:0
+skl:10
+spd:25
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:1
+tJewels:0
+tGold:1
+tSilver:0
+tCopper:0
+aBlunt:0
+aSharp:0
+aEarth:0
+aAir:0
+aFire:0
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x2af6
+
+offset: ox2b53
+numenc:1
+anim#:25
+name:small dragon
+name plural:
+death Text:is slain
+hp:68
+maxhp:68
+alignment:128
+sta:60
+cha:20
+str:60
+inte:70
+wis:70
+skl:45
+spd:40
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:30
+tJewels:10
+tGold:200
+tSilver:200
+tCopper:200
+aBlunt:68
+aSharp:68
+aEarth:34
+aAir:34
+aFire:255
+aWater:34
+aPower:34
+aMagic:34
+aGood:34
+aEvil:34
+aCold:34
+wpn1 offset: 0x2bab
+wpn2 offset: 0x2bcf
+wpn3 offset: 0x2bee
+
+offset: ox2c14
+numenc:8
+anim#:26
+name:skeleton
+name plural:skeletons
+death Text:crumbles into a@heap of shattered bones
+hp:6
+maxhp:6
+alignment:0
+sta:20
+cha:0
+str:20
+inte:0
+wis:0
+skl:20
+spd:20
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:23
+aBlunt:0
+aSharp:0
+aEarth:17
+aAir:0
+aFire:17
+aWater:0
+aPower:0
+aMagic:255
+aGood:0
+aEvil:0
+aCold:255
+wpn1 offset: 0x2c92
+
+offset: ox2cd2
+numenc:5
+anim#:5
+name:zombie
+name plural:zombies
+death Text:is no longer animate
+hp:10
+maxhp:10
+alignment:0
+sta:20
+cha:0
+str:20
+inte:0
+wis:0
+skl:20
+spd:10
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:22
+aBlunt:0
+aSharp:0
+aEarth:0
+aAir:0
+aFire:15
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x2d38
+
+offset: ox2d8e
+numenc:7
+anim#:5
+name:ghoul
+name plural:ghouls
+death Text:has robbed his@last crypt
+hp:9
+maxhp:9
+alignment:0
+sta:20
+cha:0
+str:80
+inte:0
+wis:0
+skl:20
+spd:20
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:88
+aBlunt:0
+aSharp:0
+aEarth:0
+aAir:0
+aFire:15
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x2df8
+
+offset: ox2e92
+numenc:1
+anim#:27
+name:ghost
+name plural:
+death Text:dissipates@into thin air
+hp:12
+maxhp:12
+alignment:0
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:20
+spd:20
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:80
+tSilver:0
+tCopper:0
+aBlunt:255
+aSharp:255
+aEarth:15
+aAir:15
+aFire:35
+aWater:15
+aPower:15
+aMagic:255
+aGood:15
+aEvil:15
+aCold:15
+wpn1 offset: 0x2ef4
+wpn2 offset: 0x2f14
+
+offset: ox2f3d
+numenc:1
+anim#:27
+name:spectre
+name plural:
+death Text:fades away
+hp:20
+maxhp:20
+alignment:0
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:20
+spd:20
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:255
+aSharp:255
+aEarth:15
+aAir:15
+aFire:35
+aWater:15
+aPower:15
+aMagic:255
+aGood:15
+aEvil:15
+aCold:15
+wpn1 offset: 0x2f92
+wpn2 offset: 0x2fbb
+
+offset: ox2fe2
+numenc:3
+anim#:27
+name:wraith
+name plural:wraiths
+death Text:dissolves in@a thick vile cloud of gas
+hp:39
+maxhp:39
+alignment:0
+sta:30
+cha:20
+str:40
+inte:40
+wis:40
+skl:40
+spd:40
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:9
+tJewels:3
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:35
+aSharp:35
+aEarth:17
+aAir:17
+aFire:0
+aWater:17
+aPower:0
+aMagic:0
+aGood:15
+aEvil:0
+aCold:17
+wpn1 offset: 0x305b
+wpn2 offset: 0x3081
+wpn3 offset: 0x30c7
+
+offset: ox30ed
+numenc:1
+anim#:28
+name:vampire
+name plural:
+death Text:crumbles to dust
+hp:50
+maxhp:50
+alignment:0
+sta:99
+cha:99
+str:99
+inte:99
+wis:99
+skl:99
+spd:99
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:1
+tCompasses:0
+tKeys:9
+tCrystals:19
+tGems:7
+tJewels:7
+tGold:55
+tSilver:0
+tCopper:0
+aBlunt:24
+aSharp:24
+aEarth:24
+aAir:24
+aFire:0
+aWater:15
+aPower:0
+aMagic:0
+aGood:15
+aEvil:20
+aCold:255
+wpn1 offset: 0x3184
+wpn3 offset: 0x3149
+
+offset: ox3205
+numenc:8
+anim#:20
+name:great bat
+name plural:great bats
+death Text:has flapped@for the last time
+hp:7
+maxhp:7
+alignment:128
+sta:20
+cha:20
+str:20
+inte:0
+wis:0
+skl:10
+spd:20
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:1
+tGems:1
+tJewels:0
+tGold:1
+tSilver:1
+tCopper:1
+aBlunt:0
+aSharp:0
+aEarth:0
+aAir:0
+aFire:0
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x327b
+wpn2 offset: 0x32a2
+
+offset: ox32c8
+numenc:3
+anim#:29
+name:hellhound
+name plural:hellhounds
+death Text:is consumed in a@sulphurous cloud of smoke
+hp:30
+maxhp:30
+alignment:0
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:50
+spd:40
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:7
+tCrystals:3
+tGems:1
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:17
+aSharp:17
+aEarth:0
+aAir:0
+aFire:255
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x334b
+wpn2 offset: 0x3373
+
+offset: ox339e
+numenc:5
+anim#:30
+name:harpy
+name plural:harpies
+death Text:falls to the@ground in a crumpled heap
+hp:27
+maxhp:27
+alignment:0
+sta:20
+cha:3
+str:20
+inte:8
+wis:20
+skl:70
+spd:20
+tFood:1
+tWater:1
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:12
+tSilver:30
+tCopper:99
+aBlunt:19
+aSharp:19
+aEarth:0
+aAir:0
+aFire:0
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x3437
+wpn2 offset: 0x3416
+
+offset: ox3479
+numenc:1
+anim#:31
+name:gremlin
+name plural:
+death Text:melts into a puddle@of bubbling goo
+hp:14
+maxhp:14
+alignment:0
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:20
+spd:20
+tFood:1
+tWater:1
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:2
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:18
+aSharp:18
+aEarth:0
+aAir:0
+aFire:255
+aWater:15
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:20
+wpn1 offset: 0x34e8
+wpn2 offset: 0x350c
+
+offset: ox3537
+numenc:1
+anim#:31
+name:imp
+name plural:
+death Text:leaves this mortal plane
+hp:14
+maxhp:14
+alignment:0
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:20
+spd:20
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:55
+tSilver:0
+tCopper:0
+aBlunt:19
+aSharp:19
+aEarth:0
+aAir:0
+aFire:255
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:18
+wpn1 offset: 0x3596
+wpn2 offset: 0x35b5
+
+offset: ox35fd
+numenc:4
+anim#:32
+name:flame demon
+name plural:flame demons
+death Text:is consumed@in its own blaze
+hp:46
+maxhp:46
+alignment:0
+sta:23
+cha:23
+str:30
+inte:20
+wis:20
+skl:20
+spd:35
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:255
+tSilver:255
+tCopper:0
+aBlunt:51
+aSharp:51
+aEarth:51
+aAir:51
+aFire:240
+aWater:15
+aPower:51
+aMagic:51
+aGood:51
+aEvil:51
+aCold:15
+wpn1 offset: 0x36b0
+wpn2 offset: 0x3676
+
+offset: ox3781
+numenc:1
+anim#:23
+name:storm devil
+name plural:
+death Text:goes out with a flash
+hp:31
+maxhp:31
+alignment:0
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:20
+spd:20
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:1
+tGems:1
+tJewels:1
+tGold:1
+tSilver:1
+tCopper:1
+aBlunt:24
+aSharp:24
+aEarth:17
+aAir:17
+aFire:255
+aWater:17
+aPower:17
+aMagic:17
+aGood:17
+aEvil:17
+aCold:17
+wpn1 offset: 0x37e6
+wpn2 offset: 0x3812
+
+offset: ox3833
+numenc:3
+anim#:29
+name:giant wolf
+name plural:giant wolves
+death Text:dies
+hp:15
+maxhp:15
+alignment:128
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:30
+spd:40
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:2
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:12
+tCopper:0
+aBlunt:0
+aSharp:0
+aEarth:0
+aAir:0
+aFire:0
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x3892
+
+offset: ox38bd
+numenc:1
+anim#:29
+name:werewolf
+name plural:
+death Text:appears human for an@instant and then expires
+hp:33
+maxhp:33
+alignment:0
+sta:50
+cha:20
+str:60
+inte:20
+wis:20
+skl:30
+spd:40
+tFood:3
+tWater:3
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:99
+tSilver:0
+tCopper:99
+aBlunt:17
+aSharp:17
+aEarth:0
+aAir:0
+aFire:0
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x39a8
+wpn2 offset: 0x3938
+
+offset: ox39c8
+numenc:1
+anim#:42
+name:warrior
+name plural:
+death Text:has fallen
+hp:13
+maxhp:13
+alignment:128
+sta:20
+cha:20
+str:47
+inte:20
+wis:20
+skl:29
+spd:20
+tFood:4
+tWater:5
+tTorches:2
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:5
+tSilver:10
+tCopper:20
+aBlunt:35
+aSharp:35
+aEarth:0
+aAir:0
+aFire:19
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x3a1d
+wpn2 offset: 0x3a40
+wpn3 offset: 0x3a63
+
+offset: ox3a88
+numenc:1
+anim#:33
+name:weapon master
+name plural:
+death Text:dies
+hp:43
+maxhp:43
+alignment:255
+sta:80
+cha:20
+str:30
+inte:20
+wis:20
+skl:80
+spd:45
+tFood:0
+tWater:1
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:3
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:20
+tSilver:20
+tCopper:0
+aBlunt:35
+aSharp:35
+aEarth:34
+aAir:34
+aFire:51
+aWater:34
+aPower:34
+aMagic:34
+aGood:34
+aEvil:34
+aCold:34
+wpn1 offset: 0x3add
+wpn2 offset: 0x3afd
+wpn3 offset: 0x3b22
+
+offset: ox3b55
+numenc:1
+anim#:34
+name:valkyrie
+name plural:
+death Text:slowly fades away
+hp:50
+maxhp:50
+alignment:255
+sta:20
+cha:20
+str:60
+inte:20
+wis:20
+skl:30
+spd:70
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:255
+tSilver:0
+tCopper:0
+aBlunt:36
+aSharp:36
+aEarth:0
+aAir:0
+aFire:255
+aWater:0
+aPower:0
+aMagic:0
+aGood:255
+aEvil:255
+aCold:0
+wpn1 offset: 0x3bb2
+
+offset: ox3bd9
+numenc:1
+anim#:42
+name:gladiator
+name plural:
+death Text:lies in@agony of defeat
+hp:9
+maxhp:9
+alignment:0
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:30
+spd:20
+tFood:2
+tWater:2
+tTorches:1
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:13
+tSilver:0
+tCopper:0
+aBlunt:19
+aSharp:19
+aEarth:0
+aAir:0
+aFire:19
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x3c3e
+
+offset: ox3c60
+numenc:4
+anim#:6
+name:mercenary
+name plural:mercenaries
+death Text:dies
+hp:9
+maxhp:9
+alignment:0
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:20
+spd:20
+tFood:3
+tWater:3
+tTorches:4
+tTimepieces:1
+tCompasses:1
+tKeys:4
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:66
+tCopper:99
+aBlunt:34
+aSharp:34
+aEarth:0
+aAir:0
+aFire:20
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x3cbd
+
+offset: ox3cec
+numenc:1
+anim#:35
+name:doppleganger
+name plural:
+death Text:merges back@into the wall
+hp:0
+maxhp:0
+alignment:0
+sta:0
+cha:0
+str:0
+inte:0
+wis:0
+skl:0
+spd:0
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:34
+aSharp:34
+aEarth:34
+aAir:34
+aFire:34
+aWater:34
+aPower:34
+aMagic:34
+aGood:34
+aEvil:34
+aCold:34
+wpn1 offset: 0x3daa
+
+offset: ox3dce
+numenc:1
+anim#:36
+name:adventurer
+name plural:
+death Text:is no longer joined
+hp:23
+maxhp:23
+alignment:128
+sta:15
+cha:15
+str:15
+inte:66
+wis:44
+skl:45
+spd:35
+tFood:8
+tWater:7
+tTorches:9
+tTimepieces:1
+tCompasses:1
+tKeys:1
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:47
+tCopper:23
+aBlunt:35
+aSharp:35
+aEarth:19
+aAir:19
+aFire:51
+aWater:19
+aPower:19
+aMagic:19
+aGood:19
+aEvil:19
+aCold:51
+wpn1 offset: 0x3e52
+wpn2 offset: 0x3e2f
+
+offset: ox3e77
+numenc:1
+anim#:37
+name:water sprite
+name plural:
+death Text:dies
+hp:4
+maxhp:4
+alignment:128
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:200
+spd:20
+tFood:0
+tWater:3
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:5
+tSilver:0
+tCopper:0
+aBlunt:34
+aSharp:34
+aEarth:0
+aAir:0
+aFire:0
+aWater:255
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x3ecb
+
+offset: ox3eed
+numenc:1
+anim#:38
+name:night stalker
+name plural:
+death Text:dissipates@in a puff of smoke
+hp:37
+maxhp:37
+alignment:0
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:20
+spd:199
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:7
+tGold:200
+tSilver:0
+tCopper:0
+aBlunt:18
+aSharp:18
+aEarth:0
+aAir:0
+aFire:0
+aWater:0
+aPower:0
+aMagic:255
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x3f5c
+wpn2 offset: 0x3f87
+
+offset: ox3fac
+numenc:1
+anim#:25
+name:salamander
+name plural:
+death Text:dies
+hp:23
+maxhp:23
+alignment:128
+sta:40
+cha:40
+str:40
+inte:0
+wis:0
+skl:40
+spd:40
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:5
+tJewels:5
+tGold:50
+tSilver:99
+tCopper:200
+aBlunt:34
+aSharp:34
+aEarth:0
+aAir:0
+aFire:255
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x3ffe
+wpn2 offset: 0x4029
+wpn3 offset: 0x4049
+
+offset: ox4068
+numenc:3
+anim#:33
+name:ronin
+name plural:!
+death Text:dies
+hp:38
+maxhp:38
+alignment:128
+sta:20
+cha:20
+str:29
+inte:20
+wis:20
+skl:80
+spd:40
+tFood:3
+tWater:3
+tTorches:3
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:50
+tSilver:0
+tCopper:22
+aBlunt:35
+aSharp:35
+aEarth:0
+aAir:0
+aFire:66
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x40b5
+wpn2 offset: 0x40d6
+wpn3 offset: 0x40f9
+
+offset: ox416c
+numenc:3
+anim#:39
+name:serpentman
+name plural:serpentmen
+death Text:lets out one@final hiss
+hp:11
+maxhp:11
+alignment:0
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:20
+spd:20
+tFood:2
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:40
+tSilver:10
+tCopper:0
+aBlunt:18
+aSharp:18
+aEarth:0
+aAir:0
+aFire:0
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x41dd
+wpn2 offset: 0x4207
+
+offset: ox4227
+numenc:1
+anim#:40
+name:big snake
+name plural:
+death Text:lays motionless
+hp:28
+maxhp:28
+alignment:128
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:40
+spd:60
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:33
+tSilver:66
+tCopper:99
+aBlunt:19
+aSharp:19
+aEarth:0
+aAir:0
+aFire:17
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:19
+wpn1 offset: 0x4283
+
+offset: ox42cd
+numenc:1
+anim#:40
+name:Great Naga
+name plural:
+death Text:has vanished
+hp:55
+maxhp:55
+alignment:128
+sta:20
+cha:20
+str:20
+inte:80
+wis:80
+skl:40
+spd:60
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:4
+tGems:5
+tJewels:1
+tGold:33
+tSilver:66
+tCopper:99
+aBlunt:35
+aSharp:35
+aEarth:17
+aAir:17
+aFire:17
+aWater:17
+aPower:17
+aMagic:17
+aGood:17
+aEvil:17
+aCold:17
+wpn1 offset: 0x4327
+
+offset: ox4350
+numenc:8
+anim#:42
+name:berserker
+name plural:berserkers
+death Text:gives one@final battle cry
+hp:17
+maxhp:17
+alignment:0
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:20
+spd:20
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:18
+aSharp:18
+aEarth:0
+aAir:0
+aFire:18
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x43c3
+wpn2 offset: 0x43e3
+
+offset: ox4423
+numenc:1
+anim#:25
+name:basilisk
+name plural:
+death Text:has died
+hp:63
+maxhp:63
+alignment:0
+sta:20
+cha:20
+str:70
+inte:20
+wis:20
+skl:20
+spd:70
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:9
+tJewels:5
+tGold:200
+tSilver:255
+tCopper:0
+aBlunt:0
+aSharp:255
+aEarth:0
+aAir:0
+aFire:65
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x4477
+wpn2 offset: 0x44a1
+wpn3 offset: 0x44c1
+
+offset: ox4631
+numenc:1
+anim#:25
+name:Great Wyrm
+name plural:
+death Text:dies, totally@shocked and appalled
+hp:207
+maxhp:207
+alignment:128
+sta:252
+cha:252
+str:252
+inte:252
+wis:252
+skl:252
+spd:252
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:255
+tCrystals:255
+tGems:255
+tJewels:255
+tGold:255
+tSilver:255
+tCopper:255
+aBlunt:52
+aSharp:52
+aEarth:24
+aAir:24
+aFire:255
+aWater:24
+aPower:24
+aMagic:24
+aGood:24
+aEvil:24
+aCold:24
+wpn1 offset: 0x46a2
+wpn2 offset: 0x46c9
+wpn3 offset: 0x46e9
+
+offset: ox4708
+numenc:1
+anim#:3
+name:Goblin Lord
+name plural:
+death Text:dies snarling:@"Guards, kill him!"
+hp:73
+maxhp:73
+alignment:0
+sta:20
+cha:20
+str:50
+inte:20
+wis:20
+skl:70
+spd:50
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:51
+aSharp:51
+aEarth:51
+aAir:51
+aFire:51
+aWater:51
+aPower:51
+aMagic:51
+aGood:51
+aEvil:51
+aCold:51
+wpn1 offset: 0x477b
+
+offset: ox47e3
+numenc:1
+anim#:4
+name:Troll Tyrant
+name plural:
+death Text:has given his@last order
+hp:80
+maxhp:80
+alignment:0
+sta:20
+cha:20
+str:50
+inte:20
+wis:20
+skl:50
+spd:50
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:51
+aSharp:51
+aEarth:34
+aAir:34
+aFire:34
+aWater:34
+aPower:34
+aMagic:34
+aGood:34
+aEvil:34
+aCold:34
+wpn1 offset: 0x484c
+
+offset: ox48c8
+numenc:3
+anim#:41
+name:ice demon
+name plural:ice demons
+death Text:shatters
+hp:35
+maxhp:35
+alignment:0
+sta:20
+cha:20
+str:30
+inte:20
+wis:20
+skl:40
+spd:50
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:2
+tGems:2
+tJewels:2
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:51
+aSharp:51
+aEarth:34
+aAir:34
+aFire:51
+aWater:34
+aPower:34
+aMagic:34
+aGood:34
+aEvil:34
+aCold:255
+wpn1 offset: 0x4928
+
+offset: ox494a
+numenc:1
+anim#:41
+name:horned devil
+name plural:
+death Text:is consumed in a@huge red cloud of smoke
+hp:69
+maxhp:69
+alignment:0
+sta:20
+cha:20
+str:50
+inte:80
+wis:80
+skl:80
+spd:40
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:0
+aBlunt:51
+aSharp:51
+aEarth:255
+aAir:255
+aFire:255
+aWater:255
+aPower:17
+aMagic:255
+aGood:0
+aEvil:255
+aCold:255
+wpn1 offset: 0x49c3
+
+offset: ox1d1d
+numenc:3
+anim#:15
+name:Mugger
+name plural:novices
+death Text:swears vengeance
+hp:8
+maxhp:8
+alignment:128
+sta:15
+cha:15
+str:15
+inte:15
+wis:15
+skl:15
+spd:15
+tFood:0
+tWater:1
+tTorches:1
+tTimepieces:0
+tCompasses:1
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:43
+aBlunt:17
+aSharp:17
+aEarth:0
+aAir:0
+aFire:17
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x1d7f
+wpn2 offset: 0x1da0
+
+offset: ox1d1d
+numenc:3
+anim#:15
+name:Robber
+name plural:novices
+death Text:swears vengeance
+hp:8
+maxhp:8
+alignment:128
+sta:15
+cha:15
+str:15
+inte:15
+wis:15
+skl:15
+spd:15
+tFood:0
+tWater:1
+tTorches:1
+tTimepieces:0
+tCompasses:1
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:43
+aBlunt:17
+aSharp:17
+aEarth:0
+aAir:0
+aFire:17
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x1d7f
+wpn2 offset: 0x1da0
+
+offset: ox124f
+numenc:1
+anim#:9
+name:Fighter
+name plural:
+death Text:has fought his last battle
+hp:68
+maxhp:68
+alignment:144
+sta:30
+cha:20
+str:45
+inte:20
+wis:20
+skl:50
+spd:40
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:3
+tCrystals:6
+tGems:9
+tJewels:4
+tGold:0
+tSilver:40
+tCopper:0
+aBlunt:52
+aSharp:52
+aEarth:34
+aAir:34
+aFire:34
+aWater:34
+aPower:34
+aMagic:34
+aGood:34
+aEvil:34
+aCold:34
+wpn1 offset: 0x12b5
+wpn3 offset: 0x12d8
+
+offset: ox124f
+numenc:1
+anim#:9
+name:Swordsman
+name plural:
+death Text:has fought his last battle
+hp:68
+maxhp:68
+alignment:144
+sta:30
+cha:20
+str:45
+inte:20
+wis:20
+skl:50
+spd:40
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:3
+tCrystals:6
+tGems:9
+tJewels:4
+tGold:0
+tSilver:40
+tCopper:0
+aBlunt:52
+aSharp:52
+aEarth:34
+aAir:34
+aFire:34
+aWater:34
+aPower:34
+aMagic:34
+aGood:34
+aEvil:34
+aCold:34
+wpn1 offset: 0x12b5
+wpn3 offset: 0x12d8
+
+offset: ox1d1d
+numenc:3
+anim#:15
+name:Courier
+name plural:novices
+death Text:swears vengeance
+hp:8
+maxhp:8
+alignment:128
+sta:15
+cha:15
+str:15
+inte:15
+wis:15
+skl:15
+spd:15
+tFood:0
+tWater:1
+tTorches:1
+tTimepieces:0
+tCompasses:1
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:43
+aBlunt:17
+aSharp:17
+aEarth:0
+aAir:0
+aFire:17
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x1d7f
+wpn2 offset: 0x1da0
+
+offset: ox1d1d
+numenc:3
+anim#:15
+name:Commoner
+name plural:novices
+death Text:swears vengeance
+hp:8
+maxhp:8
+alignment:128
+sta:15
+cha:15
+str:15
+inte:15
+wis:15
+skl:15
+spd:15
+tFood:0
+tWater:1
+tTorches:1
+tTimepieces:0
+tCompasses:1
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:43
+aBlunt:17
+aSharp:17
+aEarth:0
+aAir:0
+aFire:17
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x1d7f
+wpn2 offset: 0x1da0
+
+offset: ox1d1d
+numenc:3
+anim#:15
+name:Merchant
+name plural:novices
+death Text:swears vengeance
+hp:8
+maxhp:8
+alignment:128
+sta:15
+cha:15
+str:15
+inte:15
+wis:15
+skl:15
+spd:15
+tFood:0
+tWater:1
+tTorches:1
+tTimepieces:0
+tCompasses:1
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:43
+aBlunt:17
+aSharp:17
+aEarth:0
+aAir:0
+aFire:17
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x1d7f
+wpn2 offset: 0x1da0
+
+offset: ox1f58
+numenc:1
+anim#:16
+name:Arch Mage
+name plural:
+death Text:dies
+hp:67
+maxhp:67
+alignment:128
+sta:20
+cha:20
+str:20
+inte:60
+wis:60
+skl:50
+spd:40
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:17
+tCrystals:33
+tGems:4
+tJewels:6
+tGold:11
+tSilver:19
+tCopper:0
+aBlunt:35
+aSharp:35
+aEarth:34
+aAir:34
+aFire:34
+aWater:34
+aPower:34
+aMagic:34
+aGood:34
+aEvil:34
+aCold:34
+wpn1 offset: 0x1faf
+wpn3 offset: 0x1fd8
+
+offset: oxa22
+numenc:4
+anim#:4
+name:Gnoll
+name plural:trolls
+death Text:dies
+hp:15
+maxhp:15
+alignment:64
+sta:28
+cha:20
+str:40
+inte:20
+wis:20
+skl:20
+spd:20
+tFood:2
+tWater:1
+tTorches:1
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:80
+aBlunt:34
+aSharp:34
+aEarth:15
+aAir:0
+aFire:17
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0xa76
+wpn2 offset: 0xa98
+wpn3 offset: 0xada
+
+offset: ox875
+numenc:2
+anim#:3
+name:Hobbit
+name plural:goblins
+death Text:dies
+hp:17
+maxhp:17
+alignment:64
+sta:20
+cha:20
+str:20
+inte:20
+wis:20
+skl:20
+spd:20
+tFood:2
+tWater:1
+tTorches:1
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:80
+aBlunt:20
+aSharp:20
+aEarth:15
+aAir:0
+aFire:18
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x910
+wpn2 offset: 0x8cb
+
+offset: oxa22
+numenc:4
+anim#:4
+name:Giant
+name plural:trolls
+death Text:dies
+hp:15
+maxhp:15
+alignment:64
+sta:28
+cha:20
+str:40
+inte:20
+wis:20
+skl:20
+spd:20
+tFood:2
+tWater:1
+tTorches:1
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:80
+aBlunt:34
+aSharp:34
+aEarth:15
+aAir:0
+aFire:17
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0xa76
+wpn2 offset: 0xa98
+wpn3 offset: 0xada
+
+offset: ox2b53
+numenc:1
+anim#:25
+name:Small Green Dragon
+name plural:
+death Text:is slain
+hp:68
+maxhp:68
+alignment:128
+sta:60
+cha:20
+str:60
+inte:70
+wis:70
+skl:45
+spd:40
+tFood:0
+tWater:0
+tTorches:0
+tTimepieces:0
+tCompasses:0
+tKeys:0
+tCrystals:0
+tGems:30
+tJewels:10
+tGold:200
+tSilver:200
+tCopper:200
+aBlunt:68
+aSharp:68
+aEarth:34
+aAir:34
+aFire:255
+aWater:34
+aPower:34
+aMagic:34
+aGood:34
+aEvil:34
+aCold:34
+wpn1 offset: 0x2bab
+wpn2 offset: 0x2bcf
+wpn3 offset: 0x2bee
+
+offset: ox1d1d
+numenc:3
+anim#:15
+name:Noble Woman
+name plural:novices
+death Text:swears vengeance
+hp:8
+maxhp:8
+alignment:128
+sta:15
+cha:15
+str:15
+inte:15
+wis:15
+skl:15
+spd:15
+tFood:0
+tWater:1
+tTorches:1
+tTimepieces:0
+tCompasses:1
+tKeys:0
+tCrystals:0
+tGems:0
+tJewels:0
+tGold:0
+tSilver:0
+tCopper:43
+aBlunt:17
+aSharp:17
+aEarth:0
+aAir:0
+aFire:17
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x1d7f
+wpn2 offset: 0x1da0
+
+offset: ox246
+numenc:4
+anim#:1
+name:cutthroat
+name plural:thieves
+death Text:will plague@this world no longer
+hp:0
+maxhp:0
+alignment:128
+sta:12
+cha:12
+str:12
+inte:12
+wis:12
+skl:12
+spd:12
+tFood:0
+tWater:0
+tTorches:1
+tTimepieces:1
+tCompasses:1
+tKeys:2
+tCrystals:0
+tGems:3
+tJewels:1
+tGold:2
+tSilver:10
+tCopper:60
+aBlunt:19
+aSharp:19
+aEarth:0
+aAir:0
+aFire:18
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x2eb
+wpn2 offset: 0x32f
+wpn3 offset: 0x34f
+wpn4 offset: 0x34f
+wpn5 offset: 0x34f
+wpn6 offset: 0x34f
+
+offset: ox246
+numenc:4
+anim#:1
+name:brigand
+name plural:cuthroats
+death Text:will plague@this world no longer
+hp:0
+maxhp:0
+alignment:128
+sta:12
+cha:12
+str:12
+inte:12
+wis:12
+skl:12
+spd:12
+tFood:0
+tWater:0
+tTorches:1
+tTimepieces:1
+tCompasses:1
+tKeys:2
+tCrystals:0
+tGems:3
+tJewels:1
+tGold:2
+tSilver:10
+tCopper:60
+aBlunt:19
+aSharp:19
+aEarth:0
+aAir:0
+aFire:18
+aWater:0
+aPower:0
+aMagic:0
+aGood:0
+aEvil:0
+aCold:0
+wpn1 offset: 0x2eb
+wpn2 offset: 0x32f
+wpn3 offset: 0x34f
+wpn4 offset: 0x34f
+wpn5 offset: 0x34f
+wpn6 offset: 0x34f
+devourer,,dissolves in a puddle@of thick smelly ooze.,0,128,0,0,0,0,0,72,0,72,0,2,20,8,30,0,22,60,50,85,85,51,51,51,51,51,51,51,51,51,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,0,0,0,0,0,0,,0,0,0
+
+thief,thieves,will plague@this world no longer,0,128,0,0,0,0,0,5,0,5,27,28,12,12,12,12,12,12,12,19,19,0,0,18,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,2,0,60,10,2,3,1,0,0,1,2,3,4,5,6,16,16,16,16,16,16,0,,0,0,0
+
+assassin,,dies, his face frozen in@an expression of shock and disbelief,0,64,0,0,0,0,0,40,0,40,72,73,20,20,60,20,20,65,99,22,22,0,0,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,1,0,0,0,0,3,0,0,7,8,9,0,0,0,33,33,33,0,0,0,0,,0,0,0
+
+goblin,goblins,dies,0,64,0,0,0,0,0,17,0,17,98,99,20,20,20,20,20,20,20,20,20,15,0,18,0,0,0,0,0,0,0,0,0,0,2,1,1,0,0,0,0,80,0,0,0,0,0,0,10,11,0,0,0,0,50,50,0,0,0,0,0,,0,0,0
+
+troll,trolls,dies,0,64,0,0,0,0,0,15,0,15,109,110,28,20,40,20,20,20,20,34,34,15,0,17,0,0,0,0,0,0,0,0,0,0,2,1,1,0,0,0,0,80,0,0,0,0,0,0,12,13,14,0,0,0,33,33,33,0,0,0,0,,0,0,0
+
+lich,,dies for@for the last time,0,0,0,0,0,0,0,45,0,45,111,112,20,20,16,70,70,38,30,34,34,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,0,0,0,3,0,0,0,15,0,0,0,0,0,100,0,0,0,0,0,0,,0,0,0
+
+Undead Knight,,fades away exclaiming,@"I'm free!  Art thou The One?",0,128,0,0,0,0,0,65,0,65,113,114,50,50,50,50,50,75,50,51,51,17,17,17,17,51,17,17,17,34,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16,0,0,0,0,0,100,0,0,0,0,0,0,,0,0,0
+
+guard,guards,dies,0,129,0,0,0,0,0,46,0,46,115,116,20,20,40,20,20,38,20,51,51,0,0,35,0,0,0,0,0,34,0,0,0,0,0,0,0,0,0,3,0,0,33,0,0,0,0,0,17,18,19,0,0,0,33,33,33,0,0,0,0,,0,0,0
+
+F.B.I. Agent,F.B.I. Agents,shall return,0,128,0,0,0,0,0,0,0,0,115,116,90,90,90,90,90,90,90,240,240,240,240,240,240,240,240,240,240,240,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,100,0,0,0,0,0,0,,0,0,0
+
+Dark Knight,,falls,0,64,0,0,0,0,0,37,0,37,113,114,20,20,20,20,20,20,30,36,36,18,18,50,18,18,18,18,18,18,0,0,0,0,0,0,0,0,0,3,9,0,0,70,1,1,0,0,21,22,23,0,0,0,33,33,33,0,0,0,0,,0,0,0
+
+Champion,,has fought his last battle,0,144,0,0,0,0,0,68,0,68,117,122,30,20,45,20,20,50,40,52,52,34,34,34,34,34,34,34,34,34,0,0,0,0,0,0,0,0,0,3,6,0,40,0,9,4,0,0,24,0,25,0,0,0,50,0,50,0,0,0,0,,0,0,0
+
+Healer,,curses you@with his last breath,0,128,0,0,0,0,0,20,0,20,3,4,20,20,20,20,20,20,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,0,88,88,88,0,0,0,0,26,0,0,0,0,0,100,0,0,0,0,0,0,,0,0,0
+
+Knight,,is undone,0,255,0,0,0,0,0,28,0,28,117,122,20,20,40,20,20,40,40,51,51,17,17,35,17,17,17,17,17,34,0,0,0,0,0,1,0,0,0,3,5,0,59,11,2,1,0,0,27,28,0,0,0,0,50,50,0,0,0,0,0,,0,0,0
+
+pauper,,gasps:@"What you sow, you shall reap!",0,128,0,0,0,0,0,10,0,10,5,6,20,20,40,20,20,40,28,17,17,17,17,17,17,17,17,17,17,17,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,29,30,0,0,0,0,50,50,0,0,0,0,0,,0,0,0
+
+nobleman,,dies with@a sneer on his face,0,128,0,0,0,0,0,18,0,18,7,7,20,20,29,20,20,30,30,20,20,0,0,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,80,40,3,1,0,0,31,0,32,0,0,0,50,0,50,0,0,0,0,,0,0,0
+
+alien sentry,,dissolves in a@thick green puddle,0,128,0,0,0,0,0,49,0,49,8,9,20,20,20,20,20,60,60,68,68,255,255,35,35,19,56,255,255,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,33,0,0,0,0,0,100,0,0,0,0,0,0,,0,0,0
+
+robot,'bots,sputters around a bit@and then explodes,0,128,0,0,0,0,0,30,0,30,10,14,20,20,20,20,0,38,24,34,34,255,255,34,51,0,255,255,255,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,34,35,36,0,0,0,33,33,33,0,0,0,0,,0,0,0
+
+novice,novices,swears vengeance,0,128,0,0,0,0,0,8,0,8,15,15,15,15,15,15,15,15,15,17,17,0,0,17,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,0,0,43,0,0,0,0,0,0,37,38,0,0,0,0,50,50,0,0,0,0,0,,0,0,0
+
+apprentice,apprentices,dies,0,128,0,0,0,0,0,12,0,12,15,15,15,15,15,15,15,15,15,17,17,0,0,18,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,3,7,11,0,0,0,0,0,0,39,40,0,0,0,0,50,50,0,0,0,0,0,,0,0,0
+
+mage,,expires,0,128,0,0,0,0,0,37,0,37,3,4,25,25,25,55,55,35,25,20,20,18,18,18,18,18,18,18,18,18,0,0,0,0,0,0,0,0,0,3,7,0,0,0,1,0,0,0,41,0,42,0,0,0,50,0,50,0,0,0,0,,0,0,0
+
+wizard,,dies,0,128,0,0,0,0,0,67,0,67,16,18,20,20,20,60,60,50,40,35,35,34,34,34,34,34,34,34,34,34,0,0,0,0,0,0,0,0,0,17,33,0,19,11,4,6,0,0,43,0,44,0,0,0,50,0,50,0,0,0,0,,0,0,0
+
+acolyte,acolytes,goes to@his final reward,0,128,0,0,0,0,0,9,0,9,15,15,20,20,20,30,30,30,30,17,17,0,0,0,0,0,0,0,0,0,0,0,0,0,7,6,4,0,1,0,0,0,0,0,0,0,0,0,45,46,47,0,0,0,33,33,33,0,0,0,0,,0,0,0
+
+sage,,expires,0,128,0,0,0,0,0,30,0,30,3,4,20,20,20,200,200,70,50,34,34,0,0,34,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3,0,20,4,2,2,0,0,48,0,0,0,0,0,100,0,0,0,0,0,0,,0,0,0
+
+orc,orcs,dies,0,64,0,0,0,0,0,23,0,23,19,19,50,1,40,1,8,20,20,35,35,15,0,19,0,0,0,0,0,0,0,0,0,0,3,3,3,0,0,0,0,0,0,0,0,0,0,0,49,50,51,0,0,0,33,33,33,0,0,0,0,,0,0,0
+
+gnome,gnomes,poofs,0,128,0,0,0,0,0,10,0,10,98,99,20,10,15,60,20,25,33,20,20,15,17,17,17,17,17,17,17,17,0,0,0,0,5,5,2,1,1,0,0,0,0,17,2,0,0,0,52,53,0,0,0,0,50,50,0,0,0,0,0,,0,0,0
+
+dwarf,dwarves,disappears in a@puff of greasy black smoke,0,128,0,0,0,0,0,12,0,12,20,22,20,20,20,20,20,20,20,35,35,15,18,18,18,18,18,18,18,18,0,0,0,0,0,0,0,1,0,0,0,0,0,0,16,5,0,0,54,0,0,0,0,0,100,0,0,0,0,0,0,,0,0,0
+
+slime,,splatters@into nothingness,0,128,0,0,0,0,0,7,0,7,23,26,20,20,20,0,0,20,20,0,255,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3,0,0,0,0,0,0,0,55,56,0,0,0,0,50,50,0,0,0,0,0,,0,0,0
+
+mold,,explodes into@fine powder,0,128,0,0,0,0,0,8,0,8,23,26,20,20,20,0,0,20,20,0,255,0,0,15,0,0,17,0,0,34,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,57,58,0,0,0,0,50,50,0,0,0,0,0,,0,0,0
+
+homunculus,homunculii,goes up@in a cloud of smoke,0,0,0,0,0,0,0,7,0,7,29,36,10,0,15,60,60,50,40,17,17,17,17,17,17,17,17,17,17,17,0,0,0,0,0,0,0,0,0,0,5,0,0,0,3,1,0,0,59,0,0,0,0,0,100,0,0,0,0,0,0,,0,0,0
+
+phoenix,,is consumed@in a fiery orange ball,0,255,0,0,0,0,0,39,0,39,37,44,30,10,30,20,21,30,40,255,255,0,0,240,15,0,0,0,0,15,0,0,0,0,0,0,0,0,0,0,25,0,0,0,30,10,0,0,60,61,0,0,0,0,50,50,0,0,0,0,0,,0,0,0
+
+sorceress,,dies,0,128,0,0,0,0,0,41,0,41,45,46,20,20,20,50,50,50,50,19,19,19,19,19,19,19,19,19,19,19,0,0,0,0,0,0,0,0,0,0,15,0,45,0,5,0,0,0,62,63,64,0,0,0,33,33,33,0,0,0,0,,0,0,0
+
+whirlwind,,subsides,0,128,0,0,0,0,0,17,0,17,47,51,20,0,50,1,1,23,44,22,255,0,15,255,0,0,0,0,0,0,0,0,0,0,7,5,4,6,3,4,1,35,35,35,1,1,0,0,65,66,67,0,0,0,33,33,33,0,0,0,0,,0,0,0
+
+giant rat,giant rats,lays lifeless@on the ground,0,128,0,0,0,0,0,6,0,6,52,53,20,0,20,0,0,10,25,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,68,0,0,0,0,0,100,0,0,0,0,0,0,,0,0,0
+
+small dragon,,is slain,0,128,0,0,0,0,0,68,0,68,54,57,60,20,60,70,70,45,40,68,68,34,34,255,34,34,34,34,34,34,0,0,0,0,0,0,0,0,0,0,0,200,200,200,30,10,0,0,69,70,71,0,0,0,33,33,33,0,0,0,0,,0,0,0
+
+skeleton,skeletons,crumbles into a@heap of shattered bones,0,0,0,0,0,0,0,6,0,6,58,60,20,0,20,0,0,20,20,0,0,17,0,17,0,0,255,0,0,255,0,0,0,0,0,0,0,0,0,0,0,23,0,0,0,0,0,0,72,0,0,0,0,0,100,0,0,0,0,0,0,,0,0,0
+
+zombie,zombies,is no longer animate,0,0,0,0,0,0,0,10,0,10,111,112,20,0,20,0,0,20,10,0,0,0,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,22,0,0,0,0,0,0,73,0,0,0,0,0,100,0,0,0,0,0,0,,0,0,0
+
+ghoul,ghouls,has robbed his@last crypt,0,0,0,0,0,0,0,9,0,9,111,112,20,0,80,0,0,20,20,0,0,0,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,88,0,0,0,0,0,0,74,0,0,0,0,0,100,0,0,0,0,0,0,,0,0,0
+
+ghost,,dissipates@into thin air,0,0,0,0,0,0,0,12,0,12,61,65,20,20,20,20,20,20,20,255,255,15,15,35,15,15,255,15,15,15,0,0,0,0,0,0,0,0,0,0,0,0,0,80,0,0,0,0,75,76,0,0,0,0,50,50,0,0,0,0,0,,0,0,0
+
+spectre,,fades away,0,0,0,0,0,0,0,20,0,20,61,65,20,20,20,20,20,20,20,255,255,15,15,35,15,15,255,15,15,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,77,78,0,0,0,0,50,50,0,0,0,0,0,,0,0,0
+
+wraith,wraiths,dissolves in@a thick vile cloud of gas,0,0,0,0,0,0,0,39,0,39,61,65,30,20,40,40,40,40,40,35,35,17,17,0,17,0,0,15,0,17,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,3,0,0,79,80,81,0,0,0,33,33,33,0,0,0,0,,0,0,0
+
+vampire,,crumbles to dust,0,0,0,0,0,0,0,50,0,50,66,69,99,99,99,99,99,99,99,24,24,24,24,0,15,0,0,15,20,255,0,0,0,0,0,0,0,1,0,9,19,0,0,55,7,7,0,0,82,0,83,0,0,0,50,0,50,0,0,0,0,,0,0,0
+
+great bat,great bats,has flapped@for the last time,0,128,0,0,0,0,0,7,0,7,29,36,20,20,20,0,0,10,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,84,85,0,0,0,0,50,50,0,0,0,0,0,,0,0,0
+
+hellhound,hellhounds,is consumed in a@sulphurous cloud of smoke,0,0,0,0,0,0,0,30,0,30,70,71,20,20,20,20,20,50,40,17,17,0,0,255,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,3,0,0,0,1,0,0,0,86,87,0,0,0,0,50,50,0,0,0,0,0,,0,0,0
+
+harpy,harpies,falls to the@ground in a crumpled heap,0,0,0,0,0,0,0,27,0,27,74,75,20,3,20,8,20,70,20,19,19,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,99,30,12,0,0,0,0,88,89,0,0,0,0,50,50,0,0,0,0,0,,0,0,0
+
+gremlin,,melts into a puddle@of bubbling goo,0,0,0,0,0,0,0,14,0,14,76,77,20,20,20,20,20,20,20,18,18,0,0,255,15,0,0,0,0,20,0,0,0,0,1,1,0,0,0,0,2,0,0,0,0,0,0,0,90,91,0,0,0,0,50,50,0,0,0,0,0,,0,0,0
+
+imp,,leaves this mortal plane,0,0,0,0,0,0,0,14,0,14,76,77,20,20,20,20,20,20,20,19,19,0,0,255,0,0,0,0,0,18,0,0,0,0,0,0,0,0,0,0,0,0,0,55,0,0,0,0,92,93,0,0,0,0,50,50,0,0,0,0,0,,0,0,0
+
+flame demon,flame demons,is consumed@in its own blaze,0,0,0,0,0,0,0,46,0,46,78,83,23,23,30,20,20,20,35,51,51,51,51,240,15,51,51,51,51,15,0,0,0,0,0,0,0,0,0,0,0,0,255,255,0,0,0,0,94,95,0,0,0,0,50,50,0,0,0,0,0,,0,0,0
+
+storm devil,,goes out with a flash,0,0,0,0,0,0,0,31,0,31,47,51,20,20,20,20,20,20,20,24,24,17,17,255,17,17,17,17,17,17,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,96,97,0,0,0,0,50,50,0,0,0,0,0,,0,0,0
+
+giant wolf,giant wolves,dies,0,128,0,0,0,0,0,15,0,15,70,71,20,20,20,20,20,30,40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,12,0,0,0,0,0,98,0,0,0,0,0,100,0,0,0,0,0,0,,0,0,0
+
+werewolf,,appears human for an@instant and then expires,0,0,0,0,0,0,0,33,0,33,70,71,50,20,60,20,20,30,40,17,17,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,0,0,0,0,0,99,0,99,0,0,0,0,99,100,0,0,0,0,50,50,0,0,0,0,0,,0,0,0
+
+warrior,,has fallen,0,128,0,0,0,0,0,13,0,13,106,107,20,20,47,20,20,29,20,35,35,0,0,19,0,0,0,0,0,0,0,0,0,0,4,5,2,0,0,0,0,20,10,5,0,0,0,0,101,102,103,0,0,0,33,33,33,0,0,0,0,,0,0,0
+
+weapon master,,dies,0,255,0,0,0,0,0,43,0,43,84,85,80,20,30,20,20,80,45,35,35,34,34,51,34,34,34,34,34,34,0,0,0,0,0,1,0,0,0,3,0,0,20,20,0,0,0,0,104,105,106,0,0,0,33,33,33,0,0,0,0,,0,0,0
+
+valkyrie,,slowly fades away,0,255,0,0,0,0,0,50,0,50,86,87,20,20,60,20,20,30,70,36,36,0,0,255,0,0,0,255,255,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255,0,0,0,0,107,0,0,0,0,0,100,0,0,0,0,0,0,,0,0,0
+
+gladiator,,lies in@agony of defeat,0,0,0,0,0,0,0,9,0,9,106,107,20,20,20,20,20,30,20,19,19,0,0,19,0,0,0,0,0,0,0,0,0,0,2,2,1,0,0,0,0,0,0,13,0,0,0,0,108,0,0,0,0,0,100,0,0,0,0,0,0,,0,0,0
+
+mercenary,mercenaries,dies,0,0,0,0,0,0,0,9,0,9,113,114,20,20,20,20,20,20,20,34,34,0,0,20,0,0,0,0,0,0,0,0,0,0,3,3,4,1,1,4,0,99,66,0,0,0,0,0,109,0,0,0,0,0,100,0,0,0,0,0,0,,0,0,0
+
+doppleganger,,merges back@into the wall,0,0,0,0,0,0,0,0,0,0,108,108,0,0,0,0,0,0,0,34,34,34,34,34,34,34,34,34,34,34,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,110,0,0,0,0,0,100,0,0,0,0,0,0,,0,0,0
+
+adventurer,,is no longer joined,0,128,0,0,0,0,0,23,0,23,89,91,15,15,15,66,44,45,35,35,35,19,19,51,19,19,19,19,19,51,0,0,0,0,8,7,9,1,1,1,0,23,47,0,0,0,0,0,111,112,0,0,0,0,50,50,0,0,0,0,0,,0,0,0
+
+water sprite,,dies,0,128,0,0,0,0,0,4,0,4,92,93,20,20,20,20,20,200,20,34,34,0,0,0,255,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,5,0,0,0,0,113,0,0,0,0,0,100,0,0,0,0,0,0,,0,0,0
+
+night stalker,,dissipates@in a puff of smoke,0,0,0,0,0,0,0,37,0,37,94,95,20,20,20,20,20,20,199,18,18,0,0,0,0,0,255,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,200,0,7,0,0,114,115,0,0,0,0,50,50,0,0,0,0,0,,0,0,0
+
+salamander,,dies,0,128,0,0,0,0,0,23,0,23,54,57,40,40,40,0,0,40,40,34,34,0,0,255,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,200,99,50,5,5,0,0,116,117,118,0,0,0,33,33,33,0,0,0,0,,0,0,0
+
+ronin,!,dies,0,128,0,0,0,0,0,38,0,38,84,85,20,20,29,20,20,80,40,35,35,0,0,66,0,0,0,0,0,0,0,0,0,0,3,3,3,0,0,0,0,22,0,50,0,0,0,0,119,120,121,0,0,0,33,33,33,0,0,0,0,,0,0,0
+
+serpentman,serpentmen,lets out one@final hiss,0,0,0,0,0,0,0,11,0,11,96,97,20,20,20,20,20,20,20,18,18,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,10,40,0,0,0,0,122,123,0,0,0,0,50,50,0,0,0,0,0,,0,0,0
+
+big snake,,lays motionless,0,128,0,0,0,0,0,28,0,28,100,103,20,20,20,20,20,40,60,19,19,0,0,17,0,0,0,0,0,19,0,0,0,0,0,0,0,0,0,0,0,99,66,33,0,0,0,0,124,0,0,0,0,0,100,0,0,0,0,0,0,,0,0,0
+
+Great Naga,,has vanished,0,128,0,0,0,0,0,55,0,55,100,103,20,20,20,80,80,40,60,35,35,17,17,17,17,17,17,17,17,17,0,0,0,0,0,0,0,0,0,0,4,99,66,33,5,1,0,0,125,0,0,0,0,0,100,0,0,0,0,0,0,,0,0,0
+
+berserker,berserkers,gives one@final battle cry,0,0,0,0,0,0,0,17,0,17,106,107,20,20,20,20,20,20,20,18,18,0,0,18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,126,127,0,0,0,0,50,50,0,0,0,0,0,,0,0,0
+
+basilisk,,has died,0,0,0,0,0,0,0,63,0,63,54,57,20,20,70,20,20,20,70,0,255,0,0,65,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255,200,9,5,0,0,128,129,130,0,0,0,33,33,33,0,0,0,0,,0,0,0
+
+Great Wyrm,,dies, totally@shocked and appalled,0,128,0,0,0,0,0,207,0,207,54,57,252,252,252,252,252,252,252,52,52,24,24,255,24,24,24,24,24,24,0,0,0,0,0,0,0,0,0,255,255,255,255,255,255,255,0,0,131,132,133,0,0,0,33,33,33,0,0,0,0,,0,0,0
+
+Goblin Lord,,dies snarling:@"Guards, kill him!",0,0,0,0,0,0,0,73,0,73,98,99,20,20,50,20,20,70,50,51,51,51,51,51,51,51,51,51,51,51,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,134,0,0,0,0,0,100,0,0,0,0,0,0,,0,0,0
+
+Troll Tyrant,,has given his@last order,0,0,0,0,0,0,0,80,0,80,109,110,20,20,50,20,20,50,50,51,51,34,34,34,34,34,34,34,34,34,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,135,0,0,0,0,0,100,0,0,0,0,0,0,,0,0,0
+
+ice demon,ice demons,shatters,0,0,0,0,0,0,0,35,0,35,104,105,20,20,30,20,20,40,50,51,51,34,34,51,34,34,34,34,34,255,0,0,0,0,0,0,0,0,0,0,2,0,0,0,2,2,0,0,136,0,0,0,0,0,100,0,0,0,0,0,0,,0,0,0
+
+horned devil,,is consumed in a@huge red cloud of smoke,0,0,0,0,0,0,0,69,0,69,104,105,20,20,50,80,80,80,40,51,51,255,255,255,255,17,255,0,255,255,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,137,0,0,0,0,0,100,0,0,0,0,0,0,,0,0,0
+
+Mugger,novices,swears vengeance,0,128,0,0,0,0,0,8,0,8,15,15,15,15,15,15,15,15,15,17,17,0,0,17,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,0,0,43,0,0,0,0,0,0,138,139,0,0,0,0,50,50,0,0,0,0,0,,0,0,0
+
+Robber,novices,swears vengeance,0,128,0,0,0,0,0,8,0,8,15,15,15,15,15,15,15,15,15,17,17,0,0,17,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,0,0,43,0,0,0,0,0,0,140,141,0,0,0,0,50,50,0,0,0,0,0,,0,0,0
+
+Fighter,,has fought his last battle,0,144,0,0,0,0,0,68,0,68,117,122,30,20,45,20,20,50,40,52,52,34,34,34,34,34,34,34,34,34,0,0,0,0,0,0,0,0,0,3,6,0,40,0,9,4,0,0,142,0,143,0,0,0,50,0,50,0,0,0,0,,0,0,0
+
+Swordsman,,has fought his last battle,0,144,0,0,0,0,0,68,0,68,117,122,30,20,45,20,20,50,40,52,52,34,34,34,34,34,34,34,34,34,0,0,0,0,0,0,0,0,0,3,6,0,40,0,9,4,0,0,144,0,145,0,0,0,50,0,50,0,0,0,0,,0,0,0
+
+Courier,novices,swears vengeance,0,128,0,0,0,0,0,8,0,8,15,15,15,15,15,15,15,15,15,17,17,0,0,17,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,0,0,43,0,0,0,0,0,0,146,147,0,0,0,0,50,50,0,0,0,0,0,,0,0,0
+
+Commoner,novices,swears vengeance,0,128,0,0,0,0,0,8,0,8,15,15,15,15,15,15,15,15,15,17,17,0,0,17,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,0,0,43,0,0,0,0,0,0,148,149,0,0,0,0,50,50,0,0,0,0,0,,0,0,0
+
+Merchant,novices,swears vengeance,0,128,0,0,0,0,0,8,0,8,15,15,15,15,15,15,15,15,15,17,17,0,0,17,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,0,0,43,0,0,0,0,0,0,150,151,0,0,0,0,50,50,0,0,0,0,0,,0,0,0
+
+Arch Mage,,dies,0,128,0,0,0,0,0,67,0,67,16,18,20,20,20,60,60,50,40,35,35,34,34,34,34,34,34,34,34,34,0,0,0,0,0,0,0,0,0,17,33,0,19,11,4,6,0,0,152,0,153,0,0,0,50,0,50,0,0,0,0,,0,0,0
+
+Gnoll,trolls,dies,0,64,0,0,0,0,0,15,0,15,109,110,28,20,40,20,20,20,20,34,34,15,0,17,0,0,0,0,0,0,0,0,0,0,2,1,1,0,0,0,0,80,0,0,0,0,0,0,154,155,156,0,0,0,33,33,33,0,0,0,0,,0,0,0
+
+Hobbit,goblins,dies,0,64,0,0,0,0,0,17,0,17,98,99,20,20,20,20,20,20,20,20,20,15,0,18,0,0,0,0,0,0,0,0,0,0,2,1,1,0,0,0,0,80,0,0,0,0,0,0,157,158,0,0,0,0,50,50,0,0,0,0,0,,0,0,0
+
+Giant,trolls,dies,0,64,0,0,0,0,0,15,0,15,109,110,28,20,40,20,20,20,20,34,34,15,0,17,0,0,0,0,0,0,0,0,0,0,2,1,1,0,0,0,0,80,0,0,0,0,0,0,159,160,161,0,0,0,33,33,33,0,0,0,0,,0,0,0
+
+Small Green Dragon,,is slain,0,128,0,0,0,0,0,68,0,68,54,57,60,20,60,70,70,45,40,68,68,34,34,255,34,34,34,34,34,34,0,0,0,0,0,0,0,0,0,0,0,200,200,200,30,10,0,0,162,163,164,0,0,0,33,33,33,0,0,0,0,,0,0,0
+
+Noble Woman,novices,swears vengeance,0,128,0,0,0,0,0,8,0,8,15,15,15,15,15,15,15,15,15,17,17,0,0,17,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,0,0,43,0,0,0,0,0,0,165,166,0,0,0,0,50,50,0,0,0,0,0,,0,0,0
+
+cutthroat,thieves,will plague@this world no longer,0,128,0,0,0,0,0,0,0,0,27,28,12,12,12,12,12,12,12,19,19,0,0,18,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,2,0,60,10,2,3,1,0,0,167,168,169,170,171,172,16,16,16,16,16,16,0,,0,0,0
+

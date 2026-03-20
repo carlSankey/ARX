@@ -1,0 +1,45 @@
+# Build output directories
+Debug/
+Release/
+Win32/
+x64/
+ARXX/Debug/
+ARXX/x64/
+*.obj
+*.ilk
+*.pdb
+*.idb
+*.res
+*.aps
+*.recipe
+*.tlog
+*.lastbuildstate
+*.FileListAbsolute.txt
+
+# Visual Studio
+.vs/
+.vscode/
+*.user
+*.suo
+*.ncb
+*.sdf
+*.opensdf
+*.VC.db
+*.VC.opendb
+.idea/
+
+# vcpkg (installed dependencies - not source)
+vcpkg/
+vcpkg_installed/
+vcpkg_installed_x64/
+vcpkg_installed_x86/
+
+# Third-party includes (installed via vcpkg, not project source)
+include/
+
+# Save files
+*.sav
+
+# OS
+Thumbs.db
+.DS_Store

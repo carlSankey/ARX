@@ -1,0 +1,112 @@
+Title,article,name,desc,descMon,type,parry,bonusToHit,minStrength,minDexterity,useStrength,blunt,sharp,earth,air,fire,water,power,magic,good,evil,cold,weight,maxHP,minAlignment,twoHanded,ammo
+-BLANK ENTRY for 0 - means no weapon,your,your bare hand,punch,punches,1,255,255,2,2,1,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+-mugger switchblade #1,a,Switchblade,slash,slashes,2,255,255,2,2,1,0,12,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+-thief / robber /commoner dagger #2,a,Dagger,stab,stabs,2,255,255,2,2,1,0,13,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+-Cutthroat / Courier short sword #3,a,Short Sword,stab,stabs,2,50,0,2,3,1,0,13,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+-Brigand / Master Thief sword #4,a,Sword,stab,stabs,2,10,0,0A,0A,1,0,23,0,0,0,0,0,0,0,0,0,7,23,0,0,FF
+-Fighter / Swordsman sword #5,a,Sword,stab,stabs,2,67,0,2,3,1,0,13,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- Warrior / Gladiator - Longsword #6,a,Longsword,slash,slashes,2,75,1,3,4,1,0,14,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- Knight / Champion / Guard - Greatsword #7,a,Greatsword,slash,slashes,2,75,1,3,5,1,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- Weaponsmaster - longsword #8 -remove,a,Longsword,slash,slashes,2,255,255,3,3,1,0,14,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- Pauper - bare hands #9,its,bare hands,punch,punches,1,0,0,1,1,1,13,0,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- Merchant - long dagger #10,a,Long Dagger,stab,stabs,2,50,0,5,1,1,0,13,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- Nobleman - a magical sword #11,a,Magical Sword,stab,stabs,2,75,1,3,4,1,0,15,12,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- Apprentice a weak spell #12,a,weak spell,attack,attacks,1,255,255,3,2,0,0,0,12,12,0,0,0,0,0,0,0,0,0,0,0,FF
+- Acolyte - a spell #13,a,spell,attack,attacks,1,255,255,3,3,0,0,0,12,12,0,13,0,0,0,0,0,0,0,0,0,FF
+- Brigand - a small axe #14,a,Small Axe,hack,hacks,2,67,0,3,3,1,11,22,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- Gladiator - a flail #15,a,Small Axe,hack,hacks,2,67,0,3,3,0,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- novice - an incantation #16,an,incantation,attack,attacks,1,67,0,3,3,0,0,0,12,12,0,13,13,0,0,0,0,0,0,0,0,FF
+- wizard - a strong spell #17,a,strong spell,attack,attacks,1,67,0,3,3,0,0,0,12,12,0,13,13,13,0,0,0,0,0,0,0,FF
+- mage - a dazzling spell #18,a,dazzling spell,attack,attacks,1,67,0,3,3,0,0,0,0,0,0,0,0,15,0,0,0,0,0,0,0,FF
+- assasin - a poisoned shiriken #19,a,Poisoned Shiriken,throw,throws,1,0,0,3,3,0,0,0,12,12,0,0,0,0,0,0,0,0,0,0,0,FF
+- assasin - a strangling wire #20,a,Strangling Wire,attack,attacks,1,0,0,3,3,1,0,22,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- assasin - a poisoned dagger #21,a,Poisoned Dagger,attack,attacks,1,0,0,3,3,1,0,22,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- arch-mage - an overpowering spell #22,an,overpowering spell,attack,attacks,1,0,0,3,3,0,0,0,11,12,12,12,12,12,0,0,0,0,0,0,0,FF
+- gnoll - a knurly club #23,a,Knurly Club,attack,attacks,2,75,1,3,3,1,23,11,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- goblin - a warhammer #24,a,Warhammer,attack,attacks,2,0,0,3,3,1,23,0,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- orc - a spear #25,a,Spear,jab,jabs,2,0,0,3,3,1,0,24,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- dwarf - a sharp sword #26,a,Sharp Sword,slash,slashes,2,75,1,3,3,1,0,24,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- troll - its claws #27,its,claws,slash,slashes,1,0,0,3,3,1,11,22,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- troll - its teeth #28,its,teeth,bite,bites,1,0,0,3,3,1,11,11,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- rat - its foaming teeth #29,its,foaming teeth,bite,bites,1,0,0,3,3,1,0,22,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- rat - its yellow claws #30,its,yellow claws,NA,scratches,1,0,0,3,3,1,11,12,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- wolf - its sharp teeth #31,its,sharp teeth,NA,bites,1,0,0,3,3,1,0,23,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- wolf - its claws #32,its,claws,NA,scratches,1,0,0,3,3,1,12,22,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- brown mold - spores #33,a,burst of spores,NA,smothers,1,0,0,3,3,0,0,0,32,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- black slime - acid slime #34,its,acid slime,NA,burns,1,0,0,3,3,0,0,0,22,0,11,11,0,0,0,0,0,0,0,0,0,FF
+- black slime - corrosive goo #35,its,corrosive goo,NA,burns,1,0,0,3,3,0,0,0,11,0,11,11,0,0,0,0,0,0,0,0,0,FF
+- black slime - nauseating gunk #36,its,nauseating gunk,NA,attacks,1,0,0,3,3,0,0,0,11,0,0,0,12,0,0,0,0,0,0,0,0,FF
+- dragon - its teeth #37,its,teeth,NA,tears,1,0,0,3,3,1,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- dragon - its tail #38,its,tail,NA,bashes,1,0,0,3,3,1,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- dragon - its breath #39,a,scorching breath of fire,NA,burns,1,0,0,3,3,0,0,0,0,0,2A,0,0,0,0,0,0,0,0,0,0,FF
+- nightstalker - its breath #40,its,claws,NA,scratches,1,0,0,3,3,1,11,12,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- nightstalker - its breath #41,its,blood sucking fangs,NA,bites,1,0,0,3,3,1,0,18,18,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- skeleton - a sickle #42,a,Sickle,slice,slices,2,0,0,3,3,1,0,12,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- zombie - flesh #43,its,pieces of flesh,NA,swings,1,0,0,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- zombie - a strangle hold #44,a,strangle hold,NA,grabs,1,0,0,3,3,1,11,0,0,13,0,0,0,0,0,0,0,0,0,0,0,FF
+- imp #45,its,poisonous tail,NA,swings,1,0,0,3,3,0,11,12,0,0,0,0,12,0,0,0,0,0,0,0,0,FF
+- ghoul #46,a,soul wrenching grasp,NA,grabs,1,0,0,3,3,0,0,0,0,0,0,0,0,12,0,0,0,0,0,0,0,FF
+- ghoul #47,its,claws,NA,scratches,1,0,0,3,3,1,11,12,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- wraith #48,a,crushing blow,NA,smashes,1,0,0,3,3,1,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- wraith #49,a,bone chilling scream,NA,attacks,1,0,0,3,3,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,FF
+- specter #50,its,moans,NA,attacks,1,0,0,3,3,0,0,0,0,0,0,0,0,13,0,0,0,0,0,0,0,FF
+- specter #51,its,invisible chains,NA,attacks,1,0,0,3,3,0,0,0,0,0,0,0,0,13,0,0,0,0,0,0,0,FF
+- wraith #52,a,festering touch,NA,attacks,1,0,0,3,3,0,0,0,0,0,0,0,0,12,12,0,0,0,0,0,0,FF
+- ghost #53,a,heart-breaking moan,NA,attacks,1,0,0,3,3,0,0,0,0,0,0,0,0,12,0,0,0,0,0,0,0,FF
+- ghost #54,a,bolt of lightning,NA,attacks,1,0,0,3,3,0,0,0,0,0,0,0,17,0,0,0,0,0,0,0,0,FF
+- ghost #55,a,bone-chilling touch,NA,attacks,1,0,0,3,3,0,0,0,0,0,0,0,13,13,12,0,0,0,0,0,0,FF
+- Tower Shield #56,a,Tower Shield,bash,bashes,2,86,2,0,0,1,13,0,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- War Net #57,a,War Net,attack,attacks,2,67,0,0,0,1,12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- Spiked Shield #58,a,Spiked Shield,bash,bashes,2,80,1,0,0,1,12,13,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- Shield #59,a,Shield,bash,bashes,2,80,1,0,0,1,12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- Small Shield #60,a,Small Shield,bash,bashes,2,75,1,0,0,1,12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- Stiletto #61,a,Stiletto,stab,stabs,2,0,0,0,0,0,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- Dagger #62,a,Dagger,stab,stabs,2,0,0,0,0,0,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- Whip #63,a,Whip,whip,whips,2,50,0,0,0,0,13,0,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- Short sword #64,a,Short Sword,slash,slashes,2,50,0,0,0,0,11,15,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- Flail #65,a,Flail,slash,slashes,2,67,0,0,0,0,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- Battle Axe #66,a,Battle Axe,hack,hacks,2,67,0,0,0,1,12,27,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- Sword #67,a,Sword,slash,slashes,2,50,0,0,0,0,12,14,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- Battle Hammer #68,a,Battle Hammer,bash,bashes,2,67,0,0,0,0,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- Longsword #69,a,Longsword,swing,swings,2,67,0,0,0,0,13,15,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- Magical Flamesword #70,a,Magical Flamesword,swing,swings,2,67,0,0,0,0,13,12,0,0,15,0,0,0,0,0,0,0,0,0,0,FF
+- Lit Torch #71,a,Lit Torch,whomp,whomps,2,50,0,0,0,1,13,0,0,0,13,0,0,0,0,0,0,0,0,0,0,FF
+- Kris Knife #72,a,Kris Knife,slice,slices,2,50,0,0,0,0,0,18,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- rat teeth #73,a,sharp pointy teeth,bite,bites,1,50,0,0,0,1,0,14,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- Chain #74,a,Chain,bash,bashes,2,50,0,0,0,1,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- Broadsword #75,a,Broadsword,slash,slashes,2,50,0,0,0,0,0,18,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- Hardened Fist #76,a,Hardened Fist,punch,punches,1,50,0,0,0,0,0x33,00,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- Bare Foot #77,a,Bare Foot,kick,kicks,1,50,0,0,0,0,0x35,00,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- Guard Long sword #78,a,Longsword,slashes,slashes,2,50,0,0,0,1,11,24,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- homonculus talons #79,a,talons,claws,claws,1,50,0,0,0,1,0,13,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+- Sceptre of Evil #80,a,Sceptre of Evil,bashes,bashes,2,0A,1,10,28,1,28,0,0,0,0,0,0,0,0,24,0,0A,50,40,0,FF
+- Razor Ice #81,a,Razor Ice,slashes,slashes,2,50,2,0,0,1,0,27,0,0,0,0,0,0,0,0,18,07,20,0,0,FF
+- Sword of the Adept #82,a,Sword of The Adept,slashes,slashes,2,50,3,10,10,1,0,27,0,0,0,0,0,0,0,0,0,10,FF,0,0,FF
+- Claymore #83,a,Claymore,slashes,slashes,2,15,0,28,20,1,13,28,0,0,0,0,0,0,0,0,0,19,30,0,0,FF
+-  #84 Start new weapons **,an,Ebon Blade,hack,hacks,2,15,0,18,18,1,0,26,0,0,0,0,0,24,0,0,0,10,50,0,0,FF
+-  #85 Basilisk,a,freezing breath,,attacks,1,0,0,0,0,0,0,26,0,0,0,0,0,0,0,0,3A,0,0,0,0,FF
+-  #86 Basilisk,a,teeth,,bites,1,0,0,0,0,0,23,27,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+-  #87 Basilisk,a,claw,,slashes,1,0,0,0,0,0,22,26,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+-  #88 Devourer - added 1st feb 2013,a,slimy tentacle,,lashes,1,0,0,0,0,0,28,12,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+-  #89 Gremlin,a,bony claw,,claws,1,0,0,0,0,0,0,14,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+-  #90 Harpy,a,talons,,rends,1,0,0,0,0,0,0,13,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+-  #91 Harpy Sickle,a,Sickle,,hacks,2,4,0,0A,0A,0,0,23,0,0,0,0,0,0,0,0,0,07,14,0,0,FF
+-  #92 Lich - Sceptre of Chaos,a,Sceptre of Chaos,bash,bashes,2,8,0,0,0,0,24,0,0,0,0,0,0,16,0,16,0,0,40,20,0,FF
+-  #93 Golden Spear,a,Golden Spear,impale,spears,2,30,0,14,1E,0,0,16,1A,0,0,0,0,0,0,0,0,0A,28,0,1,FF
+-  #94 Great Naga,a,dripping fangs,,hacks,1,0,0,0,0,0,0,19,0,0,0,16,0,0,0,0,0,0,0,0,0,FF
+-  #95 Wraith,a,Unholy Mace,,hacks,2,15,0,18,20,0,1A,,0,0,0,0,0,0,0,16,0,0,48,0,0,FF
+-  #96 Onyx Scythe,a,Onyx Scythe,,hacks,2,20,1,20,20,0,0,2A,0,0,0,0,0,0,0,0,0,14,E0,0,0,FF
+-  #97 Stealer of Souls,a,Stealer of Souls,,hacks,2,18,1,14,14,0,0,26,0,0,0,0,0,0,0,1F,0,15,80,20,0,FF
+-  #98 Unholy Sword,a,Unholy Sword,,hacks,2,15,0,30,20,0,13,28,0,0,0,0,0,12,0,14,0,19,80,20,0,FF
+-  #99 Sword of Demons,a,Sword of Demons,,hacks,2,15,0,18,18,0,12,18,0,0,0,0,0,0,0,24,0,10,24,20,0,FF
+-  #100 Flaming Pitchfork,a,Flaming Pitchfork,,hacks,2,20,0,20,20,0,0,19,0,0,13,0,0,0,0,0,0,12,20,0,0,FF
+-  #101 Thunder Hammer,a,Thunder Hammer,,hacks,2,8,0,40,40,0,38,0,0,0,0,0,0,0,0,0,0,1C,40,0,0,FF
+-  #102 Whirlwind flying debris,a,flying debris,,hacks,1,20,0,0,0,0,28,0,14,14,0,0,0,0,0,0,0,0,0,0,0,FF
+-  #103 Whirlwind,a,ripping winds,,hacks,1,0,0,0,0,0,0,0,0,2A,0,0,0,0,0,0,0,0,0,0,0,FF
+-  #104 Whirlwind,a,lightning bolt,,hacks,1,0,0,0,0,0,0,0,0,0,0,0,1A,0,0,0,0,0,0,0,0,FF
+-  #105 hugh jaws,a,hugh jaws,,bites,1,0,0,0,0,0,0,44,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+-  #106 claw,a,hugh jaws,,slashes,1,0,0,0,0,0,26,12,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+-  #107 spiked tail,a,spiked tail,,bashes,1,0,0,0,0,0,26,24,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+-  #108,a,dripping canines,,bites,1,0,0,0,0,0,0,16,0,0,0,0,0,0,0,0,0,0,0,0,0,FF
+-  #109,a,fiery talons,,claws,1,0,0,0,0,0,0,14,0,0,13,0,0,0,12,0,0,0,0,0,0,FF
+-  #110,a,immolation,,claws,1,0,0,0,0,0,0,0,0,0,2AA,0,0,0,0,0,0,0,0,0,0,FF

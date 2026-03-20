@@ -1,0 +1,31 @@
+toast! LEV 3.
+by a stairway leading up.
+standing before the Gauntlet.
+in a narrow room.
+in a wide corridor.
+in a twisting corridor.
+in a bleak room.
+in an open area.
+in a snaking hallway.
+in a filthy tunnel.
+in the room of confusion.
+in a square room.
+in a faintly glowing room.
+inside the Gauntlet.
+at Death's Door.
+in a damp hallway.
+inside an abandoned hideaway.
+in a long hall.
+in a room.
+in a seemingly pointless hall.
+at the Walk of Arches.
+at the Great Dragon's lair.
+at a sparkling fountain.
+in a small room.
+at a stairway leading up.
+in a passage.
+in a hallway.
+in the haven.
+facing a fearsome gargoyle.
+EOF
+
