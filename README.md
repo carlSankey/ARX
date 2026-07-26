@@ -1,7 +1,5 @@
 # Alternate Reality X (ARX) - Web Port
 
-Please check out http://www.Landbeyond.net/arx for the latest blog updates and up to date information.
-
 ## About This Project
 
 This is a web port of Alternate Reality X (ARX), a computer role playing game based on the classic 1980s game series by Philip Price. The web port allows the game to run directly in modern web browsers using Emscripten and WebGL, making it accessible across multiple platforms without requiring native compilation.
@@ -107,7 +105,6 @@ Alternate Reality X is based on the classic game series by Philip Price. This pr
 
 ## Links
 
-- **Website:** http://www.Landbeyond.net/arx
 - **GitHub:** https://github.com/carlSankey/ARX
 - **Web Branch:** https://github.com/carlSankey/ARX/tree/arxweb
 
