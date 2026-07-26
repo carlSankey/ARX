@@ -1,304 +1,259 @@
-#include <SFML/Graphics.hpp>
-#include <optional>
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <filesystem>
 #include "player.h"
-#include "display.h"
 #include "font.h"
-#include <iostream>
-#include <windows.h>
+#include "renderer/Sprite2D.h"
 
-
-extern int consoleY; // y position for displaying the bottom screen info panel (in pixels???)
-extern int consoleX; // x starting position for displaying the panel for centering
-extern int statPanelY; // Used as top of Y for Stats panel
+extern int consoleY;
+extern int consoleX;
+extern int statPanelY;
 extern int shopConsoleY;
 extern int shopStatsY;
+extern float uiScale;
 
-sf::Texture FontImage;
-std::optional<sf::Sprite> CharImage;
+arx::Sprite2D FontImage;
+
 extern int charYBase;
 int yBase = 0;
 
 void InitFont()
 {
+    std::filesystem::path currentPath = std::filesystem::current_path();
+    std::cout << "Current Working Directory: " << currentPath.string() << std::endl;
 
-	wchar_t buffer[MAX_PATH];
-	// Use the wide-character version to match wchar_t buffer
-	if (GetCurrentDirectoryW(MAX_PATH, buffer) != 0) {
-		std::wcout << L"Current Working Directory: " << buffer << std::endl;
-	}
-	else {
-		DWORD error = GetLastError();
-		std::cerr << "Error code: " << error << std::endl;
-	}
-
-	std::wcout << L"Current Working Directory: " << buffer << L"/data/images/core/arfont.png" << std::endl;
-
-
-	if (plyr.fontStyle==0) { FontImage.loadFromFile("data/images/core/arfontSmooth.png"); }
-	if (plyr.fontStyle == 1) { FontImage.loadFromFile("data/images/core/arfont.png"); }
-
-
-
-	//if (plyr.fontStyle==1) { FontImage.loadFromFile("data/images/arfont.png"); }
-	CharImage.emplace(FontImage);
+    std::string fontPath = "data/images/core/";
+    if (plyr.fontStyle == 0) {
+        fontPath += "arfontSmooth.png";
+    } else {
+        fontPath += "arfont.png";
+    }
+    if (!FontImage.load(fontPath)) {
+        std::cerr << "InitFont: failed to load " << fontPath << std::endl;
+    }
 }
 
-
-void SetFontColour(int r,int g, int b, int a)
+void releaseFontResources()
 {
-	CharImage->setColor(sf::Color(r, g, b, a));
+    // Sprite2D cleanup handled by destructor
 }
 
-
-void DrawChar(int topY, int x,int y, int initchar_no)
+void SetFontColour(int r, int g, int b, int a)
 {
-
-	int char_no;
-	char_no = initchar_no-32;
-	//if ((plyr.scenario==1) || (plyr.scenario==255)) {char_no = initchar_no-32; } // dungeon
-	//else {char_no = initchar_no+96; } // city
-
-	int row, column;
-	int charsPerRow = 16; // number of chars per row in font image containing all tiles (16 default)
-
-	//Select 16x16 section of tile sheet for tile
-
-	if ( char_no > charsPerRow)
-	{
-		column = (char_no % charsPerRow); // remainder
-		row = ((char_no-column)/charsPerRow);
-	}
-	else
-	{
-		column = char_no;
-		row = 0; // = row 1 on the actual font sheet at y=0
-	}
-
-	int charX = (column)*16;	// x loc on tiles image in pixels
-	int charY = ((row)*16);		// y loc on tiles image in pixels
-	//std::cout << "tile:" << tile_no << "row:" << spriteRow << "col:" << spriteColumn << "\n";
-
-
-
-	CharImage->setScale(sf::Vector2f(uiScale, uiScale));
-
-	CharImage->setTextureRect(sf::IntRect({charX, charY}, {16, 16}));
-	//CharImage->setTextureRect(sf::IntRect({charX, charY}, {(charX+16), (charY+16)}));
-	if (char_no==16) { CharImage->setTextureRect(sf::IntRect({0, 16}, {16, 16}));} // Dirty fix for printing 0 (zero) - why????
-
-	//CharImage->setPosition(consoleX+((x-1)*16), 1+topY+((y-1)*16)+(y*2));
-	CharImage->setPosition(sf::Vector2f(static_cast<float>(consoleX + static_cast<int>((x-1)*16*uiScale)), static_cast<float>(topY + static_cast<int>(y*18*uiScale))));
-
-	//if (plyr.status==0) { App.draw(*CharImage); }
-	//if (area==2) { App.draw(*CharImage); } // stats banner
-	//if (area==3) { App.draw(*CharImage); } // bottom panels and shop displays
-
-	//if (area==255) { App.draw(*CharImage); } // Straight onto App window
-	App.draw(*CharImage);
+    FontImage.setColor(static_cast<uint8_t>(r), static_cast<uint8_t>(g), static_cast<uint8_t>(b), static_cast<uint8_t>(a));
 }
 
+void DrawChar(int topY, int x, int y, int initchar_no)
+{
+    int char_no;
+    char_no = initchar_no - 32;
 
+    int row, column;
+    int charsPerRow = 16;
 
+    if (char_no > charsPerRow)
+    {
+        column = (char_no % charsPerRow);
+        row = ((char_no - column) / charsPerRow);
+    }
+    else
+    {
+        column = char_no;
+        row = 0;
+    }
+
+    int charX = (column) * 16;
+    int charY = ((row) * 16);
+
+    FontImage.setTextureRect(charX, charY, 16, 16);
+    if (char_no == 16) {
+        FontImage.setTextureRect(0, 16, 16, 16);
+    }
+
+    float drawX = static_cast<float>(consoleX + static_cast<int>((x - 1) * 16 * uiScale));
+    float drawY = static_cast<float>(topY + static_cast<int>(y * 18 * uiScale));
+
+    FontImage.draw(drawX, drawY, uiScale, uiScale);
+}
 
 void bText(int x, int y, std::string text)
 {
-	int strlen = text.size();
-	for(int i = 0; i < strlen; ++i)
+    int strlen = text.size();
+    for (int i = 0; i < strlen; ++i)
     {
-		char current_char = text.at(i);
-		int char_no = (int(current_char));
-        if (plyr.status==2) { DrawChar(shopConsoleY, x,y, char_no); }
-		else { DrawChar(consoleY, x,y, char_no); }
-		x++;
-	}
+        char current_char = text.at(i);
+        int char_no = (int(current_char));
+        if (plyr.status == 2) { DrawChar(shopConsoleY, x, y, char_no); }
+        else { DrawChar(consoleY, x, y, char_no); }
+        x++;
+    }
 }
 
 void drawText(int x, int y, std::string text)
 {
-	int strlen = text.size();
-	for(int i = 0; i < strlen; ++i)
+    int strlen = text.size();
+    for (int i = 0; i < strlen; ++i)
     {
-		char current_char = text.at(i);
-		int char_no = (int(current_char));
-		if (plyr.status==2) { DrawChar(shopStatsY, x,y, char_no); }
-		else { DrawChar(statPanelY, x,y, char_no); }
-		x++;
-	}
+        char current_char = text.at(i);
+        int char_no = (int(current_char));
+        if (plyr.status == 2) { DrawChar(shopStatsY, x, y, char_no); }
+        else { DrawChar(statPanelY, x, y, char_no); }
+        x++;
+    }
 }
-
-
-
-
 
 void drawText(int area, int x, int y, std::string text)
 {
-	int strlen = text.size();
-	for(int i = 0; i < strlen; ++i)
+    int strlen = text.size();
+    for (int i = 0; i < strlen; ++i)
     {
-		char current_char = text.at(i);
-		int char_no = (int(current_char));
+        char current_char = text.at(i);
+        int char_no = (int(current_char));
 
-			if (plyr.status==2) DrawChar(shopConsoleY, x,y, char_no);
-            else DrawChar(consoleY, x,y, char_no); // was 16
-			x++;
-
-	}
+        if (plyr.status == 2) DrawChar(shopConsoleY, x, y, char_no);
+        else DrawChar(consoleY, x, y, char_no);
+        x++;
+    }
 }
-
-
 
 void drawText(int x, int y, int number)
 {
-	std::string text;
-	std::stringstream out;
-	out << number;
-	text = out.str();
+    std::string text;
+    std::stringstream out;
+    out << number;
+    text = out.str();
 
-
-	int strlen = text.size();
-	for(int i = 0; i < strlen; ++i)
+    int strlen = text.size();
+    for (int i = 0; i < strlen; ++i)
     {
-		char current_char = text.at(i);
-		int char_no = (int(current_char));
+        char current_char = text.at(i);
+        int char_no = (int(current_char));
 
-       if (plyr.status==2) { DrawChar(shopStatsY, x,y, char_no); }
-		else { DrawChar(statPanelY, x,y, char_no); }
+        if (plyr.status == 2) { DrawChar(shopStatsY, x, y, char_no); }
+        else { DrawChar(statPanelY, x, y, char_no); }
         x++;
-	}
+    }
 }
 
 void bText(int x, int y, int number)
 {
-	std::string text;
-	std::stringstream out;
-	out << number;
-	text = out.str();
+    std::string text;
+    std::stringstream out;
+    out << number;
+    text = out.str();
 
-	int strlen = text.size();
-	for(int i = 0; i < strlen; ++i)
+    int strlen = text.size();
+    for (int i = 0; i < strlen; ++i)
     {
-		char current_char = text.at(i);
-		int char_no = (int(current_char));
-		if (plyr.status==2) { DrawChar(shopStatsY, x,y, char_no); }
-		else { DrawChar(consoleY, x,y, char_no); }
-		x++;
-
-	}
+        char current_char = text.at(i);
+        int char_no = (int(current_char));
+        if (plyr.status == 2) { DrawChar(shopStatsY, x, y, char_no); }
+        else { DrawChar(consoleY, x, y, char_no); }
+        x++;
+    }
 }
 
 void cText(std::string str)
 {
+    int string_length, current_string_length;
+    int x;
+    int y;
+    int char_count;
+    std::string current_string;
+    std::string current_char;
 
-		int string_length, current_string_length;
-      int x;
-      int y;
-      int char_count;
-	  std::string current_string;
-	  std::string current_char;
+    string_length = str.size();
+    char_count = 0;
+    current_string = "";
+    y = 1;
+    while (char_count <= string_length)
+    {
+        current_char = str.substr(char_count, 1);
 
-      string_length = str.size();
-      char_count = 0;
-      current_string="";
-      y = 1;
-      while (char_count <= string_length)
-      {
-          current_char = str.substr(char_count,1);; //stringa[char_count];
+        if ((char_count == string_length) || (current_char == "@"))
+        {
+            current_string_length = current_string.size();
+            x = ((40 - current_string_length) / 2) + 1;
 
-          if ((char_count==string_length) || (current_char=="@"))
-          {
-               current_string_length = current_string.size();
-               x = ((40-current_string_length)/2)+1;
+            drawText(0, x, y, current_string);
 
-               drawText(0,x,y,current_string);
-
-               y++;
-               char_count++;
-               current_string="";
-          }
-          else
-          {
-               current_string = current_string+current_char;
-               char_count++;
-          }
-       }
-
+            y++;
+            char_count++;
+            current_string = "";
+        }
+        else
+        {
+            current_string = current_string + current_char;
+            char_count++;
+        }
+    }
 }
 
 void cyText(int y, std::string str)
 {
-	  int string_length, current_string_length;
-      int x;
-      int char_count;
-	  std::string current_string;
-	  std::string current_char;
+    int string_length, current_string_length;
+    int x;
+    int char_count;
+    std::string current_string;
+    std::string current_char;
 
-      string_length = str.size();
-      char_count = 0;
-      current_string="";
+    string_length = str.size();
+    char_count = 0;
+    current_string = "";
 
-      while (char_count <= string_length)
-      {
-          current_char = str.substr(char_count,1);; //stringa[char_count];
+    while (char_count <= string_length)
+    {
+        current_char = str.substr(char_count, 1);
 
-          if ((char_count==string_length) || (current_char=="@"))
-          {
-               current_string_length = current_string.size();
-               x = ((40-current_string_length)/2)+1;
+        if ((char_count == string_length) || (current_char == "@"))
+        {
+            current_string_length = current_string.size();
+            x = ((40 - current_string_length) / 2) + 1;
 
-               drawText(consoleY,x,y,current_string);
+            drawText(consoleY, x, y, current_string);
 
-               y++;
-               char_count++;
-               current_string="";
-          }
-          else
-          {
-               current_string = current_string+current_char;
-               char_count++;
-          }
-       }
-
+            y++;
+            char_count++;
+            current_string = "";
+        }
+        else
+        {
+            current_string = current_string + current_char;
+            char_count++;
+        }
+    }
 }
-
-
 
 /* Seem to only be used in item.h */
 
 void text(int x, int y, std::string text)
 {
-	int strlen = text.size();
-	for(int i = 0; i < strlen; ++i)
+    int strlen = text.size();
+    for (int i = 0; i < strlen; ++i)
     {
-		char current_char = text.at(i);
-		int char_no = (int(current_char));
+        char current_char = text.at(i);
+        int char_no = (int(current_char));
 
-			DrawChar(16, x,y, char_no); // was 16
-			x++;
-
-	}
+        DrawChar(16, x, y, char_no);
+        x++;
+    }
 }
-
 
 void text(int x, int y, int number)
 {
-	std::string text;
-	std::stringstream out;
-	out << number;
-	text = out.str();
+    std::string text;
+    std::stringstream out;
+    out << number;
+    text = out.str();
 
-
-	int strlen = text.size();
-	for(int i = 0; i < strlen; ++i)
+    int strlen = text.size();
+    for (int i = 0; i < strlen; ++i)
     {
-		char current_char = text.at(i);
-		int char_no = (int(current_char));
+        char current_char = text.at(i);
+        int char_no = (int(current_char));
 
-
-			DrawChar(16, x,y, char_no); // was 0
-			x++;
-
-	}
+        DrawChar(16, x, y, char_no);
+        x++;
+    }
 }

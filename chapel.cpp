@@ -11,53 +11,34 @@
 #include "audio.h"
 #include "chapel.h"
 
-// extern Player plyr;
-
-
-inline std::string concat( int n, const char* str )
-{
-std::ostringstream ss;
-ss << n;
-ss << str;
-return ss.str();
-}
-
+// Per-frame state machine. Called each frame by checkShop while plyr.status==2.
 void shopChapel()
 {
-	// Module for Dungeon Chapel
+	static int chapelMenu = 0;
 
-	int chapelMenu = 1; // high level menu
-	string str,key;
-	plyr.status = 2; // shopping
-
-
-	loadShopImage(18);
-
-	while (chapelMenu > 0)
-	{
-		while (chapelMenu == 1) // main menu
-		{
-			clearShopDisplay();
-			cyText (1, "Welcome to the Dungeon Chapel.");
-			cyText (3, "What would you like to do?");
-			bText (8,5, "(1) Pray");
-			bText (8,6, "(2) Listen to a sermon");
-			bText (8,7, "(3) Consult with a priest");
-			bText (8,8, "(4) Make a donation");
-			bText (8,9, "(0) Leave");
-			updateDisplay();
-			playShopMusic(3);
-
-			key = getSingleKey();
-
-			if ( key=="0" ) { chapelMenu = 0; }
-			if ( key=="down" ) { chapelMenu = 0; }
-		}
-
-
-
+	if (chapelMenu == 0) {
+		plyr.status = 2;
+		loadShopImage(18);
+		chapelMenu = 1;
+		return;
 	}
-	stopShopMusic();
-	leaveShop();
-}
 
+	if (chapelMenu == 1)
+	{
+		clearShopDisplay();
+		cyText(1,"Welcome to the Dungeon Chapel.");
+		cyText(3,"What would you like to do?");
+		bText(8,5,"(1) Pray");
+		bText(8,6,"(2) Listen to a sermon");
+		bText(8,7,"(3) Consult with a priest");
+		bText(8,8,"(4) Make a donation");
+		bText(8,9,"(0) Leave");
+		updateDisplay();
+		playShopMusic(3);
+		string key = getSingleKey();
+		if (key=="0"||key=="down") { chapelMenu=-1; }
+		// options 1-4 not yet implemented
+	}
+
+	if (chapelMenu == -1) { chapelMenu=0; stopShopMusic(); leaveShop(); }
+}

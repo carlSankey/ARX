@@ -1,5 +1,3 @@
-#include <SFML/Graphics.hpp>
-
 #include "automap.h"
 #include "display.h"
 #include "font.h"
@@ -11,28 +9,281 @@
 extern bool autoMapExplored[5][4096];
 extern Mapcell levelmap[4096]; // 12288
 
-//sf::Texture mapImage, legendImage;
-//sf::Sprite::Sprite(const sf::Texture&) ;
+#ifdef ARX_USE_SDL2
+// ============================================================
+// SDL2/web implementations using arx::Sprite2D
+// ============================================================
 
-static sf::Texture mapImage;      // Declare textures as global static
+#include "renderer/Sprite2D.h"
+
+extern int miniMapX;
+extern int miniMapY;
+
+int pixelSize;
+int mapLocation;
+bool autoMapExplored[5][4096] = {};
+
+// Map tile sprites
+static arx::Sprite2D s_mapTiles;
+static bool s_mapTilesLoaded = false;
+static arx::Sprite2D s_mapLegend;
+static bool s_mapLegendLoaded = false;
+
+void automap()
+{
+    plyr.status = 0;
+    bool mapComplete = false;
+
+    while (!mapComplete)
+    {
+        clearDisplay();
+        drawFullAutomap();
+        updateDisplay();
+
+        std::string single_key = getSingleKey();
+        if (single_key == "SPACE") { mapComplete = true; }
+        if (single_key == "RETURN") { mapComplete = true; }
+        if (single_key == "M") { mapComplete = true; }
+        if (single_key == "ESC") { mapComplete = true; }
+    }
+    plyr.status = 1;
+}
+
+void clearAutoMaps()
+{
+    for (int y = 0; y < 5; y++)
+    {
+        for (int x = 0; x < 4096; x++)
+        {
+            autoMapExplored[y][x] = false;
+        }
+    }
+}
+
+void InitMap()
+{
+    // Load map tiles spritesheet
+    if (!s_mapTilesLoaded) {
+        s_mapTilesLoaded = s_mapTiles.load("data/images/core/maptiles.png");
+        if (!s_mapTilesLoaded) {
+            std::cerr << "InitMap: failed to load maptiles.png" << std::endl;
+        }
+    }
+    
+    // Load legend image for current scenario
+    if (!s_mapLegendLoaded) {
+        std::string legendPath = "data/images/Scenario_" + std::to_string(plyr.scenario) + "/Legend.png";
+        s_mapLegendLoaded = s_mapLegend.load(legendPath);
+        if (!s_mapLegendLoaded) {
+            std::cerr << "InitMap: failed to load legend from " << legendPath << std::endl;
+        }
+    }
+}
+
+void DrawImage(int x, int y, int tileNo)
+{
+    if (!s_mapTiles.isValid()) return;
+    
+    x++;
+    y++;
+    int row, column;
+    int tilesPerRow = 8;
+    int tileSize = 16;
+
+    if (tileNo >= tilesPerRow)
+    {
+        column = (tileNo % tilesPerRow);
+        row = ((tileNo - column) / tilesPerRow);
+    }
+    else
+    {
+        column = tileNo;
+        row = 0;
+    }
+
+    int tileX = column * tileSize;
+    int tileY = row * tileSize;
+    s_mapTiles.setTextureRect(tileX, tileY, tileSize, tileSize);
+    s_mapTiles.draw(static_cast<float>(x), static_cast<float>(y));
+}
+
+void DrawCell(int x, int y, int pixelx, int pixely)
+{
+    int idx = getMapIndex(x, y);
+    int north = levelmap[idx].north;
+    int west = levelmap[idx].west;
+    int east = levelmap[idx].east;
+    int south = levelmap[idx].south;
+    int special = levelmap[idx].special;
+    int tile;
+
+    if (autoMapExplored[plyr.map][mapLocation])
+    {
+        DrawImage(pixelx, pixely, 0);
+        if (special == 144) DrawImage(pixelx, pixely, 13);
+        if (special == 21) DrawImage(pixelx, pixely, 13);
+        if (special == 112) DrawImage(pixelx, pixely, 12);
+        if (special == 80) DrawImage(pixelx, pixely, 9);
+        if (special == 16) DrawImage(pixelx, pixely, 10);
+        if (special == 48) DrawImage(pixelx, pixely, 11);
+        if ((special == 208) && (plyr.scenario == 0)) DrawImage(pixelx, pixely, 25);
+        if (special == 3) DrawImage(pixelx, pixely, 11);
+        if (special == 35) DrawImage(pixelx, pixely, 11);
+        if ((special == 0xF0) && (plyr.scenario == 0)) DrawImage(pixelx, pixely, 9);
+        if (special == 0x0F) DrawImage(pixelx, pixely, 10);
+        if (special == 0x1D) DrawImage(pixelx, pixely, 11);
+        if (special == 0x0C) DrawImage(pixelx, pixely, 9);
+        if (special == 0x0D) DrawImage(pixelx, pixely, 12);
+        if (special == 7) DrawImage(pixelx, pixely, 11);
+        if (special == 19) DrawImage(pixelx, pixely, 25);
+        if (special == 87) DrawImage(pixelx, pixely, 25);
+    }
+
+    if (!autoMapExplored[plyr.map][mapLocation]) DrawImage(pixelx, pixely, 24);
+
+    tile = 0;
+    if (north == 3 || north == 4 || north == 8 || north == 9 || north == 10 || north > 19) tile = 8;
+    else if (north == 5 || north == 6) tile = 4;
+    else if (north == 13 || north == 37) tile = 4;
+    else if (north == 14) tile = 4;
+    if (tile != 0) DrawImage(pixelx, pixely, tile);
+
+    tile = 0;
+    if (south == 3 || south == 4 || south == 8 || south == 9 || south == 10 || south > 19) tile = 6;
+    else if (south == 5 || south == 6) tile = 2;
+    else if (south == 13 || south == 37) tile = 2;
+    else if (south == 14) tile = 2;
+    if (tile != 0) DrawImage(pixelx, pixely, tile);
+
+    tile = 0;
+    if (west == 3 || west == 4 || west == 8 || west == 9 || west == 10 || west > 19) tile = 5;
+    else if (west == 5 || west == 6) tile = 1;
+    else if (west == 13 || west == 37) tile = 1;
+    else if (west == 14) tile = 1;
+    if (tile != 0) DrawImage(pixelx, pixely, tile);
+
+    tile = 0;
+    if (east == 3 || east == 4 || east == 8 || east == 9 || east == 10 || east > 19) tile = 7;
+    else if (east == 5 || east == 6) tile = 3;
+    else if (east == 13 || east == 37) tile = 3;
+    else if (east == 14) tile = 3;
+    if (tile != 0) DrawImage(pixelx, pixely, tile);
+}
+
+void drawAutomap()
+{
+    if (!plyr.miniMapOn) return;
+
+    if ((graphicMode == ALTERNATE_LARGE) && (plyr.status != 2))
+    {
+        // Draw minimap background box using text
+        int boxX = miniMapX / 8;
+        int boxY = miniMapY / 8;
+        SetFontColour(255, 255, 0, 255);
+        drawText(boxX, boxY, "┌────────┐");
+        drawText(boxX, boxY + 1, "│AUTOMAP │");
+        drawText(boxX, boxY + 2, "│        │");
+        drawText(boxX, boxY + 3, "└────────┘");
+        SetFontColour(215, 215, 215, 255);
+    }
+
+    pixelSize = 16;
+    int automapHeight = 9;
+    int automapWidth = 9;
+    int startx = plyr.x - ((automapWidth - 1) / 2);
+    int starty = plyr.y - ((automapHeight - 1) / 2);
+
+    for (int y = 0; y < automapHeight; y++)
+    {
+        for (int x = 0; x < automapWidth; x++)
+        {
+            int currentx = startx + x;
+            int currenty = starty + y;
+            if ((currentx >= 0) && (currentx < plyr.mapWidth) && (currenty >= 0) && (currenty < plyr.mapHeight))
+            {
+                int pixelx = miniMapX + (x * pixelSize);
+                int pixely = miniMapY + (y * pixelSize);
+                mapLocation = getMapIndex(currentx, currenty);
+                DrawCell(currentx, currenty, pixelx, pixely);
+                if (!autoMapExplored[plyr.map][mapLocation]) DrawImage(pixelx, pixely, 24);
+            }
+        }
+    }
+
+    int pixelx = miniMapX + (((automapWidth - 1) / 2) * pixelSize);
+    int pixely = miniMapY + (((automapHeight - 1) / 2) * pixelSize);
+    if (plyr.facing == WEST) DrawImage(pixelx, pixely, 17);
+    if (plyr.facing == NORTH) DrawImage(pixelx, pixely, 14);
+    if (plyr.facing == EAST) DrawImage(pixelx, pixely, 16);
+    if (plyr.facing == SOUTH) DrawImage(pixelx, pixely, 15);
+}
+
+void drawFullAutomap()
+{
+    plyr.drawingBigAutomap = true;
+    pixelSize = 16;
+    int automapHeight = 32;
+    int automapWidth = 32;
+    int cornerX = 0;
+    int cornerY = 0;
+    int startx, starty;
+
+    if ((plyr.x < 32) && (plyr.y < 32)) { startx = 0; starty = 0; }
+    else if ((plyr.x > 31) && (plyr.y < 32)) { startx = 32; starty = 0; }
+    else if ((plyr.x > 31) && (plyr.y > 31)) { startx = 32; starty = 32; }
+    else { startx = 0; starty = 32; }
+
+    for (int y = 0; y < automapHeight; y++)
+    {
+        for (int x = 0; x < automapWidth; x++)
+        {
+            int currentx = startx + x;
+            int currenty = starty + y;
+            int pixelx = cornerX + (x * pixelSize);
+            int pixely = cornerY + (y * pixelSize);
+            mapLocation = getMapIndex(currentx, currenty);
+            DrawCell(currentx, currenty, pixelx, pixely);
+            if (!autoMapExplored[plyr.map][mapLocation]) DrawImage(pixelx, pixely, 24);
+        }
+    }
+
+    int pixelx = (plyr.x < 32) ? plyr.x * pixelSize : (plyr.x - 32) * pixelSize + 16;
+    int pixely = (plyr.y < 32) ? plyr.y * pixelSize : (plyr.y - 32) * pixelSize;
+    if (plyr.facing == WEST) DrawImage(pixelx, pixely, 17);
+    if (plyr.facing == NORTH) DrawImage(pixelx, pixely, 14);
+    if (plyr.facing == EAST) DrawImage(pixelx, pixely, 16);
+    if (plyr.facing == SOUTH) DrawImage(pixelx, pixely, 15);
+
+    // Draw legend in top-right corner
+    if (s_mapLegend.isValid()) {
+        s_mapLegend.draw(512.0f + 16.0f, 16.0f);
+    }
+    plyr.drawingBigAutomap = false;
+}
+
+void setAutoMapFlag(int mapno, int x, int y)
+{
+    int cellNo = getMapIndex(x, y);
+    autoMapExplored[mapno][cellNo] = true;
+}
+
+#else
+// ============================================================
+// SFML implementation (native build only)
+// ============================================================
+#include <SFML/Graphics.hpp>
+
+extern sf::RenderWindow App;
+
+static sf::Texture mapImage;
 static sf::Texture legendImage;
-static std::unique_ptr<sf::Sprite> cellImage; // Use smart pointer for cellImage
-static std::unique_ptr<sf::Sprite> mapLegend; // Use smart pointer for mapLegend
+static std::unique_ptr<sf::Sprite> cellImage;
+static std::unique_ptr<sf::Sprite> mapLegend;
 
-
-
-
-
-
-
-
-
-
-extern int miniMapY; // y position for displaying the bottom screen info panel
-extern int miniMapX; // x starting position for displaying the panel for centering
+extern int miniMapY;
+extern int miniMapX;
 extern int graphicMode;
 
-//float scale;
 int pixelSize;
 int mapLocation;
 
@@ -45,32 +296,6 @@ void automap()
 	{
 	string single_key;
 	clearDisplay();
-	if (plyr.scenario==0)
-	{
-            /*
-			text(32, 0, "The City");
-			text(35, 4, "Smithy");
-			text(35, 6, "Shop");
-			text(35, 8, "Bank");
-			text(35, 10, "Inn");
-			text(35, 12, "Tavern");
-			text(35, 14, "Guild");
-			text(35, 16, "Healer");
-			*/
-	}
-	else
-	{
-            /*
-			text(32, 0, "The Dungeon");
-			text(35, 4, "Smithy");
-			text(35, 6, "D & P");
-			text(35, 8, "Vault");
-			text(35, 10, "Retreat");
-			text(35, 12, "Other");
-			text(35, 14, "Guild");
-			*/
-	}
-
 	drawFullAutomap();
 	updateDisplay();
 
@@ -83,10 +308,8 @@ void automap()
 	plyr.status=1;
 }
 
-
 void clearAutoMaps()
 {
-
 	for (int y=0 ; y<5 ; y++)
 	{
 		for (int x=0 ; x<4096 ; x++)
@@ -96,310 +319,195 @@ void clearAutoMaps()
 	}
 }
 
-
 void InitMap()
 {
-	// Load textures
-	if (!mapImage.loadFromFile("data/images/core/maptiles.png")) {
-		// Handle error
-	}
-	cellImage = std::make_unique<sf::Sprite>(mapImage); // Create sprite with texture
+	if (!mapImage.loadFromFile("data/images/core/maptiles.png")) {}
+	cellImage = std::make_unique<sf::Sprite>(mapImage);
 
-	if (!legendImage.loadFromFile("data/images/Scenario_" + std::to_string(plyr.scenario) + "/Legend.png")) {
-		// Handle error
-	}
-	mapLegend = std::make_unique<sf::Sprite>(legendImage); // Create sprite with texture
+	if (!legendImage.loadFromFile("data/images/Scenario_" + std::to_string(plyr.scenario) + "/Legend.png")) {}
+	mapLegend = std::make_unique<sf::Sprite>(legendImage);
 }
 
-
-// Draw an individual image to the display at pixel x,y
-void DrawImage(int x,int y, int tileNo)
+void DrawImage(int x, int y, int tileNo)
 {
 	x++;
 	y++;
 	int row, column;
-	int tilesPerRow = 8; // number of tiles per row in font image containing all tiles (16 default)
-	int tileSize = 16; // 16 pixels height and width
+	int tilesPerRow = 8;
+	int tileSize = 16;
 
-	//Select 16x16 pixel section of tile sheet for cell tile
-	if ( tileNo >= tilesPerRow)
+	if (tileNo >= tilesPerRow)
 	{
-		column = (tileNo % tilesPerRow); // remainder
-		row = ((tileNo-column)/tilesPerRow);
+		column = (tileNo % tilesPerRow);
+		row = ((tileNo - column) / tilesPerRow);
 	}
 	else
 	{
 		column = tileNo;
-		row = 0; // = row 1 on the actual tile sheet at y=0
+		row = 0;
 	}
 
-	int tileX = (column)*tileSize;	// x loc on tiles image in pixels
-	int tileY = ((row)*tileSize);	// y loc on tiles image in pixels
+	int tileX = column * tileSize;
+	int tileY = row * tileSize;
 	cellImage->setTextureRect(sf::IntRect({tileX, tileY}, {tileSize, tileSize}));
-
-	cellImage->setPosition(sf::Vector2f(static_cast<float>(x), static_cast<float>(y))); // simply display at x,y pixel locations
-	//cellImage->setScale(scale,scale);
-	//if (plyr.drawingBigAutomap) { App.draw(*cellImage); }
-	//else { App.draw(*cellImage); }
+	cellImage->setPosition(sf::Vector2f(static_cast<float>(x), static_cast<float>(y)));
 	App.draw(*cellImage);
 }
 
-
-// Draw all the images required for a single cell on the automap
-void DrawCell(int x,int y, int pixelx, int pixely)
+void DrawCell(int x, int y, int pixelx, int pixely)
 {
-	int idx = getMapIndex(x,y);
+	int idx = getMapIndex(x, y);
 	int north = levelmap[idx].north;
 	int west = levelmap[idx].west;
 	int east = levelmap[idx].east;
-    int south = levelmap[idx].south;
+	int south = levelmap[idx].south;
 	int special = levelmap[idx].special;
 	int tile;
 
-	// Draw cell background colour
 	if (autoMapExplored[plyr.map][mapLocation])
 	{
-        DrawImage(pixelx,pixely,0);
-        if (special==144) { DrawImage(pixelx,pixely,13); } // smithy
-        if (special==21) { DrawImage(pixelx,pixely,13); } // dwarven smithy
-        if (special==112) { DrawImage(pixelx,pixely,12); } // shop
-        if (special==80) { DrawImage(pixelx,pixely,9); } // bank
-        if (special==16) { DrawImage(pixelx,pixely,10); } // inn
-        if (special==48) { DrawImage(pixelx,pixely,11); } // tavern
-        if ((special==208) && (plyr.scenario==0)) { DrawImage(pixelx, pixely, 25); } // healer
-        if (special==3) { DrawImage(pixelx,pixely,11); } // Dungeon level 1 Fountain
-        if (special==35) { DrawImage(pixelx,pixely,11); } // Dungeon level 2 Fountain
-        if ((special==0xF0)&&(plyr.scenario==0)) { DrawImage(pixelx,pixely,9); } // city guild
-        if (special==0x0F) { DrawImage(pixelx,pixely,10); } // retreat
-        if (special==0x1D) { DrawImage(pixelx,pixely,11); } // rathskeller
-        if (special==0x0C) { DrawImage(pixelx,pixely,9); } // dungeon guild
-        if (special==0x0D) { DrawImage(pixelx,pixely,12); } // damon
-        if (special==7) { DrawImage(pixelx,pixely,11); } // Goblins & Trolls
-        if (special==19) { DrawImage(pixelx,pixely,25); } // ferry
-        if (special==87) { DrawImage(pixelx,pixely,25); } // Undead King
+		DrawImage(pixelx, pixely, 0);
+		if (special == 144) DrawImage(pixelx, pixely, 13);
+		if (special == 21) DrawImage(pixelx, pixely, 13);
+		if (special == 112) DrawImage(pixelx, pixely, 12);
+		if (special == 80) DrawImage(pixelx, pixely, 9);
+		if (special == 16) DrawImage(pixelx, pixely, 10);
+		if (special == 48) DrawImage(pixelx, pixely, 11);
+		if ((special == 208) && (plyr.scenario == 0)) DrawImage(pixelx, pixely, 25);
+		if (special == 3) DrawImage(pixelx, pixely, 11);
+		if (special == 35) DrawImage(pixelx, pixely, 11);
+		if ((special == 0xF0) && (plyr.scenario == 0)) DrawImage(pixelx, pixely, 9);
+		if (special == 0x0F) DrawImage(pixelx, pixely, 10);
+		if (special == 0x1D) DrawImage(pixelx, pixely, 11);
+		if (special == 0x0C) DrawImage(pixelx, pixely, 9);
+		if (special == 0x0D) DrawImage(pixelx, pixely, 12);
+		if (special == 7) DrawImage(pixelx, pixely, 11);
+		if (special == 19) DrawImage(pixelx, pixely, 25);
+		if (special == 87) DrawImage(pixelx, pixely, 25);
 	}
 
-	if (!autoMapExplored[plyr.map][mapLocation]) { DrawImage(pixelx,pixely,24);}
+	if (!autoMapExplored[plyr.map][mapLocation]) DrawImage(pixelx, pixely, 24);
 
-	// Standard Dungeon "special" ranges
-	//if ( (special>=0x01) && (special<=0x1F) && (plyr.scenario==1) ) { DrawImage(pixelx,pixely,19); } // place of interest
-	//if ( (special>=0x20) && (special<=0x7F) && (plyr.scenario==1) ) { DrawImage(pixelx,pixely,23); } // dangerous
-	//if ( (special>=0x80) && (special<=0x9F) && (plyr.scenario==1) ) { DrawImage(pixelx,pixely,21); } // encounter
-	//if ( (special>=0xA0) && (special<=0xBF) && (plyr.scenario==1) ) { DrawImage(pixelx,pixely,20); } // treasure
-	//if ( (special>=0xC0) && (special<=0xDF) && (plyr.scenario==1) ) { DrawImage(pixelx,pixely,18); } // message
-
-	if ( (special>=0xE0) && (special<=0xFF) && (plyr.scenario==1) ) { DrawImage(pixelx,pixely,22); } // blink mine
-
-
-
-	// switch statement to set value to image tile
 	tile = 0;
-	//if (north==0) { tile = 0; }
-	if (north==3) { tile = 8; } // door
-	if (north==4) { tile = 8; } // door
-	if (north==5) { tile = 4; } // secret door
-	if (north==6) { tile = 4; }	// secret door
-	if (north==8) { tile = 8; }	// barred door
-	if (north==9) { tile = 8; }	// barred door
-	if (north==10) { tile = 8; }	// barred door
-	if (north>19) { tile = 8; } // non standard door
-	if (north==13) { tile = 4; } // wall
-	if (north==37) { tile = 4; } // wall
-	if (north==14) { tile = 4; } // crystal wall
+	if (north == 3 || north == 4 || north == 8 || north == 9 || north == 10 || north > 19) tile = 8;
+	else if (north == 5 || north == 6) tile = 4;
+	else if (north == 13 || north == 37) tile = 4;
+	else if (north == 14) tile = 4;
+	if (tile != 0) DrawImage(pixelx, pixely, tile);
 
-
-	if (tile != 0) { DrawImage(pixelx,pixely,tile ); }
-
-    // switch statement to set value to image tile
 	tile = 0;
-	//if (south==0) { tile = 0; }
-	if (south==3) { tile = 6; } // door
-	if (south==4) { tile = 6; } // door
-	if (south==5) { tile = 2; } // secret door
-	if (south==6) { tile = 2; }	// secret door
-	if (south==8) { tile = 6; }	// barred door
-	if (south==9) { tile = 6; }	// barred door
-	if (south==10) { tile =6; }	// barred door
-	if (south>19) { tile = 6; } // non standard door
-	if (south==13) { tile = 2; } // wall
-	if (south==37) { tile = 2; } // wall
-	if (south==14) { tile = 2; } // crystal wall
+	if (south == 3 || south == 4 || south == 8 || south == 9 || south == 10 || south > 19) tile = 6;
+	else if (south == 5 || south == 6) tile = 2;
+	else if (south == 13 || south == 37) tile = 2;
+	else if (south == 14) tile = 2;
+	if (tile != 0) DrawImage(pixelx, pixely, tile);
 
-	if (tile != 0) { DrawImage(pixelx,pixely,tile ); }
-
-	// switch statement to set value to image tile
 	tile = 0;
-	//if (west==0) { tile = 0; }
-	if (west==3) { tile = 5; } // door
-	if (west==4) { tile = 5; } // door
-	if (west==5) { tile = 1; } // secret door
-	if (west==6) { tile = 1; }	// secret door
-	if (west==8) { tile = 5; }	// barred door
-	if (west==9) { tile = 5; }	// barred door
-	if (west==10) { tile = 5; }	// barred door
-	if (west>19) { tile = 5; } // non standard door
-	if (west==13) { tile = 1; } // wall
-	if (west==37) { tile = 1; } // wall
-	if (west==14) { tile = 1; } // crystal wall
-	if (tile != 0) { DrawImage(pixelx,pixely,tile ); }
+	if (west == 3 || west == 4 || west == 8 || west == 9 || west == 10 || west > 19) tile = 5;
+	else if (west == 5 || west == 6) tile = 1;
+	else if (west == 13 || west == 37) tile = 1;
+	else if (west == 14) tile = 1;
+	if (tile != 0) DrawImage(pixelx, pixely, tile);
 
-	// switch statement to set value to image tile
 	tile = 0;
-	//if (east==0) { tile = 0; }
-	if (east==3) { tile = 7; } // door
-	if (east==4) { tile = 7; } // door
-	if (east==5) { tile = 3; } // secret door
-	if (east==6) { tile = 3; }	// secret door
-	if (east==8) { tile = 7; }	// barred door
-	if (east==9) { tile = 7; }	// barred door
-	if (east==10) { tile = 7; }	// barred door
-	if (east>19) { tile = 7; } // non standard door
-	if (east==13) { tile = 3; } // wall
-	if (east==37) { tile = 3; } // wall
-	if (east==14) { tile = 3; } // crystal wall
-	if (tile != 0) { DrawImage(pixelx,pixely,tile ); }
+	if (east == 3 || east == 4 || east == 8 || east == 9 || east == 10 || east > 19) tile = 7;
+	else if (east == 5 || east == 6) tile = 3;
+	else if (east == 13 || east == 37) tile = 3;
+	else if (east == 14) tile = 3;
+	if (tile != 0) DrawImage(pixelx, pixely, tile);
 }
-
 
 void drawAutomap()
 {
-    if (plyr.miniMapOn)
-    {
-        if ((graphicMode == ALTERNATE_LARGE) && (plyr.status!=2)) // shopping?
-        {
-            //if (graphicMode==2) myminimap.setColor(sf::Color(255, 255, 255, 192));
-            sf::RectangleShape rectangle2;
-            rectangle2.setSize(sf::Vector2f(176, 176)); // 672, 184
-            rectangle2.setOutlineColor(sf::Color::Yellow);
-            rectangle2.setFillColor(sf::Color(0, 0, 0, 128));
-            rectangle2.setOutlineThickness(1);
-            rectangle2.setPosition(sf::Vector2f(static_cast<float>(miniMapX+1), static_cast<float>(miniMapY+1)));
-            App.draw(rectangle2);
-        }
+	if (!plyr.miniMapOn) return;
 
-        //	scale = 1.0;
-        pixelSize = 16;
-        int automapHeight = 9; // how many map cells displayed including central player cell + 1 for for loop
-        int automapWidth = 9; //was 9
+	if ((graphicMode == ALTERNATE_LARGE) && (plyr.status != 2))
+	{
+		sf::RectangleShape rectangle2;
+		rectangle2.setSize(sf::Vector2f(176, 176));
+		rectangle2.setOutlineColor(sf::Color::Yellow);
+		rectangle2.setFillColor(sf::Color(0, 0, 0, 128));
+		rectangle2.setOutlineThickness(1);
+		rectangle2.setPosition(sf::Vector2f(static_cast<float>(miniMapX + 1), static_cast<float>(miniMapY + 1)));
+		App.draw(rectangle2);
+	}
 
-        //int cornerX = 0; // top left pixel coordinate for automap 522
-        //int cornerY = 0; // top left pixel coordinate for automap 130
-        int startx = 0; // map cell coords for first x
-        int starty = 0; // map cell coords for first y
-        int currentx = 0;
-        int currenty = 0;
-        int pixelx = 0;
-        int pixely = 0;
-        startx = plyr.x - ((automapWidth-1)/2);
-        starty = plyr.y - ((automapHeight-1)/2);
+	pixelSize = 16;
+	int automapHeight = 9;
+	int automapWidth = 9;
+	int startx = plyr.x - ((automapWidth - 1) / 2);
+	int starty = plyr.y - ((automapHeight - 1) / 2);
 
-        for (int y=0 ; y<(automapHeight) ; y++)
-        {
-            for (int x=0 ; x<(automapWidth) ; x++)
-            {
-                // check for valid on map square
-                currentx = startx+x;
-                currenty = starty+y;
-                if ((currentx >=0) && (currentx <plyr.mapWidth) && (currenty >= 0) && (currenty <plyr.mapHeight))
-                {
-                    pixelx=miniMapX+(x*pixelSize); // 16 = pixels in cell image
-                    pixely=miniMapY+(y*pixelSize); // 16 = pixels in cell image
-                    mapLocation = getMapIndex(currentx,currenty);
-                    DrawCell(currentx,currenty, pixelx, pixely);
-                    //if (autoMapExplored[plyr.map][mapLocation]) { DrawCell(currentx,currenty, pixelx, pixely);}
-                    if (!autoMapExplored[plyr.map][mapLocation]) { DrawImage(pixelx,pixely,24);} // Added
-                }
-            }
+	for (int y = 0; y < automapHeight; y++)
+	{
+		for (int x = 0; x < automapWidth; x++)
+		{
+			int currentx = startx + x;
+			int currenty = starty + y;
+			if ((currentx >= 0) && (currentx < plyr.mapWidth) && (currenty >= 0) && (currenty < plyr.mapHeight))
+			{
+				int pixelx = miniMapX + (x * pixelSize);
+				int pixely = miniMapY + (y * pixelSize);
+				mapLocation = getMapIndex(currentx, currenty);
+				DrawCell(currentx, currenty, pixelx, pixely);
+				if (!autoMapExplored[plyr.map][mapLocation]) DrawImage(pixelx, pixely, 24);
+			}
+		}
+	}
 
-        }
-
-        // Draw arrow to represent position and direction of player
-        pixelx=miniMapX+(((automapWidth-1)/2)*pixelSize);
-        pixely=miniMapY+(((automapHeight-1)/2)*pixelSize);
-        if (plyr.facing== WEST) { DrawImage(pixelx,pixely,17); }
-        if (plyr.facing== NORTH) { DrawImage(pixelx,pixely,14); }
-        if (plyr.facing== EAST) { DrawImage(pixelx,pixely,16); }
-        if (plyr.facing== SOUTH) { DrawImage(pixelx,pixely,15); }
-    }
+	int pixelx = miniMapX + (((automapWidth - 1) / 2) * pixelSize);
+	int pixely = miniMapY + (((automapHeight - 1) / 2) * pixelSize);
+	if (plyr.facing == WEST) DrawImage(pixelx, pixely, 17);
+	if (plyr.facing == NORTH) DrawImage(pixelx, pixely, 14);
+	if (plyr.facing == EAST) DrawImage(pixelx, pixely, 16);
+	if (plyr.facing == SOUTH) DrawImage(pixelx, pixely, 15);
 }
-
 
 void drawFullAutomap()
 {
 	plyr.drawingBigAutomap = true;
-//	scale = 1.0;
 	pixelSize = 16;
-	int automapHeight = 32; // how many map cells displayed including central player cell + 1 for for loop
+	int automapHeight = 32;
 	int automapWidth = 32;
-	int cornerX = 0; // top left pixel coordinate for automap 522
-	int cornerY = 0; // top left pixel coordinate for automap
-	int startx = 0; // map cell coords for first x
-	int starty = 0; // map cell coords for first y
-	int currentx = 0;
-	int currenty = 0;
-	int pixelx = 0;
-	int pixely = 0;
-	if ((plyr.x<32) && (plyr.y<32))
-	{
-		startx = 0;
-		starty = 0;
-	}
-	if ((plyr.x>31) && (plyr.y<32))
-	{
-		startx = 32;
-		starty = 0;
-	}
-	if ((plyr.x>31) && (plyr.y>31))
-	{
-		startx = 32;
-		starty = 32;
-	}
-	if ((plyr.x<32) && (plyr.y>31))
-	{
-		startx = 0;
-		starty = 32;
-	}
+	int cornerX = 0;
+	int cornerY = 0;
+	int startx, starty;
 
-	for (int y=0 ; y<(automapHeight) ; y++)
+	if ((plyr.x < 32) && (plyr.y < 32)) { startx = 0; starty = 0; }
+	else if ((plyr.x > 31) && (plyr.y < 32)) { startx = 32; starty = 0; }
+	else if ((plyr.x > 31) && (plyr.y > 31)) { startx = 32; starty = 32; }
+	else { startx = 0; starty = 32; }
+
+	for (int y = 0; y < automapHeight; y++)
 	{
-		for (int x=0 ; x<(automapWidth) ; x++)
+		for (int x = 0; x < automapWidth; x++)
 		{
-			// check for valid on map square
-			currentx = startx+x;
-			currenty = starty+y;
-			pixelx=cornerX+(x*pixelSize); // 16 = pixels in cell image
-			pixely=cornerY+(y*pixelSize); // 16 = pixels in cell image
-			mapLocation = getMapIndex(currentx,currenty);
-			DrawCell(currentx,currenty, pixelx, pixely);
-			if (!autoMapExplored[plyr.map][mapLocation]) { DrawImage(pixelx,pixely,24);} // Added back
+			int currentx = startx + x;
+			int currenty = starty + y;
+			int pixelx = cornerX + (x * pixelSize);
+			int pixely = cornerY + (y * pixelSize);
+			mapLocation = getMapIndex(currentx, currenty);
+			DrawCell(currentx, currenty, pixelx, pixely);
+			if (!autoMapExplored[plyr.map][mapLocation]) DrawImage(pixelx, pixely, 24);
 		}
-
 	}
 
-	// Draw arrow to represent position and direction of player
-	if ((plyr.x<32))
-		pixelx=(plyr.x)*pixelSize;
-	else
-		pixelx=(plyr.x)*pixelSize+16;
-	pixely=(plyr.y)*pixelSize;
-	if (plyr.y>31) { pixely=(plyr.y-32)*pixelSize; }
-	if (plyr.x>31) { pixelx=(plyr.x-32)*pixelSize; }
-	if (plyr.facing== WEST) { DrawImage(pixelx,pixely,17); }
-	if (plyr.facing== NORTH) { DrawImage(pixelx,pixely,14); }
-	if (plyr.facing== EAST) { DrawImage(pixelx,pixely,16); }
-	if (plyr.facing== SOUTH) { DrawImage(pixelx,pixely,15); }
+	int pixelx = (plyr.x < 32) ? plyr.x * pixelSize : (plyr.x - 32) * pixelSize + 16;
+	int pixely = (plyr.y < 32) ? plyr.y * pixelSize : (plyr.y - 32) * pixelSize;
+	if (plyr.facing == WEST) DrawImage(pixelx, pixely, 17);
+	if (plyr.facing == NORTH) DrawImage(pixelx, pixely, 14);
+	if (plyr.facing == EAST) DrawImage(pixelx, pixely, 16);
+	if (plyr.facing == SOUTH) DrawImage(pixelx, pixely, 15);
 
-    // Draw legend sprite
-   	mapLegend->setPosition(sf::Vector2f(512+16, 16));
-   	App.draw(*mapLegend);
-
+	mapLegend->setPosition(sf::Vector2f(512 + 16, 16));
+	App.draw(*mapLegend);
 	plyr.drawingBigAutomap = false;
 }
 
-
 void setAutoMapFlag(int mapno, int x, int y)
 {
-	//adds the rest of the area to the automap if in a shop/area
-	int cellNo = getMapIndex(x,y);
+	int cellNo = getMapIndex(x, y);
 	autoMapExplored[mapno][cellNo] = true;
 }
+
+#endif // ARX_USE_SDL2

@@ -1,5 +1,4 @@
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
+#include "platform/ArxClock.h"
 #include <optional>
 #include <fstream>
 #include <iostream>
@@ -25,11 +24,9 @@ struct lyricElement
 extern int                      lyricX;
 extern int                      lyricY;
 extern Player                   plyr;
-extern sf::Clock                clock1;
-extern sf::RenderWindow         App;
-extern sf::RenderTexture        lyricstexture;
+// Graphics not available in web port
 extern int                      charYBase;
-sf::Clock               clock1;
+arx::Clock               clock1;
 int                     iCounter;
 
 bool                            wipe;
@@ -39,8 +36,7 @@ int                             lyricPointer, lyricDuration, sequenceLength;
 float                           fSpeedCoefficient = 0;
 string                          backText, foreText;
 
-sf::Texture                     lyricFontImage;
-std::optional<sf::Sprite>               lyricCharImage;
+// Graphics not available in web port
 
 lyricElement                    lyrics[2048];
 
@@ -50,14 +46,13 @@ lyricElement                    lyrics[2048];
 //==============================================================================
 void initLyricFont()
     {
-	lyricFontImage.loadFromFile("data/images/core/songFont.png");
-	lyricCharImage.emplace(lyricFontImage);
+	// Graphics not available in web port
     }
 
 
 void lyricColour(int r, int g, int b, int a)
     {
-	lyricCharImage->setColor(sf::Color(r, g, b, a));
+	// Graphics not available in web port
     }
 
 
@@ -102,9 +97,7 @@ void drawLyricChar(int x, int initchar_no)
 	if (initchar_no == 46) char_no  =   31;
 	int charX                       =   char_no * 32;
 
-	lyricCharImage->setTextureRect(sf::IntRect({charX, 0}, {32, 16}));
-	lyricCharImage->setPosition(sf::Vector2f(static_cast<float>(lyricX+((x - 1) * 32)), static_cast<float>(lyricY)));
-	App.draw(*lyricCharImage);
+	// Graphics not available in web port
     }
 
 
@@ -229,7 +222,7 @@ void updateLyrics()
 			if (ink == 4) lyricColour(192, 192, 192, 255);
 			lyric(x, foreText);
 
-            sf::sleep (sf::milliseconds(100));
+            arx::sleep (arx::milliseconds(100));
             lyricDuration          -=  100;
 
             if (lyricDuration <= 0)
@@ -310,8 +303,8 @@ void updateLyrics()
 		if ((lyrics[lyricPointer].x > 20) && (lyrics[lyricPointer].x < 150000) && (lyricDuration == 0))
             {
             //std::cout << "\nDelayPoint hit\n";
-            sf::Time  timeSinceLast =   clock1.getElapsedTime();
-            sf::Time  timeGiven     =   sf::milliseconds(lyrics[lyricPointer].x);
+            arx::Time  timeSinceLast =   clock1.getElapsedTime();
+            arx::Time  timeGiven     =   arx::milliseconds(static_cast<float>(lyrics[lyricPointer].x));
             float     fSinceLast    =   timeSinceLast.asSeconds();
             //std::cout << fSinceLast << "\n";
             float     fGiven        =   timeGiven.asSeconds();

@@ -1,15 +1,12 @@
-#include <SFML\Graphics.hpp>
 #include <optional>
-
-#include <SFML\OpenGL.hpp>
-
 #include <string>
 
-
+#ifndef ARX_USE_SDL2
 #include <openssl/sha.h> // For MD5 hashing
 #include <openssl/evp.h>
 #include <openssl/md5.h> // For MD5 hashing
 #include <cpp-base64/base64.h> // Base64 encoding library
+#endif
 
 
 #include <stdio.h>
@@ -25,12 +22,13 @@
 
 
 #include "misc.h"
+#include "platform/Window.h"
+#include "platform/InputQueue.h"
+
 #include "display.h"
 #include "font.h"
 #include "player.h"
 #include "actor.h"
-
-
 
 
 
@@ -49,6 +47,210 @@ int Hex2Dec(std::string s)
     return i;
 }
 
+// =======================================================================
+// INPUT FUNCTIONS - available in both SFML and SDL2 builds
+// =======================================================================
+
+#ifdef ARX_USE_SDL2
+
+// -----------------------------------------------------------------------
+// SDL2 input path: drain events from g_window->pollEvent() and push
+// them into the InputQueue. No SFML dependency.
+// -----------------------------------------------------------------------
+
+string getTextChar()
+{
+	// Drain text input events into the text queue
+	if (arx::g_window) {
+		while (std::optional<arx::Event> event = arx::g_window->pollEvent()) {
+			if (event->type == arx::EventType::TextInput) {
+				// Push to text input queue
+				arx::textPush(event->text);
+			} else if (event->type == arx::EventType::KeyPressed) {
+				// Also push key events into the key queue for readKey
+				switch (event->key) {
+				case arx::Key::Escape:    arx::inputPush("ESC");      break;
+				case arx::Key::Space:     arx::inputPush("SPACE");    break;
+				case arx::Key::Enter:     arx::inputPush("RETURN");   break;
+				case arx::Key::Backspace: arx::inputPush("BACKSPACE");break;
+				case arx::Key::Left:      arx::inputPush("LEFT");     break;
+				case arx::Key::Right:     arx::inputPush("RIGHT");    break;
+				case arx::Key::Up:        arx::inputPush("UP");       break;
+				case arx::Key::Down:      arx::inputPush("DOWN");     break;
+				case arx::Key::Num0:      arx::inputPush("0");        break;
+				case arx::Key::Num1:      arx::inputPush("1");        break;
+				case arx::Key::Num2:      arx::inputPush("2");        break;
+				case arx::Key::Num3:      arx::inputPush("3");        break;
+				case arx::Key::Num4:      arx::inputPush("4");        break;
+				case arx::Key::Num5:      arx::inputPush("5");        break;
+				case arx::Key::Num6:      arx::inputPush("6");        break;
+				case arx::Key::Num7:      arx::inputPush("7");        break;
+				case arx::Key::Num8:      arx::inputPush("8");        break;
+				case arx::Key::Num9:      arx::inputPush("9");        break;
+				case arx::Key::F1:        arx::inputPush("F1");       break;
+				case arx::Key::F2:        arx::inputPush("F2");       break;
+				case arx::Key::F3:        arx::inputPush("F3");       break;
+				case arx::Key::F4:        arx::inputPush("F4");       break;
+				case arx::Key::F5:        arx::inputPush("F5");       break;
+				case arx::Key::F6:        arx::inputPush("F6");       break;
+				case arx::Key::F7:        arx::inputPush("F7");       break;
+				case arx::Key::F8:        arx::inputPush("F8");       break;
+				case arx::Key::F10:       arx::inputPush("F10");      break;
+				case arx::Key::F11:       arx::inputPush("F11");      break;
+				case arx::Key::F12:       arx::inputPush("F12");      break;
+				default: break;
+				}
+			} else if (event->type == arx::EventType::Closed) {
+				arx::inputPush("QUIT");
+			}
+		}
+	}
+
+	// Poll from the text queue - return the first typed character
+	string result;
+	while (true) {
+		result = arx::textPoll();
+		if (result.empty()) break;
+
+		// Filter special keys the game expects from text input
+		if (result == "\r" || result == "\n") { result = "RETURN"; break; }
+		if (result == "\b") { result = "BACKSPACE"; break; }
+		if (result == " ") { result = "SPACE"; break; }
+		if (result == "\x1b") { result = "ESC"; break; }
+
+		// Only return printable ASCII characters
+		if (result.size() == 1 && result[0] >= 32 && result[0] < 127) {
+			// Convert to uppercase for game consistency
+			if (result[0] >= 'a' && result[0] <= 'z') {
+				result[0] = result[0] - 32;
+			}
+			break;
+		}
+		// Skip non-printable characters and continue polling
+	}
+	return result;
+}
+
+
+
+string readKey()
+{
+	string keyString = "";
+
+	// Use g_window for the isOpen check so we're not tied to App directly.
+	if (!arx::g_window || !arx::g_window->isOpen()) {
+		return "QUIT";
+	}
+
+	// Drain all pending events from the SDL window event queue
+	while (std::optional<arx::Event> event = arx::g_window->pollEvent())
+	{
+		if (event->type == arx::EventType::KeyPressed)
+		{
+			string k = "";
+			switch (event->key) {
+			case arx::Key::Left:      k = "left";    break;
+			case arx::Key::Right:     k = "right";   break;
+			case arx::Key::Up:        k = "up";      break;
+			case arx::Key::Down:      k = "down";    break;
+			case arx::Key::F1:        k = "F1";      break;
+			case arx::Key::F2:        k = "F2";      break;
+			case arx::Key::F3:        k = "F3";      break;
+			case arx::Key::F4:        k = "F4";      break;
+			case arx::Key::F5:        k = "F5";      break;
+			case arx::Key::F6:        k = "F6";      break;
+			case arx::Key::F7:        k = "F7";      break;
+			case arx::Key::F8:        k = "F8";      break;
+			case arx::Key::F10:       k = "F10";     break;
+			case arx::Key::F11:       k = "F11";     break;
+			case arx::Key::F12:       k = "F12";     break;
+			case arx::Key::Num0:      k = "0";       break;
+			case arx::Key::Num1:      k = "1";       break;
+			case arx::Key::Num2:      k = "2";       break;
+			case arx::Key::Num3:      k = "3";       break;
+			case arx::Key::Num4:      k = "4";       break;
+			case arx::Key::Num5:      k = "5";       break;
+			case arx::Key::Num6:      k = "6";       break;
+			case arx::Key::Num7:      k = "7";       break;
+			case arx::Key::Num8:      k = "8";       break;
+			case arx::Key::Num9:      k = "9";       break;
+			case arx::Key::A:         k = "A";       break;
+			case arx::Key::B:         k = "B";       break;
+			case arx::Key::C:         k = "C";       break;
+			case arx::Key::D:         k = "D";       break;
+			case arx::Key::E:         k = "E";       break;
+			case arx::Key::F:         k = "F";       break;
+			case arx::Key::G:         k = "G";       break;
+			case arx::Key::H:         k = "H";       break;
+			case arx::Key::I:         k = "I";       break;
+			case arx::Key::J:         k = "J";       break;
+			case arx::Key::K:         k = "K";       break;
+			case arx::Key::L:         k = "L";       break;
+			case arx::Key::M:         k = "M";       break;
+			case arx::Key::N:         k = "N";       break;
+			case arx::Key::O:         k = "O";       break;
+			case arx::Key::P:         k = "P";       break;
+			case arx::Key::Q:         k = "Q";       break;
+			case arx::Key::R:         k = "R";       break;
+			case arx::Key::S:         k = "S";       break;
+			case arx::Key::T:         k = "T";       break;
+			case arx::Key::U:         k = "U";       break;
+			case arx::Key::V:         k = "V";       break;
+			case arx::Key::W:         k = "W";       break;
+			case arx::Key::X:         k = "X";       break;
+			case arx::Key::Y:         k = "Y";       break;
+			case arx::Key::Z:         k = "Z";       break;
+			case arx::Key::Space:     k = "SPACE";   break;
+			case arx::Key::Enter:     k = "RETURN";  break;
+			case arx::Key::Backspace: k = "BACKSPACE"; break;
+			case arx::Key::Escape:    k = "ESC";     break;
+			default: break;
+			}
+
+			if (!k.empty()) {
+				arx::inputPush(k);
+				if (keyString.empty()) keyString = k; // return first key this poll
+			}
+		}
+
+		if (event->type == arx::EventType::TextInput) {
+			arx::textPush(event->text);
+		}
+
+		if (event->type == arx::EventType::Closed) {
+			arx::inputPush("QUIT");
+			keyString = "QUIT";
+		}
+	}
+
+	// Also drain the InputQueue for any keys pushed by other means
+	if (keyString.empty()) {
+		keyString = arx::inputPoll();
+	}
+
+	return keyString;
+}
+
+bool keyPressed()
+{
+    if (readKey()!="") return true;
+	return false;
+}
+
+string getSingleKey()
+{
+	readKey();
+	return arx::inputPoll();
+}
+
+#endif // ARX_USE_SDL2
+
+// =======================================================================
+// GAME UTILITY FUNCTIONS (SFML/player-dependent)
+// =======================================================================
+
+#ifndef ARX_USE_SDL2
+
 bool checkCoins(int gold,int silver,int copper)
 {
 	bool sufficientFunds = false;
@@ -60,11 +262,8 @@ bool checkCoins(int gold,int silver,int copper)
 
 void deductCoins(int gold,int silver, int copper)
 {
-	// Assumption 1 - Goods will be paid for using copper coins if possible as they take up the most weight for least value
-	// Assumption 2 - Change will be given using higher value coins
 	bool deductionCompleted = false;
 	int itemCost = (gold*100)+(silver*10)+copper;
-
 
 	if (itemCost <= plyr.copper)
 	{
@@ -76,8 +275,6 @@ void deductCoins(int gold,int silver, int copper)
 	itemCost-=plyr.copper;
 	plyr.copper = 0;
 	}
-
-
 
 	if (!deductionCompleted)
 	{
@@ -96,7 +293,6 @@ void deductCoins(int gold,int silver, int copper)
 			plyr.silver = 0;
 		}
 	}
-
 
 	if (!deductionCompleted)
 	{
@@ -117,239 +313,7 @@ void deductCoins(int gold,int silver, int copper)
 		if (!copperChange==0) { plyr.copper+=(10-copperChange); }
 		if (!silverChange==0) { plyr.silver+=(10-silverChange); }
 		deductionCompleted = true;
-
 	}
-}
-
-string getTextChar()
-{
-	string keyString;
-	while (const std::optional Event = App.pollEvent())
-	{
-		if (Event->is<sf::Event::TextEntered>())
-		{
-			const auto* textEntered = Event->getIf<sf::Event::TextEntered>();
-			if (textEntered->unicode < 128) { keyString = static_cast<char>(textEntered->unicode); }
-			if (textEntered->unicode == 13) { keyString="RETURN"; }
-			if (textEntered->unicode == 32) { keyString="SPACE"; }
-			if (textEntered->unicode == 8) { keyString="BACKSPACE"; }
-		}
-	}
-	return(keyString);
-}
-
-
-
-string readKey()
-{
-	string keyString = "";
-
-		// Process events
-		while (const std::optional Event = App.pollEvent())
-		{
-			if (const auto* keyPressed = Event->getIf<sf::Event::KeyPressed>())
-			{
-				if (keyPressed->code == sf::Keyboard::Key::Left) keyString="left";
-				if (keyPressed->code == sf::Keyboard::Key::Right) keyString="right";
-				if (keyPressed->code == sf::Keyboard::Key::Up) keyString="up";
-				if (keyPressed->code == sf::Keyboard::Key::Down) keyString="down";
-
-				if (keyPressed->code == sf::Keyboard::Key::F1) keyString="F1";
-				if (keyPressed->code == sf::Keyboard::Key::F2) keyString="F2";
-				if (keyPressed->code == sf::Keyboard::Key::F3) keyString="F3";
-				if (keyPressed->code == sf::Keyboard::Key::F4) keyString="F4";
-				if (keyPressed->code == sf::Keyboard::Key::F5) keyString="F5";
-				if (keyPressed->code == sf::Keyboard::Key::F6) keyString="F6";
-				if (keyPressed->code == sf::Keyboard::Key::F7) keyString="F7";
-				if (keyPressed->code == sf::Keyboard::Key::F8) keyString="F8";
-				if (keyPressed->code == sf::Keyboard::Key::F10) keyString="F10";
-				if (keyPressed->code == sf::Keyboard::Key::F11) keyString="F11";
-				if (keyPressed->code == sf::Keyboard::Key::F12) keyString="F12";
-
-				if (keyPressed->code == sf::Keyboard::Key::Num0) keyString="0";
-				if (keyPressed->code == sf::Keyboard::Key::Comma) keyString=",";
-				if (keyPressed->code == sf::Keyboard::Key::Period) keyString=".";
-				if (keyPressed->code == sf::Keyboard::Key::Num1) keyString="1";
-				if (keyPressed->code == sf::Keyboard::Key::Num2) keyString="2";
-				if (keyPressed->code == sf::Keyboard::Key::Num3) keyString="3";
-				if (keyPressed->code == sf::Keyboard::Key::Num4) keyString="4";
-				if (keyPressed->code == sf::Keyboard::Key::Num5) keyString="5";
-				if (keyPressed->code == sf::Keyboard::Key::Num6) keyString="6";
-				if (keyPressed->code == sf::Keyboard::Key::Num7) keyString="7";
-				if (keyPressed->code == sf::Keyboard::Key::Num8) keyString="8";
-				if (keyPressed->code == sf::Keyboard::Key::Num9) keyString="9";
-
-				if (keyPressed->code == sf::Keyboard::Key::A) keyString="A";
-				if (keyPressed->code == sf::Keyboard::Key::B) keyString="B";
-				if (keyPressed->code == sf::Keyboard::Key::C) keyString="C";
-				if (keyPressed->code == sf::Keyboard::Key::D) keyString="D"; // diag info
-				if (keyPressed->code == sf::Keyboard::Key::E) keyString="E"; // force encounterif ((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Key::Q)) keyString="Q";
-				if (keyPressed->code == sf::Keyboard::Key::F) keyString="F";
-				if (keyPressed->code == sf::Keyboard::Key::G) keyString="G";
-				if (keyPressed->code == sf::Keyboard::Key::H) keyString="H";
-				if (keyPressed->code == sf::Keyboard::Key::I) keyString="I";
-				if (keyPressed->code == sf::Keyboard::Key::J) keyString="J";
-				if (keyPressed->code == sf::Keyboard::Key::K) keyString="K";
-				if (keyPressed->code == sf::Keyboard::Key::L) keyString="L";
-				if (keyPressed->code == sf::Keyboard::Key::M) keyString="M";
-				if (keyPressed->code == sf::Keyboard::Key::N) keyString="N";
-				if (keyPressed->code == sf::Keyboard::Key::O) keyString="O";
-				if (keyPressed->code == sf::Keyboard::Key::P) keyString="P";
-				if (keyPressed->code == sf::Keyboard::Key::Q) keyString="Q";
-				if (keyPressed->code == sf::Keyboard::Key::R) keyString="R";
-				if (keyPressed->code == sf::Keyboard::Key::S) keyString="S";
-				if (keyPressed->code == sf::Keyboard::Key::T) keyString="T";
-				if (keyPressed->code == sf::Keyboard::Key::U) keyString="U";
-				if (keyPressed->code == sf::Keyboard::Key::V) keyString="V";
-				if (keyPressed->code == sf::Keyboard::Key::W) keyString="W";
-				if (keyPressed->code == sf::Keyboard::Key::X) keyString="X";
-				if (keyPressed->code == sf::Keyboard::Key::Y) keyString="Y";
-				if (keyPressed->code == sf::Keyboard::Key::Z) keyString="Z";
-				if (keyPressed->code == sf::Keyboard::Key::Add) keyString = "+";
-				if (keyPressed->code == sf::Keyboard::Key::Subtract) keyString = "-";
-
-				if (keyPressed->code == sf::Keyboard::Key::Space) keyString="SPACE";
-				if (keyPressed->code == sf::Keyboard::Key::Enter) keyString="RETURN";
-				if (keyPressed->code == sf::Keyboard::Key::Backspace) keyString="BACKSPACE";
-
-				// Escape key : exit
-				if (keyPressed->code == sf::Keyboard::Key::Escape)
-					keyString="ESC";
-			}
-
-			// Close window : exit
-			if (Event->is<sf::Event::Closed>())
-				keyString="QUIT";
-		}
-
-	return(keyString);
-
-}
-
-bool keyPressed()
-{
-    //string key = "";
-    //key = readKey();
-    if (readKey()!="") return true;
-	return false;
-}
-
-
-
-string getSingleKey() // single pass for a key
-{
-	string key;
-	//key = "";
-	key = readKey();
-
-	return key;
-}
-
-
-int randn(int low,int high)
- {
-   int result;
-   //if (n==0) n = 1; // to temporarily stop divide by 0 errors
-   //result = rand()%n;
-   //if (result == 0) { result = 1; }
-	//if (high == 0) result = 0;
-	//else
-   //result = (rand()%(high-low))+low;
-
-   if (high >= low) {
-	   result = rand() % ((high - low) + 1) + low;
-   }
-   else {
-	   // Handle the case where high is less than low.
-	   // You can return an error code or take appropriate action.
-	   result = rand() % ((high) + 1) + low;
-   }
-  
-   return result;
-
-}
-/*
-bool pressSpace()
-{
-	bool response = false;
-	string key ="";
-	key = readKey();
-	if (key=="SPACE") { response = true; }
-	return response;
-}
-*/
-
-
-
-int oldRollDice(int x, int y)
-{
-    int result = 0;
-    if (x != 0)
-    {
-         int i = 1;
-         while (i <= x)
-         {
-             int roll = randn(0,y);
-             result = result + roll;
-             i++;
-         }
-    }
-     return result;
-}
-
-
-std::pair<int, int> getDigits(int number) {
-	std::string numStr = std::to_string(number);
-	int firstDigit = numStr.empty() ? 0 : (numStr[0] - '0');
-	int remainingDigits = numStr.size() > 1 ? std::stoi(numStr.substr(1)) : 0;
-	return std::make_pair(firstDigit, remainingDigits);
-}
-
-int rollDice(int rolls, int dice)
-{
-	int result = 0;
-
-	if (dice <= 0)
-	{
-		// Handle the error case where dice has 0 or negative sides
-		std::cout << "\nInvalid dice with " << dice << " sides!\n";
-		return 0; // Return 0 or an appropriate error value
-	}
-
-	for (int r = 0; r < rolls; r++)
-	{
-		result = result + rand() % dice + 1; // Roll the dice
-	}
-
-	return result;
-}
-
-
-
-
-std::string toCurrency(int i)	// convert int to currency string with commas
-{
-	string temp, formatedNumber, low, high;
-	std::stringstream s;
-	s << i;
-	temp = s.str();
-	if (i<1000)
-	{
-		formatedNumber = temp;
-	}
-	if (i>999)
-	{
-		int c;
-		int zLength = temp.length();
-		low = temp.substr(zLength-3,3);
-		if (zLength==6) { c = 3; }
-		if (zLength==5) { c = 2; }
-		if (zLength==4) { c = 1; }
-		high = temp.substr(0,c);
-		formatedNumber = high + "," + low;
-	}
-
-	return formatedNumber;
 }
 
 void displayCoins()
@@ -358,7 +322,6 @@ void displayCoins()
 	int coinsCopper = (plyr.gold*100)+(plyr.silver*10)+plyr.copper;
 	str = "Your coins in copper " + toCurrency(coinsCopper);
 	cyText (9,str);
-
 }
 
 void displaySilverCoins()
@@ -367,24 +330,21 @@ void displaySilverCoins()
 	int coinsSilver = (plyr.gold*10)+plyr.silver+(plyr.copper/10);
 	str = "Your coins in silver " + toCurrency(coinsSilver);
 	cyText (9,str);
-
 }
 
 int inputValue(string message, int shopNo)
 {
 	int itemQuantity = 0;
-
 	string str, key;
 	string inputText = "";
 	int maxNumberSize = 6;
 	bool enterKeyNotPressed = true;
 	while ( enterKeyNotPressed )
 	{
-		// error below?
 		clearShopDisplay();
 		cyText (0, message);
-		if (shopNo==13) displayCoins(); // Bank
-		if (shopNo==14) displayCoins(); // City Healer
+		if (shopNo==13) displayCoins();
+		if (shopNo==14) displayCoins();
 
 		str = ">" + inputText + "_";
 		bText(17,5, str);
@@ -414,25 +374,132 @@ int inputValue(string message, int shopNo)
 
 void moduleMessage(string txt)
 {
-	string key = "";
-	while (key!="SPACE")
-	{
-			clearShopDisplay();
-			cText (txt);
-			cyText(9,"( Press SPACE to continue )");
-			updateDisplay();
-			key = getSingleKey();
-	}
+	clearShopDisplay();
+	cText(txt);
+	cyText(9,"( Press SPACE to continue )");
+	updateDisplay();
+	getSingleKey();
 }
 
-std::string sha256(const std::string& input) {
+std::string processMessage(std::string unprocessedMessage, std::string ReplacementText)
+{
+	std::string newMessage = unprocessedMessage;
+	std::string genderString = setGenderString(plyr.gender);
+	std::string genderIdString = setGenderIdString(plyr.gender);
+	std::string genderGreetString = setGenderGreetString(plyr.gender);
+	replaceSymbol(newMessage, genderString, "^^");
+	replaceSymbol(newMessage, genderIdString, "");
+	replaceSymbol(newMessage, genderGreetString, ">>");
+	replaceSymbol(newMessage, plyr.name, "||");
+	replaceSymbol(newMessage, Monster_Buffer[plyr.encounterRef].name, "$$");
+	if (ReplacementText != "")
+	{
+		replaceSymbol(newMessage, ReplacementText, "++");
+	}
+	replaceSymbol(newMessage, "", "\"");
+	return newMessage;
+}
+
+#else // ARX_USE_SDL2 - stub unimplemented game utility functions (not called in web build)
+
+bool checkCoins(int, int, int) { return false; }
+void deductCoins(int, int, int) {}
+void displayCoins() {}
+void displaySilverCoins() {}
+int inputValue(string, int) { return 0; }
+void moduleMessage(string) {}
+std::string processMessage(std::string, std::string) { return ""; }
+
+#endif // ARX_USE_SDL2
+
+// =======================================================================
+// MATH / STRING UTILITIES (available in both builds)
+// =======================================================================
+
+int randn(int low,int high)
+{
+   int result;
+   if (high >= low) {
+	   result = rand() % ((high - low) + 1) + low;
+   }
+   else {
+	   result = rand() % ((high) + 1) + low;
+   }
+   return result;
+}
+
+int oldRollDice(int x, int y)
+{
+    int result = 0;
+    if (x != 0)
+    {
+         int i = 1;
+         while (i <= x)
+         {
+             int roll = randn(0,y);
+             result = result + roll;
+             i++;
+         }
+    }
+     return result;
+}
+
+std::pair<int, int> getDigits(int number)
+{
+	std::string numStr = std::to_string(number);
+	int firstDigit = numStr.empty() ? 0 : (numStr[0] - '0');
+	int remainingDigits = numStr.size() > 1 ? std::stoi(numStr.substr(1)) : 0;
+	return std::make_pair(firstDigit, remainingDigits);
+}
+
+int rollDice(int rolls, int dice)
+{
+	int result = 0;
+	if (dice <= 0)
+	{
+		std::cout << "\nInvalid dice with " << dice << " sides!\n";
+		return 0;
+	}
+	for (int r = 0; r < rolls; r++)
+	{
+		result = result + rand() % dice + 1;
+	}
+	return result;
+}
+
+std::string toCurrency(int i)
+{
+	string temp, formatedNumber, low, high;
+	std::stringstream s;
+	s << i;
+	temp = s.str();
+	if (i<1000)
+	{
+		formatedNumber = temp;
+	}
+	if (i>999)
+	{
+		int c;
+		int zLength = temp.length();
+		low = temp.substr(zLength-3,3);
+		if (zLength==6) { c = 3; }
+		if (zLength==5) { c = 2; }
+		if (zLength==4) { c = 1; }
+		high = temp.substr(0,c);
+		formatedNumber = high + "," + low;
+	}
+	return formatedNumber;
+}
+
+std::string sha256(const std::string& input)
+{
+#ifndef ARX_USE_SDL2
 	EVP_MD_CTX* mdctx;
 	const EVP_MD* md;
 	unsigned char hash[SHA256_DIGEST_LENGTH];
-	unsigned int hash_len; // Change int to unsigned int
+	unsigned int hash_len;
 
 	OpenSSL_add_all_digests();
-
 	md = EVP_get_digestbyname("sha256");
 	if (md == NULL) {
 		std::cerr << "Error: SHA-256 not supported" << std::endl;
@@ -447,23 +514,22 @@ std::string sha256(const std::string& input) {
 
 	EVP_DigestInit_ex(mdctx, md, NULL);
 	EVP_DigestUpdate(mdctx, input.c_str(), input.length());
-	EVP_DigestFinal_ex(mdctx, hash, &hash_len); // Pass address of hash_len
-
+	EVP_DigestFinal_ex(mdctx, hash, &hash_len);
 	EVP_MD_CTX_free(mdctx);
 
-	// Convert the hash to Base64
 	std::string base64_hash = base64_encode(hash, hash_len);
-
 	return base64_hash;
+#else
+	// OpenSSL not available in Emscripten build; return empty string
+	return "";
+#endif
 }
 
-
-std::string trimString(float value, int maxDigits) {
+std::string trimString(float value, int maxDigits)
+{
 	std::stringstream ss;
-	ss << std::fixed << std::setprecision(maxDigits) << value; // Convert float to string with fixed precision
-	std::string trimmedStr = ss.str(); // Get the string representation
-
-	// Remove trailing zeros after the decimal point
+	ss << std::fixed << std::setprecision(maxDigits) << value;
+	std::string trimmedStr = ss.str();
 	size_t pos = trimmedStr.find('.');
 	if (pos != std::string::npos) {
 		size_t endPos = trimmedStr.find_last_not_of('0');
@@ -471,27 +537,23 @@ std::string trimString(float value, int maxDigits) {
 			trimmedStr = trimmedStr.substr(0, endPos + 1);
 		}
 		else {
-			// If the decimal point is followed only by zeros, remove it
 			trimmedStr.erase(pos);
 		}
 	}
-
 	return trimmedStr;
 }
 
-// Function to copy elements from one array to another based on specified indexes
-void copyElements(int source[], int dest[], int indexes[], int numIndexes) {
+void copyElements(int source[], int dest[], int indexes[], int numIndexes)
+{
 	for (int i = 0; i < numIndexes; ++i) {
 		dest[i] = source[indexes[i]];
 	}
 }
 
-// Function to convert string to boolean
-bool stringToBool(const std::string& str) {
-	// Convert the string to lowercase to make the check case-insensitive
+bool stringToBool(const std::string& str)
+{
 	std::string lowerStr = str;
 	std::transform(lowerStr.begin(), lowerStr.end(), lowerStr.begin(), ::tolower);
-
 	if (lowerStr == "true" || lowerStr == "1") {
 		return true;
 	}
@@ -503,7 +565,8 @@ bool stringToBool(const std::string& str) {
 	}
 }
 
-void replaceSymbol(std::string& origstr, const std::string& replaceWith, const std::string stringToFind) {
+void replaceSymbol(std::string& origstr, const std::string& replaceWith, const std::string stringToFind)
+{
 	int lengthtofind = stringToFind.size();
 	size_t found = origstr.find(stringToFind);
 	while (found != std::string::npos) {
@@ -511,29 +574,3 @@ void replaceSymbol(std::string& origstr, const std::string& replaceWith, const s
 		found = origstr.find(stringToFind, found + replaceWith.size());
 	}
 }
-
-
-
-
-
-std::string processMessage(std::string unprocessedMessage, std::string ReplacementText)
-{
-	std::string newMessage = unprocessedMessage;
-	std::string genderString = setGenderString(plyr.gender);
-	std::string genderIdString = setGenderIdString(plyr.gender);
-	std::string genderGreetString = setGenderGreetString(plyr.gender);
-	replaceSymbol(newMessage, genderString, "^^");  //Man Woman
-	replaceSymbol(newMessage, genderIdString, "��"); // Knave Scullion
-	replaceSymbol(newMessage, genderGreetString, ">>"); // Brother Sister
-	replaceSymbol(newMessage, plyr.name, "||"); //Player name
-	replaceSymbol(newMessage, Monster_Buffer[plyr.encounterRef].name, "$$"); //Text
-	if (ReplacementText != "")
-	{
-		replaceSymbol(newMessage, ReplacementText, "++");
-	}
-	replaceSymbol(newMessage, "", "\"");
-	return newMessage;
-
-	
-}
-

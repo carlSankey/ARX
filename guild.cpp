@@ -1,6 +1,4 @@
-
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
+#include <string>
 
 #include <string>
 #include <iostream>
@@ -19,9 +17,10 @@
 
 #include "spells.h"
 #include <bitset>
+#include "platform/ArxClock.h"
 
 
-extern sf::Clock        clock1;
+extern arx::Clock        clock1;
 extern int              iCounter;
 
 
@@ -31,7 +30,7 @@ int guildNo;
 //extern spellItem spellBuffer[35];
 extern questItem questItems[8];
 
-sf::Music Music1;
+// Music not available in web port
 string guildLyricsFilename;
 
 
@@ -127,27 +126,7 @@ std::cout << guildNo <<"\n";
 	guildSpellsNo -= 6; // adjustment for menu
 	if (guildNo==0) guildSpellsNo--; // DIRTY FIX FOR THIEVES GUILD!2
 
-	bool musicPlaying = false;
-
-
-    if (!musicPlaying)
-    {
-
-        if (plyr.musicStyle==0)
-        {
-            if (plyr.scenario==0) { Music1.openFromFile("data/audio/cityGuild.ogg");  guildLyricsFilename = "goodGuild.txt"; }
-            if ((plyr.scenario==1) && (guilds[guildNo].type==1)) { Music1.openFromFile("data/audio/evilGuild.ogg"); guildLyricsFilename = "evilGuild.txt"; }
-            if ((plyr.scenario==1) && (guilds[guildNo].type==2)) { Music1.openFromFile("data/audio/goodGuild.ogg"); guildLyricsFilename = "goodGuild.txt"; }
-        }
-        if (plyr.musicStyle==1)
-        {
-            if (guilds[guildNo].type==1) { Music1.openFromFile("data/audio/B/evilGuild.ogg"); guildLyricsFilename = "evilGuild.txt"; }
-            if (guilds[guildNo].type==2) { Music1.openFromFile("data/audio/B/goodGuild.ogg"); guildLyricsFilename = "goodGuild.txt";}
-        }
-        loadLyrics(guildLyricsFilename);
-        Music1.play();
-        musicPlaying = true;
-    }
+	// Music not available in web port
 
 
 	int guildMenu = 1; // high level menu
@@ -252,7 +231,7 @@ std::cout << guildNo <<"\n";
 
 
 			key = getSingleKey();
-			if (key=="F1") { Music1.stop(); loadLyrics(guildLyricsFilename); Music1.play(); }
+			// Music not available in web port
 			if ( key=="0" ) { guildMenu = 0; }
 			if ( key=="down" ) { guildMenu = 0; }
 			if ( key=="1" )
@@ -801,7 +780,6 @@ std::cout << guildNo <<"\n";
 
 
 	}
-	Music1.stop();
 	leaveShop();
 }
 
@@ -981,7 +959,7 @@ void practiceSpells()
 			str = spells[(spellBuffer[itemRef].no)].name;
 			cyText (4, str);
 			updateDisplay();
-			sf::sleep(sf::seconds(1));
+			arx::sleep(arx::seconds(1));
 			addHour();
 			practiceHours--;
 		}

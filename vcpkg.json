@@ -1,9 +1,11 @@
 {
   "name": "arxx",
   "version": "0.90",
-  "description": "Alternate Reality X - bgfx renderer migration",
+  "description": "Alternate Reality X - SDL2/bgfx web port",
   "dependencies": [
     "bgfx",
+    "sdl2",
+    "sdl2-mixer",
     {
       "name": "sfml",
       "features": [
@@ -16,6 +18,6 @@
     "openssl",
     "glfw3",
     "glew",
-"cpp-base64"
+    "cpp-base64"
   ]
 }

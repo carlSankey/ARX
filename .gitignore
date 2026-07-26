@@ -1,4 +1,5 @@
 # Build output directories
+build-web/
 Debug/
 Release/
 Win32/

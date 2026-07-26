@@ -1,5 +1,4 @@
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
+#include <string>
 
 #include <string>
 #include <iostream>
@@ -12,9 +11,12 @@
 #include "display.h"
 #include "misc.h"
 
+#ifdef __EMSCRIPTEN__
+#include <emscripten/emscripten.h>
+#endif
+
 // extern Player plyr;
-extern sf::Sound cityGate2Sound;
-extern sf::Sound cityGate3Sound;
+// Sound effects not available in web port
 
 using std::string;
 using std::cout;
@@ -32,40 +34,46 @@ struct counter
   };
 
 
+  // Y positions: city stats at y=16, dungeon stats at y=22,
+  // city copper at y=302, dungeon silver at y=314.
+  // These values position the digit sprites over the gate background image's
+  // counter windows. City and dungeon have different offsets.
   counter counters[8] =
   {
-  {10,16,64-32, 96 ,11,11},
-  {13,21,144-32,96, 9,9},
-  {15,10,224-32,96, 8,8},
-  {10,10,304-32,96, 13,13},
-  {18,11,384-32,96, 10,10},
-  {10,12,460-32,96, 8,8},
-  {23,15,540-32,96,14,14},
-  {54,47,560-32,336,11,11},
+  {10,16,64-32, 16 ,11,11},
+  {13,21,144-32,16, 9,9},
+  {15,10,224-32,16, 8,8},
+  {10,10,304-32,16, 13,13},
+  {18,11,384-32,16, 10,10},
+  {10,12,460-32,16, 8,8},
+  {23,15,540-32,16,14,14},
+  {54,47,560-32,300,11,11},
   };
 
+  // Dungeon: stats counters at y=34, silver counter at y=284
   counter dungeonCounters[8] =
   {
-  {10, 16,48, 96 ,2,2},
-  {13,21,128,96, 0,0},
-  {15,10, 208,96, 2,2},
-  {10, 10, 288,96, 3,3},
-  {18,11,368,96, 4,4},
-  {10,12,444,96, 1,1},
-  {23,15,524,96,3,3},
-  {54,47,544,336,5,5},
+  {10, 16,48, 34 ,2,2},
+  {13,21,128,34, 0,0},
+  {15,10, 208,34, 2,2},
+  {10, 10, 288,34, 3,3},
+  {18,11,368,34, 4,4},
+  {10,12,444,34, 1,1},
+  {23,15,524,34,3,3},
+  {54,47,544,284,5,5},
   };
 
+  // City: stats counters at y=18, copper counter at y=312
   counter cityCounters[8] =
   {
-  {8, 16,48, 96 ,2,2},
-  {13,21,128,96, 0,0},
-  {15,10, 208,96, 2,2},
-  {10, 10, 288,96, 4,4},
-  {18,11,368,96, 5,5},
-  {10,12,444,96, 1,1},
-  {23,15,528,96,4,4},
-  {54,47,514,370,5,5},
+  {8, 16,48, 18 ,2,2},
+  {13,21,128,18, 0,0},
+  {15,10, 208,18, 2,2},
+  {10, 10, 288,18, 4,4},
+  {18,11,368,18, 5,5},
+  {10,12,444,18, 1,1},
+  {23,15,528,18,4,4},
+  {54,47,514,312,5,5},
   };
 
 
@@ -88,7 +96,6 @@ struct counter
 	{
 
 		clearDisplay();
-		//displayCityGateImage();
 		displayCounters();
 		displayCityGateImage();
 		updateDisplay();
@@ -105,17 +112,17 @@ struct counter
 			{
 				  counters[counter].speed = counters[counter].speed_initial;
 				  counters[counter].y--;
-				  if ( counters[counter].y == 82 ) // 32
+				  if ( counters[counter].y == 2 ) // wrap back to starting Y for stats
 				  {
 					  counters[counter].value1 =  counters[counter].value2;
 					  counters[counter].value2 = randn(0,12)+10;
-					  counters[counter].y = 96; // 40
+					  counters[counter].y = 18;
 				  }
-				  if (( counter == 7 ) && ( counters[counter].y == 356)) // copper
+				  if (( counter == 7 ) && ( counters[counter].y == 292)) // copper wrap
 				  {
 					  counters[counter].value1 =  counters[counter].value2;
 					  counters[counter].value2 = randn(0,50)+49; // copper is 0-50 + 49 (giving max of 99 coppers)
-					  counters[counter].y = 370;
+					  counters[counter].y = 310;
 				  }
 			}
 			else
@@ -136,37 +143,26 @@ struct counter
 	int counter = 0;
 	while ( counter < 7 ) // number of counters should be 8
 	{
-		  if (counters[counter].y < 88) { counters[counter].value1 = counters[counter].value2; } //was 36
-		  counters[counter].y = 96; // Set vertical position of STR CHA DEX etc
+		  if (counters[counter].y < 8) { counters[counter].value1 = counters[counter].value2; }
+		  counters[counter].y = 18; // Set vertical position of STR CHA DEX etc
 		  counter++;
 	}
-	if (counters[7].y <362) { counters[7].value1 = counters[7].value2; }
-	counters[7].y = 370; // Set vertical position of copper counter when key pressed 354
+	if (counters[7].y <298) { counters[7].value1 = counters[7].value2; }
+	counters[7].y = 310; // Set vertical position of copper counter when key pressed
 
 
 
 
-   // Loop while the sound is playing
-    while (cityGate2Sound.getStatus() == sf::SoundSource::Status::Playing)
-    {
-        clearDisplay();
-		displayCounters();
-		displayCityGateImage();
-		updateDisplay();
-        // Leave some CPU time for other threads
-//        sf::sleep(0.1f);
-    }
+    // Sound effects not available in web port
+    clearDisplay();
+	displayCounters();
+	displayCityGateImage();
+	updateDisplay();
 
-	playCityGateSound3(); // start final gate sound
-	while (cityGate3Sound.getStatus() == sf::SoundSource::Status::Playing)
-    {
-		clearDisplay();
-		drawText (2,11,"You are now joined.  Prepare to enter");
-		drawText (7,13,"Alternate Reality, The City.");
-		updateDisplay();
-		// Leave some CPU time for other threads
-//		sf::sleep(0.1f);
-	}
+	clearDisplay();
+	drawText (2,11,"You are now joined.  Prepare to enter");
+	drawText (7,13,"Alternate Reality, The City.");
+	updateDisplay();
 
 	// assign chosen values to stats
 	plyr.sta = counters[0].value1;
@@ -345,17 +341,17 @@ void dungeonGate()
 			{
 				  counters[counter].speed = counters[counter].speed_initial;
 				  counters[counter].y--;
-				  if ( counters[counter].y == 82 ) // 32
+				  if ( counters[counter].y == 20 ) // wrap back to starting Y for stats
 				  {
 					  counters[counter].value1 =  counters[counter].value2;
 					  counters[counter].value2 = randn(0,13)+10;
-					  counters[counter].y = 98; // 40
+					  counters[counter].y = 34;
 				  }
-				  if (( counter == 7 ) && ( counters[counter].y == 320)) // silver
+				  if (( counter == 7 ) && ( counters[counter].y == 244)) // silver wrap
 				  {
 					  counters[counter].value1 =  counters[counter].value2;
 					  counters[counter].value2 = randn(0,30)+50; // silver is 40 + random number between 1 and 30
-					  counters[counter].y = 336;
+					  counters[counter].y = 284;
 				  }
 			}
 			else
@@ -376,32 +372,40 @@ void dungeonGate()
 	int counter = 0;
 	while ( counter < 7 ) // number of counters should be 8
 	{
-		  if (counters[counter].y < 90) { counters[counter].value1 = counters[counter].value2; } //was 36
-		  counters[counter].y = 96; //was 40
+		  if (counters[counter].y < 26) { counters[counter].value1 = counters[counter].value2; }
+		  counters[counter].y = 34;
 		  counter++;
 	}
-	if (counters[7].y <344) { counters[7].value1 = counters[7].value2; }
-	counters[7].y = 336;
+	if (counters[7].y <248) { counters[7].value1 = counters[7].value2; }
+	counters[7].y = 284;
 
-	clearDisplay();
+    clearDisplay();
 	displayCounters();
-	displayDungeonGateImage();
+	displayCityGateImage();
 	updateDisplay();
 
 	// pause
 	for (int i=0 ; i<3 ; i++) // 1 second
 	{
-		sf::sleep(sf::seconds(1.0));
+#ifdef __EMSCRIPTEN__
+		emscripten_sleep(1000);
+#else
+		arx::sleep(arx::seconds(1.0));
+#endif
 	}
 
 	// display "Joined" message
 
 	for (int i=0 ; i<6 ; i++) // 1 second
 	{
-		sf::sleep(sf::seconds(1));
+#ifdef __EMSCRIPTEN__
+		emscripten_sleep(1000);
+#else
+		arx::sleep(arx::seconds(1));
+#endif
 		clearDisplay();
-		drawText (2,11,"You are now joined.  Prepare to enter");
-		drawText (6,13,"Alternate Reality, The Dungeon.");
+		displayCounters();
+		displayDungeonGateImage();
 		updateDisplay();
 
 	}

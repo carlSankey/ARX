@@ -8,8 +8,7 @@
  */
 
 
-// #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
+#include <string>
 
 #include <string>
 #include <iostream>
@@ -109,7 +108,7 @@ foodDrinkItem rathskellerItems[41] =
 
 
 
-/* Dost thou wish to sell that fine..£=‰¥dragon meat for ²q.. golds? (¡Y  or ¡N ) */
+/* Dost thou wish to sell that fine..Â£=â€°Â¥dragon meat for Â²q.. golds? (Â¡YÂ  or Â¡NÂ ) */
 
 string npcDescriptions[5] =
 {
@@ -158,7 +157,7 @@ string npcRumours[98] =
 "We're being watched all the time.",
 "The music heard in the tavern@comes from beyond this world.",
 "The temptations of evil are strong.",
-"Fruit juice is.¥very invigorating.",
+"Fruit juice is.Â¥very invigorating.",
 "Many great treasures@are carefully guarded.",
 "Be sure your friends@are not your foes.",
 "Always leave a tip@for services rendered.",
@@ -231,7 +230,7 @@ string npcRumours[98] =
 "There's money to be made@in the blacksmithing trade."
 };
 
-sf::Music rathskellerMusic;
+// Music not available in web port
 
 int menu, value, roundCost, stillEating, npcMealCost, npcDrinkCost;
 bool bar, npcNotPresent, rathMusicPlaying;
@@ -263,7 +262,7 @@ void runRathskeller()
         processMenuInput();
     }
 
-    rathskellerMusic.stop();
+    // Music not available in web port
 }
 
 
@@ -621,12 +620,6 @@ void addRathskellerToMap()
 
 void playRathskellerMusic()
 {
-    if (!rathMusicPlaying)
-    {
-        int randomSong = randn(0,2);
-        if (randomSong==1) { rathskellerMusic.openFromFile("data/audio/rathskeller.ogg"); }
-        else { rathskellerMusic.openFromFile("data/audio/rathskeller2.ogg"); }
-        rathskellerMusic.play(); rathMusicPlaying = true;
-    }
+    // Music not available in web port
 }
 

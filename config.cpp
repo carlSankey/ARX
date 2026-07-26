@@ -8,7 +8,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
-#include <windows.h>
+#include <filesystem>
 
 
 extern int windowMode, graphicMode, windowWidth, windowHeight;
@@ -22,11 +22,8 @@ using std::getline;
 
 bool loadConfig()
 {
-
-	char buffer[MAX_PATH];
-	GetCurrentDirectoryA(MAX_PATH, buffer);
-
-	std::cout << "Current Working Directory: " << buffer << std::endl;
+	std::filesystem::path currentPath = std::filesystem::current_path();
+	std::cout << "Current Working Directory: " << currentPath.string() << std::endl;
 
 
 	std::ifstream instream;

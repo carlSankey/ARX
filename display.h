@@ -2,11 +2,11 @@
 #ifndef _displayh 
 #define _displayh 
 
-#include <SFML\Graphics.hpp>
-
-
 #include <string>
 
+// SFML REMOVED: Was using sf::RenderWindow for rendering
+// SFML REMOVED: Was using SFML graphics for sprite/texture rendering
+#include "platform/PlatformWindow.h"
 
 using std::string;
 
@@ -23,6 +23,9 @@ void drawShopImage(int imageno);
 void displayDungeonGateImage();
 void displayCityGateImage();
 void loadCounterImages(); // load counter images for Dungeon character creation
+float getGateScale();     // uniform scale applied to gate image
+float getGateOffsetX();   // horizontal letterbox offset for gate image
+float getGateOffsetY();   // vertical letterbox offset for gate and counter alignment
 void dispInit();
 
 void drawConsoleBackground();
@@ -61,8 +64,14 @@ int checkCityDoors();
 
 void loadLogoImage();
 void drawLogo();
+void shutdownDisplay();  // release sprites and close SFML window before process exit
+void draw3DView();
+void loadBackgroundNames();
+void loadTextureNames();
+void initTextures();
+void flashView();
 
-extern sf::RenderWindow App;
+// SFML REMOVED: sf::RenderWindow was used for main render window
 extern int graphicMode;
 extern int windowWidth, windowHeight;
 extern int viewWidth, viewHeight, viewPortX, viewPortY;

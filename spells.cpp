@@ -5,8 +5,10 @@
 #include <bitset>
 #include <utility> // For std::pair
 #include <map>
+#ifndef __EMSCRIPTEN__
 #include <openssl/evp.h>
 #include <openssl/sha.h>
+#endif
 
 #include "constants.h"
 #include "spells.h"

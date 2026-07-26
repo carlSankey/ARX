@@ -1,5 +1,4 @@
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
+#include <string>
 
 #include <string>
 #include <iostream>
@@ -13,6 +12,7 @@
 #include "tavern.h"
 #include "automap.h"
 #include "lyrics.h"
+#include "platform/ArxClock.h"
 
 //==============================================================================
 //                          Declarations
@@ -21,8 +21,7 @@
 // extern sf::RenderWindow App;
 extern int              tavernDailyFoods[14][6];
 extern int              tavernDailyDrinks[14][6];
-extern sf::Clock               clock1;
-sf::Music               tavernMusic;
+extern arx::Clock               clock1;
 bool                    tavernDrinksCheck[14][12];          // markers used to check for duplicate items - 14 taverns, 12 potential drinks
 bool                    tavernFoodsCheck[14][32];           // markers used to check for duplicate items
 int                     tavernNo;
@@ -249,7 +248,6 @@ void shopTavern()
 
 	tavernNo = getTavernNo();
 
-	tavernMusic.setLooping(false);
 	bool musicPlaying = false;
 	int tavernMenu = 1; // high level menu
 	int tavernLoc = 0; // bar, table or booth
@@ -374,32 +372,8 @@ while (tavernMenu == 22) // Attempt to buy a club membership
 
 			updateDisplay();
 
-			if (!musicPlaying)
-			{
-				//int Random = randn(0, 2);
-
-				int Random = randn(1,5);
-				if (plyr.musicStyle==0)
-				{
-					if (Random ==1) { tavernMusic.openFromFile("data/audio/dwarfdance.ogg"); lyricsFilename = "dwarfdance.txt"; }
-					if (Random ==2) { tavernMusic.openFromFile("data/audio/thoreandan.ogg"); lyricsFilename = "thoreandan.txt"; }
-					if (Random ==3) { tavernMusic.openFromFile("data/audio/waves.ogg"); lyricsFilename = "waves.txt"; }
-					if (Random ==4) { tavernMusic.openFromFile("data/audio/moments.ogg"); lyricsFilename = "moments.txt"; }
-					if (Random ==5) { tavernMusic.openFromFile("data/audio/B/TheNightstalker.ogg"); lyricsFilename = "TheNightstalker.txt"; }
-				}
-				if (plyr.musicStyle==1)
-				{
-					if (Random ==1) { tavernMusic.openFromFile("data/audio/B/dwarfdance.ogg"); lyricsFilename = "dwarfdance.txt"; }
-					if (Random ==2) { tavernMusic.openFromFile("data/audio/B/thoreandan.ogg"); lyricsFilename = "thoreandan.txt"; }
-					if (Random ==3) { tavernMusic.openFromFile("data/audio/B/waves.ogg"); lyricsFilename = "waves.txt"; }
-					if (Random ==4) { tavernMusic.openFromFile("data/audio/B/LetInTheLight.ogg"); lyricsFilename = "LetInTheLight.txt"; }
-					if (Random ==5) { tavernMusic.openFromFile("data/audio/B/TheNightstalker.ogg"); lyricsFilename = "TheNightstalker.txt"; }
-				}
-
-				loadLyrics(lyricsFilename);
-				tavernMusic.play();
-				musicPlaying = true;
-			}
+			// Music not available in web port
+			musicPlaying = false;
 
 			//key = pressKey();
 			key = getSingleKey();
@@ -410,7 +384,7 @@ while (tavernMenu == 22) // Attempt to buy a club membership
 			if ( key=="4" ) { tavernMenu = 11; }
 			if ( key=="0" ) { tavernMenu = 0; }
 			if ( key=="down" ) { tavernMenu = 0; }
-			if (key=="F1") { tavernMusic.stop(); loadLyrics(lyricsFilename); tavernMusic.play(); }
+			// Music not available in web port
 		}
 
 		while (tavernMenu == 2) // at bar, table or booth menu
@@ -419,7 +393,7 @@ while (tavernMenu == 22) // Attempt to buy a club membership
 			tavernDisplayUpdate();
 			if ( tavernLoc == 1) { bText (7,0, "You are sitting at the bar."); bText (23,3, "A few nuts"); }
 			if ( tavernLoc == 2) { bText (7,0, "You are at your table."); bText (26,3, "Popcorn"); }
-			if ( tavernLoc == 3) { bText (7,0, "You are in a private booth."); bText (7,3, "A smokey torch  A few nuts"); tavernMusic.stop(); musicPlaying = false; }
+			if ( tavernLoc == 3) { bText (7,0, "You are in a private booth."); bText (7,3, "A smokey torch  A few nuts"); }
 			bText (7,4, " ) Hail the Barkeeper");
 			bText (7,5, " ) Hail the Waitress");
 			bText (7,6, " ) Buy a round for the house");
@@ -757,7 +731,7 @@ while (tavernMenu == 22) // Attempt to buy a club membership
 				//bText (1,1,workingHours);
 				cyText (2,"WORKING");
 				updateDisplay();
-				sf::sleep(sf::seconds(1));
+				arx::sleep(arx::seconds(1));
 				for (int i=0 ; i<60 ; i++) // 60 minutes
 				{
 					//sf::sleep(0.01f);
@@ -819,7 +793,6 @@ while (tavernMenu == 22) // Attempt to buy a club membership
 
 
 	}
-	if (musicPlaying) { tavernMusic.stop(); }
 	leaveShop();
 }
 

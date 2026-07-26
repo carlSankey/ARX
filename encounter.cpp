@@ -24,8 +24,7 @@
 #include "audio.h"
 #include "spells.h"
 #include "actor.h"
-
-
+#include "platform/ArxClock.h"
 
 bool    checkForTreasure;
 bool    encounterRunning;
@@ -44,6 +43,7 @@ int OpponentSwitchWeapons;
 
 extern int elementMap[];
 extern Map maps[];
+extern bonusDamage weaponBonusMap;
 
 
 
@@ -65,7 +65,6 @@ extern openingMessages* opMessages;
 
 extern openingMessages* Message_Buffer;
 
- bonusDamage weaponBonusMap;
 
 
 std::map<int, int*> damageMap = {
@@ -303,12 +302,12 @@ int whoStartedIt = 0;
 int encounterQuantity;
 int curOpponent; // 0-7
 
-sf::Time attackCheckTime;
-sf::Time attackTimer;
-sf::Clock attackClock;
-sf::Clock actionClock;
-sf::Clock  OpponentLeftTimer;
-sf::Time lastActionTimer = actionClock.restart();
+arx::Time attackCheckTime;
+arx::Time attackTimer;
+arx::Clock attackClock;
+arx::Clock actionClock;
+arx::Clock  OpponentLeftTimer;
+arx::Time lastActionTimer = actionClock.restart();
 
 bool opponentLeft;
 
@@ -366,7 +365,7 @@ void encounterLoop(int encounterType, int opponentQuantity)
     checkSurprise();  // Check if player or opponent surprised
 
     selectEncounterTheme();
-  	attackCheckTime = sf::Time::Zero;
+  	attackCheckTime = arx::Time::Zero;
 	
 
     while ( (encounterRunning) || (waitingForSpaceKey) )
@@ -380,7 +379,7 @@ void encounterLoop(int encounterType, int opponentQuantity)
 
 		  	//Opponent will choice to do something after 4.0 no matter what the player does        
 			attackCheckTime += attackTimer;
-			if ((attackCheckTime >= (sf::seconds(4.0f) * static_cast<float>(plyr.TemporalAdjustment)) && Opponents[0].stunnedTurnsRemaining <1) || playerStunned == true)
+			if ((attackCheckTime >= (arx::seconds(4.0f) * static_cast<float>(plyr.TemporalAdjustment)) && Opponents[0].stunnedTurnsRemaining <1) || playerStunned == true)
 			{
 			  	processOpponentAction();
 			  	attackCheckTime = attackClock.restart();
@@ -401,7 +400,7 @@ void encounterLoop(int encounterType, int opponentQuantity)
         // Handle dismissed encounter messages
 		
 
-		if (key == "SPACE" || lastActionTimer >= sf::seconds(20.0f))
+		if (key == "SPACE" || lastActionTimer >= arx::seconds(20.0f))
 		{
  			updateConsoleMessages(); // Checks for further messages to be printed.
 			if (consoleMessages[0] == "NO MESSAGE") waitingForSpaceKey = false; // player pressed space to acknowledge last message read
@@ -414,7 +413,7 @@ void encounterLoop(int encounterType, int opponentQuantity)
 
 		  if (opponentLeft == true)
 		  {
-			  if (OpponentLeftTimer.getElapsedTime() >= sf::seconds(20.0f))
+			  if (OpponentLeftTimer.getElapsedTime() >= arx::seconds(20.0f))
 			  {
 	  		  	waitingForSpaceKey = false;
 	  		  	opponentLeft = false;
@@ -729,7 +728,7 @@ void processOpponentAction()
 		}
     }
     encounterTurns++;
-  	attackCheckTime = sf::Time::Zero;
+        attackCheckTime = arx::Time::Zero;
 
     // If last opponent then switch to player turn
     if (curOpponent==(encounterQuantity-1)) 
@@ -1516,7 +1515,7 @@ void playerAttack(int attackType, float attackFactorBonus)
     }
 
     consoleMessage(str);
-  	attackCheckTime = sf::Time::Zero;
+  	attackCheckTime = arx::Time::Zero;
 
 //    cout << Opponents[0].name << " health:" << Opponents[0].hp << ".\n";
 	if ( Opponents[0].hp<1) {opponentDeath(0); }
@@ -1728,7 +1727,7 @@ void playerCast(int spellNo)
 			}
 		}
 		//consoleMessage(str);
-		attackCheckTime = sf::Time::Zero;
+  	attackCheckTime = arx::Time::Zero;
  		for (int i = 0; i < encounterQuantity; i++) {
 			if (Opponents[0].hp < 1) { opponentDeath(0); }
 		}
@@ -2598,8 +2597,11 @@ int opponentChooseWeapon()
 	weaponProbabilities[4] = Opponents[0].c5;
 	weaponProbabilities[5] = Opponents[0].c6;
 
-
-	weaponProbabilities[Opponents[0].chosenWeapon] = OpponentSwitchWeapons;
+	// Bounds check to prevent access violation
+	if (Opponents[0].chosenWeapon >= 0 && Opponents[0].chosenWeapon < 6)
+	{
+		weaponProbabilities[Opponents[0].chosenWeapon] = OpponentSwitchWeapons;
+	}
 
 
 

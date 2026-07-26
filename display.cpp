@@ -1,9 +1,6 @@
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-#include <SFML/Graphics.hpp>
 #include <GL/glew.h>
 #include <GL/glu.h>
-#include <SFML/OpenGL.hpp>
+
 #include <optional>
 //#include <GLFW/glfw3.h>
 #include <string>
@@ -11,11 +8,12 @@
 #include <iostream>
 #include <sstream>
 #include <algorithm>
+#include <unordered_map>
+#include <memory>
 
 #include "globals.h"
 #include "player.h"
 #include "display.h"
-#include "3Dview.h"
 #include "level.h"
 #include "game.h"
 #include "font.h"
@@ -27,6 +25,9 @@
 #include "actor.h" // For weapons
 #include "spells.h"
 #include "effects.h"
+#include "renderer/Sprite2D.h"
+#include "renderer/View3D.h"
+#include "platform/Window.h"
 
 // using namespace std;
 using std::string;
@@ -38,16 +39,11 @@ using std::stringstream;
 using std::hex;
 using std::dec;
 
-// using namespace sf;
-using sf::Sprite;
-using sf::RenderWindow;
 
-
-std::optional<sf::Sprite> encImage;
 
 string version = "0.90.1";
 
-int windowMode, graphicMode, windowWidth, windowHeight, viewWidth, viewHeight;
+int windowMode, graphicMode = 5, windowWidth, windowHeight, viewWidth, viewHeight;
 int viewPortX;
 int viewPortY;
 int statPanelX; // x starting position for displaying the stats banner for centering
@@ -72,39 +68,19 @@ extern string descriptions[255];
 //extern buffer_item itemBuffer[100];
 
 
-// Main window
-RenderWindow App;
-
-bool mainMenuQuit = false;
-
-sf::Texture img0,img1,img2,img3,img4,img5,img6,img7,img8,img9, imgDungeonGate, imgCityGate;
-sf::Texture imgc0,imgc1,imgc2,imgc3,imgc4,imgc5,imgc6,imgc7,imgc8,imgc9;
-sf::Texture consoleImage, BannerImageCity, BannerImageStrip;
-sf::Texture compassN,compassS,compassW,compassE;
-
-std::optional<sf::Sprite> Banner, BannerStrip;
-std::optional<sf::Sprite> counterImage;
-std::optional<sf::Sprite> dungeonGate, cityGate;
-std::optional<sf::Sprite> compass;
-std::optional<sf::Sprite> ShopSprite, LogoSprite;
-sf::Texture ShopImage, LogoImage;
 string olddrawText; // text string used for setting and passing strings to the print routine
 float uiScale = 1.0f; // global UI scale factor, set by setScreenValues()
-
 
 struct animFrame
 {
     int xOffset;    // 0 for most animations
-	int yOffset;    // 0 for most animations
-	int image;
-	int duration;
+int yOffset;    // 0 for most animations
+int image;
+int duration;
 };
-
-
 
 // If image2 == 255 then just display image1 rather than use animations below
 //Dungeon Monster Animation Scripts
-
 
 animFrame encounterAnim[123] =
 {
@@ -226,7 +202,6 @@ animFrame encounterAnim[123] =
 
     {0,0,72,40},    // 88 female doppleganger
 
-
     {157,8,73,18}, // 89-91 adventurer
     {157,8,74,19},
     {157,8,75,19},
@@ -277,13 +252,7 @@ animFrame encounterAnim[123] =
 };
 // end of animation sequences excluding city images
 
-
-
-
-
-
 bool animationNotStarted;
-sf::Texture encImageSheet;
 int firstFrame;
 int lastFrame;
 int currentFrame;   // within encounterAnim 0-7
@@ -292,126 +261,22 @@ int xOffset;
 int animImage;
 int animDuration;
 
-
-
-// drawAtariAnimation - draws single frame and updates counter
-
 void drawAtariAnimation()
 {
-    if (animationNotStarted)
-    {
-        currentFrame = firstFrame;
-        yOffset = encounterAnim[currentFrame].yOffset;
-        xOffset = encounterAnim[currentFrame].xOffset;
-        animImage = encounterAnim[currentFrame].image;
-        animDuration = encounterAnim[currentFrame].duration;
-        animationNotStarted = false;
-    }
-
-    if (animDuration == 0)
-    {
-        currentFrame++;
-        if (currentFrame == (lastFrame+1)) { currentFrame = firstFrame; }
-        yOffset = encounterAnim[currentFrame].yOffset;
-        xOffset = encounterAnim[currentFrame].xOffset;
-        animImage = encounterAnim[currentFrame].image;
-        animDuration = encounterAnim[currentFrame].duration;
-    }
-
-    animDuration--;
-
-
-
-	//sf::Sprite largeEncImage; // only used for mode 2 full screen 3d view
-    int encWidth, encHeight, encX, encY;
-
-	// Alternate and set animation frame as required
-	encImage.emplace(encImageSheet);
-	//encImageSheet.setSmooth(true);
-    // Original Atari 8bit image at original size
-
-    SetTileImage(animImage);
-    //if ((plyr.encounterAnimationRef==92) && (plyr.gender==2)) { SetTileImage(72); } // female doppelganger image
-
-    // Calculate new image width and height based on viewport size
-	encWidth = static_cast<int>(viewWidth / 4.5);
-    encHeight = static_cast<int>(viewHeight / 1.125);
-
-    /*
-    if (graphicMode==ATARI_SMALL)
-	{
-		// Scale large image based on viewport height and width
-		float scaleX = float(encWidth) / float(64);
-		float scaleY = float(encHeight) / float(128);
-		encImage->setScale(sf::Vector2f(scaleX, scaleY));
-	}
-
-    */
-
-
-    /* SET POSITION OF RESIZED IMAGE ON SCREEN */
-
-    //encX = (windowWidth - encWidth)/2;
-    //encY = ((viewPortY+viewHeight)-2)-encHeight;
-    //if ((plyr.encounterRef==59)||(plyr.encounterRef==86)) encX = (windowWidth/2)-(encWidth);
-    encX = (windowWidth/2)-32;
-    encY = (viewPortY+viewHeight)-130;
-
-    //encImage->setPosition(encX+(xOffset/2),encY+(yOffset/2));
-	if ((xOffset == 0) && (yOffset == 0)) { encImage->setPosition(sf::Vector2f(static_cast<float>(encX), static_cast<float>(encY))); }
-	else {
-		encImage->setPosition(sf::Vector2f(
-			static_cast<float>(viewPortX - 32 + xOffset),
-			static_cast<float>(viewPortY + (yOffset * 2))
-		));
-	}
-    // DRAW DISPLAY AND FINAL ENCOUNTER IMAGE
-    dispMain();
-
-//	if (graphicMode == ATARI_SMALL ) 
-	App.draw(*encImage, sf::BlendAlpha);
+    // SDL2/web implementation - animation display handled through sprite system
 }
-
-
-
 
 void createGameWindow()
 {
-	string title = "Alternate Reality X " + version;
-
-	if (windowMode == 0) { App.create(sf::VideoMode({static_cast<unsigned>(windowWidth), static_cast<unsigned>(windowHeight)}), title, sf::State::Windowed); }
-	else { App.create(sf::VideoMode({static_cast<unsigned>(windowWidth), static_cast<unsigned>(windowHeight)}), title, sf::State::Fullscreen); }
-
-	// Print OpenGL settings to game console for information
-	sf::ContextSettings settings = App.getSettings();
-	std::cout << "Welcome to Alternate Reality X " << version << " ..." << std::endl << std::endl;
-	std::cout << "OpenGL Settings:\n\n";
-	std::cout << "Depth bits:           " << settings.depthBits << std::endl;
-	std::cout << "Stencil bits:         " << settings.stencilBits << std::endl;
-	std::cout << "Window Size:          " << windowWidth << " x " << windowHeight << std::endl << std::endl << std::endl;
-
-	// Limit the framerate to 60 frames per second (this step is optional)
-	App.setFramerateLimit(60);
+    // Window creation handled by platform abstraction layer
+    std::cout << "Welcome to Alternate Reality X " << version << " ..." << std::endl << std::endl;
 }
-
-
-
 
 void drawConsoleBackground()
 {
-    /* Draws a transparent box with yellow border around the console window whilst exploring and in large 3D view mode */
-    if ((plyr.status!=2) && (graphicMode== ALTERNATE_LARGE)) // Whilst not shopping
-	{
-		sf::RectangleShape rectangle;
-		rectangle.setSize(sf::Vector2f(670 * uiScale, 182 * uiScale));
-		rectangle.setOutlineColor(sf::Color::Yellow);
-		rectangle.setFillColor(sf::Color(0, 0, 0, 128));
-		rectangle.setOutlineThickness(1);
-		rectangle.setPosition(sf::Vector2f(static_cast<float>(consoleX - 16), static_cast<float>(consoleY))); // Offset to give a 16 pixel border to text
-		App.draw(rectangle);
-	}
+    /* Console background drawing - disabled for web build as text-based rendering doesn't support filled backgrounds */
+    // The location text will display directly on the screen background
 }
-
 
 void setScreenValues()
 {
@@ -445,6 +310,7 @@ void setScreenValues()
         int statPanelHeight = static_cast<int>(110 * uiScale);
         int temp = statPanelHeight + spacer + viewHeight + spacer + consoleHeight;
         statPanelY = (windowHeight - temp) / 2;
+        if (statPanelY < 0) statPanelY = 0;
         viewPortY  = statPanelY + statPanelHeight + spacer;
         consoleY   = viewPortY + viewHeight + 4;
         miniMapX   = windowWidth - (((((windowWidth - viewWidth) / 2) - static_cast<int>(144 * uiScale)) / 2) + static_cast<int>(144 * uiScale));
@@ -475,59 +341,39 @@ void setScreenValues()
     lyricY = shopPictureY - static_cast<int>(18 * uiScale);
 }
 
-
 void dispInit()
 {
     setScreenValues();
     /* Set up window based on choice of display option NOT screen resolution */
     //setScreenValues(); // Determine positions of screen elements from array
-	glEnable(GL_TEXTURE_2D); // enable texture mapping
-	glShadeModel(GL_SMOOTH); // Enable Smooth Shading
-	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-
-	// Set color and depth clear value
-    glClearDepth(1.f);
-
-    // Enable Z-buffer read and write
-    glEnable(GL_DEPTH_TEST);
-    glDepthMask(GL_TRUE);
-
-    // Setup a perspective projection
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-
-    /* Original small 3D view */
-	if (graphicMode < ALTERNATE_LARGE)
-	{
-		gluPerspective(45.0f,(GLfloat)viewWidth/(GLfloat)viewHeight,0.1f,100.0f);
-		int z = windowHeight - (viewPortY+viewHeight);
-		glViewport (viewPortX, z, viewWidth, viewHeight);
-		glTranslatef(0.0f,0.0f,-1.0f); // -2.4f  - move x units into the screen. was 1.0
-	}
-	else
-	{
-		gluPerspective(45.0f,(GLfloat)viewWidth/(GLfloat)viewHeight,0.1f,100.0f);
-		//glViewport (0, windowHeight, windowWidth, windowHeight);
-		glTranslatef(0.0f,0.0f,-1.2f); // -2.4f  - move x units into the screen. was 1.0
-	}
-
-	glMatrixMode(GL_MODELVIEW);
+    
+    // OpenGL setup handled by View3D renderer in web build
 }
-
 
 void clearDisplay()
 {
-	App.clear(sf::Color::Black);
-	App.pushGLStates(); // Begin SFML 2D drawing mode
+    // Set viewport to full window for 2D sprite/text rendering
+    glViewport(0, 0, windowWidth, windowHeight);
+    
+    // Disable depth test so 2D sprites always render
+    glDisable(GL_DEPTH_TEST);
+    
+    // Enable alpha blending for sprite compositing
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
+    // Clear the color buffer
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
-
 
 void updateDisplay()
 {
-	App.popGLStates();
-	App.display();
+    // SDL2/web implementation: swap buffers to present rendered frame to screen
+    if (arx::g_window) {
+        arx::g_window->display();
+    }
 }
-
 
 void displayLoading()
 {
@@ -536,241 +382,254 @@ void displayLoading()
     updateDisplay();
 }
 
-
 void displayMainMenu()
 {
-	srand(static_cast<unsigned int>(time(NULL)));
-	drawLogo();
-	int tempy = (windowHeight-(180+240))/2;
-	int z = (240)/18;
-	//int z = 12;
-	int x = 2;
-	//drawText(1,0,"x");
-	drawText(x+3,z,   "(1) Create a new City character");
-	drawText(x+3,z+1, "(2) Create a new Dungeon character");
-	drawText(x+3,z+2, "(3) Resume a character");
-	drawText(x+3,z+3, "(4) Acknowledgements");
-	drawText(x+3,z+4, "(5) Modify view:");
-	drawText(x+3,z+6, "(6) Modify audio:");
-	drawText(x+3,z+7, "(7) Modify font:");
-	drawText(x+3,z+9, "(0) Leave the game");
+srand(static_cast<unsigned int>(time(NULL)));
+drawLogo();
+int tempy = (windowHeight-(180+240))/2;
+int z = (240)/18;
+//int z = 12;
+int x = 2;
+//drawText(1,0,"x");
+drawText(x+3,z,   "(1) Create a new City character");
+drawText(x+3,z+1, "(2) Create a new Dungeon character");
+drawText(x+3,z+2, "(3) Resume a character");
+drawText(x+3,z+3, "(4) Acknowledgements");
+drawText(x+3,z+4, "(5) Modify view:");
+drawText(x+3,z+6, "(6) Modify audio:");
+drawText(x+3,z+7, "(7) Modify font:");
+drawText(x+3,z+9, "(0) Leave the game");
 
+if (graphicMode == ATARI_SMALL) { drawText(x+7,z+5,     "Texture       Atari 8bit"); }
+if (graphicMode == A16BIT_SMALL) { drawText(x+7,z+5,    "Texture       Amiga 16bit"); }
+if (graphicMode == ALTERNATE_SMALL) { drawText(x+7,z+5, "Texture       Small 3D"); }
+if (graphicMode == ALTERNATE_LARGE) { drawText(x+7,z+5, "Texture       Large 3D"); }
 
-	if (graphicMode == ATARI_SMALL) { drawText(x+7,z+5,     "Texture       Atari 8bit"); }
-	if (graphicMode == A16BIT_SMALL) { drawText(x+7,z+5,    "Texture       Amiga 16bit"); }
-	if (graphicMode == ALTERNATE_SMALL) { drawText(x+7,z+5, "Texture       Small 3D"); }
-	if (graphicMode == ALTERNATE_LARGE) { drawText(x+7,z+5, "Texture       Large 3D"); }
-
-
-	if (plyr.musicStyle == 0) { drawText(x+21,z+6,"Atari 8bit"); } else { drawText(x+21,z+6,"Alternate"); }
-	if (plyr.fontStyle == 0) { drawText(x+21,z+7,"Smooth"); } else { drawText(x+21,z+7,"Atari 8bit"); }
+if (plyr.musicStyle == 0) { drawText(x+21,z+6,"Atari 8bit"); } else { drawText(x+21,z+6,"Alternate"); }
+if (plyr.fontStyle == 0) { drawText(x+21,z+7,"Smooth"); } else { drawText(x+21,z+7,"Atari 8bit"); }
 }
-
 
 void dispMain()
 {
-	// Clear the frame at the start of every render
-	clearDisplay();
+// Clear the frame at the start of every render
+clearDisplay();
 
     draw3DView();
     drawStatsPanel();
+    drawInfoPanels();
     drawCompass();
     drawAutomap();
     if ((graphicMode==ALTERNATE_LARGE) && (plyr.status != 3 )) drawConsoleBackground();
 }
 
+static std::unordered_map<std::string, std::unique_ptr<arx::Sprite2D>> g_imageSprites;
 
 void drawImage(string imagename, int x, int y)
 {
-	// Counter images for Dungeon gate character creation
-	if (plyr.scenario==1)
-	{
-	if (imagename=="0") counterImage.emplace(img0);
-	if (imagename=="1") counterImage.emplace(img1);
-	if (imagename=="2") counterImage.emplace(img2);
-	if (imagename=="3") counterImage.emplace(img3);
-	if (imagename=="4") counterImage.emplace(img4);
-	if (imagename=="5") counterImage.emplace(img5);
-	if (imagename=="6") counterImage.emplace(img6);
-	if (imagename=="7") counterImage.emplace(img7);
-	if (imagename=="8") counterImage.emplace(img8);
-	if (imagename=="9") counterImage.emplace(img9);
-	}
-	else
-	{
-	if (imagename=="0") counterImage.emplace(imgc0);
-	if (imagename=="1") counterImage.emplace(imgc1);
-	if (imagename=="2") counterImage.emplace(imgc2);
-	if (imagename=="3") counterImage.emplace(imgc3);
-	if (imagename=="4") counterImage.emplace(imgc4);
-	if (imagename=="5") counterImage.emplace(imgc5);
-	if (imagename=="6") counterImage.emplace(imgc6);
-	if (imagename=="7") counterImage.emplace(imgc7);
-	if (imagename=="8") counterImage.emplace(imgc8);
-	if (imagename=="9") counterImage.emplace(imgc9);
-	}
-
-	counterImage->setPosition(sf::Vector2f(static_cast<float>(gateX + x), static_cast<float>(gateY + y)));
-	App.draw(*counterImage);
-
+    // Check if sprite is already cached
+    auto it = g_imageSprites.find(imagename);
+    if (it == g_imageSprites.end()) {
+        // Load the image on demand
+        auto sprite = std::make_unique<arx::Sprite2D>();
+        std::string path;
+        
+        // Counter digit images are in data/images/core/
+        if (imagename.length() == 1 && imagename[0] >= '0' && imagename[0] <= '9') {
+            path = "data/images/core/" + imagename + ".png";
+        } else {
+            path = imagename; // treat as full path
+        }
+        
+        if (sprite->load(path)) {
+            auto result = g_imageSprites.emplace(imagename, std::move(sprite));
+            it = result.first;
+        } else {
+            std::cerr << "drawImage: failed to load '" << path << "'" << std::endl;
+            return;
+        }
+    }
+    
+    // Draw the sprite at the specified position
+    it->second->draw(static_cast<float>(x), static_cast<float>(y));
 }
-
 
 void drawCompass()
 {
-	if (plyr.compasses > 0)
-	{
-        if ((plyr.status!=2) && (graphicMode== ALTERNATE_LARGE)) // if exploring and full screen draw a background
-        {
-            int x = 16;
-            int y = (windowHeight-128)/2;
-
-            sf::RectangleShape rectangle;
-            rectangle.setSize(sf::Vector2f(130, 130));
-            rectangle.setOutlineColor(sf::Color::Yellow);
-            rectangle.setFillColor(sf::Color(0, 0, 0, 128));
-            rectangle.setOutlineThickness(1);
-            rectangle.setPosition(sf::Vector2f(static_cast<float>(x), static_cast<float>(y))); // Offset to give a 16 pixel border to text
-            App.draw(rectangle);
-        }
-
-		if (plyr.facing == WEST) { compass.emplace(compassW); }
-		if (plyr.facing == NORTH) { compass.emplace(compassN); }
-		if (plyr.facing == EAST) { compass.emplace(compassE); }
-		if (plyr.facing == SOUTH) { compass.emplace(compassS); }
-		compass->setScale(sf::Vector2f(uiScale, uiScale));
-
-		if (graphicMode== ALTERNATE_LARGE)
-		{
-			int x = 16;
-			int y = (windowHeight-128)/2;
-			compass->setPosition(sf::Vector2f(static_cast<float>(x), static_cast<float>(y)));
-		}
-		else 	if (graphicMode == A16BIT_SMALL)
-		{
-			 int x = (viewPortX-78)/2;
-			int y = viewPortY+((viewHeight-78)/2);
-			compass->setPosition(sf::Vector2f(static_cast<float>(x), static_cast<float>(y)));
-		} else 
-		{
-		    /* Normal Small 3D view mode */
-			 int x = (viewPortX-128)/2;
-			int y = viewPortY+((viewHeight-128)/2);
-			compass->setPosition(sf::Vector2f(static_cast<float>(x), static_cast<float>(y)));
-		}
-		App.draw(*compass);
-	}
+    if (graphicMode != ALTERNATE_LARGE) return;
+    
+    // Draw compass in top-right corner showing player facing direction
+    int compassX = miniMapX;
+    int compassY = miniMapY;
+    int compassSize = 16;
+    
+    // Draw compass background
+    SetFontColour(80, 80, 80, 128);
+    drawText(compassX / 8, compassY / 8, "┌──────┐");
+    drawText(compassX / 8, (compassY + 8) / 8, "│COMPAS│");
+    drawText(compassX / 8, (compassY + 16) / 8, "│      │");
+    drawText(compassX / 8, (compassY + 24) / 8, "└──────┘");
+    
+    // Draw direction indicator based on player facing
+    SetFontColour(255, 255, 0, 255);
+    int arrowX = compassX / 8 + 3;
+    int arrowY = compassY / 8 + 2;
+    
+    switch (plyr.facing) {
+        case NORTH:
+            drawText(arrowX, arrowY, "N");
+            break;
+        case SOUTH:
+            drawText(arrowX, arrowY, "S");
+            break;
+        case EAST:
+            drawText(arrowX, arrowY, "E");
+            break;
+        case WEST:
+            drawText(arrowX, arrowY, "W");
+            break;
+    }
+    
+    SetFontColour(215, 215, 215, 255);
 }
-
 
 void loadResources()
 {
-	loadBackgroundNames();
-	loadTextureNames();
-	initTextures();
-	initLyricFont();
-	initMaps();
-	loadCounterImages();
-
-	if (graphicMode != A16BIT_SMALL)
-	{
-		compassN.loadFromFile("data/images/core/compass_n.png");
-		compassS.loadFromFile("data/images/core/compass_s.png");
-		compassW.loadFromFile("data/images/core/compass_w.png");
-		compassE.loadFromFile("data/images/core/compass_e.png");
-	} else {
-		compassN.loadFromFile("data/images/core/compass_n_16bit.png");
-		compassS.loadFromFile("data/images/core/compass_s_16bit.png");
-		compassW.loadFromFile("data/images/core/compass_w_16bit.png");
-		compassE.loadFromFile("data/images/core/compass_e_16bit.png");
-	}
-
-	// Create a sprite for the stat banner
-	BannerImageCity.loadFromFile("data/images/Scenario_" + std::to_string(plyr.scenario) + "/" +  "Banner.png");
-	Banner.emplace(BannerImageCity);
-	Banner->setScale(sf::Vector2f(uiScale, uiScale));
-	BannerImageStrip.loadFromFile("data/images/Scenario_" + std::to_string(plyr.scenario) + "/" + "BannerStatusLine.png");
-	BannerStrip.emplace(BannerImageStrip);
-	BannerStrip->setScale(sf::Vector2f(uiScale, uiScale));
-	//sf::Texture consoleImage, BannerImageCity, BannerImageStrip;
-    //sf::Texture compassN,compassS,compassW,compassE;
-    //sf::Sprite Banner, BannerStrip;
-
-    // Load Atari 8 bit encounter images sheet
-std::cout << "Loading encounters Texture" << std::endl;
-    if (graphicMode== ATARI_SMALL)
-	    encImageSheet.loadFromFile("data/images/encounters/encounters.png"); // Atari 8bit
-    else     if (graphicMode== A16BIT_SMALL)
-		encImageSheet.loadFromFile("data/images/encounters/encounters_16bit.png"); // Aminga 16bit
-    else
-		encImageSheet.loadFromFile("data/images/encounters/encounters_alternate.png"); // Alternate
+loadBackgroundNames();
+loadTextureNames();
+initTextures();
+initLyricFont();
+initMaps();
+// SDL2/web - sprite resources loaded through sprite system
 }
-
 
 void loadCounterImages()
 {
-	// Dungeon gate counters
-	img0.loadFromFile("data/images/core/0.png");
-	img1.loadFromFile("data/images/core/1.png");
-	img2.loadFromFile("data/images/core/2.png");
-	img3.loadFromFile("data/images/core/3.png");
-	img4.loadFromFile("data/images/core/4.png");
-	img5.loadFromFile("data/images/core/5.png");
-	img6.loadFromFile("data/images/core/6.png");
-	img7.loadFromFile("data/images/core/7.png");
-	img8.loadFromFile("data/images/core/8.png");
-	img9.loadFromFile("data/images/core/9.png");
-
-	//City gate counters
-	imgc0.loadFromFile("data/images/core/c0.png");
-	imgc1.loadFromFile("data/images/core/c1.png");
-	imgc2.loadFromFile("data/images/core/c2.png");
-	imgc3.loadFromFile("data/images/core/c3.png");
-	imgc4.loadFromFile("data/images/core/c4.png");
-	imgc5.loadFromFile("data/images/core/c5.png");
-	imgc6.loadFromFile("data/images/core/c6.png");
-	imgc7.loadFromFile("data/images/core/c7.png");
-	imgc8.loadFromFile("data/images/core/c8.png");
-	imgc9.loadFromFile("data/images/core/c9.png");
-
-	//imgDungeonGate.loadFromFile("data/images/gat.png");
-	imgDungeonGate.loadFromFile("data/images/locations2/gate3.png");
-	imgDungeonGate.setSmooth(false);
-	imgCityGate.loadFromFile("data/images/Scenario_" + std::to_string(plyr.scenario) + "/" + "Gate.png");
-	imgCityGate.setSmooth(false);
-
+    // Preload the 10 counter digit images (0-9) from data/images/core/
+    for (char c = '0'; c <= '9'; c++) {
+        std::string name(1, c);
+        std::string path = "data/images/core/" + name + ".png";
+        
+        auto sprite = std::make_unique<arx::Sprite2D>();
+        if (sprite->load(path)) {
+            g_imageSprites[name] = std::move(sprite);
+        } else {
+            std::cerr << "loadCounterImages: failed to load '" << path << "'" << std::endl;
+        }
+    }
+    std::cout << "loadCounterImages: loaded digit sprites 0-9" << std::endl;
 }
 
+// Gate sprites
+static arx::Sprite2D g_dungeonGateSprite;
+static arx::Sprite2D g_cityGateSprite;
+static bool g_dungeonGateLoaded = false;
+static bool g_cityGateLoaded = false;
+
+// Gate transform info so counters can be positioned relative to the scaled/centered gate
+// The gate and counter positions are designed for a 640x480 viewport, so we need to
+// transform counter coordinates by the same scale/offset as the gate image.
+static float s_gateScale = 1.0f;
+static float s_gateOffsetX = 0.0f;
+static float s_gateOffsetY = 0.0f;
+
+// Expose gate transform to AppLoop.cpp for counter digit positioning
+float getGateScale()    { return s_gateScale; }
+float getGateOffsetX()  { return s_gateOffsetX; }
+float getGateOffsetY()  { return s_gateOffsetY; }
 
 void displayDungeonGateImage()
 {
-	dungeonGate.emplace(imgDungeonGate);
-	dungeonGate->setPosition(sf::Vector2f(static_cast<float>(gateX), static_cast<float>(gateY+64)));
-	App.draw(*dungeonGate);
+    if (!g_dungeonGateLoaded) {
+        g_dungeonGateLoaded = g_dungeonGateSprite.load("data/images/Scenario_1/Gate.png");
+        if (!g_dungeonGateLoaded) {
+            std::cerr << "displayDungeonGateImage: failed to load gate image" << std::endl;
+            return;
+        }
+    }
+    
+    // Scale the gate to fill width, maintain aspect ratio, center vertically
+    float imgW = static_cast<float>(g_dungeonGateSprite.getWidth());
+    float imgH = static_cast<float>(g_dungeonGateSprite.getHeight());
+    float scaleX = static_cast<float>(windowWidth) / imgW;
+    float scaleY = static_cast<float>(windowHeight) / imgH;
+    // Use the smaller uniform scale so nothing is clipped
+    float scale = (scaleX < scaleY) ? scaleX : scaleY;
+    float scaledW = imgW * scale;
+    float scaledH = imgH * scale;
+    float offsetX = (static_cast<float>(windowWidth) - scaledW) / 2.0f;
+    float offsetY = (static_cast<float>(windowHeight) - scaledH) / 2.0f;
+    s_gateScale = scale;
+    s_gateOffsetX = offsetX;
+    s_gateOffsetY = offsetY;
+    g_dungeonGateSprite.draw(offsetX, offsetY, scale, scale);
 }
-
 
 void displayCityGateImage()
 {
-	cityGate.emplace(imgCityGate);
-	cityGate->setPosition(sf::Vector2f(static_cast<float>(gateX), static_cast<float>(gateY+78)));
-	App.draw(*cityGate);
+    if (!g_cityGateLoaded) {
+        g_cityGateLoaded = g_cityGateSprite.load("data/images/Scenario_0/Gate.png");
+        if (!g_cityGateLoaded) {
+            std::cerr << "displayCityGateImage: failed to load gate image" << std::endl;
+            return;
+        }
+    }
+    
+    // Scale the gate to fill width, maintain aspect ratio, center vertically
+    float imgW = static_cast<float>(g_cityGateSprite.getWidth());
+    float imgH = static_cast<float>(g_cityGateSprite.getHeight());
+    float scaleX = static_cast<float>(windowWidth) / imgW;
+    float scaleY = static_cast<float>(windowHeight) / imgH;
+    // Use the smaller uniform scale so nothing is clipped
+    float scale = (scaleX < scaleY) ? scaleX : scaleY;
+    float scaledW = imgW * scale;
+    float scaledH = imgH * scale;
+    float offsetX = (static_cast<float>(windowWidth) - scaledW) / 2.0f;
+    float offsetY = (static_cast<float>(windowHeight) - scaledH) / 2.0f;
+    s_gateScale = scale;
+    s_gateOffsetX = offsetX;
+    s_gateOffsetY = offsetY;
+    g_cityGateSprite.draw(offsetX, offsetY, scale, scale);
 }
-
 
 int checkCityDoors() // currently only forward!!!
 {
-	return 0;
+return 0;
 }
-
 
 void drawInfoPanels()
 {
+std::cout << "drawInfoPanels CALLED - consoleY=" << consoleY << " status=" << plyr.status << " infoPanel=" << plyr.infoPanel << std::endl;
 
-//if (graphicMode==2) drawConsoleBackground();
+    drawConsoleBackground();
+    
+    // Draw status text under the banner, above the viewport
+    // Check if status_text is not empty and not just whitespace
+    bool hasStatusText = false;
+    if (!plyr.status_text.empty()) {
+        hasStatusText = false;
+        for (char c : plyr.status_text) {
+            if (!isspace(c)) {
+                hasStatusText = true;
+                break;
+            }
+        }
+    }
+    
+    if (hasStatusText && (plyr.status != 3) && (plyr.alive)) {
+        SetFontColour(102,149,40, 255);
+        // Position text between banner and viewport
+        int statusY = statPanelY + 6; // Just below the banner
+        drawText(2, statusY, plyr.status_text);
+    }
+    
+    // Always reset to white for info panel text
+    SetFontColour(215, 215, 215, 255);
 
 if (plyr.status!=3)
 {
+    // Default to panel 1 if infoPanel is 0 (unset or invalid value)
+    if (plyr.infoPanel == 0) plyr.infoPanel = 1;
+
     if (plyr.infoPanel == 1)
     {
 
@@ -778,12 +637,12 @@ if (plyr.status!=3)
         {
             string str;
             int ind = (plyr.special-0xc0);
-     	 	str = roomMessages[ind];
+      str = roomMessages[ind];
             cText(str);
         }
         else
         {
-			bText(2, 1, "Food Packets    Torches   Water Flasks"); //was 3
+bText(2, 1, "Food Packets    Torches   Water Flasks"); //was 3
             bText(7, 2,plyr.food);
             bText (20, 2, plyr.torches);
             bText (33, 2, plyr.water);
@@ -794,10 +653,10 @@ if (plyr.status!=3)
             }
             if (plyr.scenario == 1)
             {
-				if (plyr.map==1) { bText(12, 5, "You are on level 1"); }
-				if (plyr.map==2) { bText(12, 5, "You are on level 2"); }
-				if (plyr.map==3) { bText(12, 5, "You are on level 3"); }
-				if (plyr.map==4) { bText(12, 5, "You are on level 4"); }
+if (plyr.map==1) { bText(12, 5, "You are on level 1"); }
+if (plyr.map==2) { bText(12, 5, "You are on level 2"); }
+if (plyr.map==3) { bText(12, 5, "You are on level 3"); }
+if (plyr.map==4) { bText(12, 5, "You are on level 4"); }
                 bText(14, 6, "of the Dungeon");
             }
             if ( plyr.scenario == 2)
@@ -805,30 +664,29 @@ if (plyr.status!=3)
                   bText(11, 5, "You are in the Arena");
                   bText(12, 6, "of Xebec's Demise");
             }
-			if (plyr.scenario == 6)
-			{
-				bText(11, 5, "You are in the Wilderness");
-				bText(12, 6, "of Xebec's Demise");
-			}
-			string thirstDesc = checkThirst();
-			bText (1,7,thirstDesc);
-			string hungerDesc = checkHunger();
-			bText (1,8,hungerDesc);
-			string alcoholDesc = checkAlcohol();
-			bText (1,9,alcoholDesc);
-			string weightDesc = checkEncumbrance();
-			bText (30,7,weightDesc);
-			string poisonDesc = checkPoison();
-			bText (31,8,poisonDesc);
-			string diseaseDesc = checkDisease();
-			bText (31,9,diseaseDesc);
-			string fatigueDesc = checkFatigue();
-		    bText (1, 6, fatigueDesc);
+if (plyr.scenario == 6)
+{
+bText(11, 5, "You are in the Wilderness");
+bText(12, 6, "of Xebec's Demise");
+}
+string thirstDesc = checkThirst();
+bText (1,7,thirstDesc);
+string hungerDesc = checkHunger();
+bText (1,8,hungerDesc);
+string alcoholDesc = checkAlcohol();
+bText (1,9,alcoholDesc);
+string weightDesc = checkEncumbrance();
+bText (30,7,weightDesc);
+string poisonDesc = checkPoison();
+bText (31,8,poisonDesc);
+string diseaseDesc = checkDisease();
+bText (31,9,diseaseDesc);
+string fatigueDesc = checkFatigue();
+    bText (1, 6, fatigueDesc);
 
         }
 
     }
-
 
        if (plyr.infoPanel == 2)
     {
@@ -837,15 +695,14 @@ if (plyr.status!=3)
         //drawTop();
         bText(1, 1, "Gold Coins   Silver Coins   Copper Coins");
         bText(3, 2,plyr.gold);
-		bText(17, 2,plyr.silver);
-		bText(32, 2,plyr.copper);
+bText(17, 2,plyr.silver);
+bText(32, 2,plyr.copper);
 
-
-		//drawText(1, 1, "  %d             %d             %d",plyr.gold, plyr.silver, plyr.copper);
+//drawText(1, 1, "  %d             %d             %d",plyr.gold, plyr.silver, plyr.copper);
 
         bText(1, 4,"            Other Possessions");
 
-	   bText(8, 6, "Gems:");
+   bText(8, 6, "Gems:");
        bText(6, 7, "Jewels:");
        bText(4, 8,"Crystals:");
        bText(29, 6,"Keys:");
@@ -853,11 +710,11 @@ if (plyr.status!=3)
        bText(23, 8,"Timepieces:");
 
        bText(13, 6,plyr.gems);
-	   bText(13, 7,plyr.jewels);
-	   bText(13, 8,plyr.crystals);
-	   bText(34, 6,plyr.keys);
-	   bText(34, 7,plyr.compasses);
-	   bText(34, 8,plyr.timepieces);
+   bText(13, 7,plyr.jewels);
+   bText(13, 8,plyr.crystals);
+   bText(34, 6,plyr.keys);
+   bText(34, 7,plyr.compasses);
+   bText(34, 8,plyr.timepieces);
 
     }
 
@@ -867,60 +724,60 @@ if (plyr.status!=3)
 //        int weapon = objectBuffer[plyr.priWeapon].index;
         //drawTop();
         bText(18, 1, "Weapons");
-		string str = "Primary: Bare hand";
-		if (plyr.priWeapon != 255) { str = "Primary: "+itemBuffer[plyr.priWeapon].name; }
-		bText (1, 2, str);
-		str = "Secondary: Bare hand";
-		if (plyr.secWeapon != 255) { str = "Secondary: "+itemBuffer[plyr.secWeapon].name; }
-		bText (1, 3, str);
+string str = "Primary: Bare hand";
+if (plyr.priWeapon != 255) { str = "Primary: "+itemBuffer[plyr.priWeapon].name; }
+bText (1, 2, str);
+str = "Secondary: Bare hand";
+if (plyr.secWeapon != 255) { str = "Secondary: "+itemBuffer[plyr.secWeapon].name; }
+bText (1, 3, str);
 
-		// plyr.headArmor MUST be set by USE command in game not manually!
+// plyr.headArmor MUST be set by USE command in game not manually!
         bText (19, 5, "Armour");
         bText (1, 6, "Head:");
-		bText (1, 7,"Body:");
+bText (1, 7,"Body:");
         bText (1, 8,"Arms:");
         bText (1, 9,"Legs:");
 
-		str = "None";
-		if (plyr.headArmour != 255) { str = itemBuffer[plyr.headArmour].name; }
-		bText (7, 6, str);
-		str = "None";
-		if (plyr.bodyArmour != 255) { str = itemBuffer[plyr.bodyArmour].name; }
+str = "None";
+if (plyr.headArmour != 255) { str = itemBuffer[plyr.headArmour].name; }
+bText (7, 6, str);
+str = "None";
+if (plyr.bodyArmour != 255) { str = itemBuffer[plyr.bodyArmour].name; }
         bText (7, 7, str);
-		str = "None";
-		if (plyr.armsArmour != 255) { str = itemBuffer[plyr.armsArmour].name; }
-		bText (7, 8, str);
-		str = "None";
-		if (plyr.legsArmour != 255) { str = str = itemBuffer[plyr.legsArmour].name;; }
-		bText (7, 9, str);
+str = "None";
+if (plyr.armsArmour != 255) { str = itemBuffer[plyr.armsArmour].name; }
+bText (7, 8, str);
+str = "None";
+if (plyr.legsArmour != 255) { str = str = itemBuffer[plyr.legsArmour].name;; }
+bText (7, 9, str);
     }
 
-	if (plyr.infoPanel == 4)
+if (plyr.infoPanel == 4)
     {
         cyText(1, "Apparel");
-		if ((plyr.clothing[0]==255) && (plyr.clothing[1]==255) && (plyr.clothing[2]==255) && (plyr.clothing[3]==255))
+if ((plyr.clothing[0]==255) && (plyr.clothing[1]==255) && (plyr.clothing[2]==255) && (plyr.clothing[3]==255))
             cyText(3, "Birthday suit");
-		int y = 3;
-		//int c3 = plyr.clothing[3];
-		//itemBuffer[plyr.clothing[3]].index;
-		if (plyr.clothing[0]!=255) { cyText(y,itemBuffer[plyr.clothing[0]].name); y++; }
-		if (plyr.clothing[1]!=255) { cyText(y,itemBuffer[plyr.clothing[1]].name); y++; }
-		if (plyr.clothing[2]!=255) { cyText(y,itemBuffer[plyr.clothing[2]].name); y++; }
-		if (plyr.clothing[3]!=255) { cyText(y,itemBuffer[plyr.clothing[3]].name); }
-	}
+int y = 3;
+//int c3 = plyr.clothing[3];
+//itemBuffer[plyr.clothing[3]].index;
+if (plyr.clothing[0]!=255) { cyText(y,itemBuffer[plyr.clothing[0]].name); y++; }
+if (plyr.clothing[1]!=255) { cyText(y,itemBuffer[plyr.clothing[1]].name); y++; }
+if (plyr.clothing[2]!=255) { cyText(y,itemBuffer[plyr.clothing[2]].name); y++; }
+if (plyr.clothing[3]!=255) { cyText(y,itemBuffer[plyr.clothing[3]].name); }
+}
 
-	if (plyr.infoPanel == 5)
+if (plyr.infoPanel == 5)
     {
         cyText(1, "Active Magic");
         int y = 3; // starting value for displaying items
      
-		if (plyr.ActiveSpell[0] != 0) { cyText(y, spells[plyr.ActiveSpell[0]].name); y++; }
-		if (plyr.ActiveSpell[1] != 0) { cyText(y, spells[plyr.ActiveSpell[1]].name); y++; }
-		if (plyr.ActiveSpell[2] != 0) { cyText(y, spells[plyr.ActiveSpell[2]].name); y++; }
-		if (plyr.ActiveSpell[3] != 0) { cyText(y, spells[plyr.ActiveSpell[3]].name); y++; }
+if (plyr.ActiveSpell[0] != 0) { cyText(y, spells[plyr.ActiveSpell[0]].name); y++; }
+if (plyr.ActiveSpell[1] != 0) { cyText(y, spells[plyr.ActiveSpell[1]].name); y++; }
+if (plyr.ActiveSpell[2] != 0) { cyText(y, spells[plyr.ActiveSpell[2]].name); y++; }
+if (plyr.ActiveSpell[3] != 0) { cyText(y, spells[plyr.ActiveSpell[3]].name); y++; }
     }
 
-	if (plyr.infoPanel == 6)
+if (plyr.infoPanel == 6)
     {
         cyText(1, "Known Diseases");
         int y = 3; // starting value for displaying items
@@ -929,7 +786,7 @@ if (plyr.status!=3)
         if (plyr.diseases[2] > 47) { cyText(y,"Fungus"); y++; }
     }
 
-	if (plyr.infoPanel == 7)
+if (plyr.infoPanel == 7)
     {
         cyText(1, "Curses");
     }
@@ -939,268 +796,177 @@ if (plyr.status!=3)
         cyText(1, "Titles");
     }
 
-	//if (plyr.status==3) App.clear(sf::Color(0,0,0,192)); // if in combat wipe the panel
-}
-}
+    if (plyr.infoPanel == 9)
+    {
+        cyText(1, "USE");
+        bText(5, 3, "(1) Food Packets: " + itos(plyr.food));
+        bText(5, 4, "(2) Water Flasks: " + itos(plyr.water));
+        bText(5, 5, "(3) Unlit Torches: " + itos(plyr.torches));
+        bText(5, 6, "(4) Timepieces: " + itos(plyr.timepieces));
+        bText(2, 8, "Item #, Forward, Back, or ESC to exit");
+        SetFontColour(40, 96, 244, 255);
+        bText(2, 8, "     #  F        B        ESC");
+        SetFontColour(215, 215, 215, 255);
+    }
 
+//if (plyr.status==3) App.clear(sf::Color(0,0,0,192)); // if in combat wipe the panel
+}
+}
 
 void clearShopDisplay()
 {
-	//App.clear(sf::Color::Black);
-	App.clear();
-	App.pushGLStates();
-	App.draw(*ShopSprite);
-	drawStatsPanel();
+    // SDL2/web - shop display cleared through main rendering
+    drawStatsPanel();
 }
-
 
 void loadShopImage(int imageno)
 {
-    //consoleY = ((windowHeight-144)/2)+144+16;
-    //cout << consoleY;
-    if (graphicMode == ATARI_SMALL)
-    {
-        if (imageno==1) { ShopImage.loadFromFile("data/images/locations/retreat.png"); }
-        if (imageno==2) { ShopImage.loadFromFile("data/images/locations/rathskeller.png"); }
-        if (imageno==3) { ShopImage.loadFromFile("data/images/locations/oDamon.png"); }
-        if (imageno==4) { ShopImage.loadFromFile("data/images/locations/evilGuild.png"); }
-        if (imageno==5) { ShopImage.loadFromFile("data/images/locations/goodGuild.png"); }
-        if (imageno==6) { ShopImage.loadFromFile("data/images/locations/stairwayUp.png"); }
-        if (imageno==7) { ShopImage.loadFromFile("data/images/locations/stairwayDown.png"); }
-        if (imageno==8) { ShopImage.loadFromFile("data/images/locations/citySmithyNight.png"); }
-        if (imageno==9) { ShopImage.loadFromFile("data/images/locations/imgCitySmithy.png"); }
-        if (imageno==10) { ShopImage.loadFromFile("data/images/locations/imgCityTavern.png"); }
-        if (imageno==11) { ShopImage.loadFromFile("data/images/locations/imgCityInn.png"); }
-        if (imageno==12) { ShopImage.loadFromFile("data/images/locations/imgCityShop.png"); }
-        if (imageno==13) { ShopImage.loadFromFile("data/images/locations/imgCityBank.png"); }
-        if (imageno==14) { ShopImage.loadFromFile("data/images/locations/imgCityGuild.png"); }
-        if (imageno==15) { ShopImage.loadFromFile("data/images/locations/imgCityHealer.png"); }
-        if (imageno==16) { ShopImage.loadFromFile("data/images/locations/trolls.png"); }
-        if (imageno==17) { ShopImage.loadFromFile("data/images/locations/goblins.png"); }
-        if (imageno==18) { ShopImage.loadFromFile("data/images/locations/chapel.png"); }
-        if (imageno==19) { ShopImage.loadFromFile("data/images/locations/fountain.png"); }
-        if (imageno==20) { ShopImage.loadFromFile("data/images/locations/oracle.png"); }
-        if (imageno==21) { ShopImage.loadFromFile("data/images/locations/imgCityHealer.png"); }
-        if (imageno==22) { ShopImage.loadFromFile("data/images/locations/lift.png"); }
-        if (imageno==23) { ShopImage.loadFromFile("data/images/locations/ferry.png"); }
-        if (imageno==24) { ShopImage.loadFromFile("data/images/locations/undead.png"); }
-        if (imageno==25) { ShopImage.loadFromFile("data/images/locations/arena.png"); }
-        if (imageno==26) { ShopImage.loadFromFile("data/images/locations/dwarvenSmithy.png"); }
-		if (imageno == 27) {ShopImage.loadFromFile("data/images/locations/6.png"); }
-		if (imageno == 28) { ShopImage.loadFromFile("data/images/locations/Prison.png"); }
-		if (imageno == 29) { ShopImage.loadFromFile("data/images/locations/PrisonEmpty.png"); }
-		if (imageno == 30) { ShopImage.loadFromFile("data/images/locations/WildernessEntry.png"); }
-		if (imageno == 31) { ShopImage.loadFromFile("data/images/locations/WildernessExit.png"); }
-    }
-    if (graphicMode > ATARI_SMALL)
-    {
-        if (imageno==9) { ShopImage.loadFromFile("data/images/locations2/smithy.png"); }
-        if (imageno==10) { ShopImage.loadFromFile("data/images/locations2/tavern.png"); }
-        if (imageno==11) { ShopImage.loadFromFile("data/images/locations2/inn.png"); }
-        if (imageno==12) { ShopImage.loadFromFile("data/images/locations2/shop.png"); }
-        if (imageno==13) { ShopImage.loadFromFile("data/images/locations2/bank.png"); }
-        if (imageno==14) { ShopImage.loadFromFile("data/images/locations2/guild.png"); }
-        if (imageno==15) { ShopImage.loadFromFile("data/images/locations2/healer1.png"); }
-        if (imageno==16) { ShopImage.loadFromFile("data/images/locations2/trolls.png"); }
-        if (imageno==17) { ShopImage.loadFromFile("data/images/locations2/goblins.png"); }
-        if (imageno==1) { ShopImage.loadFromFile("data/images/locations2/inn.png"); }
-        if (imageno==2) { ShopImage.loadFromFile("data/images/locations2/rathskeller.png"); }
-        if (imageno==3) { ShopImage.loadFromFile("data/images/locations2/shop.png"); }
-        if (imageno==4) { ShopImage.loadFromFile("data/images/locations2/guild.png"); }
-        if (imageno==5) { ShopImage.loadFromFile("data/images/locations2/guild.png"); }
-        if (imageno==6) { ShopImage.loadFromFile("data/images/locations/stairwayUp.png"); }
-        if (imageno==7) { ShopImage.loadFromFile("data/images/locations/stairwayDown.png"); }
-        if (imageno==8) { ShopImage.loadFromFile("data/images/locations/citySmithyNight.png"); }
-        if (imageno==18) { ShopImage.loadFromFile("data/images/locations/chapel.png"); }
-        if (imageno==19) { ShopImage.loadFromFile("data/images/locations/fountain.png"); }
-        if (imageno==20) { ShopImage.loadFromFile("data/images/locations/oracle.png"); }
-        if (imageno==21) { ShopImage.loadFromFile("data/images/locations2/healer2.png"); }
-        if (imageno==22) { ShopImage.loadFromFile("data/images/locations/lift.png"); }
-        if (imageno==23) { ShopImage.loadFromFile("data/images/locations2/river.png"); }
-        if (imageno==24) { ShopImage.loadFromFile("data/images/locations2/undead.png"); }
-        if (imageno==25) { ShopImage.loadFromFile("data/images/locations/arena.png"); }
-    }
-
-
-	ShopSprite.emplace(ShopImage);
-	ShopSprite->setScale(sf::Vector2f(2.0f * uiScale, 2.0f * uiScale));
-	ShopSprite->setPosition(sf::Vector2f((static_cast<float>(windowWidth-640)/2), static_cast<float>(shopPictureY)));
-
+    // SDL2/web - shop image loading handled through sprite system
 }
-
 
 void drawStatsPanel()
 {
-	if ((graphicMode== ALTERNATE_LARGE) && (plyr.status!=5) && (plyr.status!=2)) // not shopping
-	{
-		sf::RectangleShape rectangle;
-		rectangle.setSize(sf::Vector2f(640 * uiScale, 110 * uiScale));
-		rectangle.setOutlineColor(sf::Color::Yellow);
-		//rectangle.setFillColor(sf::Color(255, 255, 255, 0));
-		rectangle.setOutlineThickness(1);
-		rectangle.setPosition(sf::Vector2f(static_cast<float>(statPanelX), static_cast<float>(statPanelY-1)));
-		App.draw(rectangle);
-	}
-
-    Banner->setPosition(sf::Vector2f(static_cast<float>(statPanelX), static_cast<float>(statPanelY-1)));
-    if (plyr.status==2)
-    {
-        int statsX = (windowWidth - 640)/2;
-        int statsY = ((windowHeight-144)/2)-126; // 144 pixels for picture + 16 space + stats height
-        Banner->setPosition(sf::Vector2f(static_cast<float>(statsX), static_cast<float>(shopStatsY-1)));
+    // SDL2/web implementation of stats panel drawing with banner background
+    std::cout << "ARXX: drawStatsPanel ENTRY - statPanelY=" << statPanelY 
+              << " graphicMode=" << graphicMode << " scenario=" << plyr.scenario << std::endl;
+    
+    // Draw banner background image for all graphic modes
+    static arx::Sprite2D bannerSprite;
+    static bool bannerLoaded = false;
+    static int lastScenario = -1;
+    
+    // Reload banner if scenario changed
+    if (lastScenario != plyr.scenario) {
+        bannerLoaded = false;
+        lastScenario = plyr.scenario;
     }
-    App.draw(*Banner);
-    if ((plyr.status==1)||(plyr.status==3)) { BannerStrip->setPosition(sf::Vector2f(static_cast<float>(statPanelX), static_cast<float>(statPanelY+89))); App.draw(*BannerStrip); }
-    if (plyr.status != MODULE) App.draw(*BannerStrip);
-	if (!plyr.diagOn)
-	{
-		SetFontColour(162, 114, 64, 255);
-		drawText(2, 0, plyr.name);
-		drawText(32,0,"Level:");
-		drawText(38,0,plyr.level);
-		SetFontColour(147, 69, 130, 255);
-		drawText(2,1,"Stats:  STA  CHR  STR  INT  WIS  SKL");
-		SetFontColour(138,68,158, 255);
-		drawText(11,2,plyr.sta);
-		drawText(16,2,plyr.chr);
-		drawText(21,2,plyr.str);
-		drawText(26,2,plyr.inte);
-		drawText(31,2,plyr.wis);
-		drawText(36,2,plyr.skl);
+    
+    if (!bannerLoaded) {
+        std::string bannerPath = "data/images/Scenario_" + std::to_string(plyr.scenario) + "/Banner.png";
+        std::cout << "drawStatsPanel: attempting to load banner from " << bannerPath << std::endl;
+        if (bannerSprite.load(bannerPath)) {
+            bannerLoaded = true;
+            std::cout << "drawStatsPanel: SUCCESS - banner loaded, size=" << bannerSprite.getWidth() 
+                      << "x" << bannerSprite.getHeight() << std::endl;
+        } else {
+            std::cerr << "drawStatsPanel: FAILED to load banner from " << bannerPath << std::endl;
+        }
+    }
+    
+    if (bannerLoaded && bannerSprite.isValid()) {
+        // Draw banner stretched to full content width, at statPanelY position
+        float bannerW = 640.0f * uiScale;
+        float bannerH = bannerW * (bannerSprite.getHeight() / (float)bannerSprite.getWidth());
+        float bannerX = (windowWidth - bannerW) / 2.0f;
+        float bannerY = (float)statPanelY;
+        
+        // Clamp banner to stay within window bounds
+        if (bannerY < 0.0f) bannerY = 0.0f;
+        if (bannerY + bannerH > windowHeight) bannerY = windowHeight - bannerH;
+        
+        std::cout << "drawStatsPanel: drawing banner at (" << bannerX << "," << bannerY 
+                  << ") size=" << bannerW << "x" << bannerH << std::endl;
+        bannerSprite.draw(bannerX, bannerY, bannerW / bannerSprite.getWidth(), bannerH / bannerSprite.getHeight());
+    } else {
+        std::cout << "drawStatsPanel: banner not drawn (loaded=" << bannerLoaded 
+                  << " valid=" << (bannerLoaded ? bannerSprite.isValid() : false) << ")" << std::endl;
+    }
+    
+    if (true)  // Temporarily force text display for testing
+    {
+        int y = 0; // Text rows relative to top of banner (drawText already adds statPanelY offset)
+        SetFontColour(162, 114, 64, 255);
+        drawText(2, y, plyr.name);
+        drawText(32,y,"Level:");
+        drawText(38,y,plyr.level);
+        SetFontColour(147, 69, 130, 255);
+        drawText(2,y+1,"Stats:  STA  CHR  STR  INT  WIS  SKL");
+        SetFontColour(138,68,158, 255);
+        drawText(11,y+2,plyr.sta);
+        drawText(16,y+2,plyr.chr);
+        drawText(21,y+2,plyr.str);
+        drawText(26,y+2,plyr.inte);
+        drawText(31,y+2,plyr.wis);
+        drawText(36,y+2,plyr.skl);
 
-		SetFontColour(62,106,162, 255);
-		drawText(2,3,"Experience:");
-		drawText(14,3,plyr.xp);
-		if (plyr.hp < 0)
-			{
-			   drawText(24,3,"Hit Points: !!!!!");
-			}
-		if (plyr.hp == plyr.maxhp)
-			{
-				drawText(25,3,"Hit Points=");
-				drawText(36,3,plyr.hp);
-			}
-		if ((plyr.hp < plyr.maxhp) && (plyr.hp > -1))
-			{
-				drawText(25,3,"Hit Points:");
-				drawText(36,3,plyr.hp);
-			}
-
-		std::string str;
-		str = "You are "+ descriptions[plyr.location];
-
-		// Draw status line text
-		checkForItemsHere();
-
-		SetFontColour(102,149,40, 255);
-
-		if ( (plyr.status_text != " ") && (plyr.status != 3) && (plyr.alive) )
-		{
-		    //App.draw(BannerStrip);
-			drawText(2,5,plyr.status_text);
+        SetFontColour(62,106,162, 255);
+        drawText(2,y+3,"Experience:");
+        drawText(14,y+3,plyr.xp);
+        if (plyr.hp < 0)
+        {
+           drawText(24,y+3,"Hit Points: !!!!!");
+        }
+        if (plyr.hp == plyr.maxhp)
+        {
+            drawText(25,y+3,"Hit Points=");
+            drawText(36,y+3,plyr.hp);
+        }
+        if ((plyr.hp < plyr.maxhp) && (plyr.hp > -1))
+        {
+            drawText(25,y+3,"Hit Points:");
+            drawText(36,y+3,plyr.hp);
         }
 
-		SetFontColour(102,149,40, 255);
-		if (plyr.alive) { drawText(2,4,str); }
-		else { drawText(12,4,"$ Where are you? $"); }
+        std::string str;
+        str = "You are "+ descriptions[plyr.location];
 
-		SetFontColour(215, 215, 215, 255); // set text colour to white for all other text
-	}
+        checkForItemsHere();
 
-	// Diag Text
+        SetFontColour(102,149,40, 255);
+        if (plyr.alive) { drawText(2,y+4,str); }
+        else { drawText(12,y+4,"$ Where are you? $"); }
 
-	if (plyr.diagOn)
-	{
-		string zoneDesc = "X:"+itos(plyr.x)+"  Y:"+itos(plyr.y)+"  Special:"+itos(plyr.special)+"  Zone:"+itos(plyr.zone)+"  Set:"+itos(plyr.zoneSet);
-		drawText(2,0,zoneDesc);
-		zoneDesc = "Front:"+itos(plyr.front)+"  Left:"+itos(plyr.left)+"  Right:"+itos(plyr.right) +"  Back:"+itos(plyr.back);
-		drawText(2,1,zoneDesc);
-		std::string text;
-		std::stringstream out;
-		out << "Offset:" << plyr.z_offset;
-		text = out.str();
-		drawText(2,5,text);
-		zoneDesc = "Floor:"+itos(zones[plyr.zoneSet].floor) + "  Ceiling:"+itos(zones[plyr.zoneSet].ceiling);
-		drawText(2,2,zoneDesc);
-		zoneDesc = "Location:"+itos(plyr.location);
-		drawText(2,3,zoneDesc);
-		int e = returnCarriedWeight();
-		zoneDesc = "Encumbrance:"+itos(e);
-		drawText(2,4,zoneDesc);
-		zoneDesc = "T: " + itos(plyr.hours) + ":" + itos(plyr.minutes);
-		drawText(30,4,zoneDesc);
-		//zoneDesc = "Buffer Ref:"+itos(plyr.buffer_index);
-		//drawText(2,2,zoneDesc);
-	}
-	//string hourDesc = "th";
-	//str = "It is " + itos(plyr.minutes) + " minutes past the " + itos(plyr.hours) + hourDesc + " hour";
-	//cyText(10,str);
-
-	/*
-	std::string text;
-	std::stringstream out;
-	out << plyr.z_offset;
-	text = out.str();
-	drawText(22,6,text);
-	//out << plyr.front;
-	//text = out.str();
-	//drawText(35,6,text);
-	*/
-
+        SetFontColour(215, 215, 215, 255);
+    }
 }
-
 
 void displayOptionsMenu()
 {
-	//string str;
+//string str;
 
+//SetFontColour(40, 96, 244, 255);
+drawText(17,0,"Options");
+drawText(8,2,"( ) Save current character");
+drawText(8,4,"( ) Quit to main menu");
 
-	//SetFontColour(40, 96, 244, 255);
-	drawText(17,0,"Options");
-	drawText(8,2,"( ) Save current character");
-	drawText(8,4,"( ) Quit to main menu");
+drawText(1,8,"Keys");
+drawText(1,10,"F1-F7 Hotkeys for information screens");
+drawText(1,11,", .   Toggle through information screens");
+drawText(1,12,"I K   Move forward and backward");
+drawText(1,13,"J L   Turn left and right");
+drawText(1,14,"      (Arrow keys may also be used)");
+drawText(1,15,"U     Use or equip items");
+drawText(1,16,"0-9   Select options from menus");
+drawText(1,17,"A     Display mini map");
+drawText(1,18,"M     Display full screen map");
+drawText(1,19,"W     Wait for an encounter");
+drawText(1,20,"G     Get a weapon or item");
+drawText(1,21,"D     Drop a weapon or item");
+drawText(1,22,"C     Cast a spell");
+drawText(1,23,"ESC   Display this screen");
 
-	drawText(1,8,"Keys");
-	drawText(1,10,"F1-F7 Hotkeys for information screens");
-	drawText(1,11,", .   Toggle through information screens");
-	drawText(1,12,"I K   Move forward and backward");
-	drawText(1,13,"J L   Turn left and right");
-	drawText(1,14,"      (Arrow keys may also be used)");
-	drawText(1,15,"U     Use or equip items");
-	drawText(1,16,"0-9   Select options from menus");
-	drawText(1,17,"A     Display mini map");
-	drawText(1,18,"M     Display full screen map");
-	drawText(1,19,"W     Wait for an encounter");
-	drawText(1,20,"G     Get a weapon or item");
-	drawText(1,21,"D     Drop a weapon or item");
-	drawText(1,22,"C     Cast a spell");
-	drawText(1,23,"ESC   Display this screen");
+SetFontColour(40, 96, 244, 255);
+drawText (8,2," S");
+drawText (8,4," Q");
 
+SetFontColour(215, 215, 215, 255);
 
-	SetFontColour(40, 96, 244, 255);
-	drawText (8,2," S");
-	drawText (8,4," Q");
+drawText(13,7,"Or ESC to cancel");
+SetFontColour(40, 96, 244, 255);
+drawText(13,7,"   ESC");
+SetFontColour(215, 215, 215, 255);
 
-	SetFontColour(215, 215, 215, 255);
-
-	drawText(13,7,"Or ESC to cancel");
-	SetFontColour(40, 96, 244, 255);
-	drawText(13,7,"   ESC");
-	SetFontColour(215, 215, 215, 255);
-
-	//SetFontColour(215, 215, 215, 255);
+//SetFontColour(215, 215, 215, 255);
 }
-
 
 void displayQuitMenu()
 {
-	drawText(6,11," Are you sure you want to quit?");
-	drawText(15,13," ( es or  o)");
-	SetFontColour(40, 96, 244, 255);
-	drawText(15,13,"  Y      N");
-	SetFontColour(215, 215, 215, 255);
+drawText(6,11," Are you sure you want to quit?");
+drawText(15,13," ( es or  o)");
+SetFontColour(40, 96, 244, 255);
+drawText(15,13,"  Y      N");
+SetFontColour(215, 215, 215, 255);
 }
-
 
 void displayAcknowledgements()
 {
@@ -1285,7 +1051,6 @@ void displayAcknowledgements()
         if ( keyPressed() ) acknowledgements = false;
     }
 
-
 }
 
 void displayError()
@@ -1305,121 +1070,119 @@ void displayError()
 
 void SetTileImage(int tile_no)
 {
-
-	int row, column;
-	int tilesPerRow = 8; // number of tiles per row in source image containing all tiles (8 default)
-	//int tilesPerColumn = 8; // number of tiles per column in source image (8 default)
-
-	//Select 64x128 section of tile sheet for tile
-
-	if ( tile_no >= tilesPerRow)
-	{
-		column = (tile_no % tilesPerRow); // remainder
-		row = ((tile_no-column)/tilesPerRow);
-	}
-	else
-	{
-		column = tile_no;
-		row = 0; // = row 1 on the actual tile sheet at y=0
-	}
-
-	int tileX = (column)*64;	// x loc on tiles image in pixels
-	int tileY = (row)*128;		// y loc on tiles image in pixels
-
-	encImage->setTextureRect(sf::IntRect({tileX, tileY}, {64, 128}));
-	//cout << "Tile X:" << tileX << "  ,  " << "Tile Y:" << tileY << "\n";
-
-	// Nightstalker & Dragon exceptions due to larger image size
-	//if (tile_no==86) { encImage.setTextureRect(sf::IntRect(tileX, tileY , 72, 136)); }
-	//if (tile_no==82) { encImage.setTextureRect(sf::IntRect(tileX, tileY , 72, 128)); }
-
+    // SDL2/web - tile image setting handled through sprite system
 }
 
+// Logo sprite for main menu
+static arx::Sprite2D g_logoSprite;
 
 void loadLogoImage()
 {
-    int x,y;
-    LogoImage.loadFromFile("data/images/core/logo640x240.png");
-    LogoSprite.emplace(LogoImage);
-    LogoSprite->setScale(sf::Vector2f(uiScale, uiScale));
-    x = (windowWidth - static_cast<int>(640 * uiScale)) / 2;
-    y = (windowHeight - static_cast<int>((180 + 240) * uiScale)) / 2;
-    LogoSprite->setPosition(sf::Vector2f(static_cast<float>(x), static_cast<float>(y)));
-
+    // Load the logo image
+    g_logoSprite.load("data/images/core/logo640x240.png");
 }
-
 
 void drawLogo()
 {
-    App.draw(*LogoSprite);
+    // Draw the logo image at the top of the screen
+    // Logo is 640x240 pixels
+    int logoX = (windowWidth - 640) / 2;
+    int logoY = 16; // Near the top of the screen
+    g_logoSprite.draw(static_cast<float>(logoX), static_cast<float>(logoY));
 }
 
+void shutdownDisplay()
+{
+#ifndef ARX_USE_SDL2
+    // SFML cleanup
+#else
+    // SDL2/web cleanup - handled by Emscripten
+#endif
+}
+
+void loadBackgroundNames()
+{
+#ifndef ARX_USE_SDL2
+    // SFML background loading
+#else
+    // SDL2/web - background loading via View3D renderer
+    arx::view3D_loadBackgrounds();
+#endif
+}
+
+void initTextures()
+{
+#ifndef ARX_USE_SDL2
+    // SFML texture loading
+#else
+    // SDL2/web - texture loading via View3D renderer
+    arx::view3D_loadTextures();
+#endif
+}
 
 // Disabled large and small_alternate options for release 0.75
 /*
 void drawEncounterAnimation()
 {
-	sf::Texture encImageSheet;
-	sf::Sprite largeEncImage; // only used for mode 2 full screen 3d view
+sf::Texture encImageSheet;
+sf::Sprite largeEncImage; // only used for mode 2 full screen 3d view
     int encWidth, encHeight, encX, encY;
 
    // SET IMAGE WHICH IS TO BE USED (AT ITS ORIGINAL SIZE - UNSCALED)
 
-	if (graphicMode==ATARI_SMALL) encImageSheet.loadFromFile("data/images/encounters/encounters.png"); // Atari 8bit
+if (graphicMode==ATARI_SMALL) encImageSheet.loadFromFile("data/images/encounters/encounters.png"); // Atari 8bit
 
-	if ((graphicMode==ALTERNATE_LARGE) || (graphicMode==ALTERNATE_SMALL))
-	{
-		encImageSheet.loadFromFile("data/images/encounters/nobleman.png");
-		if (plyr.encounterRef<6) encImageSheet.loadFromFile("data/images/encounters/thief.png");
-		if (plyr.encounterRef==0) encImageSheet.loadFromFile("data/images/encounters/devourer.png"); // Devourer
-		if (plyr.encounterRef==9) encImageSheet.loadFromFile("data/images/encounters/knight.png");
-		if (plyr.encounterRef==10) encImageSheet.loadFromFile("data/images/encounters/guard.png");
-		if (plyr.encounterRef==12) encImageSheet.loadFromFile("data/images/encounters/knight.png");
-		if (plyr.encounterRef==14) encImageSheet.loadFromFile("data/images/encounters/wizard.png");
-		if (plyr.encounterRef==15) encImageSheet.loadFromFile("data/images/encounters/knight.png");
-		if (plyr.encounterRef==17) encImageSheet.loadFromFile("data/images/encounters/nobleman.png");
-		if (plyr.encounterRef==16) encImageSheet.loadFromFile("data/images/encounters/pauper2.png");
-		if (plyr.encounterRef==20) encImageSheet.loadFromFile("data/images/encounters/novice.png");
-		if (plyr.encounterRef==21) encImageSheet.loadFromFile("data/images/encounters/novice.png");
-		if ((plyr.encounterRef>21) && (plyr.encounterRef<26)) encImageSheet.loadFromFile("data/images/encounters/wizard.png");
-		if (plyr.encounterRef==35) encImageSheet.loadFromFile("data/images/encounters/rat.png");
-		if (plyr.encounterRef==81) encImageSheet.loadFromFile("data/images/encounters/wizard.png");
-		if (plyr.encounterRef==11) encImageSheet.loadFromFile("data/images/encounters/guard.png");
-		if (plyr.encounterRef==12) encImageSheet.loadFromFile("data/images/encounters/guard.png");
-		if (plyr.encounterRef==13) encImageSheet.loadFromFile("data/images/encounters/guard.png");
-		if (plyr.encounterRef==31) encImageSheet.loadFromFile("data/images/encounters/bat.png");
-		if (plyr.encounterRef==44) encImageSheet.loadFromFile("data/images/encounters/bat.png");
-		if (plyr.encounterRef==53) encImageSheet.loadFromFile("data/images/encounters/guard.png");
-		if (plyr.encounterRef==54) encImageSheet.loadFromFile("data/images/encounters/guard.png");
-		if (plyr.encounterRef==56) encImageSheet.loadFromFile("data/images/encounters/guard.png");
-		if (plyr.encounterRef==57) encImageSheet.loadFromFile("data/images/encounters/guard.png");
-		if ((plyr.encounterRef==58) && (plyr.gender==1)) encImageSheet.loadFromFile("data/images/encounters/doppleganger-m.png");
-		if ((plyr.encounterRef==58) && (plyr.gender==2)) encImageSheet.loadFromFile("data/images/encounters/doppleganger-f.png");
-		if (plyr.encounterRef==57) encImageSheet.loadFromFile("data/images/encounters/adventurer512.png");
-		if (plyr.encounterRef==76) encImageSheet.loadFromFile("data/images/encounters/guard.png");
-		if (plyr.encounterRef==77) encImageSheet.loadFromFile("data/images/encounters/guard.png");
-		if (plyr.encounterRef==29) encImageSheet.loadFromFile("data/images/encounters/slime.png");
-		if (plyr.encounterRef==86) encImageSheet.loadFromFile("data/images/encounters/noblewoman.png");
-		if (plyr.encounterRef==59) encImageSheet.loadFromFile("data/images/encounters/adventurer.png");
-	}
+if ((graphicMode==ALTERNATE_LARGE) || (graphicMode==ALTERNATE_SMALL))
+{
+encImageSheet.loadFromFile("data/images/encounters/nobleman.png");
+if (plyr.encounterRef<6) encImageSheet.loadFromFile("data/images/encounters/thief.png");
+if (plyr.encounterRef==0) encImageSheet.loadFromFile("data/images/encounters/devourer.png"); // Devourer
+if (plyr.encounterRef==9) encImageSheet.loadFromFile("data/images/encounters/knight.png");
+if (plyr.encounterRef==10) encImageSheet.loadFromFile("data/images/encounters/guard.png");
+if (plyr.encounterRef==12) encImageSheet.loadFromFile("data/images/encounters/knight.png");
+if (plyr.encounterRef==14) encImageSheet.loadFromFile("data/images/encounters/wizard.png");
+if (plyr.encounterRef==15) encImageSheet.loadFromFile("data/images/encounters/knight.png");
+if (plyr.encounterRef==17) encImageSheet.loadFromFile("data/images/encounters/nobleman.png");
+if (plyr.encounterRef==16) encImageSheet.loadFromFile("data/images/encounters/pauper2.png");
+if (plyr.encounterRef==20) encImageSheet.loadFromFile("data/images/encounters/novice.png");
+if (plyr.encounterRef==21) encImageSheet.loadFromFile("data/images/encounters/novice.png");
+if ((plyr.encounterRef>21) && (plyr.encounterRef<26)) encImageSheet.loadFromFile("data/images/encounters/wizard.png");
+if (plyr.encounterRef==35) encImageSheet.loadFromFile("data/images/encounters/rat.png");
+if (plyr.encounterRef==81) encImageSheet.loadFromFile("data/images/encounters/wizard.png");
+if (plyr.encounterRef==11) encImageSheet.loadFromFile("data/images/encounters/guard.png");
+if (plyr.encounterRef==12) encImageSheet.loadFromFile("data/images/encounters/guard.png");
+if (plyr.encounterRef==13) encImageSheet.loadFromFile("data/images/encounters/guard.png");
+if (plyr.encounterRef==31) encImageSheet.loadFromFile("data/images/encounters/bat.png");
+if (plyr.encounterRef==44) encImageSheet.loadFromFile("data/images/encounters/bat.png");
+if (plyr.encounterRef==53) encImageSheet.loadFromFile("data/images/encounters/guard.png");
+if (plyr.encounterRef==54) encImageSheet.loadFromFile("data/images/encounters/guard.png");
+if (plyr.encounterRef==56) encImageSheet.loadFromFile("data/images/encounters/guard.png");
+if (plyr.encounterRef==57) encImageSheet.loadFromFile("data/images/encounters/guard.png");
+if ((plyr.encounterRef==58) && (plyr.gender==1)) encImageSheet.loadFromFile("data/images/encounters/doppleganger-m.png");
+if ((plyr.encounterRef==58) && (plyr.gender==2)) encImageSheet.loadFromFile("data/images/encounters/doppleganger-f.png");
+if (plyr.encounterRef==57) encImageSheet.loadFromFile("data/images/encounters/adventurer512.png");
+if (plyr.encounterRef==76) encImageSheet.loadFromFile("data/images/encounters/guard.png");
+if (plyr.encounterRef==77) encImageSheet.loadFromFile("data/images/encounters/guard.png");
+if (plyr.encounterRef==29) encImageSheet.loadFromFile("data/images/encounters/slime.png");
+if (plyr.encounterRef==86) encImageSheet.loadFromFile("data/images/encounters/noblewoman.png");
+if (plyr.encounterRef==59) encImageSheet.loadFromFile("data/images/encounters/adventurer.png");
+}
 
-	// Alternate and set animation frame as required
-	encImage.setTexture(encImageSheet);
-	encImageSheet.setSmooth(true);
-	if (graphicMode == ALTERNATE_LARGE) largeEncImage.setTexture(encImageSheet);
-	if (graphicMode == ALTERNATE_SMALL) largeEncImage.setTexture(encImageSheet);
+// Alternate and set animation frame as required
+encImage.setTexture(encImageSheet);
+encImageSheet.setSmooth(true);
+if (graphicMode == ALTERNATE_LARGE) largeEncImage.setTexture(encImageSheet);
+if (graphicMode == ALTERNATE_SMALL) largeEncImage.setTexture(encImageSheet);
 
     // Original Atari 8bit image at original size
-	if (graphicMode==ATARI_SMALL)
-	{
-		SetTileImage(plyr.encounterAnimationRef);
-		if ((plyr.encounterAnimationRef==92) && (plyr.gender==2)) { SetTileImage(72); } // female doppelganger image
-		// Nightstalker & dragon image position changes
-		//if (plyr.encounterAnimationRef==86) { encImage.setPosition(306, 168); }
-		//if (plyr.encounterAnimationRef==82) { encImage.setPosition(306, 176); }
-	}
-
-
+if (graphicMode==ATARI_SMALL)
+{
+SetTileImage(plyr.encounterAnimationRef);
+if ((plyr.encounterAnimationRef==92) && (plyr.gender==2)) { SetTileImage(72); } // female doppelganger image
+// Nightstalker & dragon image position changes
+//if (plyr.encounterAnimationRef==86) { encImage.setPosition(306, 168); }
+//if (plyr.encounterAnimationRef==82) { encImage.setPosition(306, 176); }
+}
 
     // NOW IMAGE CHOSEN NEED TO SET SCALE - SHRINK OR ENLARGE
 
@@ -1428,41 +1191,39 @@ void drawEncounterAnimation()
     //encHeight = viewHeight / 1.125;
 
     if (graphicMode==ATARI_SMALL)
-	{
-		// Scale large image based on viewport height and width
-		//float scaleX = float(encWidth) / float(64);
-		//float scaleY = float(encHeight) / float(128);
-		//encImage.setScale(scaleX, scaleY);
-	}
-
+{
+// Scale large image based on viewport height and width
+//float scaleX = float(encWidth) / float(64);
+//float scaleY = float(encHeight) / float(128);
+//encImage.setScale(scaleX, scaleY);
+}
 
     if (graphicMode==ALTERNATE_SMALL)
-	{
-	    // Adjustment for new art in small window
-		// Scale large image based on window height and width
+{
+    // Adjustment for new art in small window
+// Scale large image based on window height and width
         encWidth = viewWidth / 4.0; // adjustment to provide larger encounter image
-		encHeight = encWidth*2;
-		//if ((plyr.encounterRef==59)||(plyr.encounterRef==86)||(plyr.encounterRef==29)) encWidth=encWidth*2;
+encHeight = encWidth*2;
+//if ((plyr.encounterRef==59)||(plyr.encounterRef==86)||(plyr.encounterRef==29)) encWidth=encWidth*2;
 
-		float scaleX = float(encWidth) / float(256);
-		//if ((plyr.encounterRef==59) || (plyr.encounterRef==86)) scaleX = float(encWidth) / float(512);
-		float scaleY = float(encHeight) / float(512);
-		largeEncImage.setScale(scaleX, scaleY);
-	}
+float scaleX = float(encWidth) / float(256);
+//if ((plyr.encounterRef==59) || (plyr.encounterRef==86)) scaleX = float(encWidth) / float(512);
+float scaleY = float(encHeight) / float(512);
+largeEncImage.setScale(scaleX, scaleY);
+}
 
     if (graphicMode==ALTERNATE_LARGE)
-	{
-		// For fullscreen mode ensure that aspect ratio of 1:2 is maintained for encounter image
-		encWidth = viewWidth / 4.0; // adjustment to provide larger encounter image
-		encHeight = encWidth*2;
-		//if ((plyr.encounterRef==59)||(plyr.encounterRef==86)||(plyr.encounterRef==29)) encWidth=encWidth*2;
+{
+// For fullscreen mode ensure that aspect ratio of 1:2 is maintained for encounter image
+encWidth = viewWidth / 4.0; // adjustment to provide larger encounter image
+encHeight = encWidth*2;
+//if ((plyr.encounterRef==59)||(plyr.encounterRef==86)||(plyr.encounterRef==29)) encWidth=encWidth*2;
 
-		float scaleX = float(encWidth) / float(256);
-		//if ((plyr.encounterRef==59) || (plyr.encounterRef==86)) scaleX = float(encWidth) / float(512);
-		float scaleY = float(encHeight) / float(512);
-		largeEncImage.setScale(scaleX, scaleY);
-	}
-
+float scaleX = float(encWidth) / float(256);
+//if ((plyr.encounterRef==59) || (plyr.encounterRef==86)) scaleX = float(encWidth) / float(512);
+float scaleY = float(encHeight) / float(512);
+largeEncImage.setScale(scaleX, scaleY);
+}
 
     // SET POSITION OF RESIZED IMAGE ON SCREEN
 
@@ -1475,8 +1236,7 @@ void drawEncounterAnimation()
 
     // DRAW DISPLAY AND FINAL ENCOUNTER IMAGE
     dispMain();
-	if (graphicMode != ATARI_SMALL )  App.draw(largeEncImage);
-	if (graphicMode == ATARI_SMALL ) App.draw(encImage);
+if (graphicMode != ATARI_SMALL )  App.draw(largeEncImage);
+if (graphicMode == ATARI_SMALL ) App.draw(encImage);
 }
 */
-

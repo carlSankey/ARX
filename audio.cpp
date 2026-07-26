@@ -1,164 +1,142 @@
-#include <SFML/Audio.hpp>
+// ============================================================
+// SDL2_mixer audio implementation
+// ============================================================
+#include <SDL_mixer.h>
+#include <iostream>
 
+static bool g_mixerReady = false;
 
-sf::SoundBuffer spellSoundBuffer;
-sf::Sound spellSound{spellSoundBuffer};
+static void ensureMixerInit()
+{
+    if (g_mixerReady) return;
+    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
+        std::cerr << "Mix_OpenAudio failed: " << Mix_GetError() << std::endl;
+        return;
+    }
+    Mix_AllocateChannels(16);
+    g_mixerReady = true;
+}
 
-sf::SoundBuffer dungeonGate1Buffer;
-sf::SoundBuffer dungeonGate2Buffer;
-sf::Sound dungeonGate1Sound{dungeonGate1Buffer};
-sf::Sound dungeonGate2Sound{dungeonGate2Buffer};
+// Channels reserved for specific sounds
+static const int CH_DUNGEON_GATE1 = 0;
+static const int CH_DUNGEON_GATE2 = 1;
+static const int CH_CITY_GATE1    = 2;
+static const int CH_CITY_GATE2    = 3;
+static const int CH_CITY_GATE3    = 4;
+static const int CH_ENCOUNTER     = 5;
+static const int CH_SPELL         = 6;
 
-sf::SoundBuffer cityGate1Buffer;
-sf::SoundBuffer cityGate2Buffer;
-sf::SoundBuffer cityGate3Buffer;
-sf::Sound cityGate1Sound{cityGate1Buffer};
-sf::Sound cityGate2Sound{cityGate2Buffer};
-sf::Sound cityGate3Sound{cityGate3Buffer};
-
-sf::SoundBuffer encounterBuffers[5];
-//sf::Sound encounterSounds[5];
-sf::Sound encounterThemeSound{encounterBuffers[0]};
-
-sf::Music shopMusic;
-
-sf::SoundSource::Status encounterThemeStatus;
-
-bool musicPlaying = false;
-
-
-
-
+static Mix_Chunk* g_dungeonGate1 = nullptr;
+static Mix_Chunk* g_dungeonGate2 = nullptr;
+static Mix_Chunk* g_cityGate1    = nullptr;
+static Mix_Chunk* g_cityGate3    = nullptr;
+static Mix_Chunk* g_spellSound   = nullptr;
+static Mix_Chunk* g_encounterChunks[5] = {};
+static Mix_Music* g_shopMusic    = nullptr;
+static bool       g_musicPlaying = false;
 
 void initEncounterThemes()
 {
-    encounterBuffers[0].loadFromFile("data/audio/cityEncounter2.ogg");  //encounterSounds[0].setBuffer(encounterBuffers[0]);
-    encounterBuffers[1].loadFromFile("data/audio/cityEncounter1.ogg");  //encounterSounds[1].setBuffer(encounterBuffers[1]);
-    encounterBuffers[2].loadFromFile("data/audio/e1.ogg");              //encounterSounds[2].setBuffer(encounterBuffers[2]);
-    encounterBuffers[3].loadFromFile("data/audio/e2.ogg");              //encounterSounds[3].setBuffer(encounterBuffers[3]);
-    encounterBuffers[4].loadFromFile("data/audio/e3.ogg");              //encounterSounds[4].setBuffer(encounterBuffers[4]);
+    ensureMixerInit();
+    const char* files[5] = {
+        "data/audio/cityEncounter2.ogg",
+        "data/audio/cityEncounter1.ogg",
+        "data/audio/e1.ogg",
+        "data/audio/e2.ogg",
+        "data/audio/e3.ogg"
+    };
+    for (int i = 0; i < 5; i++) {
+        if (g_encounterChunks[i]) { Mix_FreeChunk(g_encounterChunks[i]); }
+        g_encounterChunks[i] = Mix_LoadWAV(files[i]);
+        if (!g_encounterChunks[i]) {
+            std::cerr << "Mix_LoadWAV " << files[i] << ": " << Mix_GetError() << std::endl;
+        }
+    }
 }
-
-
-
-
 
 void playEncounterTheme(int number)
 {
-    encounterThemeSound.setBuffer(encounterBuffers[number]);
-    //encounterSounds[number].play();
-    encounterThemeSound.play();
+    if (!g_mixerReady || number < 0 || number > 4) return;
+    if (g_encounterChunks[number]) {
+        Mix_PlayChannel(CH_ENCOUNTER, g_encounterChunks[number], 0);
+    }
 }
-
 
 bool encounterThemeNotPlaying()
 {
-    encounterThemeStatus = encounterThemeSound.getStatus();
-    if (encounterThemeStatus == sf::SoundSource::Status::Stopped) { return true; }
-    else { return false; }
+    return !Mix_Playing(CH_ENCOUNTER);
 }
-
-
-
 
 void playShopMusic(int musicNo)
 {
-	if (musicPlaying==false)
-	{
-		if (musicNo==1) shopMusic.openFromFile("data/audio/trolls.ogg");
-		if (musicNo==2) shopMusic.openFromFile("data/audio/goblins.ogg");
-		if (musicNo==3) shopMusic.openFromFile("data/audio/chapel.ogg");
-		if (musicNo==4) shopMusic.openFromFile("data/audio/B/trolls.ogg");
-		if (musicNo==5) shopMusic.openFromFile("data/audio/B/goblins.ogg");
-		if (musicNo==6) shopMusic.openFromFile("data/audio/B/chapel.ogg");
-		shopMusic.play();
-		musicPlaying = true;
-	}
+    if (!g_mixerReady || g_musicPlaying) return;
+    const char* file = nullptr;
+    switch (musicNo) {
+    case 1: file = "data/audio/trolls.ogg";   break;
+    case 2: file = "data/audio/goblins.ogg";  break;
+    case 3: file = "data/audio/chapel.ogg";   break;
+    case 4: file = "data/audio/B/trolls.ogg"; break;
+    case 5: file = "data/audio/B/goblins.ogg";break;
+    case 6: file = "data/audio/B/Chapel.ogg"; break;
+    default: return;
+    }
+    if (g_shopMusic) { Mix_FreeMusic(g_shopMusic); g_shopMusic = nullptr; }
+    g_shopMusic = Mix_LoadMUS(file);
+    if (g_shopMusic) {
+        Mix_PlayMusic(g_shopMusic, -1);
+        g_musicPlaying = true;
+    } else {
+        std::cerr << "Mix_LoadMUS " << file << ": " << Mix_GetError() << std::endl;
+    }
 }
 
 void stopShopMusic()
 {
-	musicPlaying = false;
-	shopMusic.stop();
+    Mix_HaltMusic();
+    g_musicPlaying = false;
 }
-
-
 
 void initCityGateSounds()
 {
-	cityGate1Buffer.loadFromFile("data/audio/cityGate1.ogg");
-	cityGate1Sound.setBuffer(cityGate1Buffer);
-	//dungeonGate1Sound.setLoop(true);
-	//cityGate2Sound.setLoop(true);
+    ensureMixerInit();
+    if (g_cityGate1) { Mix_FreeChunk(g_cityGate1); }
+    g_cityGate1 = Mix_LoadWAV("data/audio/cityGate1.ogg");
+    if (!g_cityGate1) std::cerr << "cityGate1: " << Mix_GetError() << std::endl;
 
-	cityGate3Buffer.loadFromFile("data/audio/cityGate4.ogg");
-	cityGate3Sound.setBuffer(cityGate3Buffer);
+    if (g_cityGate3) { Mix_FreeChunk(g_cityGate3); }
+    g_cityGate3 = Mix_LoadWAV("data/audio/citygate4.ogg");
+    if (!g_cityGate3) std::cerr << "cityGate4: " << Mix_GetError() << std::endl;
 }
 
 void initDungeonGateSounds()
 {
-	dungeonGate1Buffer.loadFromFile("data/audio/gate1.wav");
-	dungeonGate1Sound.setBuffer(dungeonGate1Buffer);
-	dungeonGate1Sound.setLooping(true);
+    ensureMixerInit();
+    if (g_dungeonGate1) { Mix_FreeChunk(g_dungeonGate1); }
+    g_dungeonGate1 = Mix_LoadWAV("data/audio/gate1.wav");
+    if (!g_dungeonGate1) std::cerr << "gate1: " << Mix_GetError() << std::endl;
 
-	dungeonGate2Buffer.loadFromFile("data/audio/gate2.wav");
-	dungeonGate2Sound.setBuffer(dungeonGate2Buffer);
+    if (g_dungeonGate2) { Mix_FreeChunk(g_dungeonGate2); }
+    g_dungeonGate2 = Mix_LoadWAV("data/audio/gate2.wav");
+    if (!g_dungeonGate2) std::cerr << "gate2: " << Mix_GetError() << std::endl;
 }
 
-void playDungeonGateSound1()
-{
-   dungeonGate1Sound.play();
-}
+void playDungeonGateSound1() { if (g_dungeonGate1) Mix_PlayChannel(CH_DUNGEON_GATE1, g_dungeonGate1, -1); }
+void stopDungeonGateSound1() { Mix_HaltChannel(CH_DUNGEON_GATE1); }
+void playDungeonGateSound2() { if (g_dungeonGate2) Mix_PlayChannel(CH_DUNGEON_GATE2, g_dungeonGate2, 0); }
+void stopDungeonGateSound2() { Mix_HaltChannel(CH_DUNGEON_GATE2); }
 
-void playDungeonGateSound2()
-{
-   dungeonGate2Sound.play();
-}
-
-void stopDungeonGateSound1()
-{
-   dungeonGate1Sound.stop();
-}
-
-void stopDungeonGateSound2()
-{
-   dungeonGate2Sound.stop();
-}
-
-
-void playCityGateSound1()
-{
-   cityGate1Sound.play();
-}
-
-void playCityGateSound2()
-{
-   cityGate2Sound.play();
-}
-
-void playCityGateSound3()
-{
-   cityGate3Sound.play();
-}
-
-void stopCityGateSound1()
-{
-   cityGate1Sound.stop();
-}
-
-void stopCityGateSound2()
-{
-   cityGate2Sound.stop();
-}
-
-void stopCityGateSound3()
-{
-   cityGate3Sound.stop();
-}
+void playCityGateSound1() { if (g_cityGate1) Mix_PlayChannel(CH_CITY_GATE1, g_cityGate1, 0); }
+void stopCityGateSound1() { Mix_HaltChannel(CH_CITY_GATE1); }
+void playCityGateSound2() { Mix_HaltChannel(CH_CITY_GATE2); } // no buffer loaded — no-op
+void stopCityGateSound2() { Mix_HaltChannel(CH_CITY_GATE2); }
+void playCityGateSound3() { if (g_cityGate3) Mix_PlayChannel(CH_CITY_GATE3, g_cityGate3, 0); }
+void stopCityGateSound3() { Mix_HaltChannel(CH_CITY_GATE3); }
 
 void playSpellSound()
 {
-	spellSoundBuffer.loadFromFile("data/audio/spell.wav");
-	spellSound.setBuffer(spellSoundBuffer);
-	spellSound.play();
+    ensureMixerInit();
+    if (!g_spellSound) {
+        g_spellSound = Mix_LoadWAV("data/audio/spell.wav");
+    }
+    if (g_spellSound) Mix_PlayChannel(CH_SPELL, g_spellSound, 0);
 }

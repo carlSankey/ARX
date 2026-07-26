@@ -1,6 +1,3 @@
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-
 #include <string>
 #include <iostream>
 #include <sstream>
@@ -946,11 +943,11 @@ void loadDamonBinary() {
 	FILE* fp = nullptr;       // Initialize fp to nullptr
 
 	char tempString[100];     // temporary string
-	int err = sprintf_s(tempString, sizeof(tempString), "%s%s", "data/map/core/", "DamonItems.bin");
+	int err = sprintf(tempString, "%s%s", "data/map/core/", "DamonItems.bin");
 
 	if (err > 0) {
 		// Attempt to open the file for reading in binary mode
-		err = fopen_s(&fp, tempString, "rb");
+		fp = fopen(tempString, "rb");
 	}
 
 	if (err == 0 && fp != nullptr) {

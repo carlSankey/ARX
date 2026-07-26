@@ -8,6 +8,7 @@
  */
 
 
+#include "platform/ArxClock.h"
 #include <string>
 
 #include "module.h"
@@ -30,9 +31,9 @@ enum MENUS
 };
 
 int vmenu;
-sf::Clock gmyclock;
-sf::Time gdt;
-sf::Time guardCheckTime;
+arx::Clock gmyclock;
+arx::Time gdt;
+arx::Time guardCheckTime;
 
 int bagType = 0;
 string bagDesc = "copper coins";
@@ -56,10 +57,10 @@ void runVault()
         processVaultMenuInput();
 
         guardCheckTime += gdt;
-        if (guardCheckTime >= sf::seconds(0.8f)) // was 0.8f
+        if (guardCheckTime >= arx::seconds(0.8f))
         {
               checkForGuard();
-              guardCheckTime = sf::Time::Zero;
+              guardCheckTime = arx::Time::Zero;
               //addMinute();
         }
 

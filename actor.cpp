@@ -83,7 +83,7 @@ openingMessages* opMessages = nullptr;
 
 unsigned char monstersBinary[noOfMonstersFile];
 
-int monsterOffsets[noOfEncounters];
+int monsterOffsets[noOfEncounters + 1];
 int pluralNameOffset;
 int maxNumberEncountered;
 int currentWeapon;
@@ -1177,16 +1177,10 @@ void readMonsterDeathText(int monsterNo, int deathOffset)
 void loadMonstersBinary() {
     FILE* fp;               // file pointer - used when reading files
     char tempString[100];   // temporary string
-    int err = sprintf_s(tempString, sizeof(tempString), "%s%s", "data/map/core/", "monsters.bin");
+    snprintf(tempString, sizeof(tempString), "%s%s", "data/map/core/", "monsters.bin");
 
-    if (err < 0) {
-        // Handle sprintf_s error
-        perror("Error formatting file path");
-        return; // Exit the function
-    }
-
-    err = fopen_s(&fp, tempString, "rb");
-    if (err != 0 || fp == NULL) {
+    fp = fopen(tempString, "rb");
+    if (fp == NULL) {
         // Handle file open error
         perror("Error opening file");
         return; // Exit the function

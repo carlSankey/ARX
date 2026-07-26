@@ -525,10 +525,10 @@ void buildSmithyMenuOptions()
 void loadDwarvenBinary() {
     FILE* fp;               // file pointer - used when reading files
     char tempString[100];   // temporary string
-    sprintf_s(tempString, sizeof(tempString), "%s%s", "data/map/core/", "DwarvenItems.bin");
+    sprintf(tempString, "%s%s", "data/map/core/", "DwarvenItems.bin");
 
     // Use fopen for opening the file
-    if (fopen_s(&fp, tempString, "rb") == 0 && fp != NULL) {
+    if (fopen(tempString, "rb") == 0 && fp != NULL) {
         // File opened successfully
         // Check if the file size matches the expected size
         fseek(fp, 0, SEEK_END); // Move to the end of the file

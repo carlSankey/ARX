@@ -1,7 +1,3 @@
-
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-
 #include <string>
 #include <iostream>
 #include <sstream>
@@ -14,8 +10,9 @@
 #include "misc.h"
 #include "retreat.h"
 #include "automap.h"
+#include "platform/ArxClock.h"
 
-//// extern Player plyr;
+// extern Player plyr;
 // extern sf::RenderWindow App;
 
 inline std::string concat( int n, const char* str )
@@ -147,7 +144,7 @@ void shopRetreat()
 				updateFatigue();
 				
 				hoursSlept++;
-				sf::sleep(sf::seconds(1));
+				arx::sleep(arx::seconds(1));
 			}
 			
 			retreatMenu = 6;

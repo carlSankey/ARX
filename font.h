@@ -4,6 +4,7 @@
 #include <string>
 
 void InitFont();
+void releaseFontResources();
 void DrawChar(int topY, int x,int y, int char_no);
 void drawText(int x, int y, std::string text); // draw string at x,y
 void drawText(int x, int y, int number); // draw number at x,y

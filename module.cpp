@@ -38,6 +38,7 @@ void displayModuleImage(int module)
 	App.pushGLStates();
 	//App.draw(ShopSprite);
 	drawStatsPanel();
+	App.popGLStates();
 }
 
 // Returns an item reference based on a multi page menu e.g. food item, weapon item

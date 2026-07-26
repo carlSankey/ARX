@@ -35,12 +35,7 @@ using std::cout;
 using std::endl;
 using std::map;
 
-Player plyr;
-
-
-
-
-bool autoMapExplored[5][4096]; // 5 levels of 4096 on/off values
+// Player plyr is defined in platform/AppLoop.cpp
 
 int shopDailyWares[15][12]; //15 shops with 12 items each a day for sale
 int smithyDailyWares[4][10]; // 4 smithies with 10 items each a day for sale
@@ -655,7 +650,7 @@ void updatePoison()
 void updateWeapon()
 {
     
-        if(itemBuffer[plyr.priWeapon].alignment >128 and plyr.alignment < 128)
+        if(itemBuffer[plyr.priWeapon].alignment >128 && plyr.alignment < 128)
         {
             int evilWeaponDamage = randn(0, 100);
             if (randn(0, 100) < 5)
@@ -731,6 +726,8 @@ void initStats()
     plyr.gender = 1;
     plyr.zone = 1;
     plyr.status = 1; // Exploring
+    plyr.subState = SubState::None;
+    plyr.subStateMessage = "";
     plyr.torches = 3;
     plyr.food = 3;
     plyr.water = 3;

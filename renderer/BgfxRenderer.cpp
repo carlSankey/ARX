@@ -7,10 +7,6 @@
 #include <bgfx/platform.h>
 #include <bx/math.h>
 
-#ifdef _WIN32
-#include <windows.h>
-#endif
-
 BgfxRenderer::BgfxRenderer() = default;
 
 BgfxRenderer::~BgfxRenderer()
@@ -23,7 +19,7 @@ bool BgfxRenderer::init(sf::RenderWindow& window)
     if (m_initialized)
         return true;
 
-#ifdef _WIN32
+    // Set up platform data for bgfx
     bgfx::PlatformData platformData;
     platformData.ndt = nullptr;
     platformData.nwh = (void*)window.getNativeHandle();
@@ -31,7 +27,6 @@ bool BgfxRenderer::init(sf::RenderWindow& window)
     platformData.backBuffer = nullptr;
     platformData.backBufferDS = nullptr;
     bgfx::setPlatformData(platformData);
-#endif
 
     bgfx::Init init;
     // Use OpenGL backend - SFML uses OpenGL, so both must share the same API

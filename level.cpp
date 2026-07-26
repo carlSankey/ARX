@@ -497,7 +497,12 @@ void initMaps()
 			//cout << line << "\n";
 			idx = line.find('=');
 			text = line.substr(idx+2);
-			if (a==0) { maps[i].filename = text; } //contains the prefix for the files
+			if (a==0) {
+				// Strip trailing CR/LF (Windows line endings in maps.txt)
+				while (!text.empty() && (text.back() == '\r' || text.back() == '\n' || text.back() == ' '))
+					text.pop_back();
+				maps[i].filename = text;
+			} //contains the prefix for the files
 			if (a==1) { maps[i].width = atoi(text.c_str()); }
 			if (a==2) { maps[i].height = atoi(text.c_str()); }
 			if (a==3) { maps[i].description = text; }
@@ -812,12 +817,12 @@ void transMapIndex (int idx)
 void loadBinaryLevel() {
 	FILE* fp;
 	char tempString[100]; // Declare tempString with an appropriate size
-	sprintf_s(tempString, sizeof(tempString), "%s%s",
+	snprintf(tempString, sizeof(tempString), "%s%s",
 		("data/map/Scenario_" + std::to_string(plyr.scenario) + "/").c_str(),
 		"dun4.bin");
 
-	// Use fopen_s for improved error handling
-	if (fopen_s(&fp, tempString, "rb") == 0 && fp != NULL) {
+	fp = fopen(tempString, "rb");
+	if (fp != NULL) {
 		for (int i = 0; i < 4096; i++) {
 			int tmp = fgetc(fp);
 			if (tmp == 2) {

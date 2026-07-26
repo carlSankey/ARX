@@ -8,7 +8,9 @@
 #include <cstdio> // Include the necessary header
 #include <vector>
 #include <map>
+#ifndef __EMSCRIPTEN__
 #include <direct.h>
+#endif
 #include <random>
 
 #include "constants.h"
