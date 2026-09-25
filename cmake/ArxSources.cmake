@@ -21,6 +21,7 @@ set(ARX_GAME_SOURCES
   ${_ARX_ROOT}/platform/InputQueue.cpp
   ${_ARX_ROOT}/platform/SDL2Window.cpp
   ${_ARX_ROOT}/platform/GLESLoader.cpp
+  ${_ARX_ROOT}/platform/FileSystem.cpp
   ${_ARX_ROOT}/game.cpp
   ${_ARX_ROOT}/actor.cpp
   ${_ARX_ROOT}/level.cpp
