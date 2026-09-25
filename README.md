@@ -65,67 +65,6 @@ The web port includes the following improvements and features:
 
 6. Open your browser to `http://localhost:8000/arxx_web.html`
 
-## Building on Windows (desktop)
-
-The desktop build uses CMake and vcpkg. It compiles the same SDL2 code as the web
-build (`ARX_USE_SDL2`), so the game behaves identically; it is also the basis for
-the Android port.
-
-### Prerequisites
-
-- [Visual Studio 2022](https://visualstudio.microsoft.com/downloads/) with the
-  **Desktop development with C++** workload
-- [CMake](https://cmake.org/download/) 3.20 or newer
-- [vcpkg](https://github.com/microsoft/vcpkg)
-
-### 1. Install vcpkg into the repository
-
-Clone vcpkg so it ends up in a `vcpkg` folder next to `CMakeLists.txt` (the
-presets point at `${sourceDir}/vcpkg`), then bootstrap it:
-
-```bat
-git clone https://github.com/microsoft/vcpkg.git vcpkg
-vcpkg\bootstrap-vcpkg.bat -disableMetrics
-```
-
-`vcpkg` and `vcpkg_installed` are ignored by git, so this does not dirty the repo.
-
-### 2. Configure and build
-
-From the repository root:
-
-```bat
-cmake --preset windows-debug
-cmake --build --preset windows-debug
-```
-
-For a release build use `windows-release` instead of `windows-debug`.
-
-The first configure downloads and builds the dependencies listed in
-`vcpkg.json` for the `x64-windows` triplet (SDL2, SDL2_image, SDL2_mixer and
-their dependencies). That takes a while; later configures reuse the cache.
-
-### 3. Or open the folder in Visual Studio
-
-`File > Open > Folder...` and select the repository root. Visual Studio reads
-`CMakePresets.json` directly, so the `windows-debug` and `windows-release`
-presets appear in the project configuration dropdown and the CMake targets are
-listed in the Solution Explorer.
-
-### 4. Running the game
-
-The executable is written to `build\windows-debug\Debug\arxx.exe` (or
-`build\windows-release\Release\arxx.exe`). A post-build step copies the `data`
-folder next to it, so the game finds its files when started from Explorer or
-with F5.
-
-### OpenGL
-
-The renderer targets OpenGL ES, so the desktop build asks SDL for an OpenGL ES
-3.0 context. If `SDL_GL_CreateContext` fails, your graphics driver does not
-expose an ES context through WGL; the log will say so. That can be worked
-around later with ANGLE, but for now try updating the graphics driver.
-
 ## Original C++ Version
 
 The original C++ source code is still available in this repository. You can compile it for native platforms using:
