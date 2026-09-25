@@ -6,7 +6,7 @@
 
 #include "View3D.h"
 
-#include <SDL_opengles2.h>
+#include "../platform/GLESLoader.h"
 #include <SDL_image.h>
 
 #include <iostream>

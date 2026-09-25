@@ -1,5 +1,4 @@
-#include <GL/glew.h>
-#include <GL/glu.h>
+#include "platform/GLESLoader.h"
 
 #include <cstdint>
 #include <optional>
@@ -263,16 +262,13 @@ int animImage;
 int animDuration;
 
 // Draw a filled rectangle (bar) at pixel position (x,y) with given width, height, and RGBA color.
-// Uses immediate-mode OpenGL for native, and a simple non-textured shader for WebGL.
+// Shader path shared by web and native: OpenGL ES has no immediate mode
+// (glBegin/glEnd, glColor, GL_TEXTURE_2D enable), so the native build uses
+// the same minimal colored-quad shader as the web build.
 static void drawFilledRect(int x, int y, int w, int h, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 {
     if (w <= 0 || h <= 0) return;
-#ifdef __EMSCRIPTEN__
-    // WebGL path: use raw GL with a simple colored quad
-    glDisable(GL_TEXTURE_2D);
-    // Use the default shader-less path if available, otherwise fall back
-    // In WebGL, we need a shader, so we unbind texture and draw a colored quad
-    // using a simple approach: bind no texture and rely on vertex colors
+    // Shader path: use raw GL with a simple colored quad
     // Since Sprite2D shader always expects a texture, we draw raw GL primitives
     // with a minimal built-in shader
     static bool s_initialized = false;
@@ -280,7 +276,7 @@ static void drawFilledRect(int x, int y, int w, int h, uint8_t r, uint8_t g, uin
     static GLuint s_barVbo = 0;
     static GLint s_barColorLoc = -1;
     static GLint s_barPosLoc = -1;
-    
+
     if (!s_initialized) {
         // Simple vertex shader
         const char* vs = "attribute vec2 a_pos; uniform vec4 u_color; void main() { gl_Position = vec4(a_pos, 0.0, 1.0); }";
@@ -303,24 +299,24 @@ static void drawFilledRect(int x, int y, int w, int h, uint8_t r, uint8_t g, uin
         s_initialized = true;
     }
     if (!s_barShader) return;
-    
+
     glUseProgram(s_barShader);
-    
+
     GLint viewport[4];
     glGetIntegerv(GL_VIEWPORT, viewport);
     float vpHalfW = viewport[2] / 2.0f;
     float vpHalfH = viewport[3] / 2.0f;
-    
+
     float x1 = (x - vpHalfW) / vpHalfW;
     float y1 = -(y - vpHalfH) / vpHalfH;
     float x2 = (x + w - vpHalfW) / vpHalfW;
     float y2 = -(y + h - vpHalfH) / vpHalfH;
-    
+
     float verts[12] = {
         x1, y1, x2, y1, x1, y2,
         x2, y1, x2, y2, x1, y2
     };
-    
+
     glBindBuffer(GL_ARRAY_BUFFER, s_barVbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(verts), verts, GL_STREAM_DRAW);
     glEnableVertexAttribArray(s_barPosLoc);
@@ -330,17 +326,6 @@ static void drawFilledRect(int x, int y, int w, int h, uint8_t r, uint8_t g, uin
     glDisableVertexAttribArray(s_barPosLoc);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glUseProgram(0);
-#else
-    // Native OpenGL path
-    glDisable(GL_TEXTURE_2D);
-    glColor4ub(r, g, b, a);
-    glBegin(GL_QUADS);
-    glVertex2i(x, y);
-    glVertex2i(x + w, y);
-    glVertex2i(x + w, y + h);
-    glVertex2i(x, y + h);
-    glEnd();
-#endif
 }
 
 void drawAtariAnimation()

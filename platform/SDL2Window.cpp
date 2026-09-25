@@ -3,7 +3,7 @@
 #ifdef ARX_USE_SDL2
 
 #include <iostream>
-#include <SDL_opengl.h>
+#include "GLESLoader.h"
 
 #ifdef __EMSCRIPTEN__
 #include <emscripten/html5.h>
@@ -31,10 +31,12 @@ bool SDL2Window::create(const WindowConfig& config)
     // Emscripten with -sUSE_WEBGL2=1 handles GL context creation automatically
     // Do NOT set GL version attributes - they conflict with WebGL2 initialization
 #else
-    // OpenGL 3.3 Core for native
+    // OpenGL ES 3.0 for native desktop (matches WebGL2 in the browser and
+    // what Android will use). Phones use OpenGL ES, so the desktop build
+    // matches them as closely as possible.
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
 #endif
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
@@ -64,6 +66,13 @@ bool SDL2Window::create(const WindowConfig& config)
     m_glContext = SDL_GL_CreateContext(m_window);
     if (!m_glContext) {
         std::cerr << "SDL_GL_CreateContext failed: " << SDL_GetError() << std::endl;
+#ifndef __EMSCRIPTEN__
+        std::cerr << "SDL2Window: could not create an OpenGL ES 3.0 context. "
+                     "This build needs a driver that supports ES 3.0 via WGL "
+                     "(WGL_EXT_create_context_es2_profile). If the card cannot "
+                     "provide one, an OpenGL ES implementation on top of Direct3D "
+                     "(ANGLE) would be needed - ask before switching." << std::endl;
+#endif
         SDL_DestroyWindow(m_window);
         m_window = nullptr;
         SDL_Quit();
@@ -71,6 +80,20 @@ bool SDL2Window::create(const WindowConfig& config)
     }
 
     SDL_GL_SetSwapInterval(config.vsync ? 1 : 0);
+
+#ifndef __EMSCRIPTEN__
+    // Load the OpenGL ES 2.0 entry points for the context we just created, in
+    // one place, before any drawing happens.
+    if (!arx::gles::loadFunctions()) {
+        std::cerr << "SDL2Window: failed to load OpenGL ES 2.0 entry points" << std::endl;
+        SDL_GL_DeleteContext(m_glContext);
+        m_glContext = nullptr;
+        SDL_DestroyWindow(m_window);
+        m_window = nullptr;
+        SDL_Quit();
+        return false;
+    }
+#endif
 
     m_width = config.width;
     m_height = config.height;

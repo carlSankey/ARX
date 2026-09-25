@@ -6,12 +6,7 @@
 #include <vector>
 #include <cstring>
 
-#ifdef __EMSCRIPTEN__
-#include <SDL_opengles2.h>
-#else
-#include <SDL_opengl.h>
-#include <GL/glew.h>
-#endif
+#include "../platform/GLESLoader.h"
 
 #include <SDL_image.h>
 
@@ -23,7 +18,6 @@ Sprite2D::~Sprite2D()
         glDeleteTextures(1, &m_texId);
         m_texId = 0;
     }
-#ifdef __EMSCRIPTEN__
     if (m_shader) {
         glDeleteProgram(m_shader);
         m_shader = 0;
@@ -32,10 +26,9 @@ Sprite2D::~Sprite2D()
         glDeleteBuffers(1, &m_vbo);
         m_vbo = 0;
     }
-#endif
 }
 
-#ifdef __EMSCRIPTEN__
+// Shader path shared by web and native (OpenGL ES has no immediate mode).
 
 // Simple vertex shader: transforms positions and passes texture coords
 static const char* s_vertexSrc = R"(
@@ -109,8 +102,6 @@ static GLuint createProgram(const char* vertSrc, const char* fragSrc)
     return prog;
 }
 
-#endif // __EMSCRIPTEN__
-
 bool Sprite2D::load(const std::string& filepath)
 {
     // Load image using SDL2_image
@@ -170,8 +161,7 @@ bool Sprite2D::loadFromMemory(const uint8_t* data, int width, int height)
     m_srcW = width;
     m_srcH = height;
 
-#ifdef __EMSCRIPTEN__
-    // Lazily init shader and VBO on first texture load
+    // Lazily init shader and VBO on first texture load (shared web/native path).
     if (!m_shader) {
         m_shader = createProgram(s_vertexSrc, s_fragmentSrc);
         if (m_shader) {
@@ -188,7 +178,6 @@ bool Sprite2D::loadFromMemory(const uint8_t* data, int width, int height)
             glUniform1i(m_uTextureLoc, 0);
         }
     }
-#endif
 
     return true;
 }
@@ -227,8 +216,7 @@ void Sprite2D::draw(float x, float y, float scaleX, float scaleY) const
 
     glBindTexture(GL_TEXTURE_2D, m_texId);
 
-#ifdef __EMSCRIPTEN__
-
+    // Shader path shared by web and native (OpenGL ES has no immediate mode).
     if (!m_shader) return;
 
     glUseProgram(m_shader);
@@ -285,23 +273,6 @@ void Sprite2D::draw(float x, float y, float scaleX, float scaleY) const
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glUseProgram(0);
-
-#else
-
-    // Native OpenGL compat path: immediate mode
-    glEnable(GL_TEXTURE_2D);
-    glColor4f(m_colorR, m_colorG, m_colorB, m_colorA);
-
-    glBegin(GL_QUADS);
-    glTexCoord2f(tx1, ty1); glVertex2f(x, y);
-    glTexCoord2f(tx2, ty1); glVertex2f(x + w, y);
-    glTexCoord2f(tx2, ty2); glVertex2f(x + w, y + h);
-    glTexCoord2f(tx1, ty2); glVertex2f(x, y + h);
-    glEnd();
-
-    glDisable(GL_TEXTURE_2D);
-
-#endif
 }
 
 } // namespace arx

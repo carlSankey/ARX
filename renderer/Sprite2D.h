@@ -69,15 +69,13 @@ private:
     float m_colorB = 1.0f;
     float m_colorA = 1.0f;
 
-#ifdef __EMSCRIPTEN__
-    // WebGL shader-based rendering state
+    // Shader-based rendering state (shared by web and native OpenGL ES builds).
     mutable unsigned int m_shader = 0;   // GL program object
     mutable unsigned int m_vbo = 0;      // GL vertex buffer
     mutable int m_uColorLoc = -1;        // uniform location for color
     mutable int m_uTextureLoc = -1;      // uniform location for texture
     mutable int m_aPositionLoc = -1;     // attribute location for position
     mutable int m_aTexCoordLoc = -1;     // attribute location for texcoord
-#endif
 };
 
 } // namespace arx
