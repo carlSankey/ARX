@@ -1,0 +1,64 @@
+ID	Area	File(s)	Current behavior	Browser risk	Priority	Suggested fix
+P0-BUILD-01
+Build system
+ARXX.vcxproj
+MSVC/Windows project only
+No browser target
+P0
+Add separate Emscripten/CMake or emcc build target
+P0-LOOP-01
+Main loop
+ARX.cpp
+Desktop while (programRunning)
+Browser loop model differs
+P0
+Split into init/tick/render; later use browser main loop callback
+P0-WIN-01
+Win32 API
+config.cpp
+Uses GetCurrentDirectoryA (windows.h)
+Not available in browser
+P0
+Replace with portable path/init logic
+P0-WIN-02
+Win32 include
+display.cpp, 3Dview.cpp, 3dviewnew.cpp, font.cpp, renderer/BgfxRenderer.cpp
+Includes windows.h
+May block/complicate wasm compile
+P0
+Remove if unused; otherwise isolate behind platform layer
+P1-INPUT-01
+Input contract
+misc.cpp (readKey, getSingleKey)
+String-based key mapping via polled SFML events
+Needs exact parity in web event pipeline
+P1
+Define canonical key map contract + backend adapter
+P1-AUDIO-01
+Audio startup
+audio.cpp
+loadFromFile/openFromFile and immediate playback
+Browser autoplay restrictions
+P1
+Gate playback behind first user gesture
+P1-FS-01
+Asset IO
+audio.cpp, display.cpp, font.cpp, level.cpp, etc.
+Relative file reads from data/...
+Browser has no native filesystem paths
+P1
+Package assets into Emscripten FS or HTTP load path
+P1-SAVE-01
+Save IO
+saveGame.cpp
+Local file read/write saves
+Needs persistent browser storage
+P1
+Map saves to IDBFS (or equivalent)
+P1-RENDER-01
+GL compatibility
+display.cpp, 3Dview.cpp, 3dviewnew.cpp
+Native OpenGL usage
+Some desktop GL patterns may fail in WebGL
+P1
+Audit GL calls; migrate incompatible paths

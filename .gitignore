@@ -42,6 +42,10 @@ include/
 # Save files
 *.sav
 
+# Local build/test logs (untracked working notes)
+build_log.txt
+output.txt
+
 # OS
 Thumbs.db
 .DS_Store
