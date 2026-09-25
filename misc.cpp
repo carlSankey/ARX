@@ -97,9 +97,11 @@ string getTextChar()
 				case arx::Key::F8:        arx::inputPush("F8");       break;
 				case arx::Key::F10:       arx::inputPush("F10");      break;
 				case arx::Key::F11:       arx::inputPush("F11");      break;
-				case arx::Key::F12:       arx::inputPush("F12");      break;
-				default: break;
-				}
+			case arx::Key::F12:       arx::inputPush("F12");      break;
+			case arx::Key::Comma:     arx::inputPush(",");        break;
+			case arx::Key::Period:    arx::inputPush(".");        break;
+			default: break;
+			}
 			} else if (event->type == arx::EventType::Closed) {
 				arx::inputPush("QUIT");
 			}
@@ -204,6 +206,8 @@ string readKey()
 			case arx::Key::Enter:     k = "RETURN";  break;
 			case arx::Key::Backspace: k = "BACKSPACE"; break;
 			case arx::Key::Escape:    k = "ESC";     break;
+			case arx::Key::Comma:     k = ",";       break;
+			case arx::Key::Period:    k = ".";       break;
 			default: break;
 			}
 
@@ -214,7 +218,13 @@ string readKey()
 		}
 
 		if (event->type == arx::EventType::TextInput) {
-			arx::textPush(event->text);
+			// Route < and > (shift+comma / shift+period) to key queue for panel switching
+			if (event->text == "<" || event->text == ">") {
+				arx::inputPush(event->text);
+				if (keyString.empty()) keyString = event->text;
+			} else {
+				arx::textPush(event->text);
+			}
 		}
 
 		if (event->type == arx::EventType::Closed) {

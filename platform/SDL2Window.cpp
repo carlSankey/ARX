@@ -230,6 +230,8 @@ Key SDL2Window::sdlKeyToArxKey(SDL_Keycode sdl)
     case SDLK_F10: return Key::F10;
     case SDLK_F11: return Key::F11;
     case SDLK_F12: return Key::F12;
+    case SDLK_COMMA: return Key::Comma;
+    case SDLK_PERIOD: return Key::Period;
     default: return Key::Unknown;
     }
 }

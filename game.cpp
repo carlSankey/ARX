@@ -75,6 +75,7 @@ int g_itemActionStep = 0;     // 0=selecting, 1=entering quantity
 int g_itemActionRef = 9999;   // selected item ref
 int g_itemActionPage = 0;     // current page in item list
 int g_dropQuantity = 0;       // quantity to drop
+int g_getItemIndex = 0;       // current floor item index for GET mode
 }
 
 void gameInit()
@@ -108,8 +109,8 @@ bool gameTick()
     drawConsoleBackground();
     drawInfoPanels();
     updateDisplay();
-
-    // Handle non-blocking item action sub-state (D=drop, C=cast)
+    
+    // Handle non-blocking item action sub-state (D=drop, C=cast, G=get)
     if (plyr.subState == SubState::ItemAction && g_itemActionMode > 0) {
         string actionKey = readKey();
         int sel = -1;
@@ -131,10 +132,58 @@ bool gameTick()
         else if (actionKey == "B" || actionKey == "up") {
             if (g_itemActionPage > 0) g_itemActionPage--;
         }
+        else if (g_itemActionMode == 1 && g_itemActionStep == 0 && (actionKey == "Y" || actionKey == "N")) {
+            // GET mode: handle Y/N for one-item-at-a-time pickup
+            if (actionKey == "Y") {
+                // Pick up the item at g_getItemIndex
+                string encText = checkEncumbrance();
+                if (encText != "Immobilized!") {
+                    int idx = g_getItemIndex;
+                    if (itemBuffer[idx].type < 13) {
+                        int type = itemBuffer[idx].type;
+                        if (type == 1) plyr.food += itemBuffer[idx].hp;
+                        else if (type == 2) plyr.water += itemBuffer[idx].hp;
+                        else if (type == 3) plyr.torches += itemBuffer[idx].hp;
+                        else if (type == 4) plyr.timepieces += itemBuffer[idx].hp;
+                        else if (type == 5) plyr.compasses += itemBuffer[idx].hp;
+                        else if (type == 6) plyr.keys += itemBuffer[idx].hp;
+                        else if (type == 7) plyr.crystals += itemBuffer[idx].hp;
+                        else if (type == 8) plyr.gems += itemBuffer[idx].hp;
+                        else if (type == 9) plyr.jewels += itemBuffer[idx].hp;
+                        else if (type == 10) plyr.gold += itemBuffer[idx].hp;
+                        else if (type == 11) plyr.silver += itemBuffer[idx].hp;
+                        else if (type == 12) plyr.copper += itemBuffer[idx].hp;
+                        itemBuffer[idx].location = 0; // remove from floor
+                    }
+                    else if (itemBuffer[idx].type > 100) {
+                        itemBuffer[idx].location = 10; // move to inventory
+                    }
+                }
+            }
+            // Advance to next floor item (for both Y and N)
+            bool foundNext = false;
+            for (int i = g_getItemIndex + 1; i < plyr.buffer_index; i++) {
+                if (itemBuffer[i].x == plyr.x && itemBuffer[i].y == plyr.y && 
+                    itemBuffer[i].level == plyr.map && itemBuffer[i].location == 1) {
+                    g_getItemIndex = i;
+                    foundNext = true;
+                    break;
+                }
+            }
+            if (!foundNext) {
+                // No more items - exit GET mode
+                plyr.subState = SubState::None;
+                g_itemActionMode = 0;
+                g_itemActionStep = 0;
+                g_itemActionRef = 9999;
+            }
+        }
         else if (sel >= 1 && sel <= 4 && g_itemActionStep == 0) {
-            if (g_itemActionPage == 0) {
-                // Consumables page
-                if (g_itemActionMode == 2) { // DROP
+            // Process item selection for DROP and CAST modes
+            if (g_itemActionMode == 2) {
+                // DROP mode: select carried item
+                if (g_itemActionPage == 0) {
+                    // Consumables page
                     int refs[] = {1000, 1001, 1002, 1003};
                     // First press - ask for quantity
                     g_itemActionRef = refs[sel-1];
@@ -193,47 +242,58 @@ bool gameTick()
             }
         }
         else if (g_itemActionStep == 1) {
-            // Entering drop quantity
-            if (actionKey == "ESC") {
-                // Cancel drop
-                g_itemActionStep = 0;
-                g_itemActionRef = 9999;
-                g_dropQuantity = 0;
-            }
-            else if (actionKey == "RETURN") {
-                // Confirm drop
-                if (g_dropQuantity > 0) {
-                    if (g_itemActionRef == 1000 && plyr.food >= g_dropQuantity) {
-                        plyr.food -= g_dropQuantity;
-                        std::cout << "Dropped " << g_dropQuantity << " food packets, new count: " << plyr.food << std::endl;
-                    }
-                    else if (g_itemActionRef == 1001 && plyr.water >= g_dropQuantity) {
-                        plyr.water -= g_dropQuantity;
-                        std::cout << "Dropped " << g_dropQuantity << " water flasks, new count: " << plyr.water << std::endl;
-                    }
-                    else if (g_itemActionRef == 1002 && plyr.torches >= g_dropQuantity) {
-                        plyr.torches -= g_dropQuantity;
-                        std::cout << "Dropped " << g_dropQuantity << " torches, new count: " << plyr.torches << std::endl;
-                    }
-                    else if (g_itemActionRef == 1003 && plyr.timepieces >= g_dropQuantity) {
-                        plyr.timepieces -= g_dropQuantity;
-                        std::cout << "Dropped " << g_dropQuantity << " timepieces, new count: " << plyr.timepieces << std::endl;
-                    }
+            // Step 1: For DROP mode, enter quantity. For GET mode, confirm pickup.
+            if (g_itemActionMode == 2) { // DROP mode
+                if (actionKey == "ESC") {
+                    // Cancel drop
+                    g_itemActionStep = 0;
+                    g_itemActionRef = 9999;
+                    g_dropQuantity = 0;
                 }
-                // Exit drop mode and return to normal exploration
-                plyr.subState = SubState::None;
-                g_itemActionMode = 0;
-                g_itemActionStep = 0;
-                g_itemActionRef = 9999;
-                g_dropQuantity = 0;
-            }
-            else if (actionKey >= "0" && actionKey <= "9") {
-                // Build quantity number
-                g_dropQuantity = g_dropQuantity * 10 + (actionKey[0] - '0');
-            }
-            else if (actionKey == "BACKSPACE") {
-                // Remove last digit
-                g_dropQuantity = g_dropQuantity / 10;
+                else if (actionKey == "RETURN") {
+                    // Confirm drop
+                    if (g_dropQuantity > 0) {
+                        int existingItem = 9999;
+                        if (g_itemActionRef == 1000 && plyr.food >= g_dropQuantity) {
+                            existingItem = checkForGenericItemsHere(1);
+                            if (existingItem == 9999) createGenericItem(1, g_dropQuantity); else itemBuffer[existingItem].hp += g_dropQuantity;
+                            plyr.food -= g_dropQuantity;
+                            std::cout << "Dropped " << g_dropQuantity << " food packets, new count: " << plyr.food << std::endl;
+                        }
+                        else if (g_itemActionRef == 1001 && plyr.water >= g_dropQuantity) {
+                            existingItem = checkForGenericItemsHere(2);
+                            if (existingItem == 9999) createGenericItem(2, g_dropQuantity); else itemBuffer[existingItem].hp += g_dropQuantity;
+                            plyr.water -= g_dropQuantity;
+                            std::cout << "Dropped " << g_dropQuantity << " water flasks, new count: " << plyr.water << std::endl;
+                        }
+                        else if (g_itemActionRef == 1002 && plyr.torches >= g_dropQuantity) {
+                            existingItem = checkForGenericItemsHere(3);
+                            if (existingItem == 9999) createGenericItem(3, g_dropQuantity); else itemBuffer[existingItem].hp += g_dropQuantity;
+                            plyr.torches -= g_dropQuantity;
+                            std::cout << "Dropped " << g_dropQuantity << " torches, new count: " << plyr.torches << std::endl;
+                        }
+                        else if (g_itemActionRef == 1003 && plyr.timepieces >= g_dropQuantity) {
+                            existingItem = checkForGenericItemsHere(4);
+                            if (existingItem == 9999) createGenericItem(4, g_dropQuantity); else itemBuffer[existingItem].hp += g_dropQuantity;
+                            plyr.timepieces -= g_dropQuantity;
+                            std::cout << "Dropped " << g_dropQuantity << " timepieces, new count: " << plyr.timepieces << std::endl;
+                        }
+                    }
+                    // Exit drop mode and return to normal exploration
+                    plyr.subState = SubState::None;
+                    g_itemActionMode = 0;
+                    g_itemActionStep = 0;
+                    g_itemActionRef = 9999;
+                    g_dropQuantity = 0;
+                }
+                else if (actionKey >= "0" && actionKey <= "9") {
+                    // Build quantity number
+                    g_dropQuantity = g_dropQuantity * 10 + (actionKey[0] - '0');
+                }
+                else if (actionKey == "BACKSPACE") {
+                    // Remove last digit
+                    g_dropQuantity = g_dropQuantity / 10;
+                }
             }
         }
         // Redraw the item action menu
@@ -242,21 +302,70 @@ bool gameTick()
         drawStatsPanel();
         drawConsoleBackground();
         
-        if (g_itemActionStep == 1) {
-            // Show quantity prompt only
-            if (g_itemActionMode == 2) { cyText(1, "DROP"); }
-            else if (g_itemActionMode == 3) { cyText(1, "CAST"); }
-            cyText(3, "Drop how many?");
-            if (g_dropQuantity > 0) {
-                bText(10, 4, itos(g_dropQuantity) + "_");
+        // GET mode: show one floor item at a time with yes/no prompt
+        if (g_itemActionMode == 1) {
+            int idx = g_getItemIndex;
+            if (idx < plyr.buffer_index && 
+                itemBuffer[idx].x == plyr.x && itemBuffer[idx].y == plyr.y && 
+                itemBuffer[idx].level == plyr.map && itemBuffer[idx].location == 1) {
+                
+                std::string str;
+                if (itemBuffer[idx].type == 1) {str = itos(itemBuffer[idx].hp) + " Food Packet(s)"; }
+                else if (itemBuffer[idx].type == 2) {str = itos(itemBuffer[idx].hp) + " Water Flask(s)"; }
+                else if (itemBuffer[idx].type == 3) {str = itos(itemBuffer[idx].hp) + " Torch(es)"; }
+                else if (itemBuffer[idx].type == 4) {str = itos(itemBuffer[idx].hp) + " Timepiece(s)"; }
+                else if (itemBuffer[idx].type == 5) {str = itos(itemBuffer[idx].hp) + " Compass(es)"; }
+                else if (itemBuffer[idx].type == 6) {str = itos(itemBuffer[idx].hp) + " Key(s)"; }
+                else if (itemBuffer[idx].type == 7) {str = itos(itemBuffer[idx].hp) + " Crystal(s)"; }
+                else if (itemBuffer[idx].type == 8) {str = itos(itemBuffer[idx].hp) + " Gem(s)"; }
+                else if (itemBuffer[idx].type == 9) {str = itos(itemBuffer[idx].hp) + " Jewel(s)"; }
+                else if (itemBuffer[idx].type == 10) {str = itos(itemBuffer[idx].hp) + " Gold"; }
+                else if (itemBuffer[idx].type == 11) {str = itos(itemBuffer[idx].hp) + " Silver"; }
+                else if (itemBuffer[idx].type == 12) {str = itos(itemBuffer[idx].hp) + " Copper"; }
+                else {
+                    str = getItemDesc(idx);
+                    if (str == "ERROR") str = itemBuffer[idx].name;
+                }
+                
+                cyText(1, "GET?");
+                cyText(4, str);
+                cyText(7, "Yes, No or ESC.");
             } else {
-                bText(10, 4, "_");
+                // No item at current index - find next or exit
+                bool foundNext = false;
+                for (int i = idx; i < plyr.buffer_index; i++) {
+                    if (itemBuffer[i].x == plyr.x && itemBuffer[i].y == plyr.y && 
+                        itemBuffer[i].level == plyr.map && itemBuffer[i].location == 1) {
+                        g_getItemIndex = i;
+                        foundNext = true;
+                        break;
+                    }
+                }
+                if (!foundNext) {
+                    // No more items - exit GET mode
+                    plyr.subState = SubState::None;
+                    g_itemActionMode = 0;
+                    g_itemActionStep = 0;
+                    g_itemActionRef = 9999;
+                }
             }
-            cyText(6, "Enter amount or press ESC.");
-        } else {
-            // Show item list only
-            if (g_itemActionMode == 2) { cyText(1, "DROP"); }
-            else if (g_itemActionMode == 3) { cyText(1, "CAST"); }
+        }
+        // DROP mode: show item list or quantity input
+        else if (g_itemActionMode == 2) {
+            if (g_itemActionStep == 1) {
+                // Show quantity input
+                cyText(1, "DROP");
+                cyText(3, "Drop how many?");
+                if (g_dropQuantity > 0) {
+                    bText(10, 4, itos(g_dropQuantity) + "_");
+                } else {
+                    bText(10, 4, "_");
+                }
+                cyText(6, "Enter amount or press ESC.");
+            }
+            else if (g_itemActionStep == 0) {
+                // Show item list
+                cyText(1, "DROP");
             if (g_itemActionPage == 0) {
                 bText(5, 3, "(1) Food Packets: " + itos(plyr.food));
                 bText(5, 4, "(2) Water Flasks: " + itos(plyr.water));
@@ -297,6 +406,7 @@ bool gameTick()
             SetFontColour(40, 96, 244, 255);
             bText(2, 8, "     #  F        B        ESC");
             SetFontColour(215, 215, 215, 255);
+        }
         }
         updateDisplay();
         return Running;
@@ -346,12 +456,12 @@ bool gameTick()
         Running = false;
         gameQuit = true;
     }
-    else if (key == ",") {
-        std::cout << "GAME_INPUT: handled togglePanelsBackward" << std::endl;
+    else if (key == "," || key == "<") {
+        std::cout << "GAME_INPUT: handled togglePanelsBackward (key='" << key << "')" << std::endl;
         togglePanelsBackward();
     }
-    else if (key == ".") {
-        std::cout << "GAME_INPUT: handled togglePanelsForward" << std::endl;
+    else if (key == "." || key == ">") {
+        std::cout << "GAME_INPUT: handled togglePanelsForward (key='" << key << "')" << std::endl;
         togglePanelsForward();
     }
     else if (key == "A") {
@@ -361,6 +471,41 @@ bool gameTick()
     else if (key == "U") {
         std::cout << "GAME_INPUT: handled showUsePanel" << std::endl;
         plyr.infoPanel = 9;
+    }
+    else if (key == "G") {
+        std::cout << "GAME_INPUT: handled getItem" << std::endl;
+        
+        // Check if there are any floor items at player's location
+        bool foundItem = false;
+        for (int i = 0; i < plyr.buffer_index; i++) {
+            if (itemBuffer[i].x == plyr.x && itemBuffer[i].y == plyr.y && 
+                itemBuffer[i].level == plyr.map && itemBuffer[i].location == 1) {
+                foundItem = true;
+                break;
+            }
+        }
+        
+        if (foundItem) {
+            // Found items - enter GET mode to show floor items one at a time
+            plyr.subState = SubState::ItemAction;
+            g_itemActionMode = 1; // GET
+            g_itemActionStep = 0; // Show one item at a time with yes/no
+            g_itemActionRef = 9999;
+            g_itemActionPage = 0;
+            // Find first floor item index
+            g_getItemIndex = 0;
+            for (int i = 0; i < plyr.buffer_index; i++) {
+                if (itemBuffer[i].x == plyr.x && itemBuffer[i].y == plyr.y && 
+                    itemBuffer[i].level == plyr.map && itemBuffer[i].location == 1) {
+                    g_getItemIndex = i;
+                    break;
+                }
+            }
+        } else {
+            // No items found - show message and don't enter sub-state
+            std::cout << "GAME_INPUT: no items to get" << std::endl;
+            // Could set a status message here if needed
+        }
     }
     else if (key == "D") {
         std::cout << "GAME_INPUT: handled dropItem" << std::endl;
@@ -407,7 +552,7 @@ bool gameTick()
     // For now, just return true to keep the game running
     return Running;
 }
-#endif
+#endif // ARX_USE_SDL2
 
 void gameLoop()
 {
@@ -501,13 +646,15 @@ if (key == "SPACE") {
 void togglePanelsForward()
 {
      plyr.infoPanel++;
+     if (plyr.infoPanel == 9) { plyr.infoPanel = 10; } // Skip Use panel
      if (plyr.infoPanel == 10) { plyr.infoPanel = 1; }
 }
 
 void togglePanelsBackward()
 {
      plyr.infoPanel--;
-     if (plyr.infoPanel == 0) { plyr.infoPanel = 9; }
+     if (plyr.infoPanel == 9) { plyr.infoPanel = 8; } // Skip Use panel
+     if (plyr.infoPanel == 0) { plyr.infoPanel = 8; }
 }
 
 void barredDoor()

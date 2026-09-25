@@ -7,7 +7,11 @@
 using std::string;
 
 void initialiseNewGame();
-void gameLoop();
+void gameInit();
+bool gameTick();   // one in-game frame; false = session over (return to main menu)
+bool gameIsRunning();
+void gameEndSession();  // stop in-game audio/subsystems when leaving to main menu
+void gameLoop();   // native helper: gameInit + while (gameTick())
 
 void quitMenu();
 void optionsMenu();

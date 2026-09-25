@@ -214,6 +214,8 @@ static void pushKeyToQueue(arx::Key key)
     case arx::Key::F10:       std::cout << "TRACE: F10" << std::endl; arx::inputPush("F10");      break;
     case arx::Key::F11:       std::cout << "TRACE: F11" << std::endl; arx::inputPush("F11");      break;
     case arx::Key::F12:       std::cout << "TRACE: F12" << std::endl; arx::inputPush("F12");      break;
+    case arx::Key::Comma:     std::cout << "TRACE: Comma" << std::endl; arx::inputPush(",");       break;
+    case arx::Key::Period:    std::cout << "TRACE: Period" << std::endl; arx::inputPush(".");       break;
     default:
         std::cout << "TRACE: Unknown key=" << (int)key << std::endl;
         break;
@@ -239,8 +241,14 @@ static void processInputQueue()
             keyCount++;
             break;
         case arx::EventType::TextInput:
-            arx::textPush(event->text);
-            textCount++;
+            // Route < and > (shift+comma / shift+period) to key queue for panel switching
+            if (event->text == "<" || event->text == ">") {
+                arx::inputPush(event->text);
+                keyCount++;
+            } else {
+                arx::textPush(event->text);
+                textCount++;
+            }
             break;
         default:
             // Ignore KeyReleased, MouseButton, Resized events
@@ -563,12 +571,12 @@ bool appTick()
                 
                 // Set starting position
                 if (plyr.scenario == 0) {
-                    // City: south area, facing north into streets with walls
-                    plyr.x = 1; plyr.y = 1;
+                    // City: Floating Gate at 35 East, 27 North
+                    plyr.x = 35; plyr.y = 27;
                     plyr.facing = NORTH;
                 } else {
                     // Dungeon level 1
-                    plyr.x = 30; plyr.y = 30;
+                    plyr.x = 50; plyr.y = 4;
                     plyr.facing = WEST;
                 }
                 plyr.location = 0;

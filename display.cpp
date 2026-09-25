@@ -1,6 +1,7 @@
 #include <GL/glew.h>
 #include <GL/glu.h>
 
+#include <cstdint>
 #include <optional>
 //#include <GLFW/glfw3.h>
 #include <string>
@@ -260,6 +261,87 @@ int yOffset;
 int xOffset;
 int animImage;
 int animDuration;
+
+// Draw a filled rectangle (bar) at pixel position (x,y) with given width, height, and RGBA color.
+// Uses immediate-mode OpenGL for native, and a simple non-textured shader for WebGL.
+static void drawFilledRect(int x, int y, int w, int h, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
+{
+    if (w <= 0 || h <= 0) return;
+#ifdef __EMSCRIPTEN__
+    // WebGL path: use raw GL with a simple colored quad
+    glDisable(GL_TEXTURE_2D);
+    // Use the default shader-less path if available, otherwise fall back
+    // In WebGL, we need a shader, so we unbind texture and draw a colored quad
+    // using a simple approach: bind no texture and rely on vertex colors
+    // Since Sprite2D shader always expects a texture, we draw raw GL primitives
+    // with a minimal built-in shader
+    static bool s_initialized = false;
+    static GLuint s_barShader = 0;
+    static GLuint s_barVbo = 0;
+    static GLint s_barColorLoc = -1;
+    static GLint s_barPosLoc = -1;
+    
+    if (!s_initialized) {
+        // Simple vertex shader
+        const char* vs = "attribute vec2 a_pos; uniform vec4 u_color; void main() { gl_Position = vec4(a_pos, 0.0, 1.0); }";
+        const char* fs = "precision mediump float; uniform vec4 u_color; void main() { gl_FragColor = u_color; }";
+        s_barShader = glCreateProgram();
+        GLuint vsh = glCreateShader(GL_VERTEX_SHADER);
+        glShaderSource(vsh, 1, &vs, nullptr);
+        glCompileShader(vsh);
+        glAttachShader(s_barShader, vsh);
+        GLuint fsh = glCreateShader(GL_FRAGMENT_SHADER);
+        glShaderSource(fsh, 1, &fs, nullptr);
+        glCompileShader(fsh);
+        glAttachShader(s_barShader, fsh);
+        glLinkProgram(s_barShader);
+        glDeleteShader(vsh);
+        glDeleteShader(fsh);
+        s_barColorLoc = glGetUniformLocation(s_barShader, "u_color");
+        s_barPosLoc = glGetAttribLocation(s_barShader, "a_pos");
+        glGenBuffers(1, &s_barVbo);
+        s_initialized = true;
+    }
+    if (!s_barShader) return;
+    
+    glUseProgram(s_barShader);
+    
+    GLint viewport[4];
+    glGetIntegerv(GL_VIEWPORT, viewport);
+    float vpHalfW = viewport[2] / 2.0f;
+    float vpHalfH = viewport[3] / 2.0f;
+    
+    float x1 = (x - vpHalfW) / vpHalfW;
+    float y1 = -(y - vpHalfH) / vpHalfH;
+    float x2 = (x + w - vpHalfW) / vpHalfW;
+    float y2 = -(y + h - vpHalfH) / vpHalfH;
+    
+    float verts[12] = {
+        x1, y1, x2, y1, x1, y2,
+        x2, y1, x2, y2, x1, y2
+    };
+    
+    glBindBuffer(GL_ARRAY_BUFFER, s_barVbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(verts), verts, GL_STREAM_DRAW);
+    glEnableVertexAttribArray(s_barPosLoc);
+    glVertexAttribPointer(s_barPosLoc, 2, GL_FLOAT, GL_FALSE, 0, 0);
+    glUniform4f(s_barColorLoc, r/255.0f, g/255.0f, b/255.0f, a/255.0f);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+    glDisableVertexAttribArray(s_barPosLoc);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glUseProgram(0);
+#else
+    // Native OpenGL path
+    glDisable(GL_TEXTURE_2D);
+    glColor4ub(r, g, b, a);
+    glBegin(GL_QUADS);
+    glVertex2i(x, y);
+    glVertex2i(x + w, y);
+    glVertex2i(x + w, y + h);
+    glVertex2i(x, y + h);
+    glEnd();
+#endif
+}
 
 void drawAtariAnimation()
 {
@@ -598,15 +680,13 @@ return 0;
 
 void drawInfoPanels()
 {
-std::cout << "drawInfoPanels CALLED - consoleY=" << consoleY << " status=" << plyr.status << " infoPanel=" << plyr.infoPanel << std::endl;
-
     drawConsoleBackground();
     
     // Draw status text under the banner, above the viewport
     // Check if status_text is not empty and not just whitespace
     bool hasStatusText = false;
     if (!plyr.status_text.empty()) {
-        hasStatusText = false;
+        hasStatusText = true;
         for (char c : plyr.status_text) {
             if (!isspace(c)) {
                 hasStatusText = true;
@@ -616,10 +696,13 @@ std::cout << "drawInfoPanels CALLED - consoleY=" << consoleY << " status=" << pl
     }
     
     if (hasStatusText && (plyr.status != 3) && (plyr.alive)) {
+        // Draw a dark green background bar behind the status text, full screen width, text height
+        int barY = statPanelY + static_cast<int>(5 * 18 * uiScale);
+        int barH = static_cast<int>(18 * uiScale);
+        drawFilledRect(0, barY, windowWidth, barH, 40, 70, 15, 255);
+        // Draw status text on top of the bar
         SetFontColour(102,149,40, 255);
-        // Position text between banner and viewport
-        int statusY = statPanelY + 6; // Just below the banner
-        drawText(2, statusY, plyr.status_text);
+        drawText(2, 5, plyr.status_text);
     }
     
     // Always reset to white for info panel text

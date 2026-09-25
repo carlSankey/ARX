@@ -2566,19 +2566,18 @@ void use_timepiece()
 
 void checkForItemsHere()
 {
-  // counts number of objects on a map square - equal to 1
+  // counts number of objects on a map square
   int no_items = 0;
   int cur_idx = 0;
   while (cur_idx < plyr.buffer_index)
   {
-    //    if ((itemBuffer[cur_idx].x == plyr.x) && (itemBuffer[cur_idx].y == plyr.y)
-    //    && (itemBuffer[cur_idx].location == 1)) { no_items++; }
     if ((itemBuffer[cur_idx].x == plyr.x) && (itemBuffer[cur_idx].y == plyr.y) && (itemBuffer[cur_idx].level == plyr.map) && (itemBuffer[cur_idx].location == 1)) { no_items++; }
 	cur_idx++;
   }
 
   if (no_items == 1) { plyr.status_text = "There is something here."; }
-  if (no_items > 1) {plyr.status_text = "There are several things here."; }
+  else if (no_items > 1) {plyr.status_text = "There are several things here."; }
+  else { plyr.status_text = ""; }
 
 }
 

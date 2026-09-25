@@ -57,6 +57,19 @@ struct doorDetail
 
 
 
+// Sub-states for non-blocking game-loop overlays (pause, menus, messages).
+// gameTick() dispatches to the appropriate function each frame when != None.
+enum class SubState {
+    None = 0,
+    Paused,
+    OptionsMenu,
+    QuitMenu,
+    DoorMessage,
+    TreasureMessage,
+    PlayerDead,
+    ItemAction   // D=drop, G=get, U=use
+};
+
 struct Player
 {
   int teleporting;
@@ -146,6 +159,9 @@ struct Player
   int zoneSet;
   int current_zone; // used by drawing function
   int status;
+
+  SubState subState;       // current blocking overlay (None when exploring normally)
+  string subStateMessage;  // message text for doorMessage / treasureMessage
 
   int specialwall;
 
