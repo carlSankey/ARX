@@ -15,6 +15,7 @@
 #include "encounter.h"
 #include "automap.h"
 #include "globals.h"
+#include "platform/FileSystem.h"
 // extern Player plyr;
 
 using std::ofstream;
@@ -427,10 +428,10 @@ void loadDescriptions(int map)
 {
 	for (int i=0 ; i<255 ; i++) { descriptions[i]=""; }
 	string filename = "data/map/Scenario_" + std::to_string(map) + "/" +(maps[map].filename)+"Descriptions.txt";
-	std::ifstream instream;
+	bool fileOk;
+	std::istringstream instream = arx::fs::openText(filename, fileOk);
 	std::string line;
-	instream.open(filename.c_str());
-	if ( !instream )
+	if ( !fileOk)
 	{
       cerr << "Error: " << filename << " file could not be loaded" << endl;
 	}
@@ -442,7 +443,6 @@ void loadDescriptions(int map)
 		i++;
 
 	}
-	instream.close();
 }
 
 void clearArray(std::string roomMessages[], int size) {
@@ -456,10 +456,10 @@ void loadMessages(int map)
 	// Populate the array with empty strings
 	clearArray(roomMessages, noOfRoomMessages);// Fix 256 to actual message numbers - Smithy item corruption
 	string filename = "data/map/Scenario_" + std::to_string(map) + "/" +(maps[map].filename)+"Messages.txt";
-	std::ifstream instream;
+	bool fileOk;
+	std::istringstream instream = arx::fs::openText(filename, fileOk);
 	std::string line;
-	instream.open(filename.c_str());
-	if ( !instream )
+	if ( !fileOk)
 	{
       cerr << "Error:" << filename << "could not be loaded" << endl;
 	}
@@ -470,17 +470,16 @@ void loadMessages(int map)
 		roomMessages[i]= line;
 		i++;
 	}
-	instream.close();
 }
 
 
 void initMaps()
 {
-	std::ifstream instream;
 	std::string junk,line, text;
 
-	instream.open("data/map/core/maps.txt");
-	if( !instream )
+	bool fileOk;
+	std::istringstream instream = arx::fs::openText("data/map/core/maps.txt", fileOk);
+	if( !fileOk )
 	{
       cerr << "Error: MAPS.TXT file could not be loaded" << endl;
 	}
@@ -514,7 +513,6 @@ void initMaps()
 		//cout << "\n\n";
 		i++;
 	}
-	instream.close();
 }
 
 
@@ -522,8 +520,9 @@ std::vector<MapEncounter> readMapEncounterCSV(const std::string& filename) {
 	std::vector<MapEncounter> data;
 
 	// Open the CSV file
-	std::ifstream file(filename);
-	if (!file.is_open()) {
+	bool fileOk;
+	std::istringstream file = arx::fs::openText(filename, fileOk);
+	if (!fileOk) {
 		std::cerr << "Error opening file: " << filename << std::endl;
 		return data; // Return empty vector if file couldn't be opened
 	}
@@ -550,7 +549,6 @@ std::vector<MapEncounter> readMapEncounterCSV(const std::string& filename) {
 		data.push_back(newMapEncounter);
 	}
 
-	file.close();
 	return data;
 }
 
@@ -664,11 +662,11 @@ void loadZoneData(int map)
 	}
 
 	string filename = "data/map/Scenario_" + std::to_string(map) + "/" +(maps[map].filename)+"Zones.txt";
-	std::ifstream instream;
 	std::string junk,line, text;
-	instream.open(filename.c_str());
+	bool fileOk;
+	std::istringstream instream = arx::fs::openText(filename, fileOk);
 
-	if( !instream )
+	if( !fileOk )
 	{
       cerr << "Error:" << filename << " could not be loaded" << endl;
 	}
@@ -692,16 +690,15 @@ void loadZoneData(int map)
 		getline(instream, junk);
 		i++;
 	}
-	instream.close();
 }
 
 
 void loadMapData(int map)
 {
-	std::ifstream instream;
 	string filename = "data/map/Scenario_" + std::to_string(map) + "/" +(maps[map].filename)+"Cells.txt";
-	instream.open(filename.c_str());
-	if( !instream )
+	bool fileOk;
+	std::istringstream instream = arx::fs::openText(filename, fileOk);
+	if( !fileOk )
 	{
 		cerr << "Error: terrain file could not be loaded" << endl;
 	}
@@ -740,7 +737,6 @@ void loadMapData(int map)
 		//cout << "\n\n";
 	}
 	maps[map].encounterIndex = readEncounterData(map);
-	instream.close();
 	//printSpecial(); // generate special lists
 	
 }
@@ -815,30 +811,34 @@ void transMapIndex (int idx)
 #include <cstdio>   // Include the necessary header for FILE
 
 void loadBinaryLevel() {
-	FILE* fp;
 	char tempString[100]; // Declare tempString with an appropriate size
 	snprintf(tempString, sizeof(tempString), "%s%s",
 		("data/map/Scenario_" + std::to_string(plyr.scenario) + "/").c_str(),
 		"dun4.bin");
 
-	fp = fopen(tempString, "rb");
-	if (fp != NULL) {
+	std::vector<uint8_t> bin;
+	if (arx::fs::readBinary(tempString, bin)) {
+		// Same fixed-size reads fgetc() used to do: past the end of the data we
+		// hand back EOF, exactly as fgetc did, so the layout below is unchanged.
+		size_t pos = 0;
+		auto fgetc = [&bin, &pos]() -> int {
+			return pos < bin.size() ? static_cast<int>(bin[pos++]) : EOF;
+		};
 		for (int i = 0; i < 4096; i++) {
-			int tmp = fgetc(fp);
+			int tmp = fgetc();
 			if (tmp == 2) {
 				std::cout << tmp << " , " << i << "\n";
 			}
 			levelmap[i].east = (tmp & 240) >> 4;
 			levelmap[i].north = tmp & 15;
-			tmp = fgetc(fp);
+			tmp = fgetc();
 			levelmap[i].west = (tmp & 240) >> 4;
 			levelmap[i].south = tmp & 15;
-			tmp = fgetc(fp);
+			tmp = fgetc();
 			levelmap[i].location = tmp;
-			tmp = fgetc(fp);
+			tmp = fgetc();
 			levelmap[i].special = tmp;
 		}
-		fclose(fp); // Close the file when done
 	}
 	else {
 		// Handle file open error

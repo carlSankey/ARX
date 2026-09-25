@@ -4,7 +4,6 @@
 #include <optional>
 //#include <GLFW/glfw3.h>
 #include <string>
-#include <fstream>
 #include <iostream>
 #include <sstream>
 #include <algorithm>
@@ -31,7 +30,6 @@
 
 // using namespace std;
 using std::string;
-using std::ifstream;
 using std::cout;
 using std::cerr;
 using std::endl;

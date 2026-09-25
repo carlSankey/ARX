@@ -7,10 +7,11 @@
 #include "View3D.h"
 
 #include "../platform/GLESLoader.h"
+#include "../platform/FileSystem.h"
 #include <SDL_image.h>
 
 #include <iostream>
-#include <fstream>
+#include <sstream>
 #include <string>
 #include <cmath>
 #include <cstring>
@@ -218,8 +219,9 @@ namespace arx {
     {
         // Use textures.txt (Atari 8-bit names) to load original pixel-art textures
         // from textures_original/ directory (e.g. citywall.png, wall.png, floor.png)
-        std::ifstream f("data/map/core/textures.txt");
-        if (!f) { std::cerr << "View3D: cannot open textures.txt\n"; return; }
+        bool fileOk;
+        std::istringstream f = arx::fs::openText("data/map/core/textures.txt", fileOk);
+        if (!fileOk) { std::cerr << "View3D: cannot open textures.txt\n"; return; }
         int loaded = 0, failed = 0;
         for (int i = 0; i < noOfTextures; i++) {
             std::string line;
@@ -255,8 +257,9 @@ namespace arx {
 
     void view3D_loadBackgrounds()
     {
-        std::ifstream f("data/map/core/backgrounds.txt");
-        if (!f) { std::cerr << "View3D: cannot open backgrounds.txt\n"; return; }
+        bool fileOk;
+        std::istringstream f = arx::fs::openText("data/map/core/backgrounds.txt", fileOk);
+        if (!fileOk) { std::cerr << "View3D: cannot open backgrounds.txt\n"; return; }
         int loaded = 0, failed = 0;
 
         // Determine which scenario folder to load from

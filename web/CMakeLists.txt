@@ -16,6 +16,7 @@ add_executable(arxx_web
   ../platform/Window.cpp
   ../platform/InputQueue.cpp
   ../platform/SDL2Window.cpp
+  ../platform/FileSystem.cpp
   ../game.cpp
   ../actor.cpp
   ../level.cpp
