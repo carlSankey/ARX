@@ -270,6 +270,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="platform\InputQueue.cpp" />
+    <ClCompile Include="platform\platform.cpp" />
     <ClCompile Include="platform\Window.cpp" />
     <ClCompile Include="include\base64\base64.cpp" />
     <ClCompile Include="3Dview.cpp" />
