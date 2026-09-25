@@ -5,7 +5,21 @@
   "dependencies": [
     "bgfx",
     "sdl2",
-    "sdl2-mixer",
+    {
+      "name": "sdl2-image",
+      "features": [
+        "libjpeg-turbo"
+      ]
+    },
+    {
+      "name": "sdl2-mixer",
+      "features": [
+        "mpg123",
+        "libflac",
+        "libmodplug",
+        "opusfile"
+      ]
+    },
     {
       "name": "sfml",
       "features": [
@@ -21,3 +35,4 @@
     "cpp-base64"
   ]
 }
+

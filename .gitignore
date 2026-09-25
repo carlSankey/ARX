@@ -1,4 +1,5 @@
 # Build output directories
+build/
 build-web/
 Debug/
 Release/
