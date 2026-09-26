@@ -21,6 +21,7 @@
 #include "misc.h"
 #include "audio.h"
 #include "effects.h"
+#include "platform/FileSystem.h"
 
 // using namespace std;
 using std::string;
@@ -66,8 +67,9 @@ std::vector<spellRecord> readSpellsCSV(const std::string& filename) {
 	std::vector<spellRecord> data;
 
 	// Open the CSV file
-	std::ifstream file("data/map/core/" + filename);
-	if (!file.is_open()) {
+	bool fileOk;
+	std::istringstream file = arx::fs::openText("data/map/core/" + filename, fileOk);
+	if (!fileOk) {
 		std::cerr << "Error opening file: " << filename << std::endl;
 		return data; // Return empty vector if file couldn't be opened
 	}
@@ -165,7 +167,6 @@ std::vector<spellRecord> readSpellsCSV(const std::string& filename) {
 		data.push_back(newSpell);
 	}
 
-	file.close();
 	return data;
 }
 
@@ -173,7 +174,7 @@ spellRecord* spells = nullptr;
 
 void readSpellData()
 {
-	std::string filename = "Spells.csv";
+	std::string filename = "spells.csv";
 	std::vector<spellRecord>  csvData = readSpellsCSV(filename);
 
 	// Convert vector to a dynamically allocated array of NewItem structs

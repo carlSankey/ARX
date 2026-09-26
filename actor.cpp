@@ -10,6 +10,7 @@
 #include "actor.h"
 #include "misc.h"
 #include "globals.h"
+#include "platform/FileSystem.h"
 
 
 // using namespace std;
@@ -565,8 +566,9 @@ std::vector<newMonster> readMonsterCSV(const std::string& filename) {
     std::vector<newMonster> data;
     HackedMonsters = 0;
     // Open the CSV file
-    std::ifstream file("data/map/core/" + filename);
-    if (!file.is_open()) {
+    bool fileOk;
+    std::istringstream file = arx::fs::openText("data/map/core/" + filename, fileOk);
+    if (!fileOk) {
         std::cerr << "Error opening file: " << filename << std::endl;
         return data; // Return empty vector if file couldn't be opened
     }
@@ -910,7 +912,6 @@ std::vector<newMonster> readMonsterCSV(const std::string& filename) {
         data.push_back(newMonster);
     }
 
-    file.close();
     return data;
 
 }
@@ -1175,31 +1176,36 @@ void readMonsterDeathText(int monsterNo, int deathOffset)
 
 
 void loadMonstersBinary() {
-    FILE* fp;               // file pointer - used when reading files
     char tempString[100];   // temporary string
-    snprintf(tempString, sizeof(tempString), "%s%s", "data/map/core/", "monsters.bin");
+    snprintf(tempString, sizeof(tempString), "%s%s", "data/map/core/", "monsters.BIN");
 
-    fp = fopen(tempString, "rb");
-    if (fp == NULL) {
+    std::vector<uint8_t> bin;
+    if (arx::fs::readBinary(tempString, bin)) {
+        if (bin.size() < static_cast<size_t>(noOfMonstersFile)) {
+            std::cerr << "Warning: " << tempString << " is shorter than expected: "
+                      << bin.size() << " bytes (expected " << noOfMonstersFile << ")" << std::endl;
+        }
+        size_t pos = 0;
+        auto fgetc = [&bin, &pos]() -> int {
+            return pos < bin.size() ? static_cast<int>(bin[pos++]) : EOF;
+        };
+        for (int i = 0; i < noOfMonstersFile; i++) {
+            monstersBinary[i] = fgetc();
+        }
+    }
+    else {
         // Handle file open error
-        perror("Error opening file");
-        return; // Exit the function
+        std::cerr << "Error: Failed to open the file: " << tempString << std::endl;
     }
-
-    // File opened successfully
-    for (int i = 0; i < noOfMonstersFile; i++) {
-        monstersBinary[i] = fgetc(fp);
-    }
-    fclose(fp);
 }
 
 
 void loadEncounters()
 {
-	std::ifstream instream;
 	std::string junk, data, junk2;
-	instream.open("data/map/core/encounters.txt");
-	if( !instream )
+	bool fileOk;
+	std::istringstream instream = arx::fs::openText("data/map/core/encounters.txt", fileOk);
+	if( !fileOk )
 	{
       cout << "Error: Encounters file could not be loaded" << endl;
 	}
@@ -1275,14 +1281,14 @@ if (i == DEVOURER)
 std::cout << "Name :" << Monster_Buffer[i].name << "c1 "<< Monster_Buffer[i].c1 << " c2 "<< Monster_Buffer[i].c2 << "\n";
 		}
 	}
-	instream.close();
 }
 
 std::vector<openingMessages> readMessagesCSV(const std::string& filename) {
     std::vector<openingMessages> data;
     // Open the CSV file
-    std::ifstream file("data/map/core/" + filename);
-    if (!file.is_open()) {
+    bool fileOk;
+    std::istringstream file = arx::fs::openText("data/map/core/" + filename, fileOk);
+    if (!fileOk) {
         std::cerr << "Error opening file: " << filename << std::endl;
         return data; // Return empty vector if file couldn't be opened
     }
@@ -1302,7 +1308,6 @@ std::vector<openingMessages> readMessagesCSV(const std::string& filename) {
         data.push_back(opMessage);
     }
 
-    file.close();
     return data;
 
     

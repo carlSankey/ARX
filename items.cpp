@@ -30,6 +30,7 @@
 #include "effects.h"
 #include "spells.h"
 #include "damon.h"
+#include "platform/FileSystem.h"
 
 
  struct SearchResult;
@@ -220,8 +221,9 @@ std::vector<newItem> readItemCSV(const std::string& filename) {
 	std::vector<newItem> data;
 
 	// Open the CSV file
-	std::ifstream file("data/map/core/"+filename);
-	if (!file.is_open()) {
+	bool fileOk;
+	std::istringstream file = arx::fs::openText("data/map/core/" + filename, fileOk);
+	if (!fileOk) {
 		std::cerr << "Error opening file: " << filename << std::endl;
 		return data; // Return empty vector if file couldn't be opened
 	}
@@ -406,7 +408,6 @@ std::vector<newItem> readItemCSV(const std::string& filename) {
 		data.push_back(newItem);
 	}
 
-	file.close();
 	return data;
 
 }
@@ -2963,8 +2964,9 @@ std::vector<fixedTreasure> readFixedTreasureCSV(const std::string& filename) {
 	std::vector<fixedTreasure> data;
 
 	// Open the CSV file
-	std::ifstream file("data/map/core/" + filename);
-	if (!file.is_open()) {
+	bool fileOk;
+	std::istringstream file = arx::fs::openText("data/map/core/" + filename, fileOk);
+	if (!fileOk) {
 		std::cerr << "Error opening file: " << filename << std::endl;
 		return data; // Return empty vector if file couldn't be opened
 	}
@@ -2992,13 +2994,12 @@ std::vector<fixedTreasure> readFixedTreasureCSV(const std::string& filename) {
 		data.push_back(newFixedTreasure);
 	}
 
-	file.close();
 	return data;
 }
 
 void readFTData()
 {
-	std::string filename = "fixedTreasure.csv";
+	std::string filename = "FixedTreasure.csv";
 	std::vector<fixedTreasure>  csvData = readFixedTreasureCSV(filename);
 
 	// Convert vector to a dynamically allocated array of NewItem structs
