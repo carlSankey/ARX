@@ -529,6 +529,9 @@ std::vector<MapEncounter> readMapEncounterCSV(const std::string& filename) {
 
 	std::string line;
 	while (std::getline(file, line)) {
+		// Windows checkouts can have CRLF line endings; drop the '\r' so the
+		// last field (e.g. the row hash) parses the same on every platform.
+		if (!line.empty() && line.back() == '\r') line.pop_back();
 		std::stringstream lineStream(line);
 		MapEncounter newMapEncounter;
 		std::string cell;
