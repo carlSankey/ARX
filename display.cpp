@@ -328,7 +328,10 @@ static void drawFilledRect(int x, int y, int w, int h, uint8_t r, uint8_t g, uin
 
 void drawAtariAnimation()
 {
-    // SDL2/web implementation - animation display handled through sprite system
+    // SDL2/web: redraw the main display every frame, as the original did
+    // (it called dispMain() here). Without this, encounter text is drawn on
+    // top of the previous frame. The monster image itself is still TODO.
+    dispMain();
 }
 
 void createGameWindow()
@@ -481,7 +484,9 @@ clearDisplay();
 
     draw3DView();
     drawStatsPanel();
-    drawInfoPanels();
+    // drawInfoPanels() is NOT drawn here, as in the original dispMain(): it
+    // would overlap encounter, shop and USE text in the bottom half. Callers
+    // that want the panels (e.g. gameTick) draw them separately.
     drawCompass();
     drawAutomap();
     if ((graphicMode==ALTERNATE_LARGE) && (plyr.status != 3 )) drawConsoleBackground();
@@ -881,7 +886,9 @@ if (plyr.infoPanel == 7)
 
 void clearShopDisplay()
 {
-    // SDL2/web - shop display cleared through main rendering
+    // SDL2/web: clear first, as the original did (App.clear()), otherwise
+    // shop and tavern text is drawn on top of the previous frame.
+    clearDisplay();
     drawStatsPanel();
 }
 

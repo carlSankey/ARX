@@ -34,11 +34,16 @@ void runModule(int module)
 
 void displayModuleImage(int module)
 {
+#ifndef ARX_USE_SDL2
     App.clear();
 	App.pushGLStates();
 	//App.draw(ShopSprite);
 	drawStatsPanel();
 	App.popGLStates();
+#else
+    clearDisplay();
+    drawStatsPanel();
+#endif
 }
 
 // Returns an item reference based on a multi page menu e.g. food item, weapon item

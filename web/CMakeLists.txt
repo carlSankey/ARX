@@ -62,6 +62,8 @@ add_executable(arxx_web
   ../undeadKing.cpp
   ../vaults.cpp
   ../input.cpp
+  ../module.cpp
+  ../arena.cpp
   ../constants.h
 )
 

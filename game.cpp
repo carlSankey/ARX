@@ -412,6 +412,55 @@ bool gameTick()
         return Running;
     }
 
+    // ---- Exploration logic restored from the original gameLoop() ----
+    // (master: src/game.cpp, gameLoop). Works out which square the player is
+    // on, so shops, taverns, stairs etc. are detected, and runs the timed
+    // random encounter check. Shops and encounters are blocking loops; on the
+    // web they work because of -sASYNCIFY (Stage 1).
+    static arx::Clock s_encounterClock;
+    static arx::Time  s_encounterCheckTime = arx::Time::Zero;
+
+    if (plyr.subState == SubState::None)
+    {
+        if (plyr.scenario > 0) { checkTeleport(); }
+
+        if (plyr.hp < 0) { plyr.alive = false; }
+
+        // Update player location details (needed by checkShop() and friends)
+        int ind = getMapIndex(plyr.x, plyr.y);
+        autoMapExplored[plyr.map][ind] = true;
+        transMapIndex(ind);
+        plyr.special  = levelmap[ind].special;
+        plyr.location = levelmap[ind].location;
+
+        // NOTE: the original also called setCurrentZone() and the dungeon
+        // well-lit darkness check here. Not done yet: appTick() forces
+        // plyr.zone = 99 at game start on purpose, and recalculating it every
+        // frame could change the city visuals. Revisit for the dungeon.
+
+        checkShop();   // taverns, shops, bank, smithy, stairs, fountains...
+
+        if (plyr.special > 0 && plyr.special < 190) { checkFixedTreasures(); }
+        if (plyr.scenario == 1) { checkFixedEncounters(); }
+        if (plyr.scenario == 1) { checkFixedTreasures(); }
+        checkForItemsHere();
+
+        // Random encounters + game clock, every 4.8 seconds as in the original
+        s_encounterCheckTime += s_encounterClock.restart();
+        if (s_encounterCheckTime >= arx::seconds(4.8f))
+        {
+            plyr.status_text = " ";
+            checkEncounter();
+            s_encounterCheckTime = arx::Time::Zero;
+            addMinute();
+        }
+    }
+    else
+    {
+        // Don't bank time spent in menus towards the next encounter check
+        s_encounterClock.restart();
+    }
+
     // Poll input and dispatch only commands that are non-blocking on SDL2.
     // Legacy item/spell/get menus still use modal getSingleKey() loops and
     // will stall this tick-driven path if entered directly from gameplay.
@@ -522,6 +571,11 @@ bool gameTick()
         g_itemActionStep = 0;
         g_itemActionRef = 9999;
         g_itemActionPage = 0;
+    }
+    else if (key == "W") {
+        // Wait for an encounter - as in the original gameLoop()
+        std::cout << "GAME_INPUT: handled chooseEncounter (W)" << std::endl;
+        chooseEncounter();
     }
     else if (!key.empty()) {
         std::cout << "GAME_INPUT: ignored key='" << key << "'" << std::endl;

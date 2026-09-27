@@ -378,7 +378,9 @@ std::vector<newItem> readItemCSV(const std::string& filename) {
 			std::to_string(newItem.negativeValue) +
 			std::to_string(newItem.positiveValue) +
 			std::to_string(newItem.baseDamage) +
-			std::to_string(newItem.duration) +
+			// duration became a float in the SFML3 migration; the stored hashes
+			// were made when it was an int, so hash it as a whole number.
+			std::to_string(static_cast<int>(newItem.duration)) +
 			std::to_string(newItem.damage) +
 			std::to_string(newItem.hp) +
 			std::to_string(newItem.maxHP) +

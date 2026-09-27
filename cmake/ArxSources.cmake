@@ -67,4 +67,6 @@ set(ARX_GAME_SOURCES
   ${_ARX_ROOT}/undeadKing.cpp
   ${_ARX_ROOT}/vaults.cpp
   ${_ARX_ROOT}/input.cpp
+  ${_ARX_ROOT}/module.cpp
+  ${_ARX_ROOT}/arena.cpp
 )
