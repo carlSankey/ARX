@@ -25,6 +25,10 @@
 #include "platform/Window.h"
 #include "platform/InputQueue.h"
 
+#ifdef __EMSCRIPTEN__
+#include <emscripten/emscripten.h>
+#endif
+
 #include "display.h"
 #include "font.h"
 #include "player.h"
@@ -250,7 +254,17 @@ bool keyPressed()
 string getSingleKey()
 {
 	readKey();
-	return arx::inputPoll();
+	string key = arx::inputPoll();
+
+#ifdef __EMSCRIPTEN__
+	// Asyncify: hand control back to the browser for ~1 frame before
+	// returning. Every blocking shop/encounter loop in the game spins on
+	// this function, so this is what stops them freezing the tab, and it
+	// also gives the browser a chance to paint what updateDisplay() drew.
+	emscripten_sleep(16);
+#endif
+
+	return key;
 }
 
 #endif // ARX_USE_SDL2

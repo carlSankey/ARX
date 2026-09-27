@@ -86,5 +86,7 @@ target_link_options(arxx_web PRIVATE
   -sUSE_VORBIS=1
   -sALLOW_MEMORY_GROWTH=1
   -sASSERTIONS=1
+  -sASYNCIFY
+  -sASYNCIFY_STACK_SIZE=524288
   --preload-file ../data@/data
 )

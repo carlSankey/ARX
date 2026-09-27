@@ -6,6 +6,10 @@
 #include <chrono>
 #include <thread>
 
+#ifdef __EMSCRIPTEN__
+#include <emscripten/emscripten.h>
+#endif
+
 namespace arx {
 
 class Time {
@@ -69,7 +73,16 @@ private:
 inline void sleep(Time duration) {
     int ms = duration.asMilliseconds();
     if (ms > 0) {
+#ifdef __EMSCRIPTEN__
+        // Requires -sASYNCIFY. std::this_thread::sleep_for() would block the
+        // whole browser tab instead of just this call, which matters because
+        // a few of the game's wait loops (working shifts, sleeping, spell
+        // practice) spin here for a second at a time without ever touching
+        // getSingleKey().
+        emscripten_sleep(ms);
+#else
         std::this_thread::sleep_for(std::chrono::milliseconds(ms));
+#endif
     }
 }
 
