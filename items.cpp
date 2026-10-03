@@ -402,11 +402,9 @@ std::vector<newItem> readItemCSV(const std::string& filename) {
 			"ARX2023";
 		std::string hash = sha256(input);
 
-		if (hash != newItem.hash)
-		{
-						newItem.weight = 65536;
-		
-		}
+		// Tamper protection removed (Android/web): a hash mismatch no longer
+		// sets the item weight to 65536 ("Immobilized!").
+		(void)hash;
 
 
 

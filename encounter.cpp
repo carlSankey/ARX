@@ -3076,7 +3076,8 @@ void chooseEncounter()
 	}
 	else if ((plyr.scenario==DUNGEON) && (plyr.map==4)) monsterNo = 19;
 // cout << "Monster: "<< monsterNo << " " << Monster_Buffer[monsterNo].name << "\n";
-	if (HackedMonsters == 1) monsterNo = 8;
+	// Tamper protection removed (Android/web): data ships inside the app,
+	// so a hash mismatch no longer swaps every encounter for the F.B.I. Agent.
    
 
     plyr.fixedEncounter = false;

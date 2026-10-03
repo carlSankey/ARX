@@ -162,11 +162,9 @@ std::vector<spellRecord> readSpellsCSV(const std::string& filename) {
 			"ARX2023";
 		std::string hash = sha256(input);
 
-		if (hash != newSpell.hash)
-		{
-			newSpell.positiveValue = 0;
-			newSpell.negativeValue = 0;
-		}
+		// Tamper protection removed (Android/web): a hash mismatch no longer
+		// zeroes the spell's effect. spells.csv never matched its hashes.
+		(void)hash;
 		data.push_back(newSpell);
 	}
 
