@@ -571,12 +571,24 @@ bool gameTick()
         g_itemActionPage = 0;
     }
     else if (key == "C") {
+        // Use the original cast screen (castSpells), as the original
+        // gameLoop() did; it's a blocking menu, which works on the web via
+        // Asyncify. The old web-only CAST menu here was never drawn, so it
+        // showed an empty screen that only ESC could leave.
         std::cout << "GAME_INPUT: handled castSpell" << std::endl;
-        plyr.subState = SubState::ItemAction;
-        g_itemActionMode = 3; // CAST
-        g_itemActionStep = 0;
-        g_itemActionRef = 9999;
-        g_itemActionPage = 0;
+        if (plyr.spellIndex == 0) {
+            // No spells known: say so and wait for a key
+            string k;
+            do {
+                dispMain();
+                cyText(3, "Thou knowest no spells!");
+                cyText(7, "( Press any key )");
+                updateDisplay();
+                k = getSingleKey();
+            } while (k.empty());
+        } else {
+            castSpells();
+        }
     }
     else if (key == "W") {
         // Wait for an encounter - as in the original gameLoop()
