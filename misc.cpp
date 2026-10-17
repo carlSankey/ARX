@@ -216,8 +216,7 @@ string readKey()
 			}
 
 			if (!k.empty()) {
-				arx::inputPush(k);
-				if (keyString.empty()) keyString = k; // return first key this poll
+				arx::inputPush(k);   // queued; one key is taken off the queue below
 			}
 		}
 
@@ -225,7 +224,6 @@ string readKey()
 			// Route < and > (shift+comma / shift+period) to key queue for panel switching
 			if (event->text == "<" || event->text == ">") {
 				arx::inputPush(event->text);
-				if (keyString.empty()) keyString = event->text;
 			} else {
 				arx::textPush(event->text);
 			}
@@ -233,14 +231,14 @@ string readKey()
 
 		if (event->type == arx::EventType::Closed) {
 			arx::inputPush("QUIT");
-			keyString = "QUIT";
 		}
 	}
 
-	// Also drain the InputQueue for any keys pushed by other means
-	if (keyString.empty()) {
-		keyString = arx::inputPoll();
-	}
+	// Take exactly ONE key off the queue. Previously the first new key was
+	// both queued AND returned, so every key press was handled twice (once
+	// now, once on the next call): Up moved two steps, one Y in the GET
+	// menu picked up two items, etc.
+	keyString = arx::inputPoll();
 
 	return keyString;
 }
@@ -253,8 +251,7 @@ bool keyPressed()
 
 string getSingleKey()
 {
-	readKey();
-	string key = arx::inputPoll();
+	string key = readKey();   // readKey() now takes the key off the queue
 
 #ifdef __EMSCRIPTEN__
 	// Asyncify: hand control back to the browser for ~1 frame before
