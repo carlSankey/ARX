@@ -104,11 +104,15 @@ Running = false;
 bool gameTick()
 {
     // SDL2 web path: minimal game tick
-    clearDisplay();
-    dispMain();
-    drawConsoleBackground();
-    drawInfoPanels();
-    updateDisplay();
+    // Skip the normal frame while the item menu is open: it draws and
+    // presents its own frame below, and drawing both made it flicker.
+    if (!(plyr.subState == SubState::ItemAction && g_itemActionMode > 0)) {
+        clearDisplay();
+        dispMain();
+        drawConsoleBackground();
+        drawInfoPanels();
+        updateDisplay();
+    }
     
     // Handle non-blocking item action sub-state (D=drop, C=cast, G=get)
     if (plyr.subState == SubState::ItemAction && g_itemActionMode > 0) {
@@ -190,7 +194,8 @@ bool gameTick()
                     g_itemActionStep = 1; // Now entering quantity
                     g_dropQuantity = 0;
                 }
-            }
+            // (pages 1+ were previously attached to the wrong if, so they
+            //  only ran when NOT dropping and DROP never left the menu)
             else if (g_itemActionPage == 1) {
                 // Valuables page
                 if (g_itemActionMode == 2) { // DROP
@@ -240,6 +245,7 @@ bool gameTick()
                     g_itemActionMode = 0;
                 }
             }
+            } // end DROP mode
         }
         else if (g_itemActionStep == 1) {
             // Step 1: For DROP mode, enter quantity. For GET mode, confirm pickup.
