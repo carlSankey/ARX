@@ -104,6 +104,13 @@ Running = false;
 bool gameTick()
 {
     // SDL2 web path: minimal game tick
+
+    // Per-frame menus: each call draws one frame and handles one key.
+    // ESC set OptionsMenu but nothing ever ran it, so the game sat in
+    // that state with shops, encounters and the clock switched off.
+    if (plyr.subState == SubState::OptionsMenu) { optionsMenu(); return Running; }
+    if (plyr.subState == SubState::QuitMenu)    { quitMenu();    return Running; }
+    if (plyr.subState == SubState::Paused)      { pauseGame();   return Running; }
     // Skip the normal frame while the item menu is open: it draws and
     // presents its own frame below, and drawing both made it flicker.
     if (!(plyr.subState == SubState::ItemAction && g_itemActionMode > 0)) {
@@ -476,6 +483,11 @@ bool gameTick()
     if (key == "right") { key = "RIGHT"; }
     if (key == "up")    { key = "UP"; }
     if (key == "down")  { key = "DOWN"; }
+    // Original alternative movement keys
+    if (key == "J") { key = "LEFT"; }
+    if (key == "L") { key = "RIGHT"; }
+    if (key == "I") { key = "UP"; }
+    if (key == "K") { key = "DOWN"; }
 
     if (!rawKey.empty()) {
         std::cout << "GAME_INPUT: raw='" << rawKey << "' normalized='" << key << "'" << std::endl;
@@ -524,8 +536,31 @@ bool gameTick()
         plyr.miniMapOn = !plyr.miniMapOn;
     }
     else if (key == "U") {
-        std::cout << "GAME_INPUT: handled showUsePanel" << std::endl;
-        plyr.infoPanel = 9;
+        // Original Use menu (blocking, works on the web via Asyncify).
+        // The old static USE panel showed the list but did nothing.
+        std::cout << "GAME_INPUT: handled useItem" << std::endl;
+        selectItem(1);
+    }
+    else if (key == "M") {
+        std::cout << "GAME_INPUT: handled automap" << std::endl;
+        automap();
+    }
+    else if (key == "P") {
+        std::cout << "GAME_INPUT: handled pause" << std::endl;
+        plyr.subState = SubState::Paused;
+    }
+    else if (key == "SPACE") { plyr.infoPanel = 1; }
+    else if (key == "F1") { plyr.infoPanel = 1; }
+    else if (key == "F2") { plyr.infoPanel = 2; }
+    else if (key == "F3") { plyr.infoPanel = 3; }
+    else if (key == "F4") { plyr.infoPanel = 4; }
+    else if (key == "F5") { plyr.infoPanel = 5; }
+    else if (key == "F6") { plyr.infoPanel = 6; }
+    else if (key == "F7") { plyr.infoPanel = 7; }
+    else if (key == "F8") { plyr.infoPanel = 8; }
+    else if (key == "T" && AR_DEV.TELEPORT_OPTION) {
+        std::cout << "GAME_INPUT: handled teleport (dev)" << std::endl;
+        teleport();
     }
     else if (key == "G") {
         std::cout << "GAME_INPUT: handled getItem" << std::endl;
