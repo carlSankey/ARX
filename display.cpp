@@ -328,10 +328,73 @@ static void drawFilledRect(int x, int y, int w, int h, uint8_t r, uint8_t g, uin
 
 void drawAtariAnimation()
 {
-    // SDL2/web: redraw the main display every frame, as the original did
-    // (it called dispMain() here). Without this, encounter text is drawn on
-    // top of the previous frame. The monster image itself is still TODO.
+    // SDL2/web port of the original drawAtariAnimation(): redraw the main
+    // display, then draw the current animation frame of the opponent from
+    // the encounter tile sheet (8 tiles per row, each 64x128).
     dispMain();
+
+    static arx::Sprite2D s_encSheet;
+    static int s_loadedMode = -1;
+    if (s_loadedMode != graphicMode)
+    {
+        s_loadedMode = graphicMode;
+        bool ok = false;
+        if (graphicMode == ATARI_SMALL)
+            ok = s_encSheet.load("data/images/encounters/encounters.png");        // Atari 8bit
+        else if (graphicMode == A16BIT_SMALL)
+            ok = s_encSheet.load("data/images/encounters/encounters_16bit.png");  // Amiga 16bit
+        else
+        {
+            // Alternate sheet isn't in the repo yet; fall back to 16bit
+            ok = s_encSheet.load("data/images/encounters/encounters_alternate.png");
+            if (!ok) ok = s_encSheet.load("data/images/encounters/encounters_16bit.png");
+        }
+        if (!ok) std::cerr << "drawAtariAnimation: no encounter sheet for graphicMode "
+                           << graphicMode << std::endl;
+    }
+    if (!s_encSheet.isValid()) return;
+
+    const int maxFrames = static_cast<int>(sizeof(encounterAnim) / sizeof(encounterAnim[0]));
+    if (firstFrame < 0 || firstFrame >= maxFrames) return;
+    // image2 == 255 (or bad data) means a single still image
+    if (lastFrame < firstFrame || lastFrame >= maxFrames) lastFrame = firstFrame;
+
+    if (animationNotStarted)
+    {
+        currentFrame = firstFrame;
+        yOffset = encounterAnim[currentFrame].yOffset;
+        xOffset = encounterAnim[currentFrame].xOffset;
+        animImage = encounterAnim[currentFrame].image;
+        animDuration = encounterAnim[currentFrame].duration;
+        animationNotStarted = false;
+    }
+    if (animDuration <= 0)
+    {
+        currentFrame++;
+        if (currentFrame > lastFrame) { currentFrame = firstFrame; }
+        yOffset = encounterAnim[currentFrame].yOffset;
+        xOffset = encounterAnim[currentFrame].xOffset;
+        animImage = encounterAnim[currentFrame].image;
+        animDuration = encounterAnim[currentFrame].duration;
+    }
+    animDuration--;
+
+    // Select the 64x128 tile (same maths as the original SetTileImage)
+    const int tilesPerRow = 8;
+    int column = animImage % tilesPerRow;
+    int row = animImage / tilesPerRow;
+    s_encSheet.setTextureRect(column * 64, row * 128, 64, 128);
+
+    // Same position as the original, scaled with the rest of the UI
+    float sc = uiScale;
+    float encX = (windowWidth / 2.0f) - (32.0f * sc);
+    float encY = (viewPortY + viewHeight) - (130.0f * sc);
+    if (xOffset != 0 || yOffset != 0)
+    {
+        encX = viewPortX - (32.0f * sc) + (xOffset * sc);
+        encY = viewPortY + (yOffset * 2.0f * sc);
+    }
+    s_encSheet.draw(encX, encY, sc, sc);
 }
 
 void createGameWindow()
