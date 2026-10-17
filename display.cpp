@@ -947,17 +947,75 @@ if (plyr.infoPanel == 7)
 }
 }
 
+// Current shop / location picture (set by loadShopImage, drawn by clearShopDisplay)
+static std::unordered_map<std::string, std::unique_ptr<arx::Sprite2D>> g_shopSprites;
+static arx::Sprite2D* g_shopSprite = nullptr;
+
 void clearShopDisplay()
 {
     // SDL2/web: clear first, as the original did (App.clear()), otherwise
-    // shop and tavern text is drawn on top of the previous frame.
+    // shop and tavern text is drawn on top of the previous frame. Then draw
+    // the shop picture (2x, centred, at shopPictureY) as the original did.
     clearDisplay();
+    if (g_shopSprite && g_shopSprite->isValid())
+    {
+        float sc = 2.0f * uiScale;
+        float x = (windowWidth - (g_shopSprite->getWidth() * sc)) / 2.0f;
+        g_shopSprite->draw(x, static_cast<float>(shopPictureY), sc, sc);
+    }
     drawStatsPanel();
 }
 
 void loadShopImage(int imageno)
 {
-    // SDL2/web - shop image loading handled through sprite system
+    // SDL2/web port of the original picture table. The Atari set lives in
+    // data/images/locations; the other graphics modes prefer
+    // data/images/locations2 where an image exists, else fall back.
+    static const char* atari[30] = {
+        nullptr,
+        "locations/retreat.png", "locations/rathskeller.png", "locations/oDamon.png",
+        "locations/evilGuild.png", "locations/goodGuild.png", "locations/stairwayUp.png",
+        "locations/stairwayDown.png", "locations/citySmithyNight.png", "locations/imgCitySmithy.png",
+        "locations/imgCityTavern.png", "locations/imgCityInn.png", "locations/imgCityShop.png",
+        "locations/imgCityBank.png", "locations/imgCityGuild.png", "locations/imgCityHealer.png",
+        "locations/trolls.png", "locations/goblins.png", "locations/chapel.png",
+        "locations/fountain.png", "locations/oracle.png", "locations/imgCityHealer.png",
+        "locations/lift.png", "locations/ferry.png", "locations/undead.png",
+        "locations/arena.png", "locations/dwarvenSmithy.png", "locations/6.png",
+        "locations/Prison.png", "locations/PrisonEmpty.png" };
+    static const char* other[30] = {
+        nullptr,
+        "locations2/inn.png", "locations2/rathskeller.png", "locations2/shop.png",
+        "locations2/guild.png", "locations2/guild.png", nullptr,
+        nullptr, nullptr, "locations2/smithy.png",
+        "locations2/tavern.png", "locations2/inn.png", "locations2/shop.png",
+        "locations2/bank.png", "locations2/guild.png", "locations2/healer1.png",
+        "locations2/trolls.png", "locations2/goblins.png", nullptr,
+        nullptr, nullptr, "locations2/healer2.png",
+        nullptr, "locations2/river.png", "locations2/undead.png",
+        nullptr, nullptr, nullptr,
+        nullptr, nullptr };
+
+    g_shopSprite = nullptr;
+    if (imageno < 1 || imageno > 29) return;
+
+    const char* rel = nullptr;
+    if (graphicMode != ATARI_SMALL) rel = other[imageno];
+    if (!rel) rel = atari[imageno];
+    if (!rel) return;
+
+    std::string path = std::string("data/images/") + rel;
+    auto it = g_shopSprites.find(path);
+    if (it == g_shopSprites.end())
+    {
+        auto sprite = std::make_unique<arx::Sprite2D>();
+        if (!sprite->load(path))
+        {
+            std::cerr << "loadShopImage: could not load " << path << std::endl;
+        }
+        it = g_shopSprites.emplace(path, std::move(sprite)).first;
+    }
+    g_shopSprite = it->second.get();
 }
 
 void drawStatsPanel()
