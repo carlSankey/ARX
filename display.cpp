@@ -25,6 +25,20 @@
 #include "spells.h"
 #include "effects.h"
 #include "renderer/Sprite2D.h"
+
+// Build stamp (written by web/build.cmd) so you can see which build is running
+#if defined(__has_include)
+#  if __has_include("web/build_info.h")
+#    include "web/build_info.h"
+#  endif
+#endif
+#ifndef ARX_BUILD_REV
+#  define ARX_BUILD_REV "dev build"
+#endif
+#ifndef ARX_BUILD_TIME
+#  define ARX_BUILD_TIME __DATE__ " " __TIME__
+#endif
+
 #include "renderer/View3D.h"
 #include "platform/Window.h"
 
@@ -400,7 +414,7 @@ void drawAtariAnimation()
 void createGameWindow()
 {
     // Window creation handled by platform abstraction layer
-    std::cout << "Welcome to Alternate Reality X " << version << " ..." << std::endl << std::endl;
+    std::cout << "Welcome to Alternate Reality X " << version << " ... build " << ARX_BUILD_REV << " " << ARX_BUILD_TIME << std::endl << std::endl;
 }
 
 void drawConsoleBackground()
@@ -538,6 +552,11 @@ if (graphicMode == ALTERNATE_LARGE) { drawText(x+7,z+5, "Texture       Large 3D"
 
 if (plyr.musicStyle == 0) { drawText(x+21,z+6,"Atari 8bit"); } else { drawText(x+21,z+6,"Alternate"); }
 if (plyr.fontStyle == 0) { drawText(x+21,z+7,"Smooth"); } else { drawText(x+21,z+7,"Atari 8bit"); }
+
+// Build stamp, bottom of the menu
+SetFontColour(120, 120, 120, 255);
+drawText(x+3, z+11, std::string("Build ") + ARX_BUILD_REV + "  " + ARX_BUILD_TIME);
+SetFontColour(215, 215, 215, 255);
 }
 
 void dispMain()
