@@ -31,6 +31,13 @@ void browserFrame()
 
 int main()
 {
+    // Silence the game's informational console output (std::cout). There are
+    // hundreds of debug prints across the code, and console output is slow in
+    // a browser. Errors (std::cerr) still show. Build with -DARX_LOGS=1 to
+    // turn the full log back on when debugging.
+#if !defined(ARX_LOGS) || !ARX_LOGS
+    std::cout.setstate(std::ios_base::failbit);
+#endif
     std::cout << "ARXX web scaffold booted." << std::endl;
 
     if (!appInit()) {
