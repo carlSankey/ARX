@@ -40,5 +40,22 @@ std::string userPath(const std::string& relative);
 // original, so a phone being killed mid-save can't corrupt it.
 bool writeTextAtomic(const std::string& userRelative, const std::string& content);
 
+// Read a whole file from the user folder (e.g. "saves/save1.txt").
+// Returns false if it doesn't exist there yet.
+bool readUserText(const std::string& userRelative, std::string& out);
+
+// Read a user file if it exists, otherwise the bundled copy under data/
+// (e.g. readUserOrBundled("saves/saveGames.txt") falls back to
+// data/saves/saveGames.txt), so a fresh install still sees the defaults.
+// Windows '\r' line endings are removed.
+bool readUserOrBundled(const std::string& userRelative, std::string& out);
+
+// Web only (no-ops elsewhere): keep the user folder in the browser's
+// IndexedDB so saves survive a page refresh. Call initPersistentStorage()
+// once at start-up before any userPath() call, and flushPersistentStorage()
+// after writing saves.
+void initPersistentStorage();
+void flushPersistentStorage();
+
 } // namespace fs
 } // namespace arx

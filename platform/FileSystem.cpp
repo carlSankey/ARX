@@ -1,8 +1,13 @@
 #include "FileSystem.h"
 
 #include <SDL.h>
+#ifdef __EMSCRIPTEN__
+#include <emscripten/emscripten.h>
+#endif
 
+#include <algorithm>
 #include <cstdio>
+#include <iterator>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
@@ -179,6 +184,76 @@ bool writeTextAtomic(const std::string& userRelative, const std::string& content
     }
     return true;
 }
+
+bool readUserText(const std::string& userRelative, std::string& out) {
+    std::string path = prefPath();
+    if (path.empty()) {
+        return false;
+    }
+    path += userRelative;
+    std::ifstream in(path, std::ios::binary);
+    if (!in) {
+        return false;   // not saved yet - not an error
+    }
+    out.assign(std::istreambuf_iterator<char>(in), std::istreambuf_iterator<char>());
+    return true;
+}
+
+bool readUserOrBundled(const std::string& userRelative, std::string& out) {
+    bool ok = readUserText(userRelative, out);
+    if (!ok) {
+        ok = readText("data/" + userRelative, out);
+    }
+    if (ok) {
+        out.erase(std::remove(out.begin(), out.end(), '\r'), out.end());
+    }
+    return ok;
+}
+
+#ifdef __EMSCRIPTEN__
+// SDL's user folder on the web is /libsdl/<org>/<app>/ in Emscripten's
+// in-memory file system, which is wiped on every page load. Mount IndexedDB
+// (IDBFS) there and copy it in before the game starts.
+void initPersistentStorage() {
+    static bool done = false;
+    if (done) {
+        return;
+    }
+    done = true;
+    EM_ASM({
+        Module.arxFsReady = 0;
+        try {
+            if (!FS.analyzePath('/libsdl').exists) FS.mkdir('/libsdl');
+            FS.mount(IDBFS, {}, '/libsdl');
+            FS.syncfs(true, function(err) {
+                if (err) console.error('ARX: loading saves from browser storage failed', err);
+                Module.arxFsReady = 1;
+            });
+        } catch (e) {
+            console.error('ARX: browser storage unavailable', e);
+            Module.arxFsReady = 1;
+        }
+    });
+    // Wait (up to ~5s) for IndexedDB to load. Needs -sASYNCIFY.
+    for (int i = 0; i < 500; ++i) {
+        if (EM_ASM_INT({ return Module.arxFsReady; })) {
+            break;
+        }
+        emscripten_sleep(10);
+    }
+}
+
+void flushPersistentStorage() {
+    EM_ASM({
+        FS.syncfs(false, function(err) {
+            if (err) console.error('ARX: saving to browser storage failed', err);
+        });
+    });
+}
+#else
+void initPersistentStorage() {}
+void flushPersistentStorage() {}
+#endif
 
 } // namespace fs
 } // namespace arx

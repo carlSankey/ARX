@@ -90,5 +90,6 @@ target_link_options(arxx_web PRIVATE
   -sASSERTIONS=1
   -sASYNCIFY
   -sASYNCIFY_STACK_SIZE=524288
+  -lidbfs.js
   --preload-file ../data@/data
 )

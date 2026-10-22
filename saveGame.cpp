@@ -1,4 +1,6 @@
 //#include <SFML/Graphics.hpp>
+#include "platform/FileSystem.h"
+#include <sstream>
 
 #include <string>
 #include <stdio.h>
@@ -284,29 +286,31 @@ void displayLoadGame()
 
 void initSaveGameDescriptions()
 {
-	std::ifstream instream;
-	instream.open("data/saves/saveGames.txt");
+	// Slot names: the player's own saves (user folder) if there are any,
+	// otherwise the bundled data/saves/saveGames.txt.
+	std::string content;
+	arx::fs::readUserOrBundled("saves/saveGames.txt", content);
+	std::istringstream instream(content);
 	string text;
 
 	for (int a = 0; a < 10; a++) // number of save game slots 0 - 9
 	{
+		text = "";
 		getline(instream, text);
 		saveGameDescriptions[a] = text;
 	}
-	instream.close();
 }
 
 
 void updateSaveGameDescriptions()
 {
-	ofstream outdata; // outdata is like cin
-	outdata.open("data/saves/saveGames.txt"); // opens the file
-
+	// Written to the user folder (data/ is read-only inside an Android APK)
+	std::ostringstream outdata;
 	for(int y = 0; y < 10; ++y)
 	{
 		outdata << saveGameDescriptions[y] << endl;
 	}
-	outdata.close();
+	arx::fs::writeTextAtomic("saves/saveGames.txt", outdata.str());
 }
 
 
@@ -739,13 +743,14 @@ string saveGameReleaseNo = character[28540];
 */
 
 bool newloadCharacter(int saveSlot, Player& plyr) {
-    string filename = "data/saves/save" + to_string(saveSlot) + ".txt";
-    ifstream instream(filename.c_str());
-
-    if (!instream) {
+    // The player's own save (user folder) if there is one, otherwise the
+    // bundled data/saves copy
+    std::string content;
+    if (!arx::fs::readUserOrBundled("saves/save" + to_string(saveSlot) + ".txt", content)) {
         cerr << "No save game in this slot" << endl;
         return false;
     }
+    std::istringstream instream(content);
 
     string text;
     volatile int linesRead = 0; //Remove volatile after debugging
@@ -1249,7 +1254,7 @@ bool newloadCharacter(int saveSlot, Player& plyr) {
     {
         for (int x = 0; x < noOfAutoMapExplored; ++x)
         {
-            getline(instream, text); itos(autoMapExplored[z][x]) = stringToBool(text); linesRead++;
+            getline(instream, text); autoMapExplored[z][x] = stringToBool(text); linesRead++;
         }
     }
     getline(instream, text); plyr.name = text; linesRead++;
@@ -1257,10 +1262,6 @@ bool newloadCharacter(int saveSlot, Player& plyr) {
     
     // Load other player fields...
 
-
-
- 
-    instream.close();
     plyr.status = 1; // Assuming 1 corresponds to EXPLORE
     return true;
 }
@@ -1649,13 +1650,9 @@ bool newsaveCharacter(int saveSlot, const Player& plyr) {
 
     initcharacter(); // Clear out string array
 
-    string filename = "data/saves/save" + to_string(saveSlot) + ".txt";
-    ofstream outstream(filename.c_str());
-
-    if (!outstream) {
-        cerr << "Failed to open save file in this slot" << endl;
-        return false;
-    }
+    // Built in memory, then written to the user folder in one go
+    // (data/ is read-only inside an Android APK)
+    std::ostringstream outstream;
 
     int linesWritten = 0;
 
@@ -2087,8 +2084,10 @@ bool newsaveCharacter(int saveSlot, const Player& plyr) {
                             outstream << plyr.z_offset << endl; linesWritten++;
                             outstream << plyr.prisonRelease << endl; linesWritten++;
                             outstream << progrelease << endl; linesWritten++;
-                            outstream.close();
-                            return true;
+                            bool saved = arx::fs::writeTextAtomic("saves/save" + to_string(saveSlot) + ".txt", outstream.str());
+                            arx::fs::flushPersistentStorage();   // web: keep it after a refresh
+                            if (!saved) cerr << "Failed to write save file for slot " << saveSlot << endl;
+                            return saved;
     
 }
 

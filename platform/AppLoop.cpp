@@ -19,6 +19,9 @@
 #include "automap.h"
 #include "renderer/Sprite2D.h"
 #include "game.h"
+#include "platform/FileSystem.h"
+extern std::string saveGameDescriptions[10];
+#include "saveGame.h"
 #include "damon.h"
 #include "items.h"
 #include "smithy.h"
@@ -267,6 +270,116 @@ static void processInputQueue()
     }
 }
 
+// Everything needed to start playing, once the player exists: load the map,
+// monsters and items, stock the shops, and enter the game.
+// newGame = true after character creation; false after loading a save
+// (keeps the save's map, position, time of day and shop stock).
+static void startGameSession(bool newGame)
+{
+        // Full game initialization (mirrors enterGame() from native build)
+        std::cout << "ARXX web: starting full game initialization..." << std::endl;
+        
+        // Set graphics mode to small 3D view with banner visible
+        graphicMode = ALTERNATE_SMALL;
+        setScreenValues();
+        std::cout << "ARXX web: set graphicMode to ALTERNATE_SMALL, viewport=" << viewPortX << "," << viewPortY << " size=" << viewWidth << "x" << viewHeight << std::endl;
+        
+        // Load scenario data (a loaded save keeps its own map / dungeon level)
+        int scenarioMap = (plyr.scenario == 0) ? 0 : 1;
+        if (newGame) plyr.map = scenarioMap;
+        scenarioMap = plyr.map;
+        plyr.mapWidth = 64;
+        plyr.mapHeight = 64;
+        std::cout << "ARXX web: loading map " << scenarioMap << std::endl;
+        loadMapData(scenarioMap);
+        std::cout << "ARXX web: loadMapData OK" << std::endl;
+        loadDescriptions(scenarioMap);
+        std::cout << "ARXX web: loadDescriptions OK" << std::endl;
+        loadZoneData(scenarioMap);
+        std::cout << "ARXX web: loadZoneData OK" << std::endl;
+        
+        std::cout << "ARXX web: loading monsters..." << std::endl;
+        loadMonstersBinary();
+        std::cout << "ARXX web: loadMonstersBinary OK" << std::endl;
+        initialiseMonsterOffsets();
+        convertMonstersBinary();
+        std::cout << "ARXX web: convertMonstersBinary OK" << std::endl;
+        convertMessagesBinary();
+        std::cout << "ARXX web: convertMessagesBinary OK" << std::endl;
+        
+        // Additional initialization from native enterGame()
+        // loadDamonBinary(), loadCitySmithyBinary() and loadDwarvenBinary()
+        // are deliberately NOT called: their file-open checks are broken
+        // (sprintf() never returns 0; fopen() result never assigned), so
+        // even the original Windows build never loaded those .bin files.
+        // Shop stock comes from items.csv via UpdateShopStock() etc. below.
+        
+        checkBackgroundTime();
+        checkDailyInnJobOpenings();
+        checkDailyTavernJobOpenings();
+        checkDailybankJobOpenings();
+        
+        initialiseNewGame();
+        plyr.status = 1; // EXPLORE
+        
+        // Shop / tavern / smithy stock, as the original startGame()
+        // and createNewCharacter() did
+        UpdateShopStock();      // Damon & Pythias battle gear and clothing
+        UpdateSmithyStock();    // City Smithy weapons
+        readFTData();           // fixed treasures
+        if (newGame)
+        {
+            // A save stores each smithy's, tavern's and shop's daily stock,
+            // so only roll it for a new character (as the original did)
+            stockSmithyWares();
+            stockTavernDrinks();
+            stockTavernFoods();
+            stockShopWares();
+        }
+        std::cout << "ARXX web: shop, smithy and tavern stock ready" << std::endl;
+        
+        gameInit();
+        std::cout << "ARXX web: gameInit OK" << std::endl;
+        
+        if (newGame)
+        {
+            // Set starting position
+            if (plyr.scenario == 0) {
+                // City: Floating Gate at 35 East, 27 North
+                plyr.x = 35; plyr.y = 27;
+                plyr.facing = NORTH;
+            } else {
+                // Dungeon level 1
+                plyr.x = 50; plyr.y = 4;
+                plyr.facing = WEST;
+            }
+            plyr.location = 0;
+            plyr.alive = true;
+            plyr.timeOfDay = 0; // Full day
+            plyr.hours = 6;     // Morning
+            plyr.minutes = 0;
+            plyr.darkness = 0;
+            plyr.light = 0;
+            plyr.z_offset = 1.0f;
+            plyr.floorTexture = 0;
+            plyr.ceiling = 0;
+        }
+        else
+        {
+            // Loaded save: keep its position, time and light
+            plyr.alive = true;
+        }
+        setCurrentZone();
+        // Force outdoor city zone AFTER setCurrentZone() so it doesn't get overwritten
+        plyr.zone = 99;
+        std::cout << "ARXX web: starting at (" << plyr.x << "," << plyr.y << ") facing=" << plyr.facing
+                  << " zoneSet=" << plyr.zoneSet << " timeOfDay=" << plyr.timeOfDay << std::endl;
+
+        std::cout << "ARXX: Setting g_state to InGame (value=" << (int)AppState::InGame << ")" << std::endl;
+        g_state = AppState::InGame;
+        std::cout << "ARXX: g_state is now " << (int)g_state << std::endl;
+}
+
 bool appInit()
 {
     std::cout << "ARXX web: appInit (SDL2 window + input path)" << std::endl;
@@ -309,6 +422,9 @@ bool appInit()
 
     // Phase 7a: load scenario-independent data
     std::cout << "ARXX web: loading maps index..." << std::endl;
+    // Web: keep saves in the browser's storage (no-op elsewhere)
+    arx::fs::initPersistentStorage();
+
     initMaps();
     clearAutoMaps();
     std::cout << "ARXX web: maps index loaded OK" << std::endl;
@@ -366,7 +482,9 @@ bool appTick()
             g_nameStage = NameStage::TypingName;
             g_state = AppState::NameEntry;   // Name first
         } else if (key == "3") {
-            std::cout << "ARXX: Load game (not yet implemented)" << std::endl;
+            initSaveGameDescriptions();
+            arx::inputClear();
+            g_state = AppState::LoadGameMenu;
         } else if (key == "5") {
             // Cycle through graphics modes: 0 (Atari 8bit) -> 1 (16bit) -> 2 (Small 3D) -> 0
             std::cout << "ARXX: Key 5 pressed, current graphicMode=" << graphicMode << std::endl;
@@ -391,6 +509,30 @@ bool appTick()
         } else if (key == "0" || key == "QUIT") {
             g_running = false;
             return false;
+        }
+        break;
+    }
+    case AppState::LoadGameMenu: {
+        // "Resume a character": pick a save slot 0-9
+        clearDisplay();
+        displayLoadGame();
+        drawText(10, 0, "Resume a character");
+        updateDisplay();
+
+        std::string key = arx::inputPoll();
+        if (key == "ESC") {
+            g_state = AppState::MainMenu;
+        } else if (key.size() == 1 && key[0] >= '0' && key[0] <= '9') {
+            int slot = key[0] - '0';
+            if (saveGameDescriptions[slot].empty()) {
+                // empty slot - stay on this screen
+            } else if (newloadCharacter(slot, plyr)) {
+                arx::inputClear();
+                arx::textClear();
+                startGameSession(false);   // resume the loaded character
+            } else {
+                std::cerr << "ARXX: could not load save slot " << slot << std::endl;
+            }
         }
         break;
     }
@@ -428,9 +570,15 @@ bool appTick()
                 g_counters[7].y = lockY;
 
                 // Initialize all player stats and inventory
-                int selectedScenario = plyr.scenario; // preserve scenario choice
+                // initStats() resets everything to defaults, including the
+                // name ("Xebec") and gender, so keep what the player chose
+                int selectedScenario = plyr.scenario;
+                std::string chosenName = plyr.name;
+                int chosenGender = plyr.gender;
                 initStats();
-                plyr.scenario = selectedScenario; // restore scenario choice
+                plyr.scenario = selectedScenario;
+                plyr.name = chosenName;
+                plyr.gender = chosenGender;
                 // Assign rolled stats to player
                 plyr.sta   = g_counters[0].value1;
                 plyr.chr   = g_counters[1].value1;
@@ -526,94 +674,7 @@ bool appTick()
                 arx::inputClear();
                 arx::textClear();
 
-                // Full game initialization (mirrors enterGame() from native build)
-                std::cout << "ARXX web: starting full game initialization..." << std::endl;
-                
-                // Set graphics mode to small 3D view with banner visible
-                graphicMode = ALTERNATE_SMALL;
-                setScreenValues();
-                std::cout << "ARXX web: set graphicMode to ALTERNATE_SMALL, viewport=" << viewPortX << "," << viewPortY << " size=" << viewWidth << "x" << viewHeight << std::endl;
-                
-                // Load scenario data
-                int scenarioMap = (plyr.scenario == 0) ? 0 : 1;
-                plyr.map = scenarioMap;
-                plyr.mapWidth = 64;
-                plyr.mapHeight = 64;
-                std::cout << "ARXX web: loading map " << scenarioMap << std::endl;
-                loadMapData(scenarioMap);
-                std::cout << "ARXX web: loadMapData OK" << std::endl;
-                loadDescriptions(scenarioMap);
-                std::cout << "ARXX web: loadDescriptions OK" << std::endl;
-                loadZoneData(scenarioMap);
-                std::cout << "ARXX web: loadZoneData OK" << std::endl;
-                
-                std::cout << "ARXX web: loading monsters..." << std::endl;
-                loadMonstersBinary();
-                std::cout << "ARXX web: loadMonstersBinary OK" << std::endl;
-                initialiseMonsterOffsets();
-                convertMonstersBinary();
-                std::cout << "ARXX web: convertMonstersBinary OK" << std::endl;
-                convertMessagesBinary();
-                std::cout << "ARXX web: convertMessagesBinary OK" << std::endl;
-                
-                // Additional initialization from native enterGame()
-                // loadDamonBinary(), loadCitySmithyBinary() and loadDwarvenBinary()
-                // are deliberately NOT called: their file-open checks are broken
-                // (sprintf() never returns 0; fopen() result never assigned), so
-                // even the original Windows build never loaded those .bin files.
-                // Shop stock comes from items.csv via UpdateShopStock() etc. below.
-                
-                checkBackgroundTime();
-                checkDailyInnJobOpenings();
-                checkDailyTavernJobOpenings();
-                checkDailybankJobOpenings();
-                
-                initialiseNewGame();
-                plyr.status = 1; // EXPLORE
-                
-                // Shop / tavern / smithy stock, as the original startGame()
-                // and createNewCharacter() did
-                UpdateShopStock();      // Damon & Pythias battle gear and clothing
-                UpdateSmithyStock();    // City Smithy weapons
-                readFTData();           // fixed treasures
-                stockSmithyWares();
-                stockTavernDrinks();
-                stockTavernFoods();
-                stockShopWares();
-                std::cout << "ARXX web: shop, smithy and tavern stock ready" << std::endl;
-                
-                gameInit();
-                std::cout << "ARXX web: gameInit OK" << std::endl;
-                
-                // Set starting position
-                if (plyr.scenario == 0) {
-                    // City: Floating Gate at 35 East, 27 North
-                    plyr.x = 35; plyr.y = 27;
-                    plyr.facing = NORTH;
-                } else {
-                    // Dungeon level 1
-                    plyr.x = 50; plyr.y = 4;
-                    plyr.facing = WEST;
-                }
-                plyr.location = 0;
-                plyr.alive = true;
-                plyr.timeOfDay = 0; // Full day
-                plyr.hours = 6;     // Morning
-                plyr.minutes = 0;
-                plyr.darkness = 0;
-                plyr.light = 0;
-                plyr.z_offset = 1.0f;
-                plyr.floorTexture = 0;
-                plyr.ceiling = 0;
-                setCurrentZone();
-                // Force outdoor city zone AFTER setCurrentZone() so it doesn't get overwritten
-                plyr.zone = 99;
-                std::cout << "ARXX web: starting at (" << plyr.x << "," << plyr.y << ") facing=" << plyr.facing
-                          << " zoneSet=" << plyr.zoneSet << " timeOfDay=" << plyr.timeOfDay << std::endl;
-
-                std::cout << "ARXX: Setting g_state to InGame (value=" << (int)AppState::InGame << ")" << std::endl;
-                g_state = AppState::InGame;
-                std::cout << "ARXX: g_state is now " << (int)g_state << std::endl;
+                startGameSession(true);   // new character
             }
         }
         break;
