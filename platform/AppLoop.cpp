@@ -19,6 +19,13 @@
 #include "automap.h"
 #include "renderer/Sprite2D.h"
 #include "game.h"
+#include "damon.h"
+#include "items.h"
+#include "smithy.h"
+#include "tavern.h"
+#include "shop.h"
+#include "inn.h"
+#include "bank.h"
 
 // Define global player state (extern in player.h, needed by font.cpp and display.cpp)
 Player plyr;
@@ -550,21 +557,30 @@ bool appTick()
                 std::cout << "ARXX web: convertMessagesBinary OK" << std::endl;
                 
                 // Additional initialization from native enterGame()
-                // loadDamonBinary(); // commented out for web build
-                // loadCitySmithyBinary(); // commented out for web build
-                // loadDwarvenBinary(); // commented out for web build
+                // loadDamonBinary(), loadCitySmithyBinary() and loadDwarvenBinary()
+                // are deliberately NOT called: their file-open checks are broken
+                // (sprintf() never returns 0; fopen() result never assigned), so
+                // even the original Windows build never loaded those .bin files.
+                // Shop stock comes from items.csv via UpdateShopStock() etc. below.
                 
                 checkBackgroundTime();
-                // checkDailyInnJobOpenings(); // commented out for web build
-                // checkDailyTavernJobOpenings(); // commented out for web build
-                // checkDailybankJobOpenings(); // commented out for web build
+                checkDailyInnJobOpenings();
+                checkDailyTavernJobOpenings();
+                checkDailybankJobOpenings();
                 
                 initialiseNewGame();
                 plyr.status = 1; // EXPLORE
                 
-                // UpdateShopStock(); // commented out for web build
-                // UpdateSmithyStock(); // commented out for web build
-                // readFTData(); // commented out for web build
+                // Shop / tavern / smithy stock, as the original startGame()
+                // and createNewCharacter() did
+                UpdateShopStock();      // Damon & Pythias battle gear and clothing
+                UpdateSmithyStock();    // City Smithy weapons
+                readFTData();           // fixed treasures
+                stockSmithyWares();
+                stockTavernDrinks();
+                stockTavernFoods();
+                stockShopWares();
+                std::cout << "ARXX web: shop, smithy and tavern stock ready" << std::endl;
                 
                 gameInit();
                 std::cout << "ARXX web: gameInit OK" << std::endl;

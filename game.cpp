@@ -113,7 +113,9 @@ bool gameTick()
     if (plyr.subState == SubState::Paused)      { pauseGame();   return Running; }
     // Skip the normal frame while the item menu is open: it draws and
     // presents its own frame below, and drawing both made it flicker.
-    if (!(plyr.subState == SubState::ItemAction && g_itemActionMode > 0)) {
+    // Also skip it while a per-frame shop is open (plyr.status == 2): the
+    // shop draws its own screen, and drawing both made them alternate.
+    if (!(plyr.subState == SubState::ItemAction && g_itemActionMode > 0) && plyr.status != 2) {
         clearDisplay();
         dispMain();
         drawConsoleBackground();
@@ -452,6 +454,16 @@ bool gameTick()
         // frame could change the city visuals. Revisit for the dungeon.
 
         checkShop();   // taverns, shops, bank, smithy, stairs, fountains...
+
+        // Bank, shop, smithy, inn, healer, chapel, fountain, lift and stairs
+        // are per-frame menus: checkShop() draws one frame and handles one key,
+        // and they stay open (plyr.status == 2) until leaveShop(). While one is
+        // open, don't run encounters or the clock, and don't read keys here.
+        if (plyr.status == 2)
+        {
+            s_encounterClock.restart();
+            return Running;
+        }
 
         if (plyr.special > 0 && plyr.special < 190) { checkFixedTreasures(); }
         if (plyr.scenario == 1) { checkFixedEncounters(); }
