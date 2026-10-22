@@ -3,6 +3,9 @@
 #include <iostream>
 
 #include "platform/ArxClock.h"
+#ifdef ARX_USE_SDL2
+#include <SDL.h>
+#endif
 
 #include "game.h"
 #include "globals.h"
@@ -433,7 +436,16 @@ bool gameTick()
     // random encounter check. Shops and encounters are blocking loops; on the
     // web they work because of -sASYNCIFY (Stage 1).
     static arx::Clock s_encounterClock;
-    static arx::Time  s_encounterCheckTime = arx::Time::Zero;
+    static arx::Time  s_encounterCheckTime = arx::Time::Zero;   // random encounters
+    static arx::Time  s_minuteTime = arx::Time::Zero;           // game clock
+
+    // Tuning: how often a random encounter is rolled for (seconds of
+    // exploring). Each roll starts an encounter about 45% of the time (see
+    // getSurpriseLevelEnum), so 15s gives roughly one every half minute.
+    // The original 4.8s gave one about every 10 seconds.
+    const float kEncounterCheckSeconds = 15.0f;
+    // One game minute passes every 4.8 seconds, as in the original.
+    const float kGameMinuteSeconds = 4.8f;
 
     if (plyr.subState == SubState::None)
     {
@@ -470,14 +482,27 @@ bool gameTick()
         if (plyr.scenario == 1) { checkFixedTreasures(); }
         checkForItemsHere();
 
-        // Random encounters + game clock, every 4.8 seconds as in the original
-        s_encounterCheckTime += s_encounterClock.restart();
-        if (s_encounterCheckTime >= arx::seconds(4.8f))
+        // Random encounters + game clock.
+        // A frame longer than a second means a blocking screen was open (a
+        // shop, menu, encounter, automap...). Don't count that time, or an
+        // encounter would jump you the moment you came out of a shop.
+        arx::Time frameTime = s_encounterClock.restart();
+        if (frameTime < arx::seconds(1.0f))
         {
+            s_minuteTime += frameTime;
+            if (plyr.status == EXPLORE) s_encounterCheckTime += frameTime;
+        }
+        if (s_minuteTime >= arx::seconds(kGameMinuteSeconds))
+        {
+            s_minuteTime = arx::Time::Zero;
+            addMinute();
+        }
+        if (s_encounterCheckTime >= arx::seconds(kEncounterCheckSeconds))
+        {
+            s_encounterCheckTime = arx::Time::Zero;
             plyr.status_text = " ";
             checkEncounter();
-            s_encounterCheckTime = arx::Time::Zero;
-            addMinute();
+            s_encounterClock.restart();   // the encounter itself doesn't count
         }
     }
     else
@@ -485,6 +510,8 @@ bool gameTick()
         // Don't bank time spent in menus towards the next encounter check
         s_encounterClock.restart();
     }
+
+    bool movedThisFrame = false;
 
     // Poll input and dispatch only commands that are non-blocking on SDL2.
     // Legacy item/spell/get menus still use modal getSingleKey() loops and
@@ -514,12 +541,12 @@ bool gameTick()
         turnRight();
     }
     else if (key == "UP") {
-        std::cout << "GAME_INPUT: handled moveForward" << std::endl;
         moveForward();
+        movedThisFrame = true;
     }
     else if (key == "DOWN") {
-        std::cout << "GAME_INPUT: handled moveBack" << std::endl;
         moveBack();
+        movedThisFrame = true;
     }
     else if (key == "ESC") {
         if (plyr.infoPanel == 9) {
@@ -644,6 +671,43 @@ bool gameTick()
     }
     else if (!key.empty()) {
         std::cout << "GAME_INPUT: ignored key='" << key << "'" << std::endl;
+    }
+
+    // Holding a movement key walks smoothly at a fixed speed, instead of
+    // relying on the keyboard's auto-repeat (~30 steps a second; one square
+    // is 20 steps). Time-based, so it's the same at 60Hz, 144Hz or on a
+    // phone. A quick tap still moves a single step via the key event above.
+    {
+        // Tuning: walking speed while a key is held (20 steps = 1 square)
+        const float kWalkStepsPerSecond = 60.0f;
+        static arx::Clock s_holdClock;
+        static arx::Clock s_stepClock;
+        static float s_stepsDue = 0.0f;
+        static bool s_wasHeld = false;
+        const Uint8* ks = SDL_GetKeyboardState(nullptr);
+        bool fwd  = ks && (ks[SDL_SCANCODE_UP]   || ks[SDL_SCANCODE_I]);
+        bool back = ks && (ks[SDL_SCANCODE_DOWN] || ks[SDL_SCANCODE_K]);
+        bool held = (fwd != back) && plyr.subState == SubState::None && plyr.status == EXPLORE;
+        float dt = s_stepClock.restart().asSeconds();
+        if (!held) { s_wasHeld = false; s_stepsDue = 0.0f; }
+        else
+        {
+            if (!s_wasHeld) { s_wasHeld = true; s_holdClock.restart(); s_stepsDue = 0.0f; }
+            if (s_holdClock.getElapsedTime() >= arx::seconds(0.15f))
+            {
+                if (dt > 0.1f) dt = 0.1f;               // after a pause, don't jump ahead
+                s_stepsDue += dt * kWalkStepsPerSecond;
+                if (movedThisFrame) s_stepsDue -= 1.0f; // the key event already moved us
+                int steps = 0;
+                while (s_stepsDue >= 1.0f && steps < 4)
+                {
+                    if (fwd) moveForward(); else moveBack();
+                    s_stepsDue -= 1.0f;
+                    steps++;
+                }
+                if (s_stepsDue < 0.0f) s_stepsDue = 0.0f;
+            }
+        }
     }
 
     return Running;

@@ -26,6 +26,13 @@
 #include "effects.h"
 #include "renderer/Sprite2D.h"
 
+// Per-frame debug logging (hundreds of console lines a second slow the
+// web build right down). Build with -DARX_FRAME_LOGS=1 to turn it on.
+#ifndef ARX_FRAME_LOGS
+#define ARX_FRAME_LOGS 0
+#endif
+#define ARX_FRAME_LOG if (ARX_FRAME_LOGS) std::cout
+
 // Build stamp (written by web/build.cmd) so you can see which build is running
 #if defined(__has_include)
 #  if __has_include("web/build_info.h")
@@ -1040,7 +1047,7 @@ void loadShopImage(int imageno)
 void drawStatsPanel()
 {
     // SDL2/web implementation of stats panel drawing with banner background
-    std::cout << "ARXX: drawStatsPanel ENTRY - statPanelY=" << statPanelY 
+    ARX_FRAME_LOG << "ARXX: drawStatsPanel ENTRY - statPanelY=" << statPanelY 
               << " graphicMode=" << graphicMode << " scenario=" << plyr.scenario << std::endl;
     
     // Draw banner background image for all graphic modes
@@ -1077,7 +1084,7 @@ void drawStatsPanel()
         if (bannerY < 0.0f) bannerY = 0.0f;
         if (bannerY + bannerH > windowHeight) bannerY = windowHeight - bannerH;
         
-        std::cout << "drawStatsPanel: drawing banner at (" << bannerX << "," << bannerY 
+        ARX_FRAME_LOG << "drawStatsPanel: drawing banner at (" << bannerX << "," << bannerY 
                   << ") size=" << bannerW << "x" << bannerH << std::endl;
         bannerSprite.draw(bannerX, bannerY, bannerW / bannerSprite.getWidth(), bannerH / bannerSprite.getHeight());
     } else {

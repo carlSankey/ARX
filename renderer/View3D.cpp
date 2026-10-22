@@ -6,6 +6,13 @@
 
 #include "View3D.h"
 
+// Per-frame debug logging (hundreds of console lines a second slow the
+// web build right down). Build with -DARX_FRAME_LOGS=1 to turn it on.
+#ifndef ARX_FRAME_LOGS
+#define ARX_FRAME_LOGS 0
+#endif
+#define ARX_FRAME_LOG if (ARX_FRAME_LOGS) std::cout
+
 #include "../platform/GLESLoader.h"
 #include "../platform/FileSystem.h"
 #include <SDL_image.h>
@@ -355,7 +362,7 @@ namespace arx {
 
     void view3D_drawBackground()
     {
-        std::cout << "View3D_drawBackground: ENTRY - scenario=" << plyr.scenario << " zone=" << plyr.zone << std::endl;
+        ARX_FRAME_LOG << "View3D_drawBackground: ENTRY - scenario=" << plyr.scenario << " zone=" << plyr.zone << std::endl;
         int bgIdx = 0;
 
         // City interior zones (not zone 99 outdoor) have no sky - draw black
@@ -388,7 +395,7 @@ namespace arx {
         // backgrounds.txt indices 4-7: cityBackE, cityBackS, cityBackN, cityBackW
         if (plyr.scenario == 0)
         {
-            std::cout << "View3D_drawBackground: City scenario detected, s_bgProg=" << s_bgProg << std::endl;
+            ARX_FRAME_LOG << "View3D_drawBackground: City scenario detected, s_bgProg=" << s_bgProg << std::endl;
             // Select background based on facing direction
             switch (plyr.facing) {
             case EAST:  bgIdx = 4; break; // cityBackE
@@ -398,7 +405,7 @@ namespace arx {
             default:    bgIdx = 4; break; // default to east
             }
             GLuint tex = s_bgTex[bgIdx];
-            std::cout << "View3D_drawBackground: city bgIdx=" << bgIdx << " facing=" << plyr.facing << " tex=" << tex << " s_bgTex[4]=" << s_bgTex[4] << " name=" << s_bgNames[bgIdx] << std::endl;
+            ARX_FRAME_LOG << "View3D_drawBackground: city bgIdx=" << bgIdx << " facing=" << plyr.facing << " tex=" << tex << " s_bgTex[4]=" << s_bgTex[4] << " name=" << s_bgNames[bgIdx] << std::endl;
 
             // The GL viewport is ALREADY set to the scissored box (viewPortX, glY, viewWidth, viewHeight)
             // by the caller (view3D_draw), so a full clip-space quad (-1..1) is all that's needed here.
@@ -703,8 +710,8 @@ namespace arx {
 
         // Check current viewport before wall rendering
         GLint curVP2[4];
-        glGetIntegerv(GL_VIEWPORT, curVP2);
-        std::cout << "View3D: viewport before walls=(" << curVP2[0] << "," << curVP2[1] << ") size=(" << curVP2[2] << "x" << curVP2[3] << ")" << std::endl;
+        if (ARX_FRAME_LOGS) glGetIntegerv(GL_VIEWPORT, curVP2);
+        ARX_FRAME_LOG << "View3D: viewport before walls=(" << curVP2[0] << "," << curVP2[1] << ") size=(" << curVP2[2] << "x" << curVP2[3] << ")" << std::endl;
 
         // Build the level view - iterate over the depth x columns grid
         // This mirrors the original buildLevelView() + calculateWallPositions() logic
@@ -735,7 +742,7 @@ namespace arx {
         glViewport(0, 0, windowWidth, windowHeight);
         glDisable(GL_DEPTH_TEST);
 
-        std::cout << "View3D: Disabled scissor and restored full viewport for UI rendering" << std::endl;
+        ARX_FRAME_LOG << "View3D: Disabled scissor and restored full viewport for UI rendering" << std::endl;
 
         // Flush all rendering to the screen
         glFlush();
