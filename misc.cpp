@@ -647,17 +647,13 @@ void copyElements(int source[], int dest[], int indexes[], int numIndexes)
 
 bool stringToBool(const std::string& str)
 {
+	// Used ~20,000 times when loading a save (automap). Anything unexpected
+	// (a blank line, a stray '\r') is treated as false: throwing here would
+	// crash the web build, which can't catch exceptions.
 	std::string lowerStr = str;
+	while (!lowerStr.empty() && (lowerStr.back() == '\r' || lowerStr.back() == ' ')) lowerStr.pop_back();
 	std::transform(lowerStr.begin(), lowerStr.end(), lowerStr.begin(), ::tolower);
-	if (lowerStr == "true" || lowerStr == "1") {
-		return true;
-	}
-	else if (lowerStr == "false" || lowerStr == "0") {
-		return false;
-	}
-	else {
-		throw std::invalid_argument("Invalid input string for boolean conversion: " + str);
-	}
+	return (lowerStr == "true" || lowerStr == "1");
 }
 
 void replaceSymbol(std::string& origstr, const std::string& replaceWith, const std::string stringToFind)

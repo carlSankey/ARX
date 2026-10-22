@@ -3570,8 +3570,9 @@ std::string selectRandomResource(Player& plyr) {
 	}
 	else
 	{
-		throw std::runtime_error("No resources are greater than 0.");
-		return selected_name;
+		// Nothing left to take. The caller checks for "Nothing"; throwing
+		// here crashed the web build ("Exception thrown") mid-fight.
+		return "Nothing";
 	}
 
 	

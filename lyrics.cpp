@@ -7,6 +7,7 @@
 #include "player.h"
 #include "display.h"
 #include "lyrics.h"
+#include "platform/FileSystem.h"
 
 using std::cerr;
 using std::endl;
@@ -121,24 +122,31 @@ void loadLyrics(string filename)
     string line, left, right;                                          // *** LINE stores the current string
     string lyricsFilename = "data/audio/" + filename;
 
-    std::ifstream instream;
-
     if (plyr.musicStyle == 1)                                       // *** selects the 'modern' soundtrack
     {
         lyricsFilename = "data/audio/B/" + filename;
     }
 
-    instream.open(lyricsFilename.c_str());
+    // Read through arx::fs so it also works inside an Android APK
+    bool fileOk = false;
+    std::istringstream instream = arx::fs::openText(lyricsFilename, fileOk);
 
-    if (!instream)                                                  // *** obligatory mis-load feedback
+    if (!fileOk)                                                    // *** obligatory mis-load feedback
     {
         cerr << "Error: lyrics file could not be loaded" << endl;
+        sequenceLength = 0;
+        return;
     }
 
+    const int maxLyrics = static_cast<int>(sizeof(lyrics) / sizeof(lyrics[0]));
     while (line != "EOF")
     {
         string::size_type idx;                            // *** string::size_type is an integer datatype large enough to represent any possible string size
-        getline(instream, line);                                        // *** read first line as blank
+        // Stop at the end of the file or the end of the array. The original
+        // looped until it read "EOF"; with Windows line endings that line is
+        // "EOF\r", so it never matched and ran off the end of lyrics[].
+        if (i >= maxLyrics || !getline(instream, line)) { break; }
+        if (!line.empty() && line.back() == '\r') { line.pop_back(); }
         idx = line.find(',');                 // *** yields the index in our LINE of the ','.
 
         if (idx == string::npos)                                        // *** no comma; assume duration value or colour change
@@ -181,8 +189,7 @@ void loadLyrics(string filename)
         sequenceLength++;
         i++;
     }
-    instream.close();
-    sequenceLength--;
+    if (line == "EOF") { sequenceLength--; }   // don't play the EOF marker itself
     backText = "";
     foreText = "";
     wipe = false;

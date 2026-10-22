@@ -438,7 +438,7 @@ void loadDescriptions(int map)
 	int i = 0;
 	while (line!="EOF")
 	{
-		getline(instream, line);
+		getline(instream, line); if (!instream) break; if (!line.empty() && line.back() == '\r') line.pop_back();
 		descriptions[i]= line;
 		i++;
 
@@ -466,7 +466,7 @@ void loadMessages(int map)
 	int i = 0;
 	while (line!="EOF")
 	{
-		getline(instream, line);
+		getline(instream, line); if (!instream) break; if (!line.empty() && line.back() == '\r') line.pop_back();
 		roomMessages[i]= line;
 		i++;
 	}
@@ -489,7 +489,7 @@ void initMaps()
 		//string junk, line, text;
 		int fields = 6; // should be 45
 		string::size_type idx;
-		getline(instream, junk); // read first line as blank
+		getline(instream, junk); if (!instream) break; if (!junk.empty() && junk.back() == '\r') junk.pop_back(); // read first line as blank
 		for (int a = 0; a < fields; ++a) // number of attributes - test for 33
 		{
 			getline(instream, line);
@@ -678,7 +678,7 @@ void loadZoneData(int map)
 	{
 		int fields = 5;
 		string::size_type idx;
-		getline(instream, junk); // read first line as blank
+		getline(instream, junk); if (!instream) break; if (!junk.empty() && junk.back() == '\r') junk.pop_back(); // read first line as blank
 		for (int a = 0; a < fields; ++a) // number of attributes
 		{
 			getline(instream, line);
