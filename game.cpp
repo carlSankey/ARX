@@ -43,6 +43,7 @@
 #include "lift.h"
 #include "automap.h"
 #include "lyrics.h"
+#include "audio.h"
 #include "arena.h"
 #include "actor.h"
 #include "saveGame.h"
@@ -111,6 +112,16 @@ bool gameTick()
     // Per-frame menus: each call draws one frame and handles one key.
     // ESC set OptionsMenu but nothing ever ran it, so the game sat in
     // that state with shops, encounters and the clock switched off.
+    // Death: HP below zero (from an encounter, a trap, starving...) ends the
+    // session with the death screen, then back to the main menu.
+    if (plyr.hp < 0) { plyr.alive = false; }
+    if (!plyr.alive)
+    {
+        playerDies();
+        Running = false;
+        return false;
+    }
+
     if (plyr.subState == SubState::OptionsMenu) { optionsMenu(); return Running; }
     if (plyr.subState == SubState::QuitMenu)    { quitMenu();    return Running; }
     if (plyr.subState == SubState::Paused)      { pauseGame();   return Running; }
@@ -811,18 +822,37 @@ Running = false;            // end session, return to main menu
 #else
 void playerDies()
 {
-clearDisplay();
-dispMain();
-drawInfoPanels();
-cyText(3, "You're DEAD.");
-cyText(8, "(Press SPACE to continue)");
-updateDisplay();
-
-string key = readKey();
-if (key == "SPACE") {
+    // SDL2 port of the original death screen: death music with its lyrics,
+    // "You're DEAD.", F1 replays the song, SPACE continues. Blocking, as the
+    // original was (works on the web via Asyncify).
+    plyr.fixedEncounter = false;
+    plyr.miniMapOn = false;
+    plyr.status = 5; // Dead
     plyr.subState = SubState::None;
-    Running = false;
-}
+
+    const int deathTrack = (plyr.musicStyle == 0) ? 7 : 8;
+    stopShopMusic();
+    playShopMusic(deathTrack);
+    loadLyrics("death.txt");
+
+    bool deathLooping = true;
+    while (deathLooping)
+    {
+        clock1.restart();
+        clearDisplay();
+        drawStatsPanel();
+        updateLyrics();
+        iCounter++;
+        cyText(3, "You're DEAD.");
+        cyText(8, "(Press SPACE to continue)");
+        updateDisplay();
+
+        string key = getSingleKey();
+        if (key == "SPACE") { deathLooping = false; }
+        if (key == "F1") { stopShopMusic(); loadLyrics("death.txt"); playShopMusic(deathTrack); }
+        if (key == "QUIT") { deathLooping = false; }
+    }
+    stopShopMusic();
 }
 #endif
 

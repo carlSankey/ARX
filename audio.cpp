@@ -78,6 +78,8 @@ void playShopMusic(int musicNo)
     case 4: file = "data/audio/B/trolls.ogg"; break;
     case 5: file = "data/audio/B/goblins.ogg";break;
     case 6: file = "data/audio/B/Chapel.ogg"; break;
+    case 7: file = "data/audio/death.ogg";    break;   // death (Atari 8bit)
+    case 8: file = "data/audio/B/death.ogg";  break;   // death (alternate)
     default: return;
     }
     if (g_shopMusic) { Mix_FreeMusic(g_shopMusic); g_shopMusic = nullptr; }

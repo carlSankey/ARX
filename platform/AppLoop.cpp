@@ -778,9 +778,11 @@ bool appTick()
         // Call the full game tick which handles rendering, input, and game logic
         bool tickResult = gameTick();
         if (!tickResult) {
-            // gameTick() returned false = session ended (player died or quit)
-            // Don't return to MainMenu - stay in game for testing
-            // g_state = AppState::MainMenu;
+            // Session over (player died, or Quit to main menu)
+            stopShopMusic();
+            arx::inputClear();
+            arx::textClear();
+            g_state = AppState::MainMenu;
         }
         break;
     }
