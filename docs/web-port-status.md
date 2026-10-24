@@ -1,31 +1,27 @@
 # ARX Web Port – Status Report
 
-**Updated:** 17 October 2026
-**Branch:** `gameplay-wiring` (latest commit `b1de3c9`)
+**Updated:** 24 October 2026
+**Branch:** `gameplay-wiring` (latest commit `8f44a74`)
 **Goal:** get the SDL2 web build fully playable, so it becomes a solid base for the Android port.
+
+> **Starting a new Claude conversation?** Say: *"Read `docs/web-port-status.md` on the `gameplay-wiring` branch of github.com/carlSankey/ARX, then…"*. That gives the full context cheaply.
 
 ---
 
 ## Where we are
 
-The web build is now **playable in the City**. You can create a character, walk around, and do the following:
+The web build is **playable from start to finish** in the City and the Dungeon. You can:
 
-- fight monsters, with their pictures showing
-- enter taverns and shops
-- pick up, drop and use items
-- cast spells
-- open the options and automap screens
+- create a character, or resume a saved one
+- explore, with smooth walking and see-through arches
+- fight animated monsters, with random encounters about every 30 seconds
+- shop in stocked taverns, smithies, shops and the bank, with their pictures
+- get, drop and use items, and cast spells
+- save, and die (death screen, then back to the title)
 
 The same SDL2 code will be used for Android, so every fix here carries straight over.
 
-The remaining gaps are:
-
-- shop stock at game start
-- saving and loading
-- death handling
-- touch controls
-
-These are listed under **Next steps** below.
+Still to do: a few small fixes (see `docs/cline/05-small-fixes.md`), touch controls, and the Android project itself. See **Next steps** below.
 
 ---
 
@@ -49,93 +45,114 @@ cd C:\Source\ARXX
 
 Then open the game in the browser and press **Ctrl+F5**.
 
-**Check you're running the right build:** the title screen's bottom line shows `Build <commit> <date time>`. It should match `git log --oneline -1`. If it shows `+changes`, the build included uncommitted edits.
+**Check you're running the right build:** the title screen's bottom line shows `Build <commit> <date time>`. It should match `git log --oneline -1`.
+
+### Debugging
+
+- The game's console log (`std::cout`) is **off** in the web build, for speed. Build with `-DARX_LOGS=1` to turn it back on. Errors (`std::cerr`) always show.
+- The per-frame renderer logs are behind `-DARX_FRAME_LOGS=1`.
+- The web build **cannot catch C++ exceptions**: any `throw` stops the game with "Exception thrown, see JavaScript console". Don't add `throw` to game code.
+
+### Tuning (top of `gameTick()` in `game.cpp`)
+
+| Constant | Default | What it does |
+|---|---|---|
+| `kEncounterCheckSeconds` | 15 | How often a random encounter is rolled (about 45% of rolls start one) |
+| `kGameMinuteSeconds` | 4.8 | Real seconds per game minute (as the original) |
+| `kWalkStepsPerSecond` | 60 | Walking speed while a key is held (20 steps = 1 square) |
 
 ---
 
 ## What works now
 
+### Title screen
+- **(1)/(2)** create a City or Dungeon character. New characters start at the Floating Gate, or by the Dungeon's City entrance, as in the original.
+- **(3)** Resume a character: the ten save slots
+- **(5)/(6)/(7)** graphics, audio and font options
+
 ### Exploring
-- City movement with the arrow keys or **I/J/K/L**, including doors (smooth scrolling, so press forward until you're through)
-- Game clock advances while you explore
-- Random encounters every few seconds, as in the original
-- **W** waits for (starts) an encounter
-- **A** toggles the mini map; **M** opens the full automap
+- Arrow keys or **I/J/K/L**. Hold to walk smoothly, tap for one step.
+- **W** wait for an encounter; **A** mini map; **M** automap; **P** pause
 - **F1–F8**, **Space**, **,** and **.** switch the info panels
-- **P** pauses
-- **ESC** opens the Options screen (Save, Quit to main menu, key list)
+- **ESC** opens Options: **S** save, **Q** quit to main menu
+- The game clock, day and night, and random encounters (none while you're in a shop or menu)
 
 ### Encounters
-- Monsters are chosen from the original day and night tables. The F.B.I. Agent no longer appears every time.
-- Animated monster pictures are drawn in the 3D view
-- The Battle Options menu works (Attack, Charge, Aimed Attack, Transact, Switch weapon, Run)
-- Opponents act on their own timer, as in the original
+- Monsters chosen from the original tables, with animated pictures
+- Battle Options (Attack, Charge, Aimed Attack, Transact, Switch weapon, Run)
 
 ### Shops and locations
-- Walking into a tavern, shop, bank, smithy, inn, healer, guild and so on opens it
-- Opening hours are respected (for example, "Sorry, we are closed… open from 16:00")
-- Location pictures are shown above the menus
-- Leaving puts you back outside the door
+- Taverns, shops, smithies, the bank, inns, healers, guilds, the chapel, fountains, lifts and stairs
+- Stock at game start (from `items.csv`), opening hours and location pictures
+- No random encounters while inside
 
 ### Items and spells
-- **G** (Get) offers each item on the floor in turn: Yes, No or ESC
-- **D** (Drop) works on every page: food, water, torches and timepieces; compasses, keys, crystals and gems; coins; and carried items
-- **U** opens the original Use menu
-- **C** opens the original Cast menu, or says *"Thou knowest no spells!"* if you know none
+- **G** Get, **D** Drop (every page), **U** Use, **C** Cast ("Thou knowest no spells!" if none)
+
+### Saving and loading
+- Saves go to the user folder: `%APPDATA%\ARXProject\ARX\saves` on Windows, the app's private storage on Android. On the web they're kept in the browser (IndexedDB) and survive a refresh.
+- The old bundled saves in `data/saves` (Dave, Max, CityPete…) still show until you save over them.
+
+### Death
+- HP below zero: "You're DEAD." with the death song and lyrics (F1 replays), then back to the title. Save slots are kept.
 
 ---
 
 ## What was fixed (gameplay-wiring branch)
 
+### 25 Sep – 17 Oct
 | Commit | Fix |
 |---|---|
-| `153e370` | **Asyncify** in the web build, so the original blocking shop and encounter loops no longer freeze the browser tab |
-| `f3653fb` | **Game loop wiring:** the web loop never worked out which square you were on, so shops, taverns, stairs and fountains never triggered. It also had no W key and no timed random encounters. Also adds a built-in SHA-256 (OpenSSL isn't available on web or Android), fixes text being drawn over the previous screen, and adds `module.cpp` and `arena.cpp` to the build |
-| `2c534c7` | **CRLF line endings:** Windows checkouts gave every CSV line a hidden `\r`, so every monster and item failed its hash check (every encounter was an F.B.I. Agent, and items weighed 65536, giving "Immobilized!") |
-| `5424a3c` | **Tamper protection removed:** data now ships inside the app, so the hash penalties (F.B.I. Agent, 65536 weight, zero-damage spells) only caused problems. The CSV files are unchanged |
-| `06df95a` | **Drop menu:** pages 2–4 were attached to the wrong `if`, so the menu looped forever. Also stopped the menu flickering |
-| `f538b2d` | **Double key presses:** every key was handled twice (Up moved two steps, one Y in Get picked up two items) |
-| `4ee0283` | **Cast:** C opened an empty, undrawn menu. It now uses the original `castSpells()` screen, plus a "no spells" message |
-| `86c7096` | **ESC, Use and missing keys:** ESC set the options state but nothing ran it, which silently switched off shops, encounters and the clock. Also added U (Use menu), M, P, I/J/K/L and F1–F8 |
-| `e466e63` | **Monster pictures:** `drawAtariAnimation()` was an empty stub |
-| `296a3fd` | **Shop pictures:** `loadShopImage()` was an empty stub |
-| `b1de3c9` | **Web packaging and build stamp:** `build.cmd` only packed a hand-picked list of images, so the encounter and location pictures and the automap tiles were missing in the browser. It now packs all of `data/images`. Also adds the title-screen build stamp |
+| `153e370` | Asyncify, so the original blocking shop and encounter loops don't freeze the browser |
+| `f3653fb` | Game loop wiring: square detection (shops, stairs…), W, timed encounters; built-in SHA-256; screen clearing |
+| `2c534c7` | CRLF line endings in the CSV readers |
+| `5424a3c` | Tamper protection removed (F.B.I. Agent, 65536 weight, dead spells) |
+| `06df95a` | Drop menu pages 2–4 looping; menu flicker |
+| `f538b2d` | Every key press handled twice |
+| `4ee0283` | Cast menu, plus a "no spells" message |
+| `86c7096` | ESC options (it silently stopped shops and encounters), U, M, P, I/J/K/L, F1–F8 |
+| `e466e63` | Monster pictures |
+| `296a3fd` | Shop and location pictures |
+| `b1de3c9` | Pack all images in the web build; title-screen build stamp |
 
-Earlier work on the branch: the `arx::fs` file helper, and map, 3D-view, monster, item and spell data reads routed through it (Android-safe).
+### 22–24 Oct
+| Commit | Fix |
+|---|---|
+| `25bd9be` | **Shop stock** at game start. **Per-frame shops** (bank, smithy, shop, inn, healer, chapel, fountain, lift, stairs) no longer fight the game loop: the smithy looked like it threw you out, there were stray digits on the stats bar, and encounters could happen mid-purchase |
+| `801f793` | **Fewer encounters** (every 15 s instead of 4.8 s); none straight after leaving a shop; **smooth, time-based walking**; per-frame logging off |
+| `44901f8` | **Console log silenced** in the web build (`-DARX_LOGS=1` to restore) |
+| `04dfbff` | **Saving and loading:** user folder, browser storage, "Resume a character". Also fixed the typed name being replaced with "Xebec", and the automap not being restored on load |
+| `1f92c1d` | **Death:** death screen, music and lyrics, then back to the title. Quit to main menu now works |
+| `18fb31a` | **Web crashes ("Exception thrown"):** a monster snatching when you have nothing threw an exception. Also the lyrics "EOF" loop with CRLF files, the map "EOF" loops, and `stringToBool` on save data |
+| `7e87019` | **See-through arches** (the shader forced every pixel solid). **Correct start squares** (the City started on a Main Street; the Dungeon started inside the Wizards of Chaos guild) |
+| `8f44a74` | **Black boxes behind Dungeon text:** the arch drawing switched off alpha blending for everything drawn afterwards |
 
 ---
 
 ## Known issues
 
-- **Shop stock is empty or thin.** Damon, the City Smithy, the Dwarven Smithy and the tavern menus aren't stocked at game start in the web build, because the stocking calls are commented out in `platform/AppLoop.cpp`.
-- **Saving and loading are untested.** Options → Save exists, but saves aren't routed to the user folder yet, and "Resume a character" on the main menu isn't implemented.
-- **Death isn't handled.** If HP drops below zero, nothing calls `playerDies()`.
-- **`spells.csv` hashes never matched**, even on `master`. This doesn't matter now that the check is removed, but it's worth knowing.
-- **Graphics mode "Small 3D"** asks for `encounters_alternate.png`, which isn't in the repo, so it uses the 16-bit monster sheet.
-- **Automap legend** runs off the right-hand edge at 640 px wide.
-- **`encounter.cpp` line 932:** `if (curOpponent = encounterQuantity)` should almost certainly be `==` (the compiler warns about it). It affects how long stun lasts.
-- **Zones:** the original game loop updated `plyr.zone` every frame. This isn't done yet, because the start-up code deliberately forces zone 99. It may affect dungeon lighting.
-- **Most music and sound** isn't packed into the web build yet (only the gate sounds are).
+- **Stun counter:** `encounter.cpp` ~line 932 uses `=` instead of `==` (fix 1 in `docs/cline/05-small-fixes.md`)
+- **Automap legend** cut off at the right edge (fix 2)
+- **Most music** isn't packed into the web build (fix 3)
+- **Debug exports** in `actor.cpp` and `level.cpp` write into `data/`, which will fail on Android (fix 4)
+- **Zones:** the original game loop updated `plyr.zone` every frame. This isn't done yet, because the start-up code forces zone 99. It may affect Dungeon lighting and zone-specific encounters. Needs investigation.
+- **Graphics mode "Small 3D"** asks for `encounters_alternate.png`, which isn't in the repo, so it uses the 16-bit monster sheet
+- **Missing texture files** reported at start-up: `Scenario_N/sunrise*.png`, `textures_original/Goblinwall.png` and `Goblindoor.png`
+- **`spells.csv` hashes** never matched, even on `master`. Harmless now that the check is removed.
+- **Shop duplicates:** a shop can list the same item twice. This is original behaviour (there's a comment in the code about it).
+- The `loadDamonBinary`, `loadCitySmithyBinary` and `loadDwarvenBinary` loaders have broken open checks and never loaded anything, even in the original build. Stock comes from `items.csv`. They're deliberately not called.
 
 ---
 
 ## Next steps
 
-### Finish the web build
-1. **Shop stock:** enable the Damon, smithy, tavern and job-opening set-up at game start (file-access batch 3: `damon.cpp`, `smithy.cpp`, `dwarvenSmithy.cpp`, `lyrics.cpp`).
-2. **Saving and loading:** route saves and settings through `arx::fs::userPath`, and wire up "Resume a character".
-3. **Death:** call `playerDies()` and return to the main menu.
-4. **Small fixes:** the automap legend, the `=`/`==` stun bug, zones, and packing the audio.
-
-### Android
-5. **Touch overlay:** on-screen buttons that push the same key names the game already uses. The left side has movement and the map. The right side has Get, Drop, Use, Cast, Wait and Menu. A bottom row has 1–4, Yes/No, Forward/Back and ESC. Android's number keyboard handles quantities and names. It can be tested with a mouse in the web build first.
-6. **Android project:** Gradle + NDK based on SDL2's `android-project`, the game built as `libmain.so`, `data/` packed as APK assets, GLES3, landscape only.
+1. **Small fixes:** `docs/cline/05-small-fixes.md`, written for Cline or a free model
+2. **Touch controls:** on-screen buttons that push the key names the game already uses (`arx::inputPush("D")` and so on). The left side has movement and the map. The right side has Get, Drop, Use, Cast, Wait and Menu. A bottom row has 1–4, Yes/No, Forward/Back and ESC. Use the Android number keyboard for quantities and names. Draw it from `updateDisplay()` so it appears on every screen, including blocking shops. Test it with a mouse in the web build first.
+3. **Android project:** Gradle + NDK based on SDL2's `android-project`; the game built as `libmain.so` from `cmake/ArxSources.cmake`; `data/` packed as APK assets (reads already go through `arx::fs` / SDL); GLES3; landscape only.
 
 ---
 
 ## Working with patches (notes for Carl)
-
-Fixes are delivered as `.patch` files and applied like this:
 
 ```powershell
 cd C:\Source\ARXX
@@ -146,6 +163,9 @@ git push
 ```
 
 - Always `cd C:\Source\ARXX` first. A new PowerShell window starts in `system32`.
-- If `git am` says **"patch does not apply"**, run `git am --abort` straight away. Otherwise git stays stuck and refuses every later patch ("previous rebase directory still exists").
+- If `git am` fails, run `git am --abort` straight away. Otherwise every later patch is refused.
+- **"does not match index"** means you have uncommitted local changes in that file. Run `git stash` to set them aside, then `git am` again.
+- If it says **"patch does not apply"** for a patch you've already applied, run `git am --skip`.
 - Use `$env:USERPROFILE` in PowerShell. `%USERPROFILE%` only works in the old Command Prompt.
 - After building, check the title-screen build stamp matches `git log --oneline -1`.
+- Old `.patch` files can be deleted (`Remove-Item arx-*.patch`). They're all in the git history.
