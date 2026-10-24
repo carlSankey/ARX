@@ -554,7 +554,10 @@ namespace arx {
         bool blend = false)
     {
         if (!tex || !s_prog3D) return;
-        if (blend) { glEnable(GL_BLEND); glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); }
+        // Arches don't need blending: the shader discards their transparent
+        // texels. (Toggling GL_BLEND here used to leave it switched off for
+        // all the 2D drawing that followed.)
+        (void)blend;
         float verts[] = {
             x0, y0, z0, 0.f, 1.f,
             x1, y1, z1, 1.f, 1.f,
@@ -580,7 +583,6 @@ namespace arx {
         glDisableVertexAttribArray(s_aUV3D);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glUseProgram(0);
-        if (blend) glDisable(GL_BLEND);
     }
 
     static void drawCellWalls(const float mvp[16], int c, int d,

@@ -205,6 +205,13 @@ void Sprite2D::draw(float x, float y, float scaleX, float scaleY) const
         return;
     }
 
+    // Always draw 2D sprites (text, pictures, banner) with alpha blending.
+    // It was only switched on once at start-up, and the 3D view switched it
+    // off after drawing an arch, so in the Dungeon the transparent parts of
+    // every letter showed as black boxes.
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     float w = static_cast<float>(m_srcW) * scaleX;
     float h = static_cast<float>(m_srcH) * scaleY;
 
