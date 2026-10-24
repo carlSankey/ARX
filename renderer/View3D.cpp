@@ -77,7 +77,11 @@ uniform sampler2D u_tex;
 uniform vec4 u_color;
 void main() {
     vec4 tc = texture2D(u_tex, v_uv);
-    gl_FragColor = vec4(tc.rgb * u_color.rgb, 1.0);
+    // Transparent texels (e.g. the opening in an arch) draw nothing and
+    // write no depth, so the corridor behind shows through. Previously
+    // alpha was forced to 1.0, which painted the opening solid.
+    if (tc.a < 0.5) discard;
+    gl_FragColor = vec4(tc.rgb * u_color.rgb, tc.a);
 }
 )";
 

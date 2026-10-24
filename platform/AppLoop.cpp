@@ -345,12 +345,12 @@ static void startGameSession(bool newGame)
         {
             // Set starting position
             if (plyr.scenario == 0) {
-                // City: Floating Gate at 35 East, 27 North
-                plyr.x = 35; plyr.y = 27;
+                // City: Floating Gate (shown as 35 East, 27 North; map row 36)
+                plyr.x = 35; plyr.y = 36;   // as the original createNewCharacter()
                 plyr.facing = NORTH;
             } else {
                 // Dungeon level 1
-                plyr.x = 50; plyr.y = 4;
+                plyr.x = 49; plyr.y = 3;    // as the original (50,4 is the Wizards of Chaos guild)
                 plyr.facing = WEST;
             }
             plyr.location = 0;
